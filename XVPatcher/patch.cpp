@@ -1,10 +1,14 @@
 #include <windows.h>
 #include <stdint.h>
+#include <MinHook.h>
 
-#include "detours/detours.h"
+#ifdef _MSC_VER 
+//not #if defined(_WIN32) || defined(_WIN64) because we have strncasecmp in mingw
+#define strncasecmp _strnicmp
+#define strcasecmp _stricmp
+#endif
 
 #include "patch.h"
-
 
 void WriteMemory32(void *address, uint32_t data)
 {
@@ -83,17 +87,19 @@ long HookFunction(uint32_t rel_addr, void **orig, void *newfunc, const char *mod
 	{	
 		*orig = (void *)( ((uint32_t)hMod) + rel_addr );
 	
-		DetourTransactionBegin();	
-		DetourAttach(orig, newfunc);
+		MH_EnableHook(orig);	
+		MH_CreateHook(orig, newfunc, NULL);
+		return 1;
 	}
 	else
 	{
 		void *my_orig;
 
 		my_orig = (void *)( ((uint32_t)hMod) + rel_addr );
-		DetourTransactionBegin();	
-		DetourAttach(&my_orig, newfunc);
+		MH_EnableHook(&my_orig);	
+		MH_CreateHook(&my_orig, newfunc, NULL);
+		return 1;
 	}
 	
-	return DetourTransactionCommit();
+	return 0;
 }

@@ -16,14 +16,16 @@
 
 #define NUM_EXPORTED_FUNCTIONS	18
 
+#ifndef XENOVERSE
+
 #define PROCESS_NAME 	"dbxv.exe"
-#define DATA_CPK	"data.cpk"
-#define DATA2_CPK	"data2.cpk"
-#define DATAP1_CPK	"data2.cpk"
-#define DATAP2_CPK	"data2.cpk"
-#define DATAP3_CPK	"data2.cpk"
+#define DATA_CPK		"data.cpk"
+#define DATA2_CPK		"data2.cpk"
+#define DATAP1_CPK		"datap1.cpk"
+#define DATAP2_CPK		"datap2.cpk"
+#define DATAP3_CPK		"datap3.cpk"
 
-
+#endif
 
 
 const char *gSteamExportsNames[NUM_EXPORTED_FUNCTIONS] =
@@ -74,10 +76,14 @@ uint8_t (* __thiscall cpk_file_exists)(void *, char *);
 
 static HANDLE gOrigSteam;
 
-static uint64_t localize_toc_offset, localize_toc_size;
-static uint64_t resource_toc_offset, resource_toc_size;
-static uint8_t *localize_toc, *resource_toc;
-static uint8_t *localize_hdr, *resource_hdr;
+static uint64_t data_toc_offset, data_toc_size;
+static uint64_t data2_toc_offset, data2_toc_size;
+static uint64_t datap1_toc_offset, datap1_toc_size;
+static uint64_t datap2_toc_offset, datap2_toc_size;
+static uint64_t datap3_toc_offset, datap3_toc_size;
+
+static uint8_t *data_toc, *data2_toc, *datap1_toc, *datap2_toc, *datap3_toc;
+static uint8_t *data_hdr, *data2_hdr, *datap1_hdr, *datap2_hdr, *datap3_hdr;
 static void **readfile_import;
 static void *original_readfile;
 
@@ -246,22 +252,47 @@ clean:
 	return cpk;
 }
 
-static bool get_cpk_tocs(CpkFile **loc, CpkFile **res)
+static bool get_cpk_tocs(CpkFile **data, CpkFile **data2, CpkFile **datap1, CpkFile **datap2, CpkFile **datap3)
 {
-	*loc = get_cpk_toc(DATA_CPK, &localize_toc_offset, &localize_toc_size, &localize_hdr, &localize_toc);
-	if (!(*loc))
+	*data = get_cpk_toc(DATA_CPK, &data_toc_offset, &data_toc_size, &data_hdr, &data_toc);
+	if (!(*data))
 		return false;	
 	
-	*res = get_cpk_toc(DATA2_CPK, &resource_toc_offset, &resource_toc_size, &resource_hdr, &resource_toc);
-	if (!(*res))
+	*data2 = get_cpk_toc(DATA2_CPK, &data2_toc_offset, &data2_toc_size, &data2_hdr, &data2_toc);
+	if (!(*data2))
 	{
-		delete[] localize_toc;
-		delete *loc;
+		delete[] data_toc;
+		delete *data;
 		return false;
 	}
-	
-	DPRINTF("localize.cpk.toc = %I64x, size = %I64x\n", localize_toc_offset, localize_toc_size);
-	DPRINTF("resource.cpk.toc = %I64x, size = %I64x\n", resource_toc_offset, resource_toc_size);
+	*datap1 = get_cpk_toc(DATAP1_CPK, &datap1_toc_offset, &datap1_toc_size, &datap1_hdr, &datap1_toc);
+	if (!(*datap1))
+	{
+		delete[] data2_toc;
+		delete *data2;
+		return false;
+	}
+	*datap2 = get_cpk_toc(DATAP2_CPK, &datap2_toc_offset, &datap2_toc_size, &datap2_hdr, &datap2_toc);
+	if (!(*datap2))
+	{
+		delete[] datap1_toc;
+		delete *datap1;
+		return false;
+	}
+	*datap3 = get_cpk_toc(DATAP3_CPK, &datap3_toc_offset, &datap3_toc_size, &datap3_hdr, &datap3_toc);
+	if (!(*datap3))
+	{
+		delete[] datap2_toc;
+		delete *datap2;
+		return false;
+	}
+
+	DPRINTF("data.cpk.toc = %I64x, size = %I64x\n", data_toc_offset, data_toc_size);
+	DPRINTF("data2.cpk.toc = %I64x, size = %I64x\n", data2_toc_offset, data2_toc_size);
+	DPRINTF("datap1.cpk.toc = %I64x, size = %I64x\n", datap1_toc_offset, datap1_toc_size);
+	DPRINTF("datap2.cpk.toc = %I64x, size = %I64x\n", datap2_toc_offset, datap2_toc_size);
+	DPRINTF("datap3.cpk.toc = %I64x, size = %I64x\n", datap3_toc_offset, datap3_toc_size);
+
 	
 	return true;
 }
@@ -342,18 +373,28 @@ static uint64_t GetFilePointer(HANDLE hFile)
 
 static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)
 {
-	static bool localize_patched = false;
-	static bool resource_patched = false;
-	
-	if (localize_patched && resource_patched)
+	static bool data_patched = false;
+	static bool data2_patched = false;
+	static bool datap1_patched = false;
+	static bool datap2_patched = false;
+	static bool datap3_patched = false;
+
+	if (data_patched && data2_patched && datap1_patched && datap2_patched && datap3_patched)
 	{
 		DPRINTF("Main patch is finished. Unhooking function.\n");
 		WriteMemory32((void *)readfile_import, (uint32_t)original_readfile);
 		
-		delete[] localize_toc;
-		delete[] resource_toc;
-		delete[] localize_hdr;
-		delete[] resource_hdr;
+		delete[] data_toc;
+		delete[] data2_toc;
+		delete[] datap1_toc;
+		delete[] datap2_toc;
+		delete[] datap3_toc;
+
+		delete[] data_hdr;
+		delete[] data2_hdr;
+		delete[] datap1_hdr;
+		delete[] datap2_hdr;
+		delete[] datap3_hdr;
 	}
 	else
 	{		
@@ -363,7 +404,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 			{
 				if (GetFilePointer(hFile) == 0)
 				{
-					memcpy(lpBuffer, localize_hdr, nNumberOfBytesToRead);
+					memcpy(lpBuffer, data_hdr, nNumberOfBytesToRead);
 					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
 					
 					if (lpNumberOfBytesRead)
@@ -371,16 +412,16 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("localize.cpk HDR patched.\n");						
+					DPRINTF("data.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}
 			
-			if (nNumberOfBytesToRead == localize_toc_size)
+			if (nNumberOfBytesToRead == data_toc_size)
 			{
-				if (GetFilePointer(hFile) == localize_toc_offset)
+				if (GetFilePointer(hFile) == data_toc_offset)
 				{
-					memcpy(lpBuffer, localize_toc, nNumberOfBytesToRead);
+					memcpy(lpBuffer, data_toc, nNumberOfBytesToRead);
 					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
 				
 					if (lpNumberOfBytesRead)
@@ -388,8 +429,8 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("localize.cpk TOC patched.\n");	
-					localize_patched = true;
+					DPRINTF("data.cpk TOC patched.\n");	
+					data_patched = true;
 					return TRUE;
 				}
 			}
@@ -401,7 +442,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 			{
 				if (GetFilePointer(hFile) == 0)
 				{
-					memcpy(lpBuffer, resource_hdr, nNumberOfBytesToRead);
+					memcpy(lpBuffer, data2_hdr, nNumberOfBytesToRead);
 					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
 					
 					if (lpNumberOfBytesRead)
@@ -409,16 +450,16 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("resource.cpk HDR patched.\n");						
+					DPRINTF("data2.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}			
 			
-			if (nNumberOfBytesToRead == resource_toc_size)
+			if (nNumberOfBytesToRead == data2_toc_size)
 			{
-				if (GetFilePointer(hFile) == resource_toc_offset)
+				if (GetFilePointer(hFile) == data2_toc_offset)
 				{
-					memcpy(lpBuffer, resource_toc, nNumberOfBytesToRead);
+					memcpy(lpBuffer, data2_toc, nNumberOfBytesToRead);
 					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
 				
 					if (lpNumberOfBytesRead)
@@ -426,8 +467,119 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("resource.cpk TOC patched.\n");
-					resource_patched = true;
+					DPRINTF("data2.cpk TOC patched.\n");
+					data2_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		else if (IsThisFile(hFile, DATAP1_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, datap1_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap1.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == datap1_toc_size)
+			{
+				if (GetFilePointer(hFile) == datap1_toc_offset)
+				{
+					memcpy(lpBuffer, datap1_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap1.cpk TOC patched.\n");
+					datap1_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		else if (IsThisFile(hFile, DATAP2_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, datap2_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap2.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == datap2_toc_size)
+			{
+				if (GetFilePointer(hFile) == datap2_toc_offset)
+				{
+					memcpy(lpBuffer, datap2_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap2.cpk TOC patched.\n");
+					datap2_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		else if (IsThisFile(hFile, DATAP3_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, datap3_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap3.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == datap3_toc_size)
+			{
+				if (GetFilePointer(hFile) == datap3_toc_offset)
+				{
+					memcpy(lpBuffer, datap3_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap3.cpk TOC patched.\n");
+					datap3_patched = true;
 					return TRUE;
 				}
 			}
@@ -474,8 +626,7 @@ void patches()
 	DPRINTF("Patch at %p\n", readfile_import);
 	WriteMemory32((void *)readfile_import, (uint32_t)ReadFile_patched);		
 
-	HookFunction(CPK_FILE_EXISTS_SYMBOL, (void **)&cpk_file_exists, (void *)cpk_file_exists_patched);	
-	//HookFunction(CPK_OPEN_FILE_SYMBOL, (void **)&open_cpk_file, (void *)my_open_cpk_file);
+	HookFunction(CPK_FILE_EXISTS_SYMBOL, (void **)&cpk_file_exists, (void *)cpk_file_exists_patched);
 }
 
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
@@ -491,23 +642,33 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 				if (!LoadDllAndResolveExports())
 					return FALSE;
 				
-				CpkFile *loc, *res;
+				CpkFile *data, *data2, *datap1, *datap2, *datap3;
 				
-				if (get_cpk_tocs(&loc, &res))
+				if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
 				{
-					patch_toc(loc);
-					patch_toc(res);
+					patch_toc(data);
+					patch_toc(data2);
+					patch_toc(datap1);
+					patch_toc(datap2);
+					patch_toc(datap3);
+
 					
-					loc->RevertEncryption(false);
-					res->RevertEncryption(false);
-										
+					data->RevertEncryption(false);
+					data2->RevertEncryption(false);
+					datap1->RevertEncryption(false);
+					datap2->RevertEncryption(false);
+					datap3->RevertEncryption(false);
+
 					patches();
 #ifdef DEBUG
 					debug_patches();
 #endif
 					
-					delete loc;
-					delete res;
+					delete data;
+					delete data2;
+					delete datap1;
+					delete datap2;
+					delete datap3;
 				}				
 			}		
 			
