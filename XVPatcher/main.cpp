@@ -666,7 +666,7 @@ int mainpatches()
 						exit(-1);
 					}
 					else{
-						//WRITE YOUR FUCKING CODE HERE PLEASE
+						//WRITE YOUR CODE HERE PLEASE
 
 
 
