@@ -18,3 +18,4 @@ clean:
 $(OUTPUT): $(OBJS)
 	$(LINK.c) $(LDFLAGS) -o $@ $^ $(LIBS)
 	cp $(OUTPUT) "C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse"
+	

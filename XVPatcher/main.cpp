@@ -668,18 +668,6 @@ int mainpatches()
 					else{
 						//WRITE YOUR CODE HERE PLEASE
 
-
-
-
-
-
-
-
-
-
-
-
-						
 						int CMSnewValue = 1000;
 						WriteProcessMemory(handle, (LPVOID)0x000000, &CMSnewValue, sizeof(CMSnewValue), 0);
 					}
