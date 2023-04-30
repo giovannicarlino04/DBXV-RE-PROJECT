@@ -15,7 +15,7 @@ package dlc3_CHARASELE_fla
       public function mc_chara_btnact_30()
       {
          super();
-         addFrameScript(8,this.frame9,58,this.frame59,69,this.frame70,84,this.frame85);
+         addFrameScript(8,frame9,58,frame59,69,frame70,84,frame85);
       }
       
       internal function frame9() : *

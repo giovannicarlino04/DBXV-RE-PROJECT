@@ -646,7 +646,6 @@ int mainpatches()
             {  
                 HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, entry.th32ProcessID);
 
-				int CMSnewValue = int("Test");
 				Sleep(1000); 
 
 				if(hProcess == NULL){
@@ -666,7 +665,11 @@ int mainpatches()
 						exit(-1);
 					}
 					else{
-						WriteProcessMemory(handle, (LPVOID)0x00ABEA6C, &CMSnewValue, sizeof(CMSnewValue), 0);
+						//WRITE YOUR FUCKING CODE HERE PLEASE
+
+
+						int CMSnewValue = 1000;
+						WriteProcessMemory(handle, (LPVOID)0x000000, &CMSnewValue, sizeof(CMSnewValue), 0);
 					}
 				}
 				return(0);

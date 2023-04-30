@@ -54,21 +54,21 @@ package dlc3_CHARASELE_fla
       public var aaa14:dlc3_CHARASELE_fla.mc_timer_53;
       
       public var aaa15:dlc3_CHARASELE_fla.sys_2Ppress_50;
-      
+
       public function MainTimeline()
       {
          super();
-         addFrameScript(0,this.frame1);
+         addFrameScript(0,frame1);
       }
       
       internal function frame1() : *
       {
-         this.m_main = null;
-         if(!this.m_main)
+         m_main = null;
+         if(!m_main)
          {
-            this.m_main = new CharaSele();
+            m_main = new CharaSele();
          }
-         this.m_main.Initialize(this);
+         m_main.Initialize(this);
          stop();
       }
    }

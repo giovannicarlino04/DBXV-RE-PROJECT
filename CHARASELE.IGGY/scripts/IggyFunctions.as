@@ -1,10 +1,7 @@
 package
 {
-   import flash.display.Bitmap;
-   import flash.display.DisplayObject;
-   import flash.display.DisplayObjectContainer;
-   import flash.display.InteractiveObject;
-   import flash.geom.Point;
+   import flash.display.*;
+   import flash.geom.*;
    
    public class IggyFunctions
    {
