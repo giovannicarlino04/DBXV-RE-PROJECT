@@ -9,7 +9,7 @@ package dlc3_CHARASELE_fla
       public function _CMN_M_frame_49()
       {
          super();
-         addFrameScript(8,frame9,13,frame14);
+         addFrameScript(8,this.frame9,13,this.frame14);
       }
       
       internal function frame9() : *

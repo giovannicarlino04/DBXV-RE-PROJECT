@@ -11,7 +11,7 @@ package dlc3_CHARASELE_fla
       public function mc_timer_53()
       {
          super();
-         addFrameScript(18,frame19,26,frame27);
+         addFrameScript(18,this.frame19,26,this.frame27);
       }
       
       internal function frame19() : *

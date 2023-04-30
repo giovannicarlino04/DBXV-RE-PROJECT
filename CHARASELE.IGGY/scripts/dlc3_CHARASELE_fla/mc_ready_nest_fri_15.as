@@ -18,7 +18,7 @@ package dlc3_CHARASELE_fla
       public function mc_ready_nest_fri_15()
       {
          super();
-         addFrameScript(0,frame1,8,frame9,16,frame17);
+         addFrameScript(0,this.frame1,8,this.frame9,16,this.frame17);
       }
       
       internal function frame1() : *

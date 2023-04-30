@@ -23,30 +23,30 @@ package action_script
       public function CountDownTimer(param1:uint = 9)
       {
          super();
-         m_mc_counter = null;
-         m_mc_base = null;
-         m_timer = null;
-         m_cb_func_end = null;
-         m_warn_count = param1;
+         this.m_mc_counter = null;
+         this.m_mc_base = null;
+         this.m_timer = null;
+         this.m_cb_func_end = null;
+         this.m_warn_count = param1;
       }
       
       public function Destroy() : void
       {
-         destroyTimer();
-         m_mc_base = null;
-         m_mc_counter = null;
+         this.destroyTimer();
+         this.m_mc_base = null;
+         this.m_mc_counter = null;
       }
       
       public function Initialize(param1:MovieClip, param2:MovieClip = null) : void
       {
-         m_mc_counter = param1;
-         m_mc_base = param2;
-         m_timer = null;
-         m_cb_func_end = null;
-         m_mc_counter.visible = false;
-         if(m_mc_base)
+         this.m_mc_counter = param1;
+         this.m_mc_base = param2;
+         this.m_timer = null;
+         this.m_cb_func_end = null;
+         this.m_mc_counter.visible = false;
+         if(this.m_mc_base)
          {
-            m_mc_base.visible = false;
+            this.m_mc_base.visible = false;
          }
       }
       
@@ -56,51 +56,51 @@ package action_script
          {
             return;
          }
-         param1 = capMaxTime(param1);
-         initDigit(param1);
-         if(m_timer)
+         param1 = this.capMaxTime(param1);
+         this.initDigit(param1);
+         if(this.m_timer)
          {
-            destroyTimer();
-            setMcTimer(param1,"move");
-            createTimer(param1,param2);
+            this.destroyTimer();
+            this.setMcTimer(param1,"move");
+            this.createTimer(param1,param2);
             return;
          }
-         m_mc_counter.visible = true;
-         setMcTimer(param1,"start");
-         if(m_mc_base)
+         this.m_mc_counter.visible = true;
+         this.setMcTimer(param1,"start");
+         if(this.m_mc_base)
          {
-            m_mc_base.visible = true;
-            m_mc_base.gotoAndPlay("start");
+            this.m_mc_base.visible = true;
+            this.m_mc_base.gotoAndPlay("start");
          }
-         createTimer(param1,param2);
+         this.createTimer(param1,param2);
       }
       
       public function End() : void
       {
-         destroyTimer();
-         if(m_mc_base)
+         this.destroyTimer();
+         if(this.m_mc_base)
          {
-            m_mc_base.gotoAndPlay("end");
+            this.m_mc_base.gotoAndPlay("end");
          }
-         setMcTimer(-1,"end");
+         this.setMcTimer(-1,"end");
       }
       
       public function Stop() : void
       {
-         if(m_timer)
+         if(this.m_timer)
          {
-            m_timer.removeEventListener(TimerEvent.TIMER,countTimer);
-            m_timer.removeEventListener(TimerEvent.TIMER_COMPLETE,compTimer);
+            this.m_timer.removeEventListener(TimerEvent.TIMER,this.countTimer);
+            this.m_timer.removeEventListener(TimerEvent.TIMER_COMPLETE,this.compTimer);
          }
       }
       
       public function GetTime() : int
       {
-         if(!m_timer)
+         if(!this.m_timer)
          {
             return -1;
          }
-         return m_timer.repeatCount - m_timer.currentCount;
+         return this.m_timer.repeatCount - this.m_timer.currentCount;
       }
       
       private function capMaxTime(param1:int) : int
@@ -128,77 +128,77 @@ package action_script
             _loc3_ *= 10;
             _loc4_++;
          }
-         m_mc_counter.gotoAndStop(DigitMax + 1 - _loc2_);
+         this.m_mc_counter.gotoAndStop(DigitMax + 1 - _loc2_);
       }
       
       private function createTimer(param1:int, param2:Function = null) : void
       {
-         if(m_timer)
+         if(this.m_timer)
          {
             return;
          }
-         m_cb_func_end = param2;
-         m_timer = new Timer(1000,param1);
-         m_timer.addEventListener(TimerEvent.TIMER,countTimer);
-         m_timer.addEventListener(TimerEvent.TIMER_COMPLETE,compTimer);
-         m_timer.start();
+         this.m_cb_func_end = param2;
+         this.m_timer = new Timer(1000,param1);
+         this.m_timer.addEventListener(TimerEvent.TIMER,this.countTimer);
+         this.m_timer.addEventListener(TimerEvent.TIMER_COMPLETE,this.compTimer);
+         this.m_timer.start();
       }
       
       private function destroyTimer() : void
       {
-         if(!m_timer)
+         if(!this.m_timer)
          {
             return;
          }
-         m_timer.stop();
-         m_timer.removeEventListener(TimerEvent.TIMER,countTimer);
-         m_timer.removeEventListener(TimerEvent.TIMER_COMPLETE,compTimer);
-         m_timer = null;
-         m_cb_func_end = null;
+         this.m_timer.stop();
+         this.m_timer.removeEventListener(TimerEvent.TIMER,this.countTimer);
+         this.m_timer.removeEventListener(TimerEvent.TIMER_COMPLETE,this.compTimer);
+         this.m_timer = null;
+         this.m_cb_func_end = null;
       }
       
       private function countTimer(param1:TimerEvent) : void
       {
-         var _loc2_:int = m_timer.repeatCount - m_timer.currentCount;
-         setMcTimer(_loc2_,"move");
-         initDigit(_loc2_);
+         var _loc2_:int = this.m_timer.repeatCount - this.m_timer.currentCount;
+         this.setMcTimer(_loc2_,"move");
+         this.initDigit(_loc2_);
       }
       
       private function compTimer(param1:TimerEvent) : void
       {
-         m_cb_func_end();
-         Stop();
+         this.m_cb_func_end();
+         this.Stop();
       }
       
       private function setMcTimer(param1:int, param2:String) : void
       {
-         var _loc6_:int = 0;
-         var _loc3_:* = param1 <= m_warn_count;
-         var _loc4_:int = param1;
-         var _loc5_:int = 1;
-         while(_loc5_ <= DigitMax)
+         var _loc3_:int = 0;
+         var _loc4_:* = param1 <= this.m_warn_count;
+         var _loc5_:int = param1;
+         var _loc6_:int = 1;
+         while(_loc6_ <= DigitMax)
          {
-            if(0 <= _loc4_)
+            if(0 <= _loc5_)
             {
-               if(m_mc_counter["nmb_" + _loc5_])
+               if(this.m_mc_counter["nmb_" + _loc6_])
                {
-                  _loc6_ = _loc4_ % 10 + 1;
-                  if(_loc3_)
+                  _loc3_ = _loc5_ % 10 + 1;
+                  if(_loc4_)
                   {
-                     _loc6_ += 10;
+                     _loc3_ += 10;
                   }
-                  m_mc_counter["nmb_" + _loc5_].nmb01.gotoAndStop(_loc6_);
+                  this.m_mc_counter["nmb_" + _loc6_].nmb01.gotoAndStop(_loc3_);
                }
-               _loc4_ /= 10;
+               _loc5_ /= 10;
             }
             if(param2)
             {
-               if(m_mc_counter["nmb_" + _loc5_])
+               if(this.m_mc_counter["nmb_" + _loc6_])
                {
-                  m_mc_counter["nmb_" + _loc5_].gotoAndPlay(param2);
+                  this.m_mc_counter["nmb_" + _loc6_].gotoAndPlay(param2);
                }
             }
-            _loc5_++;
+            _loc6_++;
          }
       }
    }
