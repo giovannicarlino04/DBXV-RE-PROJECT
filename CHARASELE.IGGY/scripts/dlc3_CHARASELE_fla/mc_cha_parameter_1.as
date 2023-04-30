@@ -25,20 +25,20 @@ package dlc3_CHARASELE_fla
       public function mc_cha_parameter_1()
       {
          super();
-         addFrameScript(19,frame20,52,frame53,60,frame61);
+         addFrameScript(19,this.frame20,52,this.frame53,60,this.frame61);
       }
       
-      internal function frame20() : *
+      function frame20() : *
       {
          stop();
       }
       
-      internal function frame53() : *
+      function frame53() : *
       {
          stop();
       }
       
-      internal function frame61() : *
+      function frame61() : *
       {
          stop();
       }

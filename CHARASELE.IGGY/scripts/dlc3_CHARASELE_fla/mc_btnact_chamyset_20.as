@@ -17,20 +17,20 @@ package dlc3_CHARASELE_fla
       public function mc_btnact_chamyset_20()
       {
          super();
-         addFrameScript(8,frame9,58,frame59,66,frame67);
+         addFrameScript(8,this.frame9,58,this.frame59,66,this.frame67);
       }
       
-      internal function frame9() : *
+      function frame9() : *
       {
          stop();
       }
       
-      internal function frame59() : *
+      function frame59() : *
       {
          gotoAndPlay("on");
       }
       
-      internal function frame67() : *
+      function frame67() : *
       {
          stop();
       }

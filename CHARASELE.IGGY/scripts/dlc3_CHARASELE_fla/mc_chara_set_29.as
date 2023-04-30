@@ -15,20 +15,20 @@ package dlc3_CHARASELE_fla
       public function mc_chara_set_29()
       {
          super();
-         addFrameScript(7,frame8,15,frame16,23,frame24);
+         addFrameScript(7,this.frame8,15,this.frame16,23,this.frame24);
       }
       
-      internal function frame8() : *
+      function frame8() : *
       {
          stop();
       }
       
-      internal function frame16() : *
+      function frame16() : *
       {
          stop();
       }
       
-      internal function frame24() : *
+      function frame24() : *
       {
          stop();
       }
