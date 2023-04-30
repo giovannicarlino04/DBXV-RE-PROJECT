@@ -8,7 +8,7 @@ CFLAGS += -static -static-libgcc -static-libstdc++
 CPPFLAGS=-Wall -O2 -mno-ms-bitfields 
 CPPFLAGS += -static-libgcc -static-libstdc++ -static -Wl,--subsystem,windows,--kill-at -fpermissive
 LDFLAGS=-L. -static
-LIBS = -lstdc++ -lMinHook
+LIBS = -lstdc++ -lversion -lMinHook
 
 all: $(OUTPUT)
 

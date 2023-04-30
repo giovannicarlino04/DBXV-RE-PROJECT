@@ -7,12 +7,14 @@
 #include <stdint.h>
 #include <cstdio>
 #include <tlhelp32.h>
+#include <string>
 
 #include "steam_api.h"
 #include "patch.h"
 #include "debug.h"
 #include "symbols.h"
 #include "CpkFile.h"
+#include "xvpatcher.h"
 
 #define EXPORT WINAPI __declspec(dllexport)
 
@@ -28,7 +30,6 @@
 #define DATAP3_CPK		"datap3.cpk"
 
 #endif
-
 
 const char *gSteamExportsNames[NUM_EXPORTED_FUNCTIONS] =
 {
@@ -668,6 +669,17 @@ int mainpatches()
 						//WRITE YOUR FUCKING CODE HERE PLEASE
 
 
+
+
+
+
+
+
+
+
+
+
+						
 						int CMSnewValue = 1000;
 						WriteProcessMemory(handle, (LPVOID)0x000000, &CMSnewValue, sizeof(CMSnewValue), 0);
 					}
@@ -685,55 +697,84 @@ int mainpatches()
     return 0;
 }
 
+float GetExeVersion(const std::string &exe_path)
+{
+    DWORD info_size = GetFileVersionInfoSizeA(exe_path.c_str(), nullptr);
+    if (info_size == 0)
+        return 0.0f;
+
+    char *info = new char[info_size];
+    uint8_t *buf;
+    UINT buf_size;
+
+    if (GetFileVersionInfoA(exe_path.c_str(), 0, info_size, info))
+    {
+        if (VerQueryValueA(info, "\\", (void **)&buf, &buf_size) && buf_size != 0)
+        {
+            VS_FIXEDFILEINFO *verInfo = (VS_FIXEDFILEINFO *)buf;
+            if (verInfo->dwSignature == 0xfeef04bd)
+            {
+                float ret = ((float)(verInfo->dwFileVersionMS >> 16))  + ((float)(verInfo->dwFileVersionMS&0xFFFF) / 100.0f);
+                float m = ((float)(verInfo->dwFileVersionLS>>16)) / 1000.0f;
+
+                ret += m;
+                return ret;
+            }
+        }
+    }
+
+    return 0.0f;
+}
+
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch (fdwReason)
 	{
-		case DLL_PROCESS_ATTACH:
+		case DLL_PROCESS_ATTACH:{
+
+				DPRINTF("Hello world.\n");
 		
-			DPRINTF("Hello world.\n");
-		
-			if (InGameProcess())
-			{
-				if (!LoadDllAndResolveExports())
-					return FALSE;
-				
-				CpkFile *data, *data2, *datap1, *datap2, *datap3;
-				
-				if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
+				if (InGameProcess())
 				{
-					patch_toc(data);
-					patch_toc(data2);
-					patch_toc(datap1);
-					patch_toc(datap2);
-					patch_toc(datap3);
-
+					if (!LoadDllAndResolveExports())
+						return FALSE;
 					
-					data->RevertEncryption(false);
-					data2->RevertEncryption(false);
-					datap1->RevertEncryption(false);
-					datap2->RevertEncryption(false);
-					datap3->RevertEncryption(false);
+					CpkFile *data, *data2, *datap1, *datap2, *datap3;
+					
+					if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
+					{
+						patch_toc(data);
+						patch_toc(data2);
+						patch_toc(datap1);
+						patch_toc(datap2);
+						patch_toc(datap3);
 
-					patches();
-					mainpatches();
+						
+						data->RevertEncryption(false);
+						data2->RevertEncryption(false);
+						datap1->RevertEncryption(false);
+						datap2->RevertEncryption(false);
+						datap3->RevertEncryption(false);
+
+						patches();
+						mainpatches();
 #ifdef DEBUG
-					debug_patches();
+						debug_patches();
 #endif					
-					delete data;
-					delete data2;
-					delete datap1;
-					delete datap2;
-					delete datap3;
-				}				
-			}		
-		break;
+						delete data;
+						delete data2;
+						delete datap1;
+						delete datap2;
+						delete datap3;
+					}				
+				}		
+		}
 		
-		case DLL_PROCESS_DETACH:		
+		case DLL_PROCESS_DETACH:{
 			
 			if (!lpvReserved)
 				UnloadDll();
-			
+		}		
 		break;
 	}
 	
