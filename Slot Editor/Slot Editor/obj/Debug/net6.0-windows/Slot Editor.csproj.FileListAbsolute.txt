@@ -1,0 +1,17 @@
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\bin\Debug\net6.0-windows\Slot Editor.exe
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\bin\Debug\net6.0-windows\Slot Editor.deps.json
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\bin\Debug\net6.0-windows\Slot Editor.runtimeconfig.json
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\bin\Debug\net6.0-windows\Slot Editor.dll
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\bin\Debug\net6.0-windows\Slot Editor.pdb
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot_Editor.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.AssemblyInfoInputs.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.AssemblyInfo.cs
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.dll
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\refint\Slot Editor.dll
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.pdb
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\Slot Editor.genruntimeconfig.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\Slot Editor\Slot Editor\obj\Debug\net6.0-windows\ref\Slot Editor.dll
