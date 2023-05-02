@@ -1,0 +1,17 @@
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\bin\Debug\net6.0-windows\IggyTool.exe
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\bin\Debug\net6.0-windows\IggyTool.deps.json
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\bin\Debug\net6.0-windows\IggyTool.runtimeconfig.json
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\bin\Debug\net6.0-windows\IggyTool.dll
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\bin\Debug\net6.0-windows\IggyTool.pdb
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.AssemblyInfoInputs.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.AssemblyInfo.cs
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.dll
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\refint\IggyTool.dll
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.pdb
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\IggyTool.genruntimeconfig.cache
+C:\Users\Giovanni Carlino\Desktop\DBXV-RE-PROJECT\XVTool\IggyTool\obj\Debug\net6.0-windows\ref\IggyTool.dll
