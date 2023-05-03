@@ -15,8 +15,6 @@ namespace XVTool
         static string XVFolderInfo = Application.StartupPath + @"\XVPath.info";
         static string XVPath;
 
-
-
         public Form1()
         {
             InitializeComponent();
@@ -212,27 +210,6 @@ namespace XVTool
             {
                 InstallMod(ofd.FileName);
             }
-        }
-
-        private void serializeCHARASELEiggyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Xenoverse 1 Character Selection File | CHARASELE.iggy";
-            ofd.Title = "Select CHARASELE.iggy file";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-                SerializeCharaSele(ofd.FileName);
-        }
-
-        [Serializable]
-        public class CharaseleData
-        {
-            public int Version { get; set; }
-            public byte[] Data { get; set; }
-        }
-        public void SerializeCharaSele(string filePath)
-        {
-
         }
     }
 }

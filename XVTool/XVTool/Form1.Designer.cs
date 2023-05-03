@@ -92,7 +92,7 @@
             // clearInstallationToolStripMenuItem
             // 
             clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            clearInstallationToolStripMenuItem.Size = new Size(162, 22);
+            clearInstallationToolStripMenuItem.Size = new Size(180, 22);
             clearInstallationToolStripMenuItem.Text = "Clear Installation";
             clearInstallationToolStripMenuItem.Click += clearInstallationToolStripMenuItem_Click;
             // 
