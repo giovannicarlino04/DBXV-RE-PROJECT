@@ -1,5 +1,6 @@
 import os
 from CMS import CMS
+from Iggy import Iggy
 import configparser
 import struct
 
@@ -7,6 +8,7 @@ config = configparser.ConfigParser()
 config.read('Xenoverse.ini')
 
 cms_path = config['CMS']['path']
+iggy_path = config['Iggy']['path']
 
 def print_menu():
     print("1. Add a new character")
@@ -50,16 +52,20 @@ def add_character(filename):
     # write the updated file data back to the file
     with open(filename, 'wb') as f:
         f.write(new_file_data)
+    
+    #Insert the data into iggy
+    Iggy.add_char_slot(iggy_path, character_name)
 
-def shift_addresses(offsets, filename):
+
+def shift_addresses(offsets, filename, character_size):
     # calculate the byte offset of each address for every character block
-    char_offsets = [(i*80 + offset) for i in range(32) for offset in offsets]
+    char_offsets = [(i*80 + offset) for i in range(94) for offset in offsets]
 
     with open(filename, 'r+b') as f:
         # shift each address in every character block
         for address_offset in char_offsets:
             f.seek(address_offset)
-            new_pointer_value = int.from_bytes(f.read(4), byteorder='little') + 1
+            new_pointer_value = int.from_bytes(f.read(4), byteorder='little') + character_size
             f.seek(address_offset)
             f.write(new_pointer_value.to_bytes(4, byteorder='little'))
             
@@ -69,16 +75,19 @@ def shift_addresses(offsets, filename):
     # print the old and new values of each shifted address
     for address_offset in char_offsets:
         pointer_value = int.from_bytes(file_data[address_offset:address_offset+4], byteorder='little')
-        new_pointer_value = int.from_bytes(file_data[address_offset:address_offset+4], byteorder='little') + 1
-        print(f'Address offset: {hex(address_offset)}, old value: {hex(pointer_value)}, new value: {hex(new_pointer_value)}')
+        new_pointer_value = int.from_bytes(file_data[address_offset:address_offset+4], byteorder='little') + character_size
+        #print(f'Address offset: {hex(address_offset)}, old value: {hex(pointer_value)}, new value: {hex(new_pointer_value)}')
 
     with open(filename, 'wb') as f:
         f.write(file_data)
 
 def main():
-    print("Welcome to the CMS file editor!")
+    print("Welcome to XenoPy!")
     if not os.path.isfile(cms_path):
         print(f"File {cms_path} not found!")
+        return
+    if not os.path.isfile(iggy_path):
+        print(f"File {iggy_path} not found!")
         return
 
     print_menu()
@@ -88,8 +97,9 @@ def main():
         add_character(cms_path)
         # List of offsets for each specific address within each character block
         address_offsets = [0x30, 0x34, 0x3C, 0x40, 0x48, 0x4C, 0x50, 0x54]
+        character_size = 0x50
 
-        shift_addresses(address_offsets, cms_path)
+        shift_addresses(address_offsets, cms_path, character_size)
         shift_header_offset(cms_path)
         print("New character added successfully!")
     else:
