@@ -96,7 +96,8 @@ def main():
         add_character(cms_path)
         # List of offsets for each specific address within each character block
         shift_header_offset(cms_path)
-
+        shift_offsets = [0x30, 0x34, 0x3C, 0x40, 0x48, 0x4C, 0x50, 0x54]
+        shift_addresses(shift_offsets, cms_path, 0x80)
         compile_iggy()
         print("New character added successfully!")
     elif choice == "2":
