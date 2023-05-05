@@ -1,17 +1,18 @@
 import os
 from CMS import CMS
-from Iggy import Iggy
 import configparser
 import struct
 
 config = configparser.ConfigParser()
 config.read('Xenoverse.ini')
 
+data_path = config['DATA']['path']
 cms_path = config['CMS']['path']
-iggy_path = config['Iggy']['path']
 
 def print_menu():
     print("1. Add a new character")
+    print("2. Edit Charalist")
+    print("3. Compile Iggy Scripts")
 
 def shift_header_offset(filename):
     # read the file and get its size
@@ -28,6 +29,12 @@ def shift_header_offset(filename):
     # write the updated file data back to the file
     with open(filename, 'wb') as f:
         f.write(new_file_data)
+
+def compile_iggy():
+    os.system('cd "' + os.getcwd() + '" && mxmlc -compiler.source-path=.\scripts .\scripts\dlc3_CHARASELE_fla\MainTimeline.as && move /Y .\scripts\dlc3_CHARASELE_fla\MainTimeline.swf "' + data_path + '\\ui\\iggy\\CHARASELE.swf" && cd ' + data_path + '/ui/iggy && iggy_as3_test.exe CHARASELE.swf')
+
+def edit_charalist():
+    os.system(' "' + os.getcwd() + '\\scripts\\action_script\\CharaList.as"')
 
 def add_character(filename):
     # read the file and get its size
@@ -52,10 +59,6 @@ def add_character(filename):
     # write the updated file data back to the file
     with open(filename, 'wb') as f:
         f.write(new_file_data)
-    
-    #Insert the data into iggy
-    Iggy.add_char_slot(iggy_path, character_name)
-
 
 def shift_addresses(offsets, filename, character_size):
     # calculate the byte offset of each address for every character block
@@ -86,22 +89,20 @@ def main():
     if not os.path.isfile(cms_path):
         print(f"File {cms_path} not found!")
         return
-    if not os.path.isfile(iggy_path):
-        print(f"File {iggy_path} not found!")
-        return
-
     print_menu()
     choice = input("Enter your choice: ")
 
     if choice == "1":
         add_character(cms_path)
         # List of offsets for each specific address within each character block
-        address_offsets = [0x30, 0x34, 0x3C, 0x40, 0x48, 0x4C, 0x50, 0x54]
-        character_size = 0x50
-
-        shift_addresses(address_offsets, cms_path, character_size)
         shift_header_offset(cms_path)
+
+        compile_iggy()
         print("New character added successfully!")
+    elif choice == "2":
+        edit_charalist()
+    elif choice == "3":
+        compile_iggy()
     else:
         print(f"Invalid choice {choice}!")
 
