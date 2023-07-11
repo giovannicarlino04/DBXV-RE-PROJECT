@@ -1,0 +1,15 @@
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\bin\Debug\net6.0\XVCMSSerializer.exe
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\bin\Debug\net6.0\XVCMSSerializer.deps.json
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\bin\Debug\net6.0\XVCMSSerializer.runtimeconfig.json
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\bin\Debug\net6.0\XVCMSSerializer.dll
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\bin\Debug\net6.0\XVCMSSerializer.pdb
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.AssemblyInfoInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.AssemblyInfo.cs
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.dll
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\refint\XVCMSSerializer.dll
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.pdb
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\XVCMSSerializer.genruntimeconfig.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\XVTools\XVCMSSerializer\obj\Debug\net6.0\ref\XVCMSSerializer.dll
