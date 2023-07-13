@@ -2,6 +2,25 @@
 #include <string>
 #include <Windows.h>
 #include <TlHelp32.h>
+#include <WinINet.h>
+
+#pragma comment(lib, "wininet.lib")
+
+#define PROCESS_NAME L"DBXV.exe"
+#define OLD_CHARASELE_LIMIT 64;
+#define INI_FILE_NAME L"XVPatcher/XVPatcher.ini"
+
+std::wstring GetIniValue(const std::wstring& section, const std::wstring& key)
+{
+    wchar_t buffer[256] = { 0 };
+    GetPrivateProfileStringW(section.c_str(), key.c_str(), nullptr, buffer, sizeof(buffer), INI_FILE_NAME);
+    return std::wstring(buffer);
+}
+
+void WriteIniValue(const std::wstring& section, const std::wstring& key, const std::wstring& value)
+{
+    WritePrivateProfileStringW(section.c_str(), key.c_str(), value.c_str(), INI_FILE_NAME);
+}
 
 std::wstring ConvertToWideString(const CHAR* str)
 {
@@ -11,8 +30,27 @@ std::wstring ConvertToWideString(const CHAR* str)
     return wideString;
 }
 
-void PatchGameProcess(const std::wstring& processName)
+void CharacterMaxPatch(HANDLE processHandle, LPVOID address, BYTE newValue)
 {
+    while(true){
+        SIZE_T bytesWritten = 0;
+        BOOL success = WriteProcessMemory(processHandle, address, &newValue, sizeof(BYTE), &bytesWritten);
+        if (success && bytesWritten == sizeof(BYTE))
+        {
+            std::cout << "CharacterMax patched successfully." << std::endl;
+            break;
+        }
+        else
+        {
+            std::cout << "Failed to patch CharacterMax value." << std::endl;
+        }
+    }
+}
+
+void Patches(const std::wstring& processName)
+{
+    int newCharaseleLimit = std::stoi(GetIniValue(L"Patches", L"new_charasele_limit"));
+
     DWORD processId = 0;
     HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (snapshot != INVALID_HANDLE_VALUE)
@@ -62,7 +100,11 @@ void PatchGameProcess(const std::wstring& processName)
 
                 if (ReadProcessMemory(processHandle, memoryInfo.BaseAddress, &buffer[0], bufferSize, &bytesRead) && bytesRead > 0)
                 {
-                    
+                    LPVOID CharacterMaxaddress = reinterpret_cast<LPVOID>(0x3BF8E756);
+                    // Define the new value to set
+                    std::wstring newCharaseleLimitStr = GetIniValue(L"Patches", L"new_charasele_limit");
+                    BYTE newValue = static_cast<BYTE>(std::stoi(newCharaseleLimitStr));
+                    CharacterMaxPatch(processHandle, CharacterMaxaddress, newValue);
                 }
             }
 
@@ -78,35 +120,40 @@ void PatchGameProcess(const std::wstring& processName)
 
 void LaunchGame()
 {
-    // Path to the game executable
-    const wchar_t* gamePath = L"DBXV.exe";
+    std::wstring processName = GetIniValue(L"Game", L"process_name");
 
-    // Command line arguments for the game (if any)
-    const wchar_t* commandLineArgs = nullptr;
-
-    // Create the process
     STARTUPINFOW startupInfo = { sizeof(STARTUPINFOW) };
     PROCESS_INFORMATION processInfo;
-    BOOL success = CreateProcessW(gamePath, const_cast<LPWSTR>(commandLineArgs), nullptr, nullptr, FALSE, 0, nullptr, nullptr, &startupInfo, &processInfo);
+    BOOL success = CreateProcessW(processName.c_str(), nullptr, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &startupInfo, &processInfo);
 
     if (success)
     {
-        // Close the process and thread handles (we don't need them)
-        CloseHandle(processInfo.hProcess);
         CloseHandle(processInfo.hThread);
+        WaitForSingleObject(processInfo.hProcess, INFINITE);
+        CloseHandle(processInfo.hProcess);
+
+        //THIS IS ESSENTIAL, OR THE PATCHER WON'T WORK
+        Sleep(5000);
+
+        // Game process has exited and relaunched, reattach the patcher
+        Patches(processName);
     }
     else
     {
-        // Failed to launch the game, show an error message
         MessageBoxW(nullptr, L"Failed to launch the game.", L"Error", MB_OK | MB_ICONERROR);
     }
 }
 
 int main()
 {
+    // Write default values to the INI file if it doesn't exist
+    if (GetFileAttributesW(INI_FILE_NAME) == INVALID_FILE_ATTRIBUTES)
+    {
+        WriteIniValue(L"Game", L"process_name", L"DBXV.exe");
+        WriteIniValue(L"Patches", L"new_charasele_limit", L"99");
+    }
+
     LaunchGame();
-    std::wstring processName = L"DBXV.exe";
-    PatchGameProcess(processName);
 
     return 0;
 }
