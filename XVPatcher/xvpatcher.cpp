@@ -2,144 +2,279 @@
 #include <string>
 #include <Windows.h>
 #include <TlHelp32.h>
-#include <WinINet.h>
 #include <fstream>
-#include <streambuf>
-#include <cstring>  // Added for strlen and mbstowcs
+#include <vector>
+#include <Psapi.h>
+#include <sstream>
+#include <cstring> // Add this line for the memcmp function
+#include <memory>
 
 #pragma comment(lib, "wininet.lib")
 
-#define OLD_CHARASELE_LIMIT 64;
-#define INI_FILE_NAME L"XVPatcher/XVPatcher.ini"
-#define LOG_FILE_NAME "XVPatcher/XVPatcher.log"
+constexpr wchar_t* INI_FILE_NAME = L"XVPatcher/XVPatcher.ini";
 
-bool debug;
+bool debug = true;
 std::ofstream logFile;
 
-std::wstring GetIniValue(const std::wstring& section, const std::wstring& key)
+std::wstring ConvertTCHARToString(const TCHAR* str)
 {
-    wchar_t buffer[256] = { 0 };
-    GetPrivateProfileStringW(section.c_str(), key.c_str(), nullptr, buffer, sizeof(buffer), INI_FILE_NAME);
-    return std::wstring(buffer);
-}
-
-void WriteIniValue(const std::wstring& section, const std::wstring& key, const std::wstring& value)
-{
-    WritePrivateProfileStringW(section.c_str(), key.c_str(), value.c_str(), INI_FILE_NAME);
-}
-
-std::wstring ConvertToWideString(const CHAR* str)
-{
-    size_t length = strlen(str) + 1;
-    std::wstring wideString(length, L' ');
-    mbstowcs(&wideString[0], str, length);
+#ifdef _UNICODE
+    return std::wstring(str);
+#else
+    int length = MultiByteToWideChar(CP_ACP, 0, str, -1, nullptr, 0);
+    std::wstring wideString(length, L'\0');
+    MultiByteToWideChar(CP_ACP, 0, str, -1, &wideString[0], length);
     return wideString;
+#endif
 }
 
-void CharacterMaxPatch(HANDLE processHandle, LPVOID address, BYTE newValue)
+
+std::wstring ConvertToWideString(const std::string& narrowString)
 {
-    SIZE_T bytesWritten = 0;
-    BOOL success = WriteProcessMemory(processHandle, address, &newValue, sizeof(BYTE), &bytesWritten);
-    if (success && bytesWritten == sizeof(BYTE))
+    int wideStringLength = MultiByteToWideChar(CP_UTF8, 0, narrowString.c_str(), -1, nullptr, 0);
+    if (wideStringLength == 0)
     {
-        if (debug)
+        return L"";
+    }
+
+    std::vector<wchar_t> buffer(wideStringLength);
+    MultiByteToWideChar(CP_UTF8, 0, narrowString.c_str(), -1, buffer.data(), wideStringLength);
+
+    return std::wstring(buffer.data());
+}
+
+std::string ConvertWideStringToString(const std::wstring& wideString)
+{
+    std::string narrowString;
+    narrowString.resize(wideString.size());
+
+    std::wcstombs(&narrowString[0], wideString.c_str(), narrowString.size());
+
+    return narrowString;
+}
+
+void Log(const std::string& message)
+{
+    std::cout << message << std::endl;
+    logFile << message << std::endl;
+}
+
+uintptr_t GetModuleBaseAddress(HANDLE processHandle, const std::wstring& moduleName)
+{
+    HMODULE modules[1024];
+    DWORD needed;
+
+    if (EnumProcessModules(processHandle, modules, sizeof(modules), &needed))
+    {
+        for (DWORD i = 0; i < (needed / sizeof(HMODULE)); i++)
         {
-            std::cout << "Debug: CharacterMax patched successfully." << std::endl;
-            logFile << "Debug: CharacterMax patched successfully" << std::endl;
+            wchar_t modulePath[MAX_PATH];
+
+            if (GetModuleFileNameExW(processHandle, modules[i], modulePath, sizeof(modulePath) / sizeof(wchar_t)))
+            {
+                std::wstring moduleFileName = std::wstring(modulePath);
+                size_t lastSlash = moduleFileName.find_last_of(L"\\");
+                std::wstring currentModuleName = moduleFileName.substr(lastSlash + 1);
+
+                if (_wcsicmp(currentModuleName.c_str(), moduleName.c_str()) == 0)
+                {
+                    if(debug){
+                        Log("Debug: Module Scanned: " + ConvertWideStringToString(moduleFileName));
+                    }
+                    return reinterpret_cast<uintptr_t>(modules[i]);
+                }
+                else {
+                    if(debug){
+                        Log("Debug: Module NOT Scanned: " + ConvertWideStringToString(moduleFileName));
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+
+void ModifyMemoryProtection(HANDLE processHandle, LPVOID baseAddress, SIZE_T regionSize, DWORD newProtection)
+{
+    DWORD oldProtection;
+    if (!VirtualProtectEx(processHandle, baseAddress, regionSize, newProtection, &oldProtection))
+    {
+        DWORD errorCode = GetLastError();
+        LPSTR errorBuffer = nullptr;
+        FormatMessageA(
+            FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            nullptr,
+            errorCode,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            reinterpret_cast<LPSTR>(&errorBuffer),
+            0,
+            nullptr);
+
+        if (errorBuffer)
+        {
+            if (debug)
+                Log("Debug: Failed to modify memory protection. Error: " + std::to_string(errorCode) + " - " + errorBuffer);
+            LocalFree(errorBuffer);
+        }
+        else
+        {
+            if (debug)
+                Log("Debug: Failed to modify memory protection. Error code: " + std::to_string(errorCode));
+        }
+
+        // Handle error accordingly
+        // ...
+    }
+}
+
+uintptr_t PatternScan(HANDLE processHandle, const char* pattern, const char* mask, uintptr_t startAddress, uintptr_t endAddress)
+{
+    const SIZE_T maxBufferSize = 4096;
+    BYTE* buffer = new BYTE[maxBufferSize];
+
+    SIZE_T bytesRead = 0;
+    uintptr_t currentAddress = startAddress;
+
+    while (currentAddress < endAddress)
+    {
+        SIZE_T remainingSize = endAddress - currentAddress;
+        SIZE_T bufferSize = remainingSize < maxBufferSize ? remainingSize : maxBufferSize;
+
+        if (!ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(currentAddress), buffer, bufferSize, &bytesRead))
+            break;
+
+        for (SIZE_T i = 0; i < bytesRead; ++i)
+        {
+            bool found = true;
+            for (SIZE_T j = 0; j < strlen(mask); ++j)
+            {
+                if (mask[j] != '?' && pattern[j] != buffer[i + j])
+                {
+                    found = false;
+                    break;
+                }
+            }
+
+            if (found)
+            {
+                delete[] buffer;
+                return currentAddress + i;
+            }
+        }
+
+        currentAddress += bytesRead;
+    }
+
+    delete[] buffer;
+    return 0;
+}
+
+uintptr_t FindOffset(HANDLE processHandle, uintptr_t startAddress, uintptr_t endAddress, const char* pattern, const char* mask)
+{
+    const SIZE_T maxBufferSize = 4096;
+    BYTE* buffer = new BYTE[maxBufferSize];
+
+    SIZE_T bytesRead = 0;
+    uintptr_t currentAddress = startAddress;
+
+    while (currentAddress < endAddress)
+    {
+        SIZE_T remainingSize = endAddress - currentAddress;
+        SIZE_T bufferSize = remainingSize < maxBufferSize ? remainingSize : maxBufferSize;
+
+        if (!ReadProcessMemory(processHandle, reinterpret_cast<LPCVOID>(currentAddress), buffer, bufferSize, &bytesRead))
+            break;
+
+        for (SIZE_T i = 0; i < bytesRead; ++i)
+        {
+            bool found = true;
+            for (SIZE_T j = 0; j < strlen(mask); ++j)
+            {
+                if (mask[j] != '?' && pattern[j] != buffer[i + j])
+                {
+                    found = false;
+                    break;
+                }
+            }
+
+            if (found)
+            {
+                delete[] buffer;
+                return currentAddress + i;
+            }
+        }
+
+        currentAddress += bytesRead;
+    }
+
+    delete[] buffer;
+    return 0;
+}
+
+void CMSPatch(const std::wstring& processName, HANDLE processHandle, bool debug)
+{
+    const char* pattern = "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
+    const char* mask = "????????????????";
+
+    MODULEINFO moduleInfo;
+    if (GetModuleInformation(processHandle, GetModuleHandle(nullptr), &moduleInfo, sizeof(moduleInfo)))
+    {
+        uintptr_t startAddress = reinterpret_cast<uintptr_t>(moduleInfo.lpBaseOfDll);
+        uintptr_t endAddress = startAddress + moduleInfo.SizeOfImage;
+
+        uintptr_t patchAddress = FindOffset(processHandle, startAddress, endAddress, pattern, mask);
+        if (patchAddress != 0)
+        {
+            // Change the protection of the memory region to allow writing
+            ModifyMemoryProtection(processHandle, reinterpret_cast<LPVOID>(patchAddress), 16, PAGE_EXECUTE_READWRITE);
+
+            // Patch the bytes in memory
+            BYTE newBytes[] = { 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90, 0x90 };
+            SIZE_T bytesWritten;
+            if (WriteProcessMemory(processHandle, reinterpret_cast<LPVOID>(patchAddress), newBytes, sizeof(newBytes), &bytesWritten))
+            {
+                if (debug)
+                    Log("Debug: Successfully patched the game process.");
+            }
+            else
+            {
+                DWORD errorCode = GetLastError();
+                if (debug)
+                    Log("Debug: Failed to write patched bytes to memory. Error code: " + std::to_string(errorCode));
+            }
+
+            // Restore the memory protection
+            ModifyMemoryProtection(processHandle, reinterpret_cast<LPVOID>(patchAddress), 16, PAGE_EXECUTE_READ);
+        }
+        else
+        {
+            if (debug)
+                Log("Debug: Failed to find the pattern offset for patching.");
         }
     }
     else
     {
         if (debug)
-        {
-            std::cout << "Debug: Failed to patch CharacterMax value." << std::endl;
-            logFile << "Debug: Failed to patch CharacterMax value." << std::endl;
-        }
+            Log("Debug: Failed to get module information.");
     }
 }
 
-void Patches(const std::wstring& processName)
+std::wstring GetIniValue(const std::wstring& section, const std::wstring& key)
 {
-    while (true)
-    {
-        if (GetIniValue(L"Debug", L"debug_patches") == L"True")
-        {
-            debug = true;
-        }
+    wchar_t buffer[256];
+    GetPrivateProfileStringW(section.c_str(), key.c_str(), L"", buffer, sizeof(buffer), INI_FILE_NAME);
 
-        int newCharaseleLimit = std::stoi(GetIniValue(L"Patches", L"new_charasele_limit"));
+    if (debug)
+        Log("Debug: Got Ini Value at: " + std::string(section.begin(), section.end()) + " " + std::string(key.begin(), key.end()));
 
-        DWORD processId = 0;
-        HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-        if (snapshot != INVALID_HANDLE_VALUE)
-        {
-            PROCESSENTRY32 processEntry = { sizeof(PROCESSENTRY32) };
-            if (Process32First(snapshot, &processEntry))
-            {
-                do
-                {
-                    std::wstring currentProcessName = ConvertToWideString(processEntry.szExeFile);
-                    if (currentProcessName.find(processName) != std::wstring::npos)
-                    {
-                        processId = processEntry.th32ProcessID;
-                        break;
-                    }
-                } while (Process32Next(snapshot, &processEntry));
-            }
-            CloseHandle(snapshot);
-        }
-
-        if (processId == 0)
-        {
-            if (debug)
-            {
-                std::cout << "Debug: Process not found, retrying..." << std::endl;
-                logFile << "Debug: Process not found, retrying..." << std::endl;
-            }
-            continue;
-        }
-
-        HANDLE processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
-        if (processHandle == NULL)
-        {
-            if (debug)
-            {
-                std::cout << "Debug: Failed to open process... Retrying" << std::endl;
-                logFile << "Debug: Failed to open process... Retrying" << std::endl;
-            }
-            continue;
-        }
-
-        SIZE_T bytesRead = 0;
-        MEMORY_BASIC_INFORMATION memoryInfo = { 0 };
-        LPVOID address = NULL;
-
-        while (VirtualQueryEx(processHandle, address, &memoryInfo, sizeof(memoryInfo)) != 0)
-        {
-            if (memoryInfo.State == MEM_COMMIT && (memoryInfo.Type == MEM_MAPPED || memoryInfo.Type == MEM_PRIVATE))
-            {
-                const SIZE_T bufferSize = memoryInfo.RegionSize;
-                std::wstring buffer(bufferSize / sizeof(wchar_t), L'\0');
-
-                if (ReadProcessMemory(processHandle, memoryInfo.BaseAddress, &buffer[0], bufferSize, &bytesRead) && bytesRead > 0)
-                {
-                    if (buffer.find(L"CharacterMax") != std::wstring::npos)
-                    {
-                        // Found the character limit, patch the value
-                        BYTE newValue = static_cast<BYTE>(newCharaseleLimit);
-                        CharacterMaxPatch(processHandle, memoryInfo.BaseAddress, newValue);
-                        break;
-                    }
-                }
-            }
-            address = reinterpret_cast<LPVOID>(reinterpret_cast<BYTE*>(address) + memoryInfo.RegionSize);
-        }
-    }
+    return buffer;
 }
 
-void CheckIfGameRunning(const std::wstring& processName)
+BOOL CheckIfGameRunning(const std::wstring& processName)
 {
-    // Get the process ID of the game
     DWORD processId = 0;
     HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (snapshot != INVALID_HANDLE_VALUE)
@@ -161,107 +296,89 @@ void CheckIfGameRunning(const std::wstring& processName)
         CloseHandle(snapshot);
     }
 
-    // If the process ID is not 0, then the game is running
-    if (processId == 0)
+    if (processId != 0)
     {
-        std::cout << "Game is not running: " << std::endl;
-        logFile << "Game is not running: " << std::endl;
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
     }
 }
 
 void LaunchGame()
 {
     std::wstring processName = GetIniValue(L"Game", L"process_name");
+    std::wstring commandLineArgs = GetIniValue(L"Game", L"command_line_args");
+    std::wstring workingDirectory = GetIniValue(L"Game", L"working_directory");
 
-    DWORD processId = 0;
-    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-    if (snapshot != INVALID_HANDLE_VALUE)
+    // Combine the process name and command line arguments
+    std::wstring commandLine = processName + L" " + commandLineArgs;
+
+    STARTUPINFOW startupInfo = { sizeof(STARTUPINFOW) };
+    PROCESS_INFORMATION processInfo;
+
+    BOOL success = CreateProcessW(
+        nullptr,
+        const_cast<LPWSTR>(commandLine.c_str()),
+        nullptr,
+        nullptr,
+        FALSE,
+        CREATE_SUSPENDED,
+        nullptr,
+        workingDirectory.c_str(),
+        &startupInfo,
+        &processInfo
+    );
+
+    if (success)
     {
-        PROCESSENTRY32 processEntry = { sizeof(PROCESSENTRY32) };
-        if (Process32First(snapshot, &processEntry))
+        // Resume the game process to start execution
+        ResumeThread(processInfo.hThread);
+        CloseHandle(processInfo.hThread);
+        CloseHandle(processInfo.hProcess);
+
+        // Wait for the game process to start and initialize
+        Sleep(5000);
+
+        // Get the game base address
+        std::wstring moduleName = L"DBXV.exe";
+        uintptr_t baseAddress = GetModuleBaseAddress(processInfo.hProcess, moduleName);
+        if (baseAddress != 0)
         {
-            do
-            {
-                std::wstring currentProcessName = ConvertToWideString(processEntry.szExeFile);
-                if (currentProcessName.find(processName) != std::wstring::npos)
-                {
-                    processId = processEntry.th32ProcessID;
-                    break;
-                }
-            } while (Process32Next(snapshot, &processEntry));
-        }
-
-        CloseHandle(snapshot);
-    }
-
-    // Debugging statements
-    if (debug)
-    {
-        std::cout << "Debug: processId: " << processId << std::endl;
-        logFile << "Debug: processId: " << processId << std::endl;
-    }
-
-    while (true)
-    {
-        if (processId == 0)
-        {
-            // Game process is not running, launch it
-            STARTUPINFOW startupInfo = { sizeof(STARTUPINFOW) };
-            PROCESS_INFORMATION processInfo;
-            BOOL success = CreateProcessW(processName.c_str(), nullptr, nullptr, nullptr, FALSE, 0, nullptr, nullptr, &startupInfo, &processInfo);
-
-            // Debugging statements
-            if (debug)
-            {
-                std::cout << "Debug: CreateProcessW returned: " << success << std::endl;
-                logFile << "Debug: CreateProcessW returned: " << success << std::endl;
-            }
-
-            if (success)
-            {
-                CloseHandle(processInfo.hThread);
-                WaitForSingleObject(processInfo.hProcess, INFINITE);
-                CloseHandle(processInfo.hProcess);
-
-                // Game process has exited and relaunched, reattach the patcher
-                Patches(processName);
-            }
-            else
+            HANDLE processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processInfo.dwProcessId);
+            if (processHandle == NULL)
             {
                 if (debug)
-                {
-                    std::cout << L"Failed to launch the game." << "error" << std::endl;
-                    logFile << L"Failed to launch the game." << "error" << std::endl;
-                }
+                    Log("Debug: Failed to open the game process.");
+                return;
             }
+
+            CMSPatch(processName, processHandle, debug); // Pass process name and handle to the CMSPatch function
+
+            CloseHandle(processHandle);
         }
-        else
-        {
-            Patches(processName);
-            break;
-        }
+    }
+    else
+    {
+        DWORD errorCode = GetLastError();
+        if (debug)
+            Log("Debug: Failed to launch the game. Error code: " + std::to_string(errorCode));
     }
 }
 
 int main()
 {
-    std::wstring processName = GetIniValue(L"Game", L"process_name");
-    debug = false;
-    logFile.open(LOG_FILE_NAME);
-
-    bool gameRunning = false;
-
-    while (true)
+    logFile.open("XVPatcher/XVPatcher.log");
+    if (!logFile.is_open())
     {
-        if (!gameRunning)
-        {
-            LaunchGame();
-            gameRunning = true;
-        }
-
-        CheckIfGameRunning(processName);
+        std::cout << "Failed to open the log file." << std::endl;
+        return 1;
     }
 
+    LaunchGame();
+
     logFile.close();
+
     return 0;
 }

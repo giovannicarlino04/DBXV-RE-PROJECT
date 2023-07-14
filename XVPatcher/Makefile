@@ -1,7 +1,7 @@
 TARGET = xvpatcher.exe
 CC = g++
-CFLAGS = -std=c++11
-LDFLAGS = -lwininet
+CFLAGS = -std=c++11 -fpermissive
+LDFLAGS = -lwininet -lpsapi -lKernel32 -lUser32 -lWininet
 
 .PHONY: all clean
 

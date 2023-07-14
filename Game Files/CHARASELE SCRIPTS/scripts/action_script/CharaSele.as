@@ -22,7 +22,7 @@ package action_script
       
       public static const CharaVarIndexNum:int = 16;
       
-      public static const CharacterMax:int = 64;
+      public static const CharacterMax:int = 99;
       
       public static const ReceiveType_FlagUseCancel:int = 0;
       
@@ -326,78 +326,80 @@ package action_script
          var _loc11_:int = 0;
          var _loc12_:int = 0;
          _loc11_ = 0;
-         while(CharacterMax > _loc11_)
+         // Modify the loop condition to use the desired value (99)
+         while (99 > _loc11_)
          {
             _loc2_ = false;
             _loc3_ = this.getCharaInfo(_loc11_);
-            if(!_loc3_)
+            if (!_loc3_)
             {
                _loc12_ = 0;
-               while(CharaVarIndexNum > _loc12_)
+               while (CharaVarIndexNum > _loc12_)
                {
-                  this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc11_ * CharaVarIndexNum + _loc12_,0);
+                  this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc11_ * CharaVarIndexNum + _loc12_, 0);
                   _loc12_++;
                }
-               this.SetUserDataString(ReceiveType_ImageStrStart + _loc11_,"");
+               this.SetUserDataString(ReceiveType_ImageStrStart + _loc11_, "");
             }
-            else if(_loc3_.length <= _loc12_)
+            else if (_loc3_.length <= _loc12_)
             {
                _loc12_ = 0;
-               while(CharaVarIndexNum > _loc12_)
+               while (CharaVarIndexNum > _loc12_)
                {
-                  this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc11_ * CharaVarIndexNum + _loc12_,0);
+                  this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc11_ * CharaVarIndexNum + _loc12_, 0);
                   _loc12_++;
                }
-               this.SetUserDataString(ReceiveType_ImageStrStart + _loc11_,"");
+               this.SetUserDataString(ReceiveType_ImageStrStart + _loc11_, "");
             }
             else
             {
                _loc4_ = false;
                _loc12_ = CharaVarIndexNum - 1;
-               while(0 <= _loc12_)
+               while (0 <= _loc12_)
                {
                   _loc5_ = _loc11_ * CharaVarIndexNum + _loc12_;
-                  if(_loc3_.length <= _loc12_)
+                  if (_loc3_.length <= _loc12_)
                   {
-                     this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc5_,0);
+                     this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc5_, 0);
                   }
                   else
                   {
                      _loc6_ = _loc3_[_loc12_];
                      _loc7_ = _loc6_[CharaList.VarTypeCode];
-                     if(_loc7_ == CharaList.InvalidCode)
+                     if (_loc7_ == CharaList.InvalidCode)
                      {
-                        this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc5_,0);
+                        this.SetUserDataInt(ReceiveType_UnlockVarStart + _loc5_, 0);
                      }
                      else
                      {
                         _loc8_ = _loc6_[CharaList.VarTypeMid];
                         _loc2_ = true;
-                        if(!this.m_callback.GetUserDataValidFlag(ReceiveType_UnlockVarStart + _loc5_))
+                        if (!this.m_callback.GetUserDataValidFlag(ReceiveType_UnlockVarStart + _loc5_))
                         {
                            _loc9_ = _loc6_[CharaList.VarTypeUnlockIndex];
                            _loc10_ = _loc12_;
-                           this.m_callback.CallbackUserDataString("user",SendType_SelectCode,_loc7_);
-                           this.m_callback.CallbackUserData("user",SendType_SelectUnlockIndex,_loc9_);
-                           this.m_callback.CallbackUserData("user",SendType_SelectVariation,_loc10_);
-                           this.m_callback.CallbackUserData("user",SendType_SelectMid,_loc8_);
-                           this.m_callback.CallbackUserData("user",SendType_RequestUnlock,_loc5_);
-                           this.m_callback.CallbackUserData("user",SendType_RequestImageStr,_loc11_);
+                           this.m_callback.CallbackUserDataString("user", SendType_SelectCode, _loc7_);
+                           this.m_callback.CallbackUserData("user", SendType_SelectUnlockIndex, _loc9_);
+                           this.m_callback.CallbackUserData("user", SendType_SelectVariation, _loc10_);
+                           this.m_callback.CallbackUserData("user", SendType_SelectMid, _loc8_);
+                           this.m_callback.CallbackUserData("user", SendType_RequestUnlock, _loc5_);
+                           this.m_callback.CallbackUserData("user", SendType_RequestImageStr, _loc11_);
                         }
                      }
                   }
                   _loc12_--;
                }
-               if(!_loc2_)
+               if (!_loc2_)
                {
-                  this.SetUserDataString(ReceiveType_ImageStrStart + _loc11_,"");
+                  this.SetUserDataString(ReceiveType_ImageStrStart + _loc11_, "");
                }
             }
             _loc11_++;
          }
-         this.m_timeline.stage.removeEventListener(Event.ENTER_FRAME,this.requestUnlock);
-         this.m_timeline.stage.addEventListener(Event.ENTER_FRAME,this.waitUnlock);
+         this.m_timeline.stage.removeEventListener(Event.ENTER_FRAME, this.requestUnlock);
+         this.m_timeline.stage.addEventListener(Event.ENTER_FRAME, this.waitUnlock);
       }
+
       
       private function waitUnlock(param1:Event) : void
       {
