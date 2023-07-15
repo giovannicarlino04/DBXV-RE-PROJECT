@@ -1,15 +1,32 @@
-#include <iostream>
 #include <Windows.h>
 #include <Psapi.h>
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <algorithm>
 
 std::ofstream logFile;
+std::string debug;
 
 void LogDebug(const std::string& message)
 {
-    logFile << message << std::endl;
-    std::cout << message << std::endl;
+    if(debug == "true"){
+        logFile << message << std::endl;
+        std::cout << message << std::endl;
+    }
+}
+
+std::string GetIniValue(const std::string& filePath, const std::string& section, const std::string& key)
+{
+    const int bufferSize = 255;
+    char buffer[bufferSize];
+
+    DWORD bytesRead = GetPrivateProfileStringA(section.c_str(), key.c_str(), "", buffer, bufferSize, filePath.c_str());
+
+    LogDebug("Got ini value at " + section + " " + key);
+    return std::string(buffer, bytesRead);
 }
 
 int main()
@@ -20,6 +37,10 @@ int main()
         // Find the process ID based on the window name
         HWND windowHandle = FindWindowW(nullptr, L"DRAGON BALL XENOVERSE");
         DWORD processId = 0;
+
+        // Load patch values from INI file
+        std::string iniFilePath = "XVPatcher/XVPatcher.ini";
+        debug = GetIniValue(iniFilePath, "Patches", "debug_patches");
 
         if (!windowHandle)
         {
