@@ -1,15 +1,24 @@
-TARGET = xvpatcher.exe
-CC = g++
-CFLAGS = -std=c++11 -fpermissive
-LDFLAGS = -lwininet -lpsapi -lKernel32 -lUser32 -lWininet
+CXX = g++
+CXXFLAGS = -std=c++11 -Wall -Wextra -fpermissive
+LDFLAGS = -lpsapi -lkernel32
 
-.PHONY: all clean
+SRCS = main.cpp
+OBJS = $(SRCS:.cpp=.o)
+EXECUTABLE = XVPatcher.exe
+INSTALL_DIR = C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse
 
-all: $(TARGET)
+.PHONY: all clean install
 
-$(TARGET): xvpatcher.cpp
-	$(CC) $(CFLAGS) xvpatcher.cpp $(LDFLAGS) -o $(TARGET)
-	xcopy /Y $(TARGET) "C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse"
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJS)
+	$(CXX) $(LDFLAGS) $(OBJS) -o $(EXECUTABLE)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+install: $(EXECUTABLE)
+	copy $(EXECUTABLE) "$(INSTALL_DIR)"
 
 clean:
-	del -f $(TARGET)
+	del -f $(OBJS) $(EXECUTABLE)
