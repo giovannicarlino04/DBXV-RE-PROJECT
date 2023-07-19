@@ -1,0 +1,15 @@
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\bin\Debug\net6.0\IggyAs3.exe
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\bin\Debug\net6.0\IggyAs3.deps.json
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\bin\Debug\net6.0\IggyAs3.runtimeconfig.json
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\bin\Debug\net6.0\IggyAs3.dll
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\bin\Debug\net6.0\IggyAs3.pdb
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.AssemblyInfoInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.AssemblyInfo.cs
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.dll
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\refint\IggyAs3.dll
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.pdb
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\IggyAs3.genruntimeconfig.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVTools\IggyAs3\obj\Debug\net6.0\ref\IggyAs3.dll
