@@ -35,12 +35,16 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             saveModToolStripMenuItem = new ToolStripMenuItem();
+            textBox2 = new TextBox();
+            label2 = new Label();
+            textBox3 = new TextBox();
+            label3 = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(68, 102);
+            textBox1.Location = new Point(70, 139);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(303, 23);
             textBox1.TabIndex = 0;
@@ -48,7 +52,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(68, 84);
+            label1.Location = new Point(70, 121);
             label1.Name = "label1";
             label1.Size = new Size(62, 15);
             label1.TabIndex = 1;
@@ -56,7 +60,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(373, 102);
+            button1.Location = new Point(375, 139);
             button1.Name = "button1";
             button1.Size = new Size(33, 23);
             button1.TabIndex = 2;
@@ -83,9 +87,41 @@
             // saveModToolStripMenuItem
             // 
             saveModToolStripMenuItem.Name = "saveModToolStripMenuItem";
-            saveModToolStripMenuItem.Size = new Size(126, 22);
+            saveModToolStripMenuItem.Size = new Size(180, 22);
             saveModToolStripMenuItem.Text = "Save mod";
             saveModToolStripMenuItem.Click += saveModToolStripMenuItem_Click;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(70, 95);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(303, 23);
+            textBox2.TabIndex = 0;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(70, 77);
+            label2.Name = "label2";
+            label2.Size = new Size(73, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Mod author:";
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(70, 51);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(303, 23);
+            textBox3.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(70, 33);
+            label3.Name = "label3";
+            label3.Size = new Size(68, 15);
+            label3.TabIndex = 1;
+            label3.Text = "Mod name:";
             // 
             // Form1
             // 
@@ -93,7 +129,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(460, 202);
             Controls.Add(button1);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(label1);
+            Controls.Add(textBox3);
+            Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -116,5 +156,9 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem saveModToolStripMenuItem;
+        private TextBox textBox2;
+        private Label label2;
+        private TextBox textBox3;
+        private Label label3;
     }
 }
