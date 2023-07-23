@@ -803,19 +803,16 @@ namespace XVReborn
 
                         Clean();
                         MessageBox.Show("Installation Completed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Environment.Exit(0);
                     }
                     else
                     {
                         Clean();
                         MessageBox.Show("A Mod with that name is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0);
                     }
                 }
             }
             Clean();
             MessageBox.Show("Installation Completed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Environment.Exit(0);
         }
 
         public string FindCharName(int id)
@@ -2053,7 +2050,8 @@ namespace XVReborn
 
         private void addAuraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //add aura
+            // add aura
+
             Aura[] Expand = new Aura[Auras.Length + 1];
             Array.Copy(Auras, Expand, Auras.Length);
             Auras = Expand;
@@ -2066,9 +2064,7 @@ namespace XVReborn
 
         private void removeAuraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //remove aura
-
-            //NON SO PERCHE' MA NON FUNZIONA PORCO IL SIGNORE, PUOI SOLO AGGIUNGERE LE AURE HAHSHSHSHAHSHAHS
+            // remove aura
 
             if (cbAuraList.Items.Count > 22)
             {

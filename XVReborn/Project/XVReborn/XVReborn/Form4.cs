@@ -46,7 +46,7 @@ namespace XVReborn
 
         private void Form4_Load(object sender, EventArgs e)
         {
-            TextReader reader = new StreamReader(Properties.Settings.Default.datafolder + @"\XV1P_SLOTS.x1s");
+            TextReader reader = new StreamReader(Properties.Settings.Default.flexsdkfolder + @"\bin\scripts\action_script\Charalist.as");
 
             richTextBox1.Text = reader.ReadToEnd();
 
