@@ -1,0 +1,11 @@
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\XVReplacerCreator.exe.config
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\XVReplacerCreator.exe
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\XVReplacerCreator.pdb
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.exe
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReplacerCreator\obj\x86\Debug\XVReplacerCreator.pdb
