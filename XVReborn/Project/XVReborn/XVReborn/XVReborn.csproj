@@ -127,13 +127,13 @@
     <EmbeddedResource Include="ZipFile_Blobs\tmq_data.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\XMLSerializer.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\XVPatcher.zip" />
+    <EmbeddedResource Include="ZipFile_Blobs\iggy_as3_test.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBXV.ico" />
-    <EmbeddedResource Include="ZipFile_Blobs\iggy_as3_test.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -220,6 +221,8 @@ namespace XVReborn
                 Process p = new Process();
                 ProcessStartInfo info = new ProcessStartInfo();
                 info.FileName = "cmd.exe";
+                info.CreateNoWindow = true;
+                info.WindowStyle = ProcessWindowStyle.Hidden;
                 info.RedirectStandardInput = true;
                 info.UseShellExecute = false;
 
@@ -247,6 +250,7 @@ namespace XVReborn
                 var myStream4 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.aura_setting.zip");
                 var myStream5 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.custom_skill.zip");
                 var myStream6 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.XMLSerializer.zip");
+                var myStream7 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.iggy_as3_test.zip");
 
                 ZipArchive archive = new ZipArchive(myStream);
                 ZipArchive archive2 = new ZipArchive(myStream2);
@@ -254,6 +258,7 @@ namespace XVReborn
                 ZipArchive archive4 = new ZipArchive(myStream4);
                 ZipArchive archive5 = new ZipArchive(myStream5);
                 ZipArchive archive6 = new ZipArchive(myStream6);
+                ZipArchive archive7 = new ZipArchive(myStream7);
 
                 archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
                 archive2.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
@@ -261,6 +266,7 @@ namespace XVReborn
                 archive4.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
                 archive5.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
                 archive6.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
+                archive7.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\ui\iggy"));
 
 
             }
@@ -301,6 +307,119 @@ namespace XVReborn
                 }
             }
 
+            PopulateList();
+
+            //Install mod opening the .x1m file
+            string[] args = Environment.GetCommandLineArgs();
+
+            foreach (string arg in args)
+            {
+                if (arg.EndsWith(".x1m"))
+                {
+                    if(MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        installmod(arg);
+                    }
+                    else
+                    {
+                        Clean();
+                        Environment.Exit(0);
+                    }
+                }
+            }
+        }
+
+        private void CompileScripts()
+        {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            Process process = new Process();
+            StringBuilder stringBuilder = new StringBuilder();
+            string path3 = Settings.Default.flexsdkfolder + "\\bin\\scripts\\action_script\\CharaList.as";
+
+            processStartInfo.FileName = "cmd.exe";
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.UseShellExecute = false;
+            process.StartInfo = processStartInfo;
+            process.Start();
+            using (StreamWriter standardInput = process.StandardInput)
+            {
+                if (standardInput.BaseStream.CanWrite)
+                {
+                    standardInput.WriteLine("cd " + Settings.Default.flexsdkfolder + "\\bin");
+                    standardInput.WriteLine("mxmlc -compiler.source-path=.\\\\scripts .\\\\scripts\\\\dlc3_CHARASELE_fla\\\\MainTimeline.as");
+                }
+            }
+            process.WaitForExit();
+            Directory.CreateDirectory(Settings.Default.datafolder + "\\ui\\iggy\\");
+
+            if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf"))
+            {
+                File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
+                if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy"))
+                {
+                    File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy");
+
+                    var myAssembly = Assembly.GetExecutingAssembly();
+                    var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
+                    ZipArchive archive = new ZipArchive(myStream);
+                    archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
+
+                    File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
+                }
+                else
+                {
+                    var myAssembly = Assembly.GetExecutingAssembly();
+                    var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
+                    ZipArchive archive = new ZipArchive(myStream);
+                    archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
+
+                    File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
+                }
+            }
+            else if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy"))
+            {
+                File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy");
+
+                var myAssembly = Assembly.GetExecutingAssembly();
+                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
+                ZipArchive archive = new ZipArchive(myStream);
+                archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
+
+                File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
+
+            }
+            else
+            {
+                var myAssembly = Assembly.GetExecutingAssembly();
+                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
+                ZipArchive archive = new ZipArchive(myStream);
+                archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
+
+                File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
+            }
+            Thread.Sleep(1000);
+            process.Start();
+            using (StreamWriter standardInput = process.StandardInput)
+            {
+                if (standardInput.BaseStream.CanWrite)
+                {
+                    standardInput.WriteLine("cd " + Settings.Default.datafolder + @"\ui\iggy");
+                    standardInput.WriteLine("iggy_as3_test.exe CHARASELE.swf");
+                }
+            }
+            process.WaitForExit();
+                        
+            Thread.Sleep(1000);
+            if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf"))
+                File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
+            if (File.Exists(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf"))
+                File.Delete(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf");
+        }
+
+        private void PopulateList()
+        {
             FileName = Properties.Settings.Default.datafolder + @"\msg\proper_noun_character_name_" + language + ".msg";
             file = msgStream.Load(FileName);
 
@@ -311,8 +430,6 @@ namespace XVReborn
             cmsfile.Load(Properties.Settings.Default.datafolder + @"/system" + "/char_model_spec.cms");
 
             Chartxt = msgStream.Load(Properties.Settings.Default.datafolder + "/msg/proper_noun_character_name_" + language + ".msg");
-
-            //populate character list
 
             foreach (CMS_Data cd in cmsfile.Data)
             {
@@ -331,7 +448,7 @@ namespace XVReborn
                 PSClstData.Items.Add(Item);
             }
             CS.populateSkillData(Properties.Settings.Default.datafolder + @"/msg", Properties.Settings.Default.datafolder + @"/system" + "/custom_skill.cus", language);
-            
+
             //populate skill lists
             foreach (skill sk in CS.Supers)
             {
@@ -374,7 +491,7 @@ namespace XVReborn
 
             //backup this data up
             int WAddress = BitConverter.ToInt32(AURfile, 20);
-            Array.Copy(AURfile, WAddress, backup, 0, 104);     
+            Array.Copy(AURfile, WAddress, backup, 0, 104);
 
             //Character Aura Changer
             cbAURChar.Items.Clear();
@@ -388,25 +505,6 @@ namespace XVReborn
                 Chars[C].inf = BitConverter.ToBoolean(AURfile, ChAddress + (C * 16) + 12);
 
                 cbAURChar.Items.Add(FindCharName(Chars[C].Name) + " - Costume " + Chars[C].Costume.ToString());
-            }     
-
-            //Install mod opening the .x1m file
-            string[] args = Environment.GetCommandLineArgs();
-
-            foreach (string arg in args)
-            {
-                if (arg.EndsWith(".x1m"))
-                {
-                    if(MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        installmod(arg);
-                    }
-                    else
-                    {
-                        Clean();
-                        Environment.Exit(0);
-                    }
-                }
             }
         }
 
@@ -468,6 +566,8 @@ namespace XVReborn
                         Process p = new Process();
                         ProcessStartInfo info = new ProcessStartInfo();
                         info.FileName = "cmd.exe";
+                        info.CreateNoWindow = true;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
                         info.RedirectStandardInput = true;
                         info.UseShellExecute = false;
 
@@ -484,6 +584,8 @@ namespace XVReborn
                         }
 
                         info.FileName = "cmd.exe";
+                        info.CreateNoWindow = true;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
                         info.RedirectStandardInput = true;
                         info.UseShellExecute = false;
 
@@ -613,6 +715,10 @@ namespace XVReborn
                             text3.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
                         }
 
+                        CompileScripts();
+
+
+
                         using (var file = new StreamWriter(File.Create(Charalist)))
                         {
                             file.Write(text3.ToString());
@@ -672,7 +778,7 @@ namespace XVReborn
                         {
                             if (File.Exists(line))
                             {
-                                MessageBox.Show("A mod with that file is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("A mod containing file \n" + line + "\n is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                                 Clean();
                             }
@@ -695,6 +801,8 @@ namespace XVReborn
                         Process p = new Process();
                         ProcessStartInfo info = new ProcessStartInfo();
                         info.FileName = "cmd.exe";
+                        info.CreateNoWindow = true;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
                         info.RedirectStandardInput = true;
                         info.UseShellExecute = false;
 
@@ -767,6 +875,8 @@ namespace XVReborn
                         Process p = new Process();
                         ProcessStartInfo info = new ProcessStartInfo();
                         info.FileName = "cmd.exe";
+                        info.CreateNoWindow = true;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
                         info.RedirectStandardInput = true;
                         info.UseShellExecute = false;
 
@@ -821,8 +931,8 @@ namespace XVReborn
             }
             Clean();
             MessageBox.Show("Installation Completed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
+
         }
 
         public string FindCharName(int id)
@@ -1055,6 +1165,8 @@ namespace XVReborn
             Process p = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
             info.RedirectStandardInput = true;
             info.UseShellExecute = false;
 
@@ -1097,8 +1209,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\custom_skill.cus.xml");
             }
 
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
 
         }
 
@@ -1128,6 +1239,8 @@ namespace XVReborn
             Process p = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
             info.RedirectStandardInput = true;
             info.UseShellExecute = false;
 
@@ -1169,9 +1282,7 @@ namespace XVReborn
             {
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml");
             }
-
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1319,16 +1430,13 @@ namespace XVReborn
             Clean();
         }
 
-        private void howToInstallAModToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(Application.StartupPath + @"\Resources\Tutorials\How to install a mod in a new slot.txt");
-        }
-
         private void editCMSFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process p = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
             info.RedirectStandardInput = true;
             info.UseShellExecute = false;
 
@@ -1371,8 +1479,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml");
             }
 
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
         }
 
         private void saveCMSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1388,6 +1495,8 @@ namespace XVReborn
                 Process p = new Process();
                 ProcessStartInfo info = new ProcessStartInfo();
                 info.FileName = "cmd.exe";
+                info.CreateNoWindow = true;
+                info.WindowStyle = ProcessWindowStyle.Hidden;
                 info.RedirectStandardInput = true;
                 info.UseShellExecute = false;
 
@@ -1408,6 +1517,8 @@ namespace XVReborn
                     string id = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @" 2.xml").First();
 
                     info.FileName = "cmd.exe";
+                    info.CreateNoWindow = true;
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
                     info.RedirectStandardInput = true;
                     info.UseShellExecute = false;
 
@@ -1536,6 +1647,7 @@ namespace XVReborn
                     {
                         file.Write(text3.ToString());
                     }
+                    CompileScripts();
 
                     //string qxd = Properties.Settings.Default.datafolder + @"\quest\TMQ\tmq_data.qxd";
                     //ReplaceTextInFile(qxd, id, "XXX");
@@ -1578,9 +1690,7 @@ namespace XVReborn
                 }
 
                 MessageBox.Show("Mod uninstalled Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                Application.Restart();
-                Environment.Exit(0);
+                PopulateList();
             }
         }
 
@@ -1607,6 +1717,8 @@ namespace XVReborn
         {
             Form4 frm = new Form4();
             frm.ShowDialog();
+
+            CompileScripts();
         }
 
         private void clearInstallationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1693,6 +1805,8 @@ namespace XVReborn
             Process p = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
             info.RedirectStandardInput = true;
             info.UseShellExecute = false;
 
@@ -1735,8 +1849,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\chara_sound.cso.xml");
             }
 
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
         }
 
         private void editPSCFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1744,6 +1857,8 @@ namespace XVReborn
             Process p = new Process();
             ProcessStartInfo info = new ProcessStartInfo();
             info.FileName = "cmd.exe";
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
             info.RedirectStandardInput = true;
             info.UseShellExecute = false;
 
@@ -1786,8 +1901,8 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\parameter_spec_char.psc.xml");
             }
 
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
+
         }
 
         private void cbList_SelectedIndexChanged(object sender, EventArgs e)
@@ -1898,8 +2013,7 @@ namespace XVReborn
             msgStream.Save(file, FileName);
             MessageBox.Show("MSG File Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Application.Restart();
-            Environment.Exit(0);
+            PopulateList();
         }
 
         private void txtAURID_TextChanged(object sender, EventArgs e)
@@ -2086,6 +2200,11 @@ namespace XVReborn
             cbAuraList.Items.Clear();
             for (int A = 0; A < Auras.Length; A++)
                 cbAuraList.Items.Add(A);
+        }
+
+        private void compileScriptsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CompileScripts();
         }
     }
 }

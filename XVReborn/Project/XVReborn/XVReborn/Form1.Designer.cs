@@ -40,7 +40,6 @@
             this.slotEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.clearInstallationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.howToInstallAModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Mods = new System.Windows.Forms.TabControl();
@@ -177,6 +176,7 @@
             this.editPSCFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbCharacter = new System.Windows.Forms.ComboBox();
             this.cbCostumes = new System.Windows.Forms.ComboBox();
+            this.compileScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Mods.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -261,6 +261,7 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.slotEditorToolStripMenuItem,
+            this.compileScriptsToolStripMenuItem,
             this.toolStripSeparator1,
             this.clearInstallationToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -270,28 +271,21 @@
             // slotEditorToolStripMenuItem
             // 
             this.slotEditorToolStripMenuItem.Name = "slotEditorToolStripMenuItem";
-            this.slotEditorToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.slotEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.slotEditorToolStripMenuItem.Text = "Slot Editor";
             this.slotEditorToolStripMenuItem.Click += new System.EventHandler(this.slotEditorToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // clearInstallationToolStripMenuItem
             // 
             this.clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearInstallationToolStripMenuItem.Text = "Clear Installation";
             this.clearInstallationToolStripMenuItem.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
-            // 
-            // howToInstallAModToolStripMenuItem
-            // 
-            this.howToInstallAModToolStripMenuItem.Name = "howToInstallAModToolStripMenuItem";
-            this.howToInstallAModToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.howToInstallAModToolStripMenuItem.Text = "How to install a mod in a new slot";
-            this.howToInstallAModToolStripMenuItem.Click += new System.EventHandler(this.howToInstallAModToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -336,7 +330,7 @@
             this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(839, 400);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mods";
@@ -384,10 +378,10 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.menuStrip3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage3.Size = new System.Drawing.Size(839, 398);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(839, 400);
             this.tabPage3.TabIndex = 7;
             this.tabPage3.Text = "MSG";
             // 
@@ -583,10 +577,10 @@
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.menuStrip2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage2.Size = new System.Drawing.Size(839, 398);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(839, 400);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CMS/CSO";
             // 
@@ -610,7 +604,7 @@
             // txtCSO1
             // 
             this.txtCSO1.Location = new System.Drawing.Point(41, 26);
-            this.txtCSO1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCSO1.Margin = new System.Windows.Forms.Padding(4);
             this.txtCSO1.Name = "txtCSO1";
             this.txtCSO1.Size = new System.Drawing.Size(159, 21);
             this.txtCSO1.TabIndex = 42;
@@ -639,7 +633,7 @@
             // txtCSO2
             // 
             this.txtCSO2.Location = new System.Drawing.Point(41, 56);
-            this.txtCSO2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCSO2.Margin = new System.Windows.Forms.Padding(4);
             this.txtCSO2.Name = "txtCSO2";
             this.txtCSO2.Size = new System.Drawing.Size(159, 21);
             this.txtCSO2.TabIndex = 44;
@@ -648,7 +642,7 @@
             // txtCSO4
             // 
             this.txtCSO4.Location = new System.Drawing.Point(41, 116);
-            this.txtCSO4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCSO4.Margin = new System.Windows.Forms.Padding(4);
             this.txtCSO4.Name = "txtCSO4";
             this.txtCSO4.Size = new System.Drawing.Size(159, 21);
             this.txtCSO4.TabIndex = 48;
@@ -677,7 +671,7 @@
             // txtCSO3
             // 
             this.txtCSO3.Location = new System.Drawing.Point(41, 86);
-            this.txtCSO3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCSO3.Margin = new System.Windows.Forms.Padding(4);
             this.txtCSO3.Name = "txtCSO3";
             this.txtCSO3.Size = new System.Drawing.Size(159, 21);
             this.txtCSO3.TabIndex = 46;
@@ -729,7 +723,7 @@
             // txtCMS1
             // 
             this.txtCMS1.Location = new System.Drawing.Point(122, 22);
-            this.txtCMS1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS1.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS1.Name = "txtCMS1";
             this.txtCMS1.Size = new System.Drawing.Size(169, 21);
             this.txtCMS1.TabIndex = 22;
@@ -748,7 +742,7 @@
             // txtCMS2
             // 
             this.txtCMS2.Location = new System.Drawing.Point(122, 52);
-            this.txtCMS2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS2.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS2.Name = "txtCMS2";
             this.txtCMS2.Size = new System.Drawing.Size(169, 21);
             this.txtCMS2.TabIndex = 24;
@@ -767,7 +761,7 @@
             // txtCMS3
             // 
             this.txtCMS3.Location = new System.Drawing.Point(122, 82);
-            this.txtCMS3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS3.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS3.Name = "txtCMS3";
             this.txtCMS3.Size = new System.Drawing.Size(169, 21);
             this.txtCMS3.TabIndex = 26;
@@ -786,7 +780,7 @@
             // txtCMS4
             // 
             this.txtCMS4.Location = new System.Drawing.Point(122, 112);
-            this.txtCMS4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS4.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS4.Name = "txtCMS4";
             this.txtCMS4.Size = new System.Drawing.Size(169, 21);
             this.txtCMS4.TabIndex = 28;
@@ -805,7 +799,7 @@
             // txtCMS5
             // 
             this.txtCMS5.Location = new System.Drawing.Point(122, 142);
-            this.txtCMS5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS5.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS5.Name = "txtCMS5";
             this.txtCMS5.Size = new System.Drawing.Size(169, 21);
             this.txtCMS5.TabIndex = 30;
@@ -814,7 +808,7 @@
             // txtCMS6
             // 
             this.txtCMS6.Location = new System.Drawing.Point(122, 172);
-            this.txtCMS6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS6.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS6.Name = "txtCMS6";
             this.txtCMS6.Size = new System.Drawing.Size(169, 21);
             this.txtCMS6.TabIndex = 32;
@@ -823,7 +817,7 @@
             // txtCMS7
             // 
             this.txtCMS7.Location = new System.Drawing.Point(122, 202);
-            this.txtCMS7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCMS7.Margin = new System.Windows.Forms.Padding(4);
             this.txtCMS7.Name = "txtCMS7";
             this.txtCMS7.Size = new System.Drawing.Size(169, 21);
             this.txtCMS7.TabIndex = 34;
@@ -902,10 +896,10 @@
             this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage4.Controls.Add(this.groupBox1);
             this.tabPage4.Controls.Add(this.menuStrip4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 26);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage4.Size = new System.Drawing.Size(839, 398);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(839, 400);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "PSC";
             // 
@@ -930,7 +924,7 @@
             this.columnHeader2});
             this.PSClstData.HideSelection = false;
             this.PSClstData.Location = new System.Drawing.Point(6, 70);
-            this.PSClstData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PSClstData.Margin = new System.Windows.Forms.Padding(4);
             this.PSClstData.MultiSelect = false;
             this.PSClstData.Name = "PSClstData";
             this.PSClstData.Size = new System.Drawing.Size(367, 263);
@@ -952,7 +946,7 @@
             // PSCtxtName
             // 
             this.PSCtxtName.Location = new System.Drawing.Point(6, 41);
-            this.PSCtxtName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PSCtxtName.Margin = new System.Windows.Forms.Padding(4);
             this.PSCtxtName.Name = "PSCtxtName";
             this.PSCtxtName.ReadOnly = true;
             this.PSCtxtName.Size = new System.Drawing.Size(249, 21);
@@ -970,7 +964,7 @@
             // PSCtxtVal
             // 
             this.PSCtxtVal.Location = new System.Drawing.Point(262, 41);
-            this.PSCtxtVal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PSCtxtVal.Margin = new System.Windows.Forms.Padding(4);
             this.PSCtxtVal.Name = "PSCtxtVal";
             this.PSCtxtVal.Size = new System.Drawing.Size(112, 21);
             this.PSCtxtVal.TabIndex = 13;
@@ -1023,9 +1017,9 @@
             this.tabPage7.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage7.Controls.Add(this.groupBox3);
             this.tabPage7.Controls.Add(this.menuStrip7);
-            this.tabPage7.Location = new System.Drawing.Point(4, 26);
+            this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(839, 398);
+            this.tabPage7.Size = new System.Drawing.Size(839, 400);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "CUS";
             // 
@@ -1046,9 +1040,9 @@
             this.groupBox3.Controls.Add(this.SupLst4);
             this.groupBox3.Controls.Add(this.label37);
             this.groupBox3.Location = new System.Drawing.Point(24, 64);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(461, 266);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
@@ -1058,7 +1052,7 @@
             // 
             this.UltLst1.FormattingEnabled = true;
             this.UltLst1.Location = new System.Drawing.Point(98, 153);
-            this.UltLst1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.UltLst1.Margin = new System.Windows.Forms.Padding(4);
             this.UltLst1.Name = "UltLst1";
             this.UltLst1.Size = new System.Drawing.Size(344, 23);
             this.UltLst1.TabIndex = 9;
@@ -1068,7 +1062,7 @@
             // 
             this.SupLst1.FormattingEnabled = true;
             this.SupLst1.Location = new System.Drawing.Point(98, 26);
-            this.SupLst1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupLst1.Margin = new System.Windows.Forms.Padding(4);
             this.SupLst1.Name = "SupLst1";
             this.SupLst1.Size = new System.Drawing.Size(344, 23);
             this.SupLst1.TabIndex = 1;
@@ -1098,7 +1092,7 @@
             // 
             this.SupLst2.FormattingEnabled = true;
             this.SupLst2.Location = new System.Drawing.Point(98, 56);
-            this.SupLst2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupLst2.Margin = new System.Windows.Forms.Padding(4);
             this.SupLst2.Name = "SupLst2";
             this.SupLst2.Size = new System.Drawing.Size(344, 23);
             this.SupLst2.TabIndex = 3;
@@ -1108,7 +1102,7 @@
             // 
             this.EvaLst.FormattingEnabled = true;
             this.EvaLst.Location = new System.Drawing.Point(98, 214);
-            this.EvaLst.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.EvaLst.Margin = new System.Windows.Forms.Padding(4);
             this.EvaLst.Name = "EvaLst";
             this.EvaLst.Size = new System.Drawing.Size(344, 23);
             this.EvaLst.TabIndex = 13;
@@ -1138,7 +1132,7 @@
             // 
             this.SupLst3.FormattingEnabled = true;
             this.SupLst3.Location = new System.Drawing.Point(98, 87);
-            this.SupLst3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupLst3.Margin = new System.Windows.Forms.Padding(4);
             this.SupLst3.Name = "SupLst3";
             this.SupLst3.Size = new System.Drawing.Size(344, 23);
             this.SupLst3.TabIndex = 5;
@@ -1148,7 +1142,7 @@
             // 
             this.UltLst2.FormattingEnabled = true;
             this.UltLst2.Location = new System.Drawing.Point(98, 184);
-            this.UltLst2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.UltLst2.Margin = new System.Windows.Forms.Padding(4);
             this.UltLst2.Name = "UltLst2";
             this.UltLst2.Size = new System.Drawing.Size(344, 23);
             this.UltLst2.TabIndex = 11;
@@ -1178,7 +1172,7 @@
             // 
             this.SupLst4.FormattingEnabled = true;
             this.SupLst4.Location = new System.Drawing.Point(98, 119);
-            this.SupLst4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SupLst4.Margin = new System.Windows.Forms.Padding(4);
             this.SupLst4.Name = "SupLst4";
             this.SupLst4.Size = new System.Drawing.Size(344, 23);
             this.SupLst4.TabIndex = 7;
@@ -1241,10 +1235,10 @@
             this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage5.Controls.Add(this.groupBox6);
             this.tabPage5.Controls.Add(this.menuStrip5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 26);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPage5.Size = new System.Drawing.Size(839, 398);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(839, 400);
             this.tabPage5.TabIndex = 8;
             this.tabPage5.Text = "AUR";
             // 
@@ -1601,6 +1595,13 @@
             this.cbCostumes.TabIndex = 7;
             this.cbCostumes.SelectedIndexChanged += new System.EventHandler(this.cbCostumes_SelectedIndexChanged);
             // 
+            // compileScriptsToolStripMenuItem
+            // 
+            this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
+            this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1677,7 +1678,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ToolStripMenuItem howToInstallAModToolStripMenuItem;
         private System.Windows.Forms.TabControl Mods;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ListBox listBox1;
@@ -1817,6 +1817,7 @@
         private System.Windows.Forms.ToolStripMenuItem addAuraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAuraToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem compileScriptsToolStripMenuItem;
     }
 }
 
