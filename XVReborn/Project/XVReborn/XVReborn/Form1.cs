@@ -149,6 +149,18 @@ namespace XVReborn
 
         public void Form1_Load(object sender, EventArgs e)
         {
+            if(Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse"))
+            {
+                if (!Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data"))
+                    Directory.CreateDirectory("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data");
+                Properties.Settings.Default.datafolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data";
+                Properties.Settings.Default.Save();
+            }
+            if (Directory.Exists("C:\\flexsdk"))
+            {
+                Properties.Settings.Default.flexsdkfolder = "C:\\flexsdk";
+                Properties.Settings.Default.Save();
+            }
             if (File.Exists(Application.StartupPath + @"\lang.txt") == false)
             {
                 Form2 frm = new Form2();
@@ -592,7 +604,7 @@ namespace XVReborn
 
                         p.WaitForExit();
 
-                        string Charalist = Properties.Settings.Default.datafolder + @"\XV1P_SLOTS.x1s";
+                        string Charalist = Properties.Settings.Default.flexsdkfolder + @"\bin\scripts\action_script\Charalist.as";
 
                         var text3 = new StringBuilder();
 
@@ -633,7 +645,6 @@ namespace XVReborn
                     {
                         Clean();
                         MessageBox.Show("A Mod with that character id is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0);
                     }
                 }
                 else if (lineCount == 2)
@@ -664,7 +675,6 @@ namespace XVReborn
                                 MessageBox.Show("A mod with that file is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                                 Clean();
-                                Environment.Exit(0);
                             }
                         }
 
@@ -705,7 +715,6 @@ namespace XVReborn
                     {
                         Clean();
                         MessageBox.Show("A Mod with that name is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0);
                     }
                 }
                 else if (lineCount == 4)
@@ -736,7 +745,6 @@ namespace XVReborn
                                 MessageBox.Show("A mod with that file is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                                 Clean();
-                                Environment.Exit(0);
                             }
                         }
 
@@ -813,6 +821,8 @@ namespace XVReborn
             }
             Clean();
             MessageBox.Show("Installation Completed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Application.Restart();
+            Environment.Exit(0);
         }
 
         public string FindCharName(int id)
@@ -1296,11 +1306,12 @@ namespace XVReborn
             {
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\chara_sound.cso.xml.bak");
             }
-
+            /*
             if (File.Exists(Properties.Settings.Default.datafolder + @"\quest\TMQ\tmq_data.qxd.bak"))
             {
                 File.Delete(Properties.Settings.Default.datafolder + @"\quest\TMQ\tmq_data.qxd.bak");
             }
+            */
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1512,7 +1523,7 @@ namespace XVReborn
 
                     p.WaitForExit();
 
-                    string Charalist = Properties.Settings.Default.datafolder + @"\XV1PSlots.x1s";
+                    string Charalist = Properties.Settings.Default.flexsdkfolder + @"\bin\scripts\action_script\Charalist.as";
 
                     var text3 = new StringBuilder();
 
@@ -1526,8 +1537,8 @@ namespace XVReborn
                         file.Write(text3.ToString());
                     }
 
-                    string qxd = Properties.Settings.Default.datafolder + @"\quest\TMQ\tmq_data.qxd";
-                    ReplaceTextInFile(qxd, id, "XXX");
+                    //string qxd = Properties.Settings.Default.datafolder + @"\quest\TMQ\tmq_data.qxd";
+                    //ReplaceTextInFile(qxd, id, "XXX");
 
                 }
 
