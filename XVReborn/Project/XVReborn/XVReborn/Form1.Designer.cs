@@ -38,16 +38,19 @@
             this.uninstallModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.slotEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.clearInstallationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Mods = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lvMods = new System.Windows.Forms.ListView();
+            this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Author = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Version = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbList = new System.Windows.Forms.ComboBox();
@@ -170,13 +173,13 @@
             this.removeAuraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.header = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.editPSCFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbCharacter = new System.Windows.Forms.ComboBox();
             this.cbCostumes = new System.Windows.Forms.ComboBox();
-            this.compileScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Mods.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -209,7 +212,7 @@
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(848, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(847, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -253,7 +256,7 @@
             // uninstallModToolStripMenuItem
             // 
             this.uninstallModToolStripMenuItem.Name = "uninstallModToolStripMenuItem";
-            this.uninstallModToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.uninstallModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uninstallModToolStripMenuItem.Text = "Uninstall Mod";
             this.uninstallModToolStripMenuItem.Click += new System.EventHandler(this.uninstallModToolStripMenuItem_Click);
             // 
@@ -271,19 +274,26 @@
             // slotEditorToolStripMenuItem
             // 
             this.slotEditorToolStripMenuItem.Name = "slotEditorToolStripMenuItem";
-            this.slotEditorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.slotEditorToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.slotEditorToolStripMenuItem.Text = "Slot Editor";
             this.slotEditorToolStripMenuItem.Click += new System.EventHandler(this.slotEditorToolStripMenuItem_Click);
+            // 
+            // compileScriptsToolStripMenuItem
+            // 
+            this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
+            this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
             // 
             // clearInstallationToolStripMenuItem
             // 
             this.clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.clearInstallationToolStripMenuItem.Text = "Clear Installation";
             this.clearInstallationToolStripMenuItem.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
             // 
@@ -318,60 +328,56 @@
             this.Mods.Location = new System.Drawing.Point(0, 24);
             this.Mods.Name = "Mods";
             this.Mods.SelectedIndex = 0;
-            this.Mods.Size = new System.Drawing.Size(847, 428);
+            this.Mods.Size = new System.Drawing.Size(847, 425);
             this.Mods.TabIndex = 5;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.label49);
-            this.tabPage1.Controls.Add(this.label48);
-            this.tabPage1.Controls.Add(this.linkLabel1);
-            this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.lvMods);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(839, 400);
+            this.tabPage1.Size = new System.Drawing.Size(839, 397);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mods";
             // 
-            // label49
+            // lvMods
             // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(3, 384);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(253, 15);
-            this.label49.TabIndex = 3;
-            this.label49.Text = "You can add 5 slots and 16 costumes for slot";
+            this.lvMods.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Name,
+            this.Author,
+            this.Type,
+            this.Version});
+            this.lvMods.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvMods.HideSelection = false;
+            this.lvMods.Location = new System.Drawing.Point(3, 3);
+            this.lvMods.MultiSelect = false;
+            this.lvMods.Name = "lvMods";
+            this.lvMods.Size = new System.Drawing.Size(833, 391);
+            this.lvMods.TabIndex = 4;
+            this.lvMods.UseCompatibleStateImageBehavior = false;
+            this.lvMods.View = System.Windows.Forms.View.Details;
             // 
-            // label48
+            // Name
             // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(546, 384);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(234, 15);
-            this.label48.TabIndex = 2;
-            this.label48.Text = "If you like my tools you can support me on";
+            this.Name.Text = "Name";
+            this.Name.Width = 116;
             // 
-            // linkLabel1
+            // Author
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(788, 384);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(50, 15);
-            this.linkLabel1.TabIndex = 1;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Patreon";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.Author.Text = "Author";
+            this.Author.Width = 122;
             // 
-            // listBox1
+            // Type
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(840, 379);
-            this.listBox1.TabIndex = 0;
+            this.Type.Text = "Type";
+            this.Type.Width = 121;
+            // 
+            // Version
+            // 
+            this.Version.Text = "Version";
+            this.Version.Width = 470;
             // 
             // tabPage3
             // 
@@ -381,7 +387,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(839, 400);
+            this.tabPage3.Size = new System.Drawing.Size(839, 397);
             this.tabPage3.TabIndex = 7;
             this.tabPage3.Text = "MSG";
             // 
@@ -580,7 +586,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(839, 400);
+            this.tabPage2.Size = new System.Drawing.Size(839, 397);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CMS/CSO";
             // 
@@ -899,7 +905,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(839, 400);
+            this.tabPage4.Size = new System.Drawing.Size(839, 397);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "PSC";
             // 
@@ -1019,7 +1025,7 @@
             this.tabPage7.Controls.Add(this.menuStrip7);
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(839, 400);
+            this.tabPage7.Size = new System.Drawing.Size(839, 397);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "CUS";
             // 
@@ -1238,7 +1244,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(839, 400);
+            this.tabPage5.Size = new System.Drawing.Size(839, 397);
             this.tabPage5.TabIndex = 8;
             this.tabPage5.Text = "AUR";
             // 
@@ -1595,19 +1601,12 @@
             this.cbCostumes.TabIndex = 7;
             this.cbCostumes.SelectedIndexChanged += new System.EventHandler(this.cbCostumes_SelectedIndexChanged);
             // 
-            // compileScriptsToolStripMenuItem
-            // 
-            this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
-            this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(848, 451);
+            this.ClientSize = new System.Drawing.Size(847, 447);
             this.Controls.Add(this.cbCostumes);
             this.Controls.Add(this.cbCharacter);
             this.Controls.Add(this.Mods);
@@ -1620,7 +1619,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = columnHeader1;
             this.Text = "XVReborn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1628,7 +1627,6 @@
             this.menuStrip1.PerformLayout();
             this.Mods.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -1680,7 +1678,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl Mods;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox txtCMS7;
         private System.Windows.Forms.Label label7;
@@ -1716,8 +1713,6 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.ComboBox SupLst4;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label48;
         private System.Windows.Forms.ToolStripMenuItem editCMSFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uninstallModToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
@@ -1787,7 +1782,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem editCUSFileToolStripMenuItem;
-        private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtAURID;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
@@ -1818,6 +1812,13 @@
         private System.Windows.Forms.ToolStripMenuItem removeAuraToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem compileScriptsToolStripMenuItem;
+        private System.Windows.Forms.ListView lvMods;
+        private System.Windows.Forms.ColumnHeader Name;
+        private System.Windows.Forms.ColumnHeader Author;
+        private System.Windows.Forms.ColumnHeader Type;
+        private System.Windows.Forms.ColumnHeader Version;
+        private System.Windows.Forms.ColumnHeader header;
+        private System.Windows.Forms.ColumnHeader ch;
     }
 }
 

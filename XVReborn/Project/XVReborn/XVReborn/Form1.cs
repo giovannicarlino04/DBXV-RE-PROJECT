@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -162,15 +163,15 @@ namespace XVReborn
                 Properties.Settings.Default.flexsdkfolder = "C:\\flexsdk";
                 Properties.Settings.Default.Save();
             }
-            if (File.Exists(Application.StartupPath + @"\lang.txt") == false)
+            if (Settings.Default.language.Length == 0)
             {
                 Form2 frm = new Form2();
                 frm.ShowDialog();
-                language = File.ReadAllLines(Application.StartupPath + @"\lang.txt").First();
+                language = Settings.Default.language;
             }
             else
             {
-                language = File.ReadAllLines(Application.StartupPath + @"\lang.txt").First();
+                language = Settings.Default.language;
             }
 
             if (Properties.Settings.Default.datafolder.Length == 0 || Properties.Settings.Default.flexsdkfolder.Length == 0)
@@ -297,17 +298,94 @@ namespace XVReborn
                 Properties.Settings.Default.addonmodlist.Clear();
             }
 
-            if (Properties.Settings.Default.modlist.Count > 0)
+            loadLvItems();
+
+            FileName = Properties.Settings.Default.datafolder + @"\msg\proper_noun_character_name_" + language + ".msg";
+            file = msgStream.Load(FileName);
+
+            cbList.Items.Clear();
+            for (int i = 0; i < file.data.Length; i++)
+                cbList.Items.Add(file.data[i].ID.ToString() + " - " + file.data[i].NameID);
+
+            cmsfile.Load(Properties.Settings.Default.datafolder + @"/system" + "/char_model_spec.cms");
+
+            Chartxt = msgStream.Load(Properties.Settings.Default.datafolder + "/msg/proper_noun_character_name_" + language + ".msg");
+
+            foreach (CMS_Data cd in cmsfile.Data)
             {
-                foreach (string item in Properties.Settings.Default.modlist)
-                {
-                    listBox1.Items.Add(item);
-                    Properties.Settings.Default.Save();
-                    label2.Text = Properties.Settings.Default.modlist.Count.ToString();
-                }
+                string name = Chartxt.Find("chara_" + cd.ShortName + "_000");
+                if (name == "No Matching ID")
+                    cbCharacter.Items.Add("Unknown Character");
+                else
+                    cbCharacter.Items.Add(name);
             }
 
-            PopulateList();
+            pFile.load(Properties.Settings.Default.datafolder + @"/system" + "/parameter_spec_char.psc");
+
+            foreach (string str in pFile.ValNames)
+            {
+                var Item = new ListViewItem(new[] { str, "0" });
+                PSClstData.Items.Add(Item);
+            }
+            CS.populateSkillData(Properties.Settings.Default.datafolder + @"/msg", Properties.Settings.Default.datafolder + @"/system" + "/custom_skill.cus", language);
+
+            //populate skill lists
+            foreach (skill sk in CS.Supers)
+            {
+                SupLst1.Items.Add(sk.Name);
+                SupLst2.Items.Add(sk.Name);
+                SupLst3.Items.Add(sk.Name);
+                SupLst4.Items.Add(sk.Name);
+            }
+
+            foreach (skill sk in CS.Ultimates)
+            {
+                UltLst1.Items.Add(sk.Name);
+                UltLst2.Items.Add(sk.Name);
+            }
+
+            foreach (skill sk in CS.Evasives)
+            {
+                EvaLst.Items.Add(sk.Name);
+            }
+
+            csoFile.Load(Properties.Settings.Default.datafolder + @"/system" + "/chara_sound.cso");
+
+            AURFileName = Properties.Settings.Default.datafolder + @"/system/aura_setting.aur";
+            byte[] AURfile = File.ReadAllBytes(AURFileName);
+
+            //Aura Editor
+            Auras = new Aura[BitConverter.ToInt32(AURfile, 8)];
+            int AuraAddress = BitConverter.ToInt32(AURfile, 12);
+            for (int A = 0; A < Auras.Length; A++)
+            {
+                int id = BitConverter.ToInt32(AURfile, AuraAddress + (16 * A));
+                Auras[id].Color = new int[BitConverter.ToInt32(AURfile, AuraAddress + (16 * A) + 8)];
+                int CAddress = BitConverter.ToInt32(AURfile, AuraAddress + (16 * A) + 12);
+                for (int C = 0; C < Auras[id].Color.Length; C++)
+                    Auras[id].Color[BitConverter.ToInt32(AURfile, CAddress + (C * 8))] = BitConverter.ToInt32(AURfile, CAddress + (C * 8) + 4);
+            }
+
+            for (int A = 0; A < Auras.Length; A++)
+                cbAuraList.Items.Add(A);
+
+            //backup this data up
+            int WAddress = BitConverter.ToInt32(AURfile, 20);
+            Array.Copy(AURfile, WAddress, backup, 0, 104);
+
+            //Character Aura Changer
+            cbAURChar.Items.Clear();
+            Chars = new Charlisting[BitConverter.ToInt32(AURfile, 24)];
+            int ChAddress = BitConverter.ToInt32(AURfile, 28);
+            for (int C = 0; C < Chars.Length; C++)
+            {
+                Chars[C].Name = BitConverter.ToInt32(AURfile, ChAddress + (C * 16));
+                Chars[C].Costume = BitConverter.ToInt32(AURfile, ChAddress + (C * 16) + 4);
+                Chars[C].ID = BitConverter.ToInt32(AURfile, ChAddress + (C * 16) + 8);
+                Chars[C].inf = BitConverter.ToBoolean(AURfile, ChAddress + (C * 16) + 12);
+
+                cbAURChar.Items.Add(FindCharName(Chars[C].Name) + " - Costume " + Chars[C].Costume.ToString());
+            }
 
             //Install mod opening the .x1m file
             string[] args = Environment.GetCommandLineArgs();
@@ -418,94 +496,27 @@ namespace XVReborn
                 File.Delete(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf");
         }
 
-        private void PopulateList()
+        private void saveLvItems()
         {
-            FileName = Properties.Settings.Default.datafolder + @"\msg\proper_noun_character_name_" + language + ".msg";
-            file = msgStream.Load(FileName);
+            Properties.Settings.Default.modlist = new StringCollection();
+            Properties.Settings.Default.modlist.AddRange((from i in this.lvMods.Items.Cast<ListViewItem>()
+                                                             select string.Join("|", from si in i.SubItems.Cast<ListViewItem.ListViewSubItem>()
+                                                                                     select si.Text)).ToArray());
+            Properties.Settings.Default.Save();
+            label2.Text = lvMods.Items.Count.ToString();
+        }
 
-            cbList.Items.Clear();
-            for (int i = 0; i < file.data.Length; i++)
-                cbList.Items.Add(file.data[i].ID.ToString() + " - " + file.data[i].NameID);
-
-            cmsfile.Load(Properties.Settings.Default.datafolder + @"/system" + "/char_model_spec.cms");
-
-            Chartxt = msgStream.Load(Properties.Settings.Default.datafolder + "/msg/proper_noun_character_name_" + language + ".msg");
-
-            foreach (CMS_Data cd in cmsfile.Data)
+        private void loadLvItems()
+        {
+            if (Properties.Settings.Default.modlist == null)
             {
-                string name = Chartxt.Find("chara_" + cd.ShortName + "_000");
-                if (name == "No Matching ID")
-                    cbCharacter.Items.Add("Unknown Character");
-                else
-                    cbCharacter.Items.Add(name);
+                Properties.Settings.Default.modlist = new StringCollection();
             }
 
-            pFile.load(Properties.Settings.Default.datafolder + @"/system" + "/parameter_spec_char.psc");
+            this.lvMods.Items.AddRange((from i in Properties.Settings.Default.modlist.Cast<string>()
+                                           select new ListViewItem(i.Split('|'))).ToArray());
 
-            foreach (string str in pFile.ValNames)
-            {
-                var Item = new ListViewItem(new[] { str, "0" });
-                PSClstData.Items.Add(Item);
-            }
-            CS.populateSkillData(Properties.Settings.Default.datafolder + @"/msg", Properties.Settings.Default.datafolder + @"/system" + "/custom_skill.cus", language);
-
-            //populate skill lists
-            foreach (skill sk in CS.Supers)
-            {
-                SupLst1.Items.Add(sk.Name);
-                SupLst2.Items.Add(sk.Name);
-                SupLst3.Items.Add(sk.Name);
-                SupLst4.Items.Add(sk.Name);
-            }
-
-            foreach (skill sk in CS.Ultimates)
-            {
-                UltLst1.Items.Add(sk.Name);
-                UltLst2.Items.Add(sk.Name);
-            }
-
-            foreach (skill sk in CS.Evasives)
-            {
-                EvaLst.Items.Add(sk.Name);
-            }
-
-            csoFile.Load(Properties.Settings.Default.datafolder + @"/system" + "/chara_sound.cso");
-
-            AURFileName = Properties.Settings.Default.datafolder + @"/system/aura_setting.aur";
-            byte[] AURfile = File.ReadAllBytes(AURFileName);
-
-            //Aura Editor
-            Auras = new Aura[BitConverter.ToInt32(AURfile, 8)];
-            int AuraAddress = BitConverter.ToInt32(AURfile, 12);
-            for (int A = 0; A < Auras.Length; A++)
-            {
-                int id = BitConverter.ToInt32(AURfile, AuraAddress + (16 * A));
-                Auras[id].Color = new int[BitConverter.ToInt32(AURfile, AuraAddress + (16 * A) + 8)];
-                int CAddress = BitConverter.ToInt32(AURfile, AuraAddress + (16 * A) + 12);
-                for (int C = 0; C < Auras[id].Color.Length; C++)
-                    Auras[id].Color[BitConverter.ToInt32(AURfile, CAddress + (C * 8))] = BitConverter.ToInt32(AURfile, CAddress + (C * 8) + 4);
-            }
-
-            for (int A = 0; A < Auras.Length; A++)
-                cbAuraList.Items.Add(A);
-
-            //backup this data up
-            int WAddress = BitConverter.ToInt32(AURfile, 20);
-            Array.Copy(AURfile, WAddress, backup, 0, 104);
-
-            //Character Aura Changer
-            cbAURChar.Items.Clear();
-            Chars = new Charlisting[BitConverter.ToInt32(AURfile, 24)];
-            int ChAddress = BitConverter.ToInt32(AURfile, 28);
-            for (int C = 0; C < Chars.Length; C++)
-            {
-                Chars[C].Name = BitConverter.ToInt32(AURfile, ChAddress + (C * 16));
-                Chars[C].Costume = BitConverter.ToInt32(AURfile, ChAddress + (C * 16) + 4);
-                Chars[C].ID = BitConverter.ToInt32(AURfile, ChAddress + (C * 16) + 8);
-                Chars[C].inf = BitConverter.ToBoolean(AURfile, ChAddress + (C * 16) + 12);
-
-                cbAURChar.Items.Add(FindCharName(Chars[C].Name) + " - Costume " + Chars[C].Costume.ToString());
-            }
+            label2.Text = lvMods.Items.Count.ToString();
         }
 
         private void installmod(string arg)
@@ -525,6 +536,7 @@ namespace XVReborn
             if (File.Exists(xmlfile))
             {
                 string modname = File.ReadLines(xmlfile).First();
+                string modauthor = File.ReadAllLines(xmlfile)[1];
                 var lineCount = File.ReadLines(xmlfile).Count();
                 string Modid = File.ReadAllLines(xmlfile).Last();
                 var files = Directory.EnumerateFiles(temp, "*.*", SearchOption.AllDirectories);
@@ -532,17 +544,13 @@ namespace XVReborn
 
                 if (lineCount == 3)
                 {
+                    // Added Character
+
                     if (Directory.Exists(Properties.Settings.Default.datafolder + @"\chara\" + Modid) == false)
                     {
-
-                        listBox1.Items.Add(modname);
-
-                        Properties.Settings.Default.modlist.Clear();
-                        foreach (string item in listBox1.Items)
-                            Properties.Settings.Default.modlist.Add(item);
-                        Properties.Settings.Default.Save();
-                        label2.Text = Properties.Settings.Default.modlist.Count.ToString();
-
+                        string[] row = { modname, modauthor, "Added character" };
+                        ListViewItem lvi = new ListViewItem(row);
+                        lvMods.Items.Add(lvi);
 
                         if (Directory.Exists(Properties.Settings.Default.datafolder + @"\installed") == false)
                         {
@@ -731,6 +739,7 @@ namespace XVReborn
                         //
                         // Not needed anymore as we now know how to unlock characters and their variations via iggy editing
 
+
                         msgData[] expand = new msgData[file.data.Length + 1];
                         Array.Copy(file.data, expand, file.data.Length);
                         string nameid = file.data[file.data.Length - 1].NameID;
@@ -772,7 +781,9 @@ namespace XVReborn
                     string txt = text;
                     string[] lines = text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (listBox1.Items.Contains(modname) == false)
+                    string[] row = { modname, modauthor, "Replacer" };
+                    ListViewItem lvi = new ListViewItem(row);
+                    if (lvMods.Items.Contains(lvi) == false)
                     {
                         foreach (string line in lines)
                         {
@@ -784,13 +795,7 @@ namespace XVReborn
                             }
                         }
 
-                        listBox1.Items.Add(modname);
-
-                        Properties.Settings.Default.modlist.Clear();
-                        foreach (string item in listBox1.Items)
-                            Properties.Settings.Default.modlist.Add(item);
-                        Properties.Settings.Default.Save();
-                        label2.Text = Properties.Settings.Default.modlist.Count.ToString();
+                        lvMods.Items.Add(lvi);
 
                         string text2 = File.ReadAllText(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                         text2 = text2.Replace(@"\temp", "");
@@ -827,7 +832,7 @@ namespace XVReborn
                 }
                 else if (lineCount == 4)
                 {
-                    // Skill
+                    // Added Skill
 
                     if (Directory.Exists(Properties.Settings.Default.datafolder + @"\installed") == false)
                     {
@@ -844,25 +849,19 @@ namespace XVReborn
                     string txt = text;
                     string[] lines = text.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if (listBox1.Items.Contains(modname) == false)
+                    string[] row = { modname, modauthor, "Added skill" };
+                    ListViewItem lvi = new ListViewItem(row);
+                    if (lvMods.Items.Contains(lvi) == false)
                     {
                         foreach (string line in lines)
                         {
                             if (File.Exists(line))
                             {
-                                MessageBox.Show("A mod with that file is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("A mod containing file \n" + line + "\n is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                                 Clean();
                             }
                         }
-
-                        listBox1.Items.Add(modname);
-
-                        Properties.Settings.Default.modlist.Clear();
-                        foreach (string item in listBox1.Items)
-                            Properties.Settings.Default.modlist.Add(item);
-                        Properties.Settings.Default.Save();
-                        label2.Text = Properties.Settings.Default.modlist.Count.ToString();
 
                         string text2 = File.ReadAllText(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                         text2 = text2.Replace(@"\temp", "");
@@ -930,9 +929,9 @@ namespace XVReborn
                 }
             }
             Clean();
+            saveLvItems();
             MessageBox.Show("Installation Completed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            PopulateList();
-
+            Application.Restart();
         }
 
         public string FindCharName(int id)
@@ -1209,7 +1208,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\custom_skill.cus.xml");
             }
 
-            PopulateList();
+            Application.Restart();
 
         }
 
@@ -1282,7 +1281,7 @@ namespace XVReborn
             {
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml");
             }
-            PopulateList();
+            Application.Restart();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1479,7 +1478,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml");
             }
 
-            PopulateList();
+            Application.Restart();
         }
 
         private void saveCMSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1490,7 +1489,8 @@ namespace XVReborn
 
         private void uninstallModToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex >= 0)
+            ListView.SelectedIndexCollection indices = lvMods.SelectedIndices;
+            if (indices.Count > 0)
             {
                 Process p = new Process();
                 ProcessStartInfo info = new ProcessStartInfo();
@@ -1500,9 +1500,9 @@ namespace XVReborn
                 info.RedirectStandardInput = true;
                 info.UseShellExecute = false;
 
-                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @".xml"))
+                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems[0].Text + @".xml"))
                 {
-                    string[] lines = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @".xml");
+                    string[] lines = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems[0].Text + @".xml");
 
                     foreach (string line in lines)
                     {
@@ -1512,9 +1512,9 @@ namespace XVReborn
                     //End
                 }
 
-                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @" 2.xml"))
+                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @" 2.xml"))
                 {
-                    string id = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @" 2.xml").First();
+                    string id = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @" 2.xml").First();
 
                     info.FileName = "cmd.exe";
                     info.CreateNoWindow = true;
@@ -1654,28 +1654,23 @@ namespace XVReborn
 
                 }
 
-                Properties.Settings.Default.addonmodlist.Remove(listBox1.SelectedItem.ToString());
+                Properties.Settings.Default.addonmodlist.Remove(lvMods.SelectedItems.ToString());
                 Properties.Settings.Default.Save();
 
-                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @".xml"))
+                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @".xml"))
                 {
-                    File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @".xml");
+                    File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @".xml");
                 }
-                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @" 2.xml"))
+                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @" 2.xml"))
                 {
-                    File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + listBox1.SelectedItem + @" 2.xml");
+                    File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @" 2.xml");
                 }
 
 
                 processDirectory(Properties.Settings.Default.datafolder);
 
-                listBox1.Items.Remove(listBox1.SelectedItem);
-
-                Properties.Settings.Default.modlist.Clear();
-                foreach (string item in listBox1.Items)
-                    Properties.Settings.Default.modlist.Add(item);
-                Properties.Settings.Default.Save();
-                label2.Text = Properties.Settings.Default.modlist.Count.ToString();
+                lvMods.Items.Remove(lvMods.SelectedItems[0]);
+                saveLvItems();
 
                 p.StartInfo = info;
                 p.Start();
@@ -1690,7 +1685,7 @@ namespace XVReborn
                 }
 
                 MessageBox.Show("Mod uninstalled Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                PopulateList();
+                Application.Restart();
             }
         }
 
@@ -1706,13 +1701,6 @@ namespace XVReborn
                 }
             }
         }
-
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(@"https:\\www.Patreon.com\Strik304");
-        }
-
         private void slotEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form4 frm = new Form4();
@@ -1733,11 +1721,6 @@ namespace XVReborn
                 if (Directory.Exists(Properties.Settings.Default.flexsdkfolder + @"\bin\scripts"))
                 {
                     Directory.Delete(Properties.Settings.Default.flexsdkfolder + @"\bin\scripts", true);
-                }
-
-                if (File.Exists(Application.StartupPath + @"\lang.txt"))
-                {
-                    File.Delete(Application.StartupPath + @"\lang.txt");
                 }
 
                 Properties.Settings.Default.Reset();
@@ -1849,7 +1832,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\chara_sound.cso.xml");
             }
 
-            PopulateList();
+            Application.Restart();
         }
 
         private void editPSCFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1901,7 +1884,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\parameter_spec_char.psc.xml");
             }
 
-            PopulateList();
+            Application.Restart();
 
         }
 
@@ -2013,7 +1996,7 @@ namespace XVReborn
             msgStream.Save(file, FileName);
             MessageBox.Show("MSG File Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            PopulateList();
+            Application.Restart();
         }
 
         private void txtAURID_TextChanged(object sender, EventArgs e)

@@ -15,49 +15,51 @@ namespace XVReborn
         {
             if (checkBox1.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "ca");
+                Properties.Settings.Default.language = "ca";
                 this.Close();
             }
             else if (checkBox2.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "de");
+                Properties.Settings.Default.language = "de";
                 this.Close();
             }
             else if (checkBox3.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "en");
+                Properties.Settings.Default.language = "en";
                 this.Close();
             }
             else if (checkBox4.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "es");
+                Properties.Settings.Default.language = "es";
                 this.Close();
             }
             else if (checkBox5.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "fr");
+                Properties.Settings.Default.language = "fr";
                 this.Close();
             }
             else if (checkBox6.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "it");
+                Properties.Settings.Default.language = "it";
                 this.Close();
             }
             else if (checkBox7.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "pl");
+                Properties.Settings.Default.language = "pl";
                 this.Close();
             }
             else if (checkBox8.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "pt");
+                Properties.Settings.Default.language = "pt";
                 this.Close();
             }
             else if (checkBox9.Checked)
             {
-                File.WriteAllText(Application.StartupPath + @"\lang.txt", "ru");
+                Properties.Settings.Default.language = "ru";
                 this.Close();
             }
+
+            Properties.Settings.Default.Save();
         }
     }
 }

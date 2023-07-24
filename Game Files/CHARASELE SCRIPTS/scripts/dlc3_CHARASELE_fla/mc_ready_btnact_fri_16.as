@@ -9,7 +9,7 @@ package dlc3_CHARASELE_fla
       public function mc_ready_btnact_fri_16()
       {
          super();
-         addFrameScript(8,this.frame9,58,this.frame59);
+         addFrameScript(8,frame9,58,frame59);
       }
       
       function frame9() : *
