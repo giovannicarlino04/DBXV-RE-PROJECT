@@ -8,57 +8,59 @@ using FreeImageAPI;
 
 namespace XVReborn
 {
+
     public partial class Form4 : Form
     {
-        // Assuming you have a class-level variable to store the character codes and their corresponding images.
-        Dictionary<string, Image> characterImages = new Dictionary<string, Image>();
-        string[][][] charaList; // Class-level variable to store the parsed character data.
-        List<DraggablePictureBox> pictureBoxCharacters = new List<DraggablePictureBox>();
-        Image defaultImage; // Class-level variable to store the default image.
-
-        // Custom PictureBox control that supports drag-and-drop functionality.
-        public class DraggablePictureBox : PictureBox
+        public class DraggableButton : Button
         {
-            public DraggablePictureBox()
+            public DraggableButton()
             {
                 this.AllowDrop = true;
             }
         }
+
+        List<DraggableButton> buttonCharacters = new List<DraggableButton>(); // Replace ButtonCharacters with buttonCharacters.
+
+        // Assuming you have a class-level variable to store the character codes and their corresponding images.
+        Dictionary<string, Image> characterImages = new Dictionary<string, Image>();
+        string[][][] charaList; // Class-level variable to store the parsed character data.
+        Image defaultImage; // Class-level variable to store the default image.
+
         // Event handlers for drag-and-drop reordering.
-        private void PictureBoxCharacter_MouseMove(object sender, MouseEventArgs e)
+        private void ButtonCharacter_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                PictureBox pictureBoxCharacter = (PictureBox)sender;
-                pictureBoxCharacter.DoDragDrop(pictureBoxCharacter, DragDropEffects.Move);
+                Button ButtonCharacter = (Button)sender;
+                ButtonCharacter.DoDragDrop(ButtonCharacter, DragDropEffects.Move);
             }
         }
 
-        private void PictureBoxCharacter_DragEnter(object sender, DragEventArgs e)
+        private void ButtonCharacter_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Move;
+            e.Effect = DragDropEffects.Move; // Set the effect to Move to allow dropping.
         }
 
-        private void PictureBoxCharacter_DragDrop(object sender, DragEventArgs e)
+        private void ButtonCharacter_DragDrop(object sender, DragEventArgs e)
         {
-            PictureBox targetPictureBox = (PictureBox)sender;
-            DraggablePictureBox sourcePictureBox = (DraggablePictureBox)e.Data.GetData(typeof(DraggablePictureBox));
+            Button targetButton = (Button)sender;
+            DraggableButton sourceButton = (DraggableButton)e.Data.GetData(typeof(DraggableButton));
 
-            int targetIndex = flowLayoutPanelCharacters.Controls.GetChildIndex(targetPictureBox);
-            int sourceIndex = flowLayoutPanelCharacters.Controls.GetChildIndex(sourcePictureBox);
+            int targetIndex = flowLayoutPanelCharacters.Controls.GetChildIndex(targetButton);
+            int sourceIndex = flowLayoutPanelCharacters.Controls.GetChildIndex(sourceButton);
 
-            flowLayoutPanelCharacters.Controls.SetChildIndex(sourcePictureBox, targetIndex);
+            flowLayoutPanelCharacters.Controls.SetChildIndex(sourceButton, targetIndex);
 
-            // Swap the PictureBoxes in the list to update the order in pictureBoxCharacters.
-            pictureBoxCharacters.RemoveAt(sourceIndex);
-            pictureBoxCharacters.Insert(targetIndex, sourcePictureBox);
+            // Update the order of DraggableButton objects in the ButtonCharacters list.
+            buttonCharacters.RemoveAt(sourceIndex);
+            buttonCharacters.Insert(targetIndex, sourceButton);
         }
-
         public Form4()
         {
             InitializeComponent();
             LoadDefaultImage();
         }
+
         // Function to load the default image.
         void LoadDefaultImage()
         {
@@ -92,19 +94,16 @@ namespace XVReborn
                     }
                     else
                     {
-                        MessageBox.Show("Failed to load default image file.");
                     }
                 }
                 catch (Exception ex)
                 {
                     // Handle the exception or display an error message.
-                    MessageBox.Show($"Error loading default image: {ex.Message}");
                 }
             }
             else
             {
                 // Handle the case where the default image file is missing.
-                MessageBox.Show("Default image file not found.");
                 // You may want to exit the application or handle the error differently if the default image is critical.
             }
         }
@@ -136,7 +135,6 @@ namespace XVReborn
             // Check if characterDataString is empty (not found in the AS3 file).
             if (string.IsNullOrEmpty(characterDataString))
             {
-                MessageBox.Show("Character data not found in the AS3 file.");
                 return;
             }
 
@@ -145,25 +143,44 @@ namespace XVReborn
 
             foreach (var characterData in charaList)
             {
+                string characterCode = characterData[0][0];
 
-                string characterCode = characterData[0][0]; // Assuming the character code is in the first element.
+                DraggableButton buttonCharacter = new DraggableButton();
+                buttonCharacter.BackgroundImageLayout = ImageLayout.Zoom;
+                buttonCharacter.Width = 128;
+                buttonCharacter.Height = 64;
 
-                DraggablePictureBox pictureBoxCharacter = new DraggablePictureBox();
-                pictureBoxCharacter.SizeMode = PictureBoxSizeMode.Zoom;
-                pictureBoxCharacter.Image = characterImages[characterCode];
-                // Set the Tag property of the DraggablePictureBox to store the character code.
-                pictureBoxCharacter.Tag = characterCode;
+                // Try to get the image from the dictionary.
+                if (characterImages.TryGetValue(characterCode, out Image characterImage))
+                {
+                    buttonCharacter.BackgroundImage = characterImage;
+                }
+                else
+                {
+                    // If the image for the character code is not found in the dictionary,
+                    // use the default image as the button's background image.
+                    if (defaultImage != null)
+                    {
+                        buttonCharacter.BackgroundImage = new Bitmap(defaultImage);
+                    }
+                    else
+                    {
+                        // Handle the case where the default image is not available.
+                        // You may want to display an error placeholder or exit the application gracefully.
+                    }
+                }
 
-                // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggablePictureBox.
-                pictureBoxCharacter.DragEnter += PictureBoxCharacter_DragEnter;
-                pictureBoxCharacter.DragDrop += PictureBoxCharacter_DragDrop;
-                pictureBoxCharacter.MouseMove += PictureBoxCharacter_MouseMove;
+                // Set the Tag property of the DraggableButton to store the character code.
+                buttonCharacter.Tag = characterCode;
 
-                // You can set additional properties for the DraggablePictureBox if needed.
+                // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggableButton.
+                buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
+                buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
+                buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
 
-                // Add the DraggablePictureBox to the list and the FlowLayoutPanel.
-                pictureBoxCharacters.Add(pictureBoxCharacter);
-                flowLayoutPanelCharacters.Controls.Add(pictureBoxCharacter);
+                // Add the DraggableButton to the list and the FlowLayoutPanel.
+                buttonCharacters.Add(buttonCharacter);
+                flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
 
                 // Check if the image is not already loaded in the dictionary.
                 if (!characterImages.ContainsKey(characterCode))
@@ -201,7 +218,6 @@ namespace XVReborn
                                 else
                                 {
                                     // Handle the case where the default image is not available.
-                                    MessageBox.Show($"Default image not found for character {characterCode}");
                                     // You may want to exit the application or handle the error differently if the default image is critical.
                                 }
                             }
@@ -223,7 +239,6 @@ namespace XVReborn
                     catch (Exception ex)
                     {
                         // Handle the exception or display an error message.
-                        MessageBox.Show($"Error loading image for character {characterCode}: {ex.Message}");
                     }
                 }
             }
@@ -280,6 +295,9 @@ namespace XVReborn
             string imageFolderPath = Settings.Default.datafolder + @"\ui\texture\CHARA01";
             string defaultImagePath = Path.Combine(imageFolderPath, "FOF_000.dds");
 
+            // Load the default image outside the loop
+            LoadDefaultImage();
+
             foreach (var characterArray in charaList)
             {
                 foreach (var characterData in characterArray)
@@ -290,28 +308,52 @@ namespace XVReborn
                     // Check if the character code exists in the dictionary.
                     if (characterImages.ContainsKey(characterCode))
                     {
-                        using (var defaultImage = Image.FromFile(defaultImagePath))
-                        {
-                            DraggablePictureBox pictureBoxCharacter = new DraggablePictureBox();
-                            pictureBoxCharacter.SizeMode = PictureBoxSizeMode.Zoom;
-                            pictureBoxCharacter.Image = new Bitmap(defaultImage);
-                            // Add the DraggablePictureBox to the FlowLayoutPanel.
-                            flowLayoutPanelCharacters.Controls.Add(pictureBoxCharacter);
-                        }
+                        // Use the existing character image from the dictionary.
+                        DraggableButton buttonCharacter = new DraggableButton();
+                        buttonCharacter.BackgroundImageLayout = ImageLayout.Zoom; // Set BackgroundImageLayout to Zoom.
+                        buttonCharacter.Width = 128;
+                        buttonCharacter.Height = 64;
+                        buttonCharacter.Image = characterImages[characterCode];
+                        // Add the DraggableButton to the FlowLayoutPanel.
+                        flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
+
+                        // Set the Tag property of the DraggableButton to store the character code.
+                        buttonCharacter.Tag = characterCode;
+
+                        // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggableButton.
+                        buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
+                        buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
+                        buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
+
+                        // Add the DraggableButton to the list and the FlowLayoutPanel.
+                        buttonCharacters.Add(buttonCharacter);
+                        flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
                     }
                     else
                     {
                         // Handle the case where the character image is not found.
-                        // You can load a default image or display an error placeholder, etc.
-                        // For example, loading the default image "FOF_000.dds":
-                        if (File.Exists(defaultImagePath))
+                        // Use the default image if available.
+                        if (defaultImage != null)
                         {
-                            Image defaultImage = Image.FromFile(defaultImagePath);
-                            DraggablePictureBox pictureBoxCharacter = new DraggablePictureBox();
-                            pictureBoxCharacter.SizeMode = PictureBoxSizeMode.Zoom;
-                            pictureBoxCharacter.Image = defaultImage;
-                            // Add the DraggablePictureBox to the FlowLayoutPanel.
-                            flowLayoutPanelCharacters.Controls.Add(pictureBoxCharacter);
+                            DraggableButton buttonCharacter = new DraggableButton();
+                            buttonCharacter.BackgroundImageLayout = ImageLayout.Zoom; // Set BackgroundImageLayout to Zoom.
+                            buttonCharacter.Width = 128;
+                            buttonCharacter.Height = 64;
+                            buttonCharacter.Image = new Bitmap(defaultImage);
+                            // Add the DraggableButton to the FlowLayoutPanel.
+                            flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
+
+                            // Set the Tag property of the DraggableButton to store the character code.
+                            buttonCharacter.Tag = characterCode;
+
+                            // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggableButton.
+                            buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
+                            buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
+                            buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
+
+                            // Add the DraggableButton to the list and the FlowLayoutPanel.
+                            buttonCharacters.Add(buttonCharacter);
+                            flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
                         }
                     }
                 }
@@ -323,7 +365,6 @@ namespace XVReborn
             // Create the FlowLayoutPanel control.
             flowLayoutPanelCharacters = new FlowLayoutPanel();
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
-                                                             // Set other properties as needed.
 
             // Add the FlowLayoutPanel control to the form's Controls collection.
             this.Controls.Add(flowLayoutPanelCharacters);
@@ -332,17 +373,18 @@ namespace XVReborn
             LoadCharacterImages();
             AddCharacterImagesToFlowLayoutPanel();
         }
+
         // Function to handle the reordering of character slots in the FlowLayoutPanel.
         void ReorderCharacterSlots()
         {
             // Create a list to store the ordered character codes.
             List<string> orderedCharacterCodes = new List<string>();
 
-            // Iterate through the PictureBox controls in the FlowLayoutPanel.
-            foreach (PictureBox pictureBoxCharacter in flowLayoutPanelCharacters.Controls)
+            // Iterate through the DraggableButton controls in the FlowLayoutPanel.
+            foreach (DraggableButton buttonCharacter in flowLayoutPanelCharacters.Controls)
             {
-                // Get the character code associated with the PictureBox.
-                string characterCode = pictureBoxCharacter.Tag.ToString();
+                // Get the character code associated with the DraggableButton.
+                string characterCode = buttonCharacter.Tag.ToString();
 
                 // Add the character code to the ordered list.
                 orderedCharacterCodes.Add(characterCode);
@@ -397,7 +439,7 @@ namespace XVReborn
             File.WriteAllLines(charaListFilePath, charaListLines);
 
             // Display a message indicating successful save.
-            MessageBox.Show("Character order saved successfully!");
+            MessageBox.Show("Character order saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Function to generate the character data string based on the updated charaList.
@@ -414,14 +456,21 @@ namespace XVReborn
 
             // Create a new character data string based on the updated charaList.
             string newCharacterDataString = "";
-
-            for (int i = 0; i < updatedCharaList.Length; i++)
+            for (int i = 0; i < charaList.Length; i++)
             {
-                string characterDataString = "[[" + string.Join(",", updatedCharaList[i][0]) + "],[" + string.Join(",", updatedCharaList[i][1]) + "],[" + string.Join(",", updatedCharaList[i][2]) + "]]";
-                newCharacterDataString += characterDataString;
-                if (i < updatedCharaList.Length - 1)
+
+                foreach (var buttonCharacter in buttonCharacters)
                 {
-                    newCharacterDataString += ",";
+                    // Get the character code associated with the DraggableButton.
+                    string characterCode = buttonCharacter.Tag.ToString();
+
+                    // Create a character data string for the current button.
+                    string characterDataString = "[[" + characterCode + "]]";
+                    newCharacterDataString += characterDataString;
+                    if (i < updatedCharaList.Length - 1)
+                    {
+                        newCharacterDataString += ",";
+                    }
                 }
             }
 
@@ -429,7 +478,7 @@ namespace XVReborn
             return newCharacterDataString;
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
             // Reorder the character slots in the FlowLayoutPanel based on the user's arrangement.
             ReorderCharacterSlots();
