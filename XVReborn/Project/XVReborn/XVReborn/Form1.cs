@@ -1701,13 +1701,6 @@ namespace XVReborn
                 }
             }
         }
-        private void slotEditorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form4 frm = new Form4();
-            frm.ShowDialog();
-
-            CompileScripts();
-        }
 
         private void clearInstallationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2187,6 +2180,14 @@ namespace XVReborn
 
         private void compileScriptsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            CompileScripts();
+        }
+
+        private void slotEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 frm = new Form4();
+            frm.ShowDialog();
+
             CompileScripts();
         }
     }

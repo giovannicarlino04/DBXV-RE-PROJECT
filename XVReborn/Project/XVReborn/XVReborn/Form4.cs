@@ -107,7 +107,7 @@ namespace XVReborn
                 // You may want to exit the application or handle the error differently if the default image is critical.
             }
         }
-
+        // Function to load the character images and parse character data from Charalist.as.
         void LoadCharacterImages()
         {
             // Replace "YourImageFolderPath" with the path to the folder containing the character images.
@@ -221,10 +221,9 @@ namespace XVReborn
                                     // You may want to exit the application or handle the error differently if the default image is critical.
                                 }
                             }
-                        
 
-                        // Add the character image to the dictionary.
-                        characterImages[characterCode] = characterBitmap;
+                            // Add the character image to the dictionary.
+                            characterImages[characterCode] = characterBitmap;
                         }
                         else
                         {
@@ -292,6 +291,7 @@ namespace XVReborn
         {
             // Clear the FlowLayoutPanel before adding images to avoid duplicates when reloading.
             flowLayoutPanelCharacters.Controls.Clear();
+
             string imageFolderPath = Settings.Default.datafolder + @"\ui\texture\CHARA01";
             string defaultImagePath = Path.Combine(imageFolderPath, "FOF_000.dds");
 
@@ -359,12 +359,21 @@ namespace XVReborn
                 }
             }
         }
+        
+        private void flowLayoutPanelCharacters_ControlAdded(object sender, ControlEventArgs e)
+        {
+            if (flowLayoutPanelCharacters.Controls.Count % 3 == 0)
+                flowLayoutPanelCharacters.SetFlowBreak(e.Control as Control, true);
+        }
 
         private void Form4_Load(object sender, EventArgs e)
         {
             // Create the FlowLayoutPanel control.
             flowLayoutPanelCharacters = new FlowLayoutPanel();
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
+            flowLayoutPanelCharacters.ControlAdded += new System.Windows.Forms.ControlEventHandler(flowLayoutPanelCharacters_ControlAdded);
+            flowLayoutPanelCharacters.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelCharacters.HorizontalScroll.Enabled = true;
 
             // Add the FlowLayoutPanel control to the form's Controls collection.
             this.Controls.Add(flowLayoutPanelCharacters);
@@ -405,7 +414,6 @@ namespace XVReborn
                 }
             }
         }
-
         // Function to save the updated order in the Charalist.as file.
         void SaveCharacterOrderToFile()
         {
@@ -458,26 +466,35 @@ namespace XVReborn
             string newCharacterDataString = "";
             for (int i = 0; i < charaList.Length; i++)
             {
-
-                foreach (var buttonCharacter in buttonCharacters)
+                newCharacterDataString += "[";
+                for (int j = 0; j < charaList[i].Length; j++)
                 {
-                    // Get the character code associated with the DraggableButton.
-                    string characterCode = buttonCharacter.Tag.ToString();
+                    string characterCode = charaList[i][j][0];
+                    string costumeID1 = charaList[i][j][1];
+                    string costumeID2 = charaList[i][j][2];
+                    string costumeID3 = charaList[i][j][3];
+                    string voiceID1 = charaList[i][j][4];
+                    string voiceID2 = charaList[i][j][5];
 
                     // Create a character data string for the current button.
-                    string characterDataString = "[[" + characterCode + "]]";
+                    string characterDataString = "[[\"" + characterCode + "\"," + costumeID1 + "," + costumeID2 + "," + costumeID3 + ",[" + voiceID1 + "," + voiceID2 + "]]]";
                     newCharacterDataString += characterDataString;
-                    if (i < updatedCharaList.Length - 1)
+
+                    if (j < charaList[i].Length - 1)
                     {
                         newCharacterDataString += ",";
                     }
+                }
+                newCharacterDataString += "]";
+                if (i < charaList.Length - 1)
+                {
+                    newCharacterDataString += ",";
                 }
             }
 
             // Return the updated character data string.
             return newCharacterDataString;
         }
-
         private void saveButton_Click(object sender, EventArgs e)
         {
             // Reorder the character slots in the FlowLayoutPanel based on the user's arrangement.
