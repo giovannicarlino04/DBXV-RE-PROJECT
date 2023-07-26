@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using XVReborn.Properties;
 using FreeImageAPI;
+using System.Linq;
 
 namespace XVReborn
 {
@@ -373,8 +374,7 @@ namespace XVReborn
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
             flowLayoutPanelCharacters.ControlAdded += new System.Windows.Forms.ControlEventHandler(flowLayoutPanelCharacters_ControlAdded);
             flowLayoutPanelCharacters.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanelCharacters.HorizontalScroll.Enabled = true;
-
+            flowLayoutPanelCharacters.AutoScroll = true;
             // Add the FlowLayoutPanel control to the form's Controls collection.
             this.Controls.Add(flowLayoutPanelCharacters);
 
@@ -424,7 +424,7 @@ namespace XVReborn
             string[] charaListLines = File.ReadAllLines(charaListFilePath);
 
             // Assuming the character data is stored in CharaListDlc0_0 variable in the AS3 file.
-            string charaListVariable = "CharaListDlc0_0";
+            string charaListVariable = "        public static var CharaListDlc0_0";
             string startToken = charaListVariable + ":Array = [";
             string endToken = "]];";
             string characterDataString = "";
@@ -464,35 +464,44 @@ namespace XVReborn
 
             // Create a new character data string based on the updated charaList.
             string newCharacterDataString = "";
-            for (int i = 0; i < charaList.Length; i++)
+            foreach (var characterArray in updatedCharaList)
             {
                 newCharacterDataString += "[";
-                for (int j = 0; j < charaList[i].Length; j++)
+                foreach (var characterData in characterArray)
                 {
-                    string characterCode = charaList[i][j][0];
-                    string costumeID1 = charaList[i][j][1];
-                    string costumeID2 = charaList[i][j][2];
-                    string costumeID3 = charaList[i][j][3];
-                    string voiceID1 = charaList[i][j][4];
-                    string voiceID2 = charaList[i][j][5];
+                    // The character code is the first element in the characterData array.
+                    string characterCode = characterData[0].ToString();
 
-                    // Create a character data string for the current button.
-                    string characterDataString = "[[\"" + characterCode + "\"," + costumeID1 + "," + costumeID2 + "," + costumeID3 + ",[" + voiceID1 + "," + voiceID2 + "]]]";
-                    newCharacterDataString += characterDataString;
+                    // Append the character code and an opening parenthesis to the new character data string.
+                    newCharacterDataString += "[\"" + characterCode + "\",";
 
-                    if (j < charaList[i].Length - 1)
+                    // Convert the costume data and voice IDs to strings.
+                    List<string> costumeDataStrings = new List<string>();
+                    for (int i = 1; i < characterData.Length; i += 6)
+                    {
+                        string costumeData = "[\"" + characterCode + "\"," + characterData[i] + "," + characterData[i + 1] + "," +
+                                             characterData[i + 2] + ",[" + characterData[i + 3] + "," +
+                                             characterData[i + 4] + "]]";
+                        costumeDataStrings.Add(costumeData);
+                    }
+
+                    // Join the costume data strings and append to the new character data string.
+                    newCharacterDataString += string.Join(",", costumeDataStrings);
+
+                    newCharacterDataString += "]";
+                    if (characterData != characterArray.Last())
                     {
                         newCharacterDataString += ",";
                     }
                 }
+
                 newCharacterDataString += "]";
-                if (i < charaList.Length - 1)
+                if (characterArray != updatedCharaList.Last())
                 {
                     newCharacterDataString += ",";
                 }
             }
-
-            // Return the updated character data string.
+            newCharacterDataString += "];";
             return newCharacterDataString;
         }
         private void saveButton_Click(object sender, EventArgs e)
