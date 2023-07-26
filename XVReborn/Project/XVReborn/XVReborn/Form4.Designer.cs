@@ -36,7 +36,7 @@ namespace XVReborn
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(977, 212);
+            this.button1.Location = new System.Drawing.Point(487, 71);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -49,10 +49,11 @@ namespace XVReborn
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1053, 237);
+            this.ClientSize = new System.Drawing.Size(1053, 122);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form4";
             this.Text = "Slot Editor";
             this.Load += new System.EventHandler(this.Form4_Load);

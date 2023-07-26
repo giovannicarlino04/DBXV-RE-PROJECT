@@ -300,6 +300,8 @@ namespace XVReborn
             // Load the default image outside the loop
             LoadDefaultImage();
 
+            int count = 0; // Move the count variable outside the inner loop.
+
             foreach (var characterArray in charaList)
             {
                 foreach (var characterData in characterArray)
@@ -327,9 +329,17 @@ namespace XVReborn
                         buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
                         buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
 
-                        // Add the DraggableButton to the list and the FlowLayoutPanel.
+                        // Add the DraggableButton to the list.
                         buttonCharacters.Add(buttonCharacter);
-                        flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
+
+                        // Increment the count and check if it exceeds 3.
+                        count++;
+                        if (count >= 3)
+                        {
+                            // Add an empty control to act as a line breaker.
+                            flowLayoutPanelCharacters.Controls.Add(new Control());
+                            count = 0;
+                        }
                     }
                     else
                     {
@@ -353,15 +363,22 @@ namespace XVReborn
                             buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
                             buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
 
-                            // Add the DraggableButton to the list and the FlowLayoutPanel.
+                            // Add the DraggableButton to the list.
                             buttonCharacters.Add(buttonCharacter);
-                            flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
+
+                            // Increment the count and check if it exceeds 3.
+                            count++;
+                            if (count >= 3)
+                            {
+                                // Add an empty control to act as a line breaker.
+                                flowLayoutPanelCharacters.Controls.Add(new Control());
+                                count = 0;
+                            }
                         }
                     }
                 }
             }
         }
-        
         private void flowLayoutPanelCharacters_ControlAdded(object sender, ControlEventArgs e)
         {
             if (flowLayoutPanelCharacters.Controls.Count % 3 == 0)
@@ -374,7 +391,8 @@ namespace XVReborn
             flowLayoutPanelCharacters = new FlowLayoutPanel();
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
             flowLayoutPanelCharacters.ControlAdded += new System.Windows.Forms.ControlEventHandler(flowLayoutPanelCharacters_ControlAdded);
-            flowLayoutPanelCharacters.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelCharacters.FlowDirection = FlowDirection.LeftToRight; // Set FlowDirection to LeftToRight.
+            flowLayoutPanelCharacters.WrapContents = false; // Prevent wrapping to maintain a single row.
             flowLayoutPanelCharacters.AutoScroll = true;
             // Add the FlowLayoutPanel control to the form's Controls collection.
             this.Controls.Add(flowLayoutPanelCharacters);
