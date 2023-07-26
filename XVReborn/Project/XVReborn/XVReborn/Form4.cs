@@ -390,7 +390,7 @@ namespace XVReborn
             List<string> orderedCharacterCodes = new List<string>();
 
             // Iterate through the DraggableButton controls in the FlowLayoutPanel.
-            foreach (DraggableButton buttonCharacter in flowLayoutPanelCharacters.Controls)
+            foreach (DraggableButton buttonCharacter in buttonCharacters)
             {
                 // Get the character code associated with the DraggableButton.
                 string characterCode = buttonCharacter.Tag.ToString();
@@ -400,20 +400,37 @@ namespace XVReborn
             }
 
             // Update the charaList array with the new order.
-            for (int i = 0; i < charaList.Length; i++)
-            {
-                // Find the index of the character code in the ordered list.
-                int newIndex = orderedCharacterCodes.IndexOf(charaList[i][0][0]);
+            string[][][] newCharaList = new string[charaList.Length][][];
 
-                // If the character code is found in the ordered list, update its position in charaList.
-                if (newIndex >= 0)
+            // Initialize each sub-array of the newCharaList
+            for (int i = 0; i < newCharaList.Length; i++)
+            {
+                newCharaList[i] = new string[charaList[i].Length][];
+            }
+
+            // Reorder the characters in charaList based on the ordered list of character codes.
+            for (int i = 0; i < orderedCharacterCodes.Count; i++)
+            {
+                string characterCode = orderedCharacterCodes[i];
+                // Find the character array in charaList with the matching character code.
+                var characterDataArray = charaList.FirstOrDefault(c => c[0][0] == characterCode);
+
+                if (characterDataArray != null)
                 {
-                    string[][] temp = charaList[newIndex];
-                    charaList[newIndex] = charaList[i];
-                    charaList[i] = temp;
+                    // Copy the character data array to the newCharaList at the new index.
+                    newCharaList[i] = characterDataArray;
+                }
+                else
+                {
+                    // Handle the case where the character data is not found.
+                    // You can display an error message or log the issue for debugging.
                 }
             }
+
+            // Replace the original charaList with the newCharaList.
+            charaList = newCharaList;
         }
+
         // Function to save the updated order in the Charalist.as file.
         void SaveCharacterOrderToFile()
         {
