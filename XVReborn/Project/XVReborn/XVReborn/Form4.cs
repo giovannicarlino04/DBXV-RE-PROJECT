@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using XVReborn.Properties;
 using FreeImageAPI;
 using System.Linq;
+using System.Diagnostics;
 
 namespace XVReborn
 {
@@ -386,8 +387,11 @@ namespace XVReborn
         // Function to handle the reordering of character slots in the FlowLayoutPanel.
         void ReorderCharacterSlots()
         {
-            // Create a list to store the ordered character codes.
-            List<string> orderedCharacterCodes = new List<string>();
+            // Create a list to store the ordered character data.
+            List<string[][]> orderedCharacterData = new List<string[][]>();
+
+            // Create a list to keep track of the processed character codes.
+            List<string> processedCharacterCodes = new List<string>();
 
             // Iterate through the DraggableButton controls in the FlowLayoutPanel.
             foreach (DraggableButton buttonCharacter in buttonCharacters)
@@ -395,67 +399,60 @@ namespace XVReborn
                 // Get the character code associated with the DraggableButton.
                 string characterCode = buttonCharacter.Tag.ToString();
 
-                // Add the character code to the ordered list.
-                orderedCharacterCodes.Add(characterCode);
-            }
-
-            // Update the charaList array with the new order.
-            string[][][] newCharaList = new string[charaList.Length][][];
-
-            // Initialize each sub-array of the newCharaList
-            for (int i = 0; i < newCharaList.Length; i++)
-            {
-                newCharaList[i] = new string[charaList[i].Length][];
-            }
-
-            // Reorder the characters in charaList based on the ordered list of character codes.
-            for (int i = 0; i < orderedCharacterCodes.Count; i++)
-            {
-                string characterCode = orderedCharacterCodes[i];
-                // Find the character array in charaList with the matching character code.
-                var characterDataArray = charaList.FirstOrDefault(c => c[0][0] == characterCode);
-
-                if (characterDataArray != null)
+                // Check if the character code has already been processed.
+                if (!processedCharacterCodes.Contains(characterCode))
                 {
-                    // Copy the character data array to the newCharaList at the new index.
-                    newCharaList[i] = characterDataArray;
-                }
-                else
-                {
-                    // Handle the case where the character data is not found.
-                    // You can display an error message or log the issue for debugging.
+                    // Find the character array in charaList with the matching character code.
+                    var characterDataArray = charaList.FirstOrDefault(c => c[0][0] == characterCode);
+
+                    if (characterDataArray != null)
+                    {
+                        // Add the character data array to the ordered list.
+                        orderedCharacterData.Add(characterDataArray);
+
+                        // Mark the character code as processed.
+                        processedCharacterCodes.Add(characterCode);
+                    }
+                    else
+                    {
+                        // Handle the case where the character data is not found.
+                        // You can display an error message or log the issue for debugging.
+                    }
                 }
             }
 
-            // Replace the original charaList with the newCharaList.
-            charaList = newCharaList;
+            // Convert the ordered character data list back to an array.
+            charaList = orderedCharacterData.ToArray();
         }
-
         // Function to save the updated order in the Charalist.as file.
         void SaveCharacterOrderToFile()
         {
-            // Replace "CharaListDlc0_0" with the actual array containing the character codes.
             string charaListFilePath = Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/Charalist.as";
+
+            // Assuming the character data is stored in CharaListDlc0_0 variable in the AS3 file.
+            string charaListVariable = "public static var CharaListDlc0_0";
+            string startToken = charaListVariable + ":Array = [";
+            string endToken = "]]"; // Fixed the endToken to match the original array structure.
+            string characterDataString = "";
 
             // Read the existing content of Charalist.as.
             string[] charaListLines = File.ReadAllLines(charaListFilePath);
-
-            // Assuming the character data is stored in CharaListDlc0_0 variable in the AS3 file.
-            string charaListVariable = "        public static var CharaListDlc0_0";
-            string startToken = charaListVariable + ":Array = [";
-            string endToken = "]];";
-            string characterDataString = "";
 
             // Find the line that contains the character data and update it.
             for (int i = 0; i < charaListLines.Length; i++)
             {
                 if (charaListLines[i].Contains(startToken))
                 {
+                    // Remove the old character data from the line.
+                    int startIndex = charaListLines[i].IndexOf(startToken) + startToken.Length;
+                    int endIndex = charaListLines[i].LastIndexOf(endToken) + endToken.Length;
+                    charaListLines[i] = charaListLines[i].Remove(startIndex, endIndex - startIndex);
+
                     // Generate the new character data string based on the updated charaList.
-                    characterDataString = GenerateCharacterDataString(charaListLines[i], charaList);
+                    characterDataString = GenerateCharacterDataString(charaList);
 
                     // Update the line with the new character data.
-                    charaListLines[i] = charaListVariable + ":Array = [" + characterDataString + "]];";
+                    charaListLines[i] = charaListVariable + ":Array = [" + characterDataString;
                     break;
                 }
             }
@@ -468,59 +465,67 @@ namespace XVReborn
         }
 
         // Function to generate the character data string based on the updated charaList.
-        private string GenerateCharacterDataString(string startTokenLine, string[][][] updatedCharaList)
+        private string GenerateCharacterDataString(string[][][] updatedCharaList)
         {
-            // Get the start index of the character data string.
-            int startIndex = startTokenLine.IndexOf(":Array = [") + ":Array = [".Length;
-
-            // Get the end index of the character data string.
-            int endIndex = startTokenLine.LastIndexOf("]];", StringComparison.Ordinal) + 3;
-
-            // Extract the original character data string from the startTokenLine.
-            string originalCharacterDataString = startTokenLine.Substring(startIndex, endIndex - startIndex);
-
             // Create a new character data string based on the updated charaList.
             string newCharacterDataString = "";
-            foreach (var characterArray in updatedCharaList)
-            {
-                newCharacterDataString += "[";
-                foreach (var characterData in characterArray)
-                {
-                    // The character code is the first element in the characterData array.
-                    string characterCode = characterData[0].ToString();
 
-                    // Append the character code and an opening parenthesis to the new character data string.
-                    newCharacterDataString += "[\"" + characterCode + "\",";
+            for (int i = 0; i < updatedCharaList.Length; i++)
+            {
+                string[][] characterArray = updatedCharaList[i];
+                newCharacterDataString += "[";
+                for (int j = 0; j < characterArray.Length; j++)
+                {
+                    var characterData = characterArray[j];
+
+                    // The character code is the first element in the characterData array.
+                    string characterCode = characterData[0];
 
                     // Convert the costume data and voice IDs to strings.
                     List<string> costumeDataStrings = new List<string>();
-                    for (int i = 1; i < characterData.Length; i += 6)
+                    for (int k = 1; k < characterData.Length; k += 6)
                     {
-                        string costumeData = "[\"" + characterCode + "\"," + characterData[i] + "," + characterData[i + 1] + "," +
-                                             characterData[i + 2] + ",[" + characterData[i + 3] + "," +
-                                             characterData[i + 4] + "]]";
+                        string costumeData = "[\"" + characterCode + "\"," + characterData[k] + "," + characterData[k + 1] + "," +
+                                             characterData[k + 2] + ",[" + characterData[k + 3] + "," +
+                                             characterData[k + 4] + "]]";
                         costumeDataStrings.Add(costumeData);
                     }
 
                     // Join the costume data strings and append to the new character data string.
                     newCharacterDataString += string.Join(",", costumeDataStrings);
 
-                    newCharacterDataString += "]";
-                    if (characterData != characterArray.Last())
+                    if (j != characterArray.Length - 1)
                     {
                         newCharacterDataString += ",";
                     }
                 }
 
                 newCharacterDataString += "]";
-                if (characterArray != updatedCharaList.Last())
+                if (i != updatedCharaList.Length - 1)
                 {
                     newCharacterDataString += ",";
                 }
             }
+
+            
             newCharacterDataString += "];";
             return newCharacterDataString;
         }
+        private void RemoveSemicolonBeforeSquareBracket()
+        {
+            string CharaList = File.ReadAllText(Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/CharaList.as");
+
+            while (CharaList.Contains(";]"))
+            {
+                CharaList = CharaList.Replace(";]", "]");
+                Debug.WriteLine("Replaced semicolon with null");
+            }
+
+            // Now, CharaList contains the updated content with the semicolons removed.
+            // You can write the updated content back to the file if needed.
+            File.WriteAllText(Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/CharaList.as", CharaList);
+        }
+
         private void saveButton_Click(object sender, EventArgs e)
         {
             // Reorder the character slots in the FlowLayoutPanel based on the user's arrangement.
@@ -528,6 +533,9 @@ namespace XVReborn
 
             // Save the updated character order in the Charalist.as file.
             SaveCharacterOrderToFile();
+
+            // Remove the semicolon before the square bracket
+            RemoveSemicolonBeforeSquareBracket();
         }
     }
 }
