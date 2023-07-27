@@ -1049,7 +1049,7 @@ namespace XVReborn
                                                              select string.Join("|", from si in i.SubItems.Cast<ListViewItem.ListViewSubItem>()
                                                                                      select si.Text)).ToArray());
             Properties.Settings.Default.Save();
-            label2.Text = lvMods.Items.Count.ToString();
+            label1.Text = "Installed Mods: " + lvMods.Items.Count.ToString();
         }
 
         private void loadLvItems()
@@ -1062,7 +1062,7 @@ namespace XVReborn
             this.lvMods.Items.AddRange((from i in Properties.Settings.Default.modlist.Cast<string>()
                                            select new ListViewItem(i.Split('|'))).ToArray());
 
-            label2.Text = lvMods.Items.Count.ToString();
+            label1.Text = "Installed Mods: " + lvMods.Items.Count.ToString();
         }
 
         private void installmod(string arg)

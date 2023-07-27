@@ -1,4 +1,7 @@
-﻿namespace XVReborn
+﻿using System;
+using System.Windows.Forms;
+
+namespace XVReborn
 {
     partial class Form1
     {
@@ -41,7 +44,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.clearInstallationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.Mods = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lvMods = new System.Windows.Forms.ListView();
@@ -278,19 +280,19 @@
             // compileScriptsToolStripMenuItem
             // 
             this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
             this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
             // 
             // clearInstallationToolStripMenuItem
             // 
             this.clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.clearInstallationToolStripMenuItem.Text = "Clear Installation";
             this.clearInstallationToolStripMenuItem.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
             // 
@@ -298,21 +300,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(736, 6);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Location = new System.Drawing.Point(0, 432);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 15);
+            this.label1.Size = new System.Drawing.Size(100, 15);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Installed Mods:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(825, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(14, 15);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "0";
+            this.label1.Text = "Installed Mods: 0";
             // 
             // Mods
             // 
@@ -323,10 +316,11 @@
             this.Mods.Controls.Add(this.tabPage7);
             this.Mods.Controls.Add(this.tabPage5);
             this.Mods.Controls.Add(this.tabPage6);
+            this.Mods.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Mods.Location = new System.Drawing.Point(0, 24);
             this.Mods.Name = "Mods";
             this.Mods.SelectedIndex = 0;
-            this.Mods.Size = new System.Drawing.Size(847, 425);
+            this.Mods.Size = new System.Drawing.Size(847, 408);
             this.Mods.TabIndex = 5;
             // 
             // tabPage1
@@ -336,7 +330,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(839, 397);
+            this.tabPage1.Size = new System.Drawing.Size(839, 380);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mods";
             // 
@@ -351,7 +345,7 @@
             this.lvMods.Location = new System.Drawing.Point(3, 3);
             this.lvMods.MultiSelect = false;
             this.lvMods.Name = "lvMods";
-            this.lvMods.Size = new System.Drawing.Size(833, 391);
+            this.lvMods.Size = new System.Drawing.Size(833, 374);
             this.lvMods.TabIndex = 4;
             this.lvMods.UseCompatibleStateImageBehavior = false;
             this.lvMods.View = System.Windows.Forms.View.Details;
@@ -379,7 +373,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(839, 397);
+            this.tabPage3.Size = new System.Drawing.Size(839, 380);
             this.tabPage3.TabIndex = 7;
             this.tabPage3.Text = "MSG";
             // 
@@ -578,7 +572,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(839, 397);
+            this.tabPage2.Size = new System.Drawing.Size(839, 380);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CMS/CSO";
             // 
@@ -897,7 +891,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(839, 397);
+            this.tabPage4.Size = new System.Drawing.Size(839, 380);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "PSC";
             // 
@@ -1017,7 +1011,7 @@
             this.tabPage7.Controls.Add(this.menuStrip7);
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(839, 397);
+            this.tabPage7.Size = new System.Drawing.Size(839, 380);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "CUS";
             // 
@@ -1236,7 +1230,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(839, 397);
+            this.tabPage5.Size = new System.Drawing.Size(839, 380);
             this.tabPage5.TabIndex = 8;
             this.tabPage5.Text = "AUR";
             // 
@@ -1553,7 +1547,7 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(839, 397);
+            this.tabPage6.Size = new System.Drawing.Size(839, 380);
             this.tabPage6.TabIndex = 9;
             this.tabPage6.Text = "CSS";
             // 
@@ -1621,19 +1615,21 @@
             // 
             // cbCharacter
             // 
+            this.cbCharacter.Dock = System.Windows.Forms.DockStyle.Right;
             this.cbCharacter.FormattingEnabled = true;
-            this.cbCharacter.Location = new System.Drawing.Point(353, 11);
+            this.cbCharacter.Location = new System.Drawing.Point(677, 24);
             this.cbCharacter.Name = "cbCharacter";
-            this.cbCharacter.Size = new System.Drawing.Size(168, 23);
+            this.cbCharacter.Size = new System.Drawing.Size(170, 23);
             this.cbCharacter.TabIndex = 6;
             this.cbCharacter.SelectedIndexChanged += new System.EventHandler(this.cbCharacter_SelectedIndexChanged);
             // 
             // cbCostumes
             // 
+            this.cbCostumes.Dock = System.Windows.Forms.DockStyle.Right;
             this.cbCostumes.FormattingEnabled = true;
-            this.cbCostumes.Location = new System.Drawing.Point(525, 11);
+            this.cbCostumes.Location = new System.Drawing.Point(507, 24);
             this.cbCostumes.Name = "cbCostumes";
-            this.cbCostumes.Size = new System.Drawing.Size(168, 23);
+            this.cbCostumes.Size = new System.Drawing.Size(170, 23);
             this.cbCostumes.TabIndex = 7;
             this.cbCostumes.SelectedIndexChanged += new System.EventHandler(this.cbCostumes_SelectedIndexChanged);
             // 
@@ -1641,20 +1637,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(847, 447);
             this.Controls.Add(this.cbCostumes);
             this.Controls.Add(this.cbCharacter);
             this.Controls.Add(this.Mods);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximizeBox = false;
+            this.Name = new ColumnHeader("Form1");
             this.Text = "XVReborn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1714,7 +1707,6 @@
         private System.Windows.Forms.ToolStripMenuItem installModToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl Mods;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
