@@ -577,6 +577,10 @@ namespace XVReborn
 
                 // Set the Tag property of the DraggableButton to store the character code.
                 buttonCharacter.Tag = characterCode;
+                buttonCharacter.Text = characterCode;
+                buttonCharacter.Font = new Font("Arial", 18);
+                buttonCharacter.ForeColor = SystemColors.MenuText;
+
 
                 // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggableButton.
                 buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
@@ -766,6 +770,9 @@ namespace XVReborn
 
                             // Set the Tag property of the DraggableButton to store the character code.
                             buttonCharacter.Tag = characterCode;
+                            buttonCharacter.Text = characterCode;
+                            buttonCharacter.Font = new Font("Arial", 18);
+                            buttonCharacter.ForeColor = SystemColors.MenuText;
 
                             // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggableButton.
                             buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
@@ -2051,9 +2058,9 @@ namespace XVReborn
                     //End
                 }
 
-                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @" 2.xml"))
+                if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems[0].Text + @" 2.xml"))
                 {
-                    string id = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems + @" 2.xml").First();
+                    string id = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems[0].Text + @" 2.xml").First();
 
                     info.FileName = "cmd.exe";
                     info.CreateNoWindow = true;
