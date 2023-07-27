@@ -1553,9 +1553,9 @@ namespace XVReborn
             // 
             // flowLayoutPanelCharacters
             // 
-            this.flowLayoutPanelCharacters.Location = new System.Drawing.Point(0, 123);
+            this.flowLayoutPanelCharacters.Location = new System.Drawing.Point(0, 56);
             this.flowLayoutPanelCharacters.Name = "flowLayoutPanelCharacters";
-            this.flowLayoutPanelCharacters.Size = new System.Drawing.Size(839, 104);
+            this.flowLayoutPanelCharacters.Size = new System.Drawing.Size(839, 171);
             this.flowLayoutPanelCharacters.TabIndex = 0;
             // 
             // menuStrip6
@@ -1647,7 +1647,6 @@ namespace XVReborn
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = new ColumnHeader("Form1");
             this.Text = "XVReborn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);

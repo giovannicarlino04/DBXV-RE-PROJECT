@@ -1,6 +1,5 @@
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\XVReborn.exe.config
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\XVReborn.exe
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\XVReborn.pdb
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.exe.config
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.exe
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.AssemblyReference.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.SuggestedBindingRedirects.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.ResolveComReference.cache
@@ -10,8 +9,5 @@ C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVRebor
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.Properties.Resources.resources
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.GenerateResource.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.CoreCompileInputs.cache
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.exe
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.pdb
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\FreeImage.Standard.dll
-C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\bin\Debug\System.Drawing.Common.dll
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.CopyComplete
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.exe

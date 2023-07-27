@@ -168,7 +168,7 @@ namespace XVReborn
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            if(Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse"))
+            if (Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse"))
             {
                 if (!Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data"))
                     Directory.CreateDirectory("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data");
@@ -204,7 +204,7 @@ namespace XVReborn
                 }
                 if (!File.Exists(Path.Combine(Settings.Default.datafolder + @"/../steam_api_real.dll")))
                 {
-                    if(MessageBox.Show("XVPatcher or one of it's components is missing, do you want the tool to install it automatically?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    if (MessageBox.Show("XVPatcher or one of it's components is missing, do you want the tool to install it automatically?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
                         var myAssembly = Assembly.GetExecutingAssembly();
                         var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.XVPatcher.zip");
@@ -411,7 +411,7 @@ namespace XVReborn
             {
                 if (arg.EndsWith(".x1m"))
                 {
-                    if(MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    if (MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         installmod(arg);
                     }
@@ -422,12 +422,10 @@ namespace XVReborn
                     }
                 }
             }
-
-
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
             flowLayoutPanelCharacters.ControlAdded += new System.Windows.Forms.ControlEventHandler(flowLayoutPanelCharacters_ControlAdded);
-            flowLayoutPanelCharacters.FlowDirection = FlowDirection.LeftToRight; // Set FlowDirection to LeftToRight.
-            flowLayoutPanelCharacters.WrapContents = false; // Prevent wrapping to maintain a single row.
+            flowLayoutPanelCharacters.FlowDirection = FlowDirection.TopDown; // Set FlowDirection to TopDown.
+            flowLayoutPanelCharacters.WrapContents = true; 
             flowLayoutPanelCharacters.AutoScroll = true;
 
             // Call the function to load character images and add them to the FlowLayoutPanel.
@@ -578,7 +576,7 @@ namespace XVReborn
                 // Set the Tag property of the DraggableButton to store the character code.
                 buttonCharacter.Tag = characterCode;
                 buttonCharacter.Text = characterCode;
-                buttonCharacter.Font = new Font("Arial", 18);
+                buttonCharacter.Font = new Font("Arial", 15);
                 buttonCharacter.ForeColor = SystemColors.MenuText;
 
 
@@ -697,8 +695,25 @@ namespace XVReborn
 
         private void flowLayoutPanelCharacters_ControlAdded(object sender, ControlEventArgs e)
         {
-            if (flowLayoutPanelCharacters.Controls.Count % 3 == 0)
-                flowLayoutPanelCharacters.SetFlowBreak(e.Control as Control, true);
+            // Check if the control added is a DraggableButton.
+            if (e.Control is DraggableButton buttonCharacter)
+            {
+                // Find the index of the button in the FlowLayoutPanel.
+                int index = flowLayoutPanelCharacters.Controls.IndexOf(buttonCharacter);
+
+                // Calculate the column index (0 to 2) of the button in the current row.
+                int columnIndex = index % 3;
+
+                // Set the flow break for every third control in each row except for the last row.
+                if (columnIndex == 2 && index < flowLayoutPanelCharacters.Controls.Count - 1)
+                {
+                    flowLayoutPanelCharacters.SetFlowBreak(buttonCharacter, true);
+                }
+                else
+                {
+                    flowLayoutPanelCharacters.SetFlowBreak(buttonCharacter, false);
+                }
+            }
         }
 
         // Function to add images to the FlowLayoutPanel.
@@ -712,8 +727,6 @@ namespace XVReborn
 
             // Load the default image outside the loop
             LoadDefaultImage();
-
-            int count = 0; // Move the count variable outside the inner loop.
 
             foreach (var characterArray in charaList)
             {
@@ -731,6 +744,7 @@ namespace XVReborn
                         buttonCharacter.Width = 128;
                         buttonCharacter.Height = 64;
                         buttonCharacter.Image = characterImages[characterCode];
+
                         // Add the DraggableButton to the FlowLayoutPanel.
                         flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
 
@@ -741,18 +755,6 @@ namespace XVReborn
                         buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
                         buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
                         buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
-
-                        // Add the DraggableButton to the list.
-                        buttonCharacters.Add(buttonCharacter);
-
-                        // Increment the count and check if it exceeds 3.
-                        count++;
-                        if (count >= 3)
-                        {
-                            // Add an empty control to act as a line breaker.
-                            flowLayoutPanelCharacters.Controls.Add(new Control());
-                            count = 0;
-                        }
                     }
                     else
                     {
@@ -765,31 +767,20 @@ namespace XVReborn
                             buttonCharacter.Width = 128;
                             buttonCharacter.Height = 64;
                             buttonCharacter.Image = new Bitmap(defaultImage);
+
                             // Add the DraggableButton to the FlowLayoutPanel.
                             flowLayoutPanelCharacters.Controls.Add(buttonCharacter);
 
                             // Set the Tag property of the DraggableButton to store the character code.
                             buttonCharacter.Tag = characterCode;
                             buttonCharacter.Text = characterCode;
-                            buttonCharacter.Font = new Font("Arial", 18);
+                            buttonCharacter.Font = new Font("Arial", 15);
                             buttonCharacter.ForeColor = SystemColors.MenuText;
 
                             // Wire up the DragEnter, DragDrop, and MouseMove events for the DraggableButton.
                             buttonCharacter.DragEnter += ButtonCharacter_DragEnter;
                             buttonCharacter.DragDrop += ButtonCharacter_DragDrop;
                             buttonCharacter.MouseMove += ButtonCharacter_MouseMove;
-
-                            // Add the DraggableButton to the list.
-                            buttonCharacters.Add(buttonCharacter);
-
-                            // Increment the count and check if it exceeds 3.
-                            count++;
-                            if (count >= 3)
-                            {
-                                // Add an empty control to act as a line breaker.
-                                flowLayoutPanelCharacters.Controls.Add(new Control());
-                                count = 0;
-                            }
                         }
                     }
                 }
@@ -842,7 +833,7 @@ namespace XVReborn
             string charaListFilePath = Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/Charalist.as";
 
             // Assuming the character data is stored in CharaListDlc0_0 variable in the AS3 file.
-            string charaListVariable = "        public static var CharaListDlc0_0";
+            string charaListVariable = "public static var CharaListDlc0_0";
             string startToken = charaListVariable + ":Array = [";
             string endToken = "]]"; // Fixed the endToken to match the original array structure.
             string characterDataString = "";
