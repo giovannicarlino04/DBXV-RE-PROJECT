@@ -37,7 +37,6 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uninstallModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.slotEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.clearInstallationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,6 +170,11 @@
             this.removeAuraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanelCharacters = new System.Windows.Forms.FlowLayoutPanel();
+            this.menuStrip6 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ch = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.header = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -200,6 +204,8 @@
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.menuStrip5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.menuStrip6.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -262,7 +268,6 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.slotEditorToolStripMenuItem,
             this.compileScriptsToolStripMenuItem,
             this.toolStripSeparator1,
             this.clearInstallationToolStripMenuItem});
@@ -270,29 +275,22 @@
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // slotEditorToolStripMenuItem
-            // 
-            this.slotEditorToolStripMenuItem.Name = "slotEditorToolStripMenuItem";
-            this.slotEditorToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
-            this.slotEditorToolStripMenuItem.Text = "Slot Editor";
-            this.slotEditorToolStripMenuItem.Click += new System.EventHandler(this.slotEditorToolStripMenuItem_Click);
-            // 
             // compileScriptsToolStripMenuItem
             // 
             this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
             this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // clearInstallationToolStripMenuItem
             // 
             this.clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearInstallationToolStripMenuItem.Text = "Clear Installation";
             this.clearInstallationToolStripMenuItem.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
             // 
@@ -324,6 +322,7 @@
             this.Mods.Controls.Add(this.tabPage4);
             this.Mods.Controls.Add(this.tabPage7);
             this.Mods.Controls.Add(this.tabPage5);
+            this.Mods.Controls.Add(this.tabPage6);
             this.Mods.Location = new System.Drawing.Point(0, 24);
             this.Mods.Name = "Mods";
             this.Mods.SelectedIndex = 0;
@@ -1546,6 +1545,50 @@
             this.toolStripMenuItem11.Text = "Edit AUR File";
             this.toolStripMenuItem11.Click += new System.EventHandler(this.editAURFileToolStripMenuItem_Click);
             // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage6.Controls.Add(this.flowLayoutPanelCharacters);
+            this.tabPage6.Controls.Add(this.menuStrip6);
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(839, 397);
+            this.tabPage6.TabIndex = 9;
+            this.tabPage6.Text = "CSS";
+            // 
+            // flowLayoutPanelCharacters
+            // 
+            this.flowLayoutPanelCharacters.Location = new System.Drawing.Point(0, 123);
+            this.flowLayoutPanelCharacters.Name = "flowLayoutPanelCharacters";
+            this.flowLayoutPanelCharacters.Size = new System.Drawing.Size(839, 104);
+            this.flowLayoutPanelCharacters.TabIndex = 0;
+            // 
+            // menuStrip6
+            // 
+            this.menuStrip6.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem2});
+            this.menuStrip6.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip6.Name = "menuStrip6";
+            this.menuStrip6.Size = new System.Drawing.Size(833, 24);
+            this.menuStrip6.TabIndex = 1;
+            this.menuStrip6.Text = "menuStrip6";
+            // 
+            // fileToolStripMenuItem2
+            // 
+            this.fileToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem1});
+            this.fileToolStripMenuItem2.Name = "fileToolStripMenuItem2";
+            this.fileToolStripMenuItem2.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem2.Text = "File";
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.saveToolStripMenuItem1.Text = "Save CSS";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.SaveCSSToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1654,6 +1697,10 @@
             this.groupBox7.PerformLayout();
             this.menuStrip5.ResumeLayout(false);
             this.menuStrip5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
+            this.menuStrip6.ResumeLayout(false);
+            this.menuStrip6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1809,7 +1856,11 @@
         private System.Windows.Forms.ColumnHeader Type;
         private System.Windows.Forms.ColumnHeader header;
         private System.Windows.Forms.ColumnHeader ch;
-        private System.Windows.Forms.ToolStripMenuItem slotEditorToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelCharacters;
+        private System.Windows.Forms.MenuStrip menuStrip6;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
     }
 }
 
