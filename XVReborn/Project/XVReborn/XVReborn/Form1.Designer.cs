@@ -47,9 +47,9 @@ namespace XVReborn
             this.Mods = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lvMods = new System.Windows.Forms.ListView();
-            this.Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Author = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Type = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ch3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbList = new System.Windows.Forms.ComboBox();
@@ -385,19 +385,19 @@ namespace XVReborn
             // compileScriptsToolStripMenuItem
             // 
             this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
             this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // clearInstallationToolStripMenuItem
             // 
             this.clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearInstallationToolStripMenuItem.Text = "Clear Installation";
             this.clearInstallationToolStripMenuItem.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
             // 
@@ -443,9 +443,9 @@ namespace XVReborn
             // lvMods
             // 
             this.lvMods.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Name,
-            this.Author,
-            this.Type});
+            this.ch1,
+            this.ch2,
+            this.ch3});
             this.lvMods.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvMods.HideSelection = false;
             this.lvMods.Location = new System.Drawing.Point(3, 3);
@@ -456,20 +456,20 @@ namespace XVReborn
             this.lvMods.UseCompatibleStateImageBehavior = false;
             this.lvMods.View = System.Windows.Forms.View.Details;
             // 
-            // Name
+            // ch1
             // 
-            this.Name.Text = "Name";
-            this.Name.Width = 116;
+            this.ch1.Text = "Name";
+            this.ch1.Width = 116;
             // 
-            // Author
+            // ch2
             // 
-            this.Author.Text = "Author";
-            this.Author.Width = 122;
+            this.ch2.Text = "Author";
+            this.ch2.Width = 122;
             // 
-            // Type
+            // ch3
             // 
-            this.Type.Text = "Type";
-            this.Type.Width = 591;
+            this.ch3.Text = "Type";
+            this.ch3.Width = 591;
             // 
             // tabPage3
             // 
@@ -594,7 +594,7 @@ namespace XVReborn
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(126, 22);
             this.toolStripMenuItem3.Text = "Save MSG";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -2628,6 +2628,7 @@ namespace XVReborn
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.Name = "Form1";
             this.Text = "XVReborn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -2836,9 +2837,9 @@ namespace XVReborn
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem compileScriptsToolStripMenuItem;
         private System.Windows.Forms.ListView lvMods;
-        private System.Windows.Forms.ColumnHeader Name;
-        private System.Windows.Forms.ColumnHeader Author;
-        private System.Windows.Forms.ColumnHeader Type;
+        private System.Windows.Forms.ColumnHeader ch1;
+        private System.Windows.Forms.ColumnHeader ch2;
+        private System.Windows.Forms.ColumnHeader ch3;
         private System.Windows.Forms.ColumnHeader header;
         private System.Windows.Forms.ColumnHeader ch;
         private System.Windows.Forms.TabPage tabPage6;

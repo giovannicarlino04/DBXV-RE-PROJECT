@@ -1933,16 +1933,6 @@ namespace XVReborn
                 Directory.Delete(Properties.Settings.Default.datafolder + "//temp", true);
             }
 
-            if (File.Exists(Application.StartupPath + @"\Resources\CHARA01.emb"))
-            {
-                File.Delete(Application.StartupPath + @"\Resources\CHARA01.emb");
-            }
-
-            if (File.Exists(Application.StartupPath + @"\Resources\CHARAS01.emb"))
-            {
-                File.Delete(Application.StartupPath + @"\Resources\CHARAS01.emb");
-            }
-
             if (File.Exists(Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml"))
             {
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml");
