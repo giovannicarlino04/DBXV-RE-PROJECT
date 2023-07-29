@@ -437,23 +437,21 @@ namespace XVReborn
             }
 
             //Install mod opening the .x1m file
-            string[] args = Environment.GetCommandLineArgs();
+            string arg = Environment.GetCommandLineArgs()[0];
 
-            foreach (string arg in args)
+            if (arg.EndsWith(".x1m"))
             {
-                if (arg.EndsWith(".x1m"))
+                if (MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    if (MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        installmod(arg);
-                    }
-                    else
-                    {
-                        Clean();
-                        Environment.Exit(0);
-                    }
+                    installmod(arg);
+                }
+                else
+                {
+                    Clean();
+                    Environment.Exit(0);
                 }
             }
+            
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
             flowLayoutPanelCharacters.ControlAdded += new System.Windows.Forms.ControlEventHandler(flowLayoutPanelCharacters_ControlAdded);
             flowLayoutPanelCharacters.FlowDirection = FlowDirection.TopDown; // Set FlowDirection to TopDown.
@@ -1870,15 +1868,12 @@ namespace XVReborn
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = ".x1m files | *.x1m";
             ofd.Title = "Install Mod";
-            ofd.Multiselect = true;
+            ofd.Multiselect = false;
 
 
-            if (ofd.ShowDialog() == DialogResult.OK && ofd.FileNames.Length > 0)
+            if (ofd.ShowDialog() == DialogResult.OK && ofd.FileName.Length > 0)
             {
-                foreach (string file in ofd.FileNames)
-                {
-                    installmod(file);
-                }
+                    installmod(ofd.FileName);      
             }
             else
             {
