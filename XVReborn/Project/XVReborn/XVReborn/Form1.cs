@@ -1294,14 +1294,12 @@ namespace XVReborn
                             text3.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
                         }
 
-                        CompileScripts();
-
-
-
                         using (var file = new StreamWriter(File.Create(Charalist)))
                         {
                             file.Write(text3.ToString());
                         }
+
+                        CompileScripts();
 
                         // Old code
                         //
@@ -2463,11 +2461,6 @@ namespace XVReborn
         {
             file.data[cbList.SelectedIndex].NameID = txtName.Text;
             cbList.Items[cbList.SelectedIndex] = file.data[cbList.SelectedIndex].ID.ToString() + "-" + file.data[cbList.SelectedIndex].NameID;
-        }
-
-        private void txtID_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void txtText_TextChanged(object sender, EventArgs e)
