@@ -1,572 +1,691 @@
-#include <Windows.h>
-#include <Psapi.h>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <string>
-#include <stdexcept>
-#include <algorithm>
-#include <thread>
-#include <mutex>
-#include <tchar.h>
-#include <TlHelp32.h>
-#include <locale>
-#include <codecvt>
-#include <vector>
+#define _WIN32_WINNT	0x600
 
-std::mutex iggyMessagesMutex;
-std::string latestIggyTrace;
-std::string latestIggyWarning;
-std::string latestIggyError;
-std::ofstream logFile;
-std::string debug;
+#include <windows.h>
+#include <winbase.h>
+#include <stdio.h>
+#include <io.h>
+#include <stdint.h>
 
-#define XVPATCHER_VERSION "1.00"
-#define INI_FILE "XVPatcher/XVPatcher.ini"
-#define LOG_FILE "XVPatcher/XVPatcher.log"
+#include "steam_api.h"
+#include "patch.h"
+#include "debug.h"
+#include "symbols.h"
+#include "CpkFile.h"
 
-typedef void (*ExternalAS3CallbackType)(void* custom_arg, void* iggy_obj, const char** pfunc_name);
-typedef void* (*IggyPlayerCallbackResultPathType)(void* unk0);
-typedef void (*IggyValueSetStringUTF8RSType)(void* arg1, void* unk2, void* unk3, const char* str, size_t length);
-typedef void (*IggyValueSetS32RSType)(void* arg1, uint32_t unk2, uint32_t unk3, uint32_t value);
-typedef void (*_Battle_Mob_Destructor)(void*);
+#define EXPORT WINAPI __declspec(dllexport)
 
-static ExternalAS3CallbackType ExternalAS3Callback;
-static IggyPlayerCallbackResultPathType IggyPlayerCallbackResultPath;
-static IggyValueSetStringUTF8RSType IggyValueSetStringUTF8RS;
-static IggyValueSetS32RSType IggyValueSetS32RS;
-static _Battle_Mob_Destructor Battle_Mob_Destructor;
+#define NUM_EXPORTED_FUNCTIONS	18
 
-// Dichiarazione delle funzioni
-bool GetIggyModule(HANDLE processHandle, HMODULE& iggyModule);
-void PatchIggyCallbacks(HMODULE iggyModule);
-void PatchExternalAS3Callback(FARPROC externalAS3CallbackFunc, uintptr_t iggyBaseAddress);
 
-void LogDebug(const std::string& message)
-{
-    if (debug == "true") {
-        logFile << message << std::endl;
-        std::cout << message << std::endl;
-        logFile.flush();
-    }
-}
+#ifndef XENOVERSE
 
-std::string GetIniValue(const std::string& filePath, const std::string& section, const std::string& key)
-{
-    const int bufferSize = 255;
-    char buffer[bufferSize];
+#define PROCESS_NAME 	"dbxv.exe"
+#define DATA_CPK		"data.cpk"
+#define DATA2_CPK		"data2.cpk"
+#define DATAP1_CPK		"datap1.cpk"
+#define DATAP2_CPK		"datap2.cpk"
+#define DATAP3_CPK		"datap3.cpk"
 
-    DWORD bytesRead = GetPrivateProfileStringA(section.c_str(), key.c_str(), "", buffer, bufferSize, filePath.c_str());
 
-    LogDebug("Got ini value at " + section + " " + key);
-    return std::string(buffer, bytesRead);
-}
-
-void SetupExternalAS3Callback(ExternalAS3CallbackType orig);
-
-typedef void (*SendToAS3Type)(void *, int32_t, const void *);
-SendToAS3Type SendToAS3;
-
-void HandleIggyTrace(const std::string& TraceMessage)
-{
-    std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-    // Perform actions based on the Iggy trace message
-    // For example, log it, display a notification, or handle it in a specific way
-    LogDebug("Iggy Trace: " + TraceMessage);
-}
-
-void HandleIggyWarning(const std::string& warningMessage)
-{
-    std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-    // Perform actions based on the Iggy warning message
-    // For example, log it, display a notification, or handle it in a specific way
-    LogDebug("Iggy Warning: " + warningMessage);
-}
-
-void HandleIggyError(const std::string& errorMessage)
-{
-    std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-    // Perform actions based on the Iggy error message
-    // For example, log it, display an error message, or handle it in a specific way
-    LogDebug("Iggy Error: " + errorMessage);
-}
-
-void iggy_trace_callback(void* param, void* unk, size_t len, const char* str)
-{
-    std::string traceMessage(str, len);
-    {
-        std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-        latestIggyTrace = traceMessage;
-    }
-    HandleIggyTrace(traceMessage);
-}
-
-void iggy_warning_callback(void* param, void* unk, size_t len, const char* str)
-{
-    std::string warningMessage(str, len);
-    {
-        std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-        latestIggyWarning = warningMessage;
-    }
-    HandleIggyWarning(warningMessage);
-}
-
-void iggy_error_callback(void* param, void* unk, size_t len, const char* str)
-{
-    std::string errorMessage(str, len);
-    {
-        std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-        latestIggyError = errorMessage;
-    }
-    HandleIggyError(errorMessage);
-}
-
-static void IggySetTraceCallbackUTF8Patched(void*, void* param)
-{
-    
-    HMODULE iggy = GetModuleHandleA("iggy_w32.dll");
-    if (!iggy) {
-        LogDebug("Failed to get the module handle for iggy_w32.dll");
-        return;
-    }
-
-    FARPROC func = GetProcAddress(iggy, "_IggySetTraceCallbackUTF8@8");
-    if (!func) {
-        LogDebug("Failed to get the function address for IggySetTraceCallbackUTF8@8");
-        return;
-    }
-
-    typedef void (*IGGYSetTraceCallbackType)(void* callback, void* param);
-    IGGYSetTraceCallbackType iggySetTraceCallback = reinterpret_cast<IGGYSetTraceCallbackType>(func);
-    if (!iggySetTraceCallback) {
-        LogDebug("Failed to cast the function address for IggySetTraceCallbackUTF8@8");
-        return;
-    }
-
-    try {
-        LogDebug("Patching IggySetTraceCallbackUTF8@8");
-        iggySetTraceCallback(param, reinterpret_cast<void*>(&iggy_trace_callback));
-    }
-    catch (const std::exception& ex) {
-        LogDebug("Exception occurred while patching IggySetTraceCallbackUTF8@8: " + std::string(ex.what()));
-    }
-    catch (...) {
-        LogDebug("Unknown exception occurred while patching IggySetTraceCallbackUTF8@8");
-    }
-}
-
-static void IggySetWarningCallbackPatched(void*, void* param)
-{
-    HMODULE iggy = GetModuleHandleA("iggy_w32.dll");
-    if (!iggy) {
-        LogDebug("Failed to get the module handle for iggy_w32.dll");
-        return;
-    }
-
-    FARPROC func = GetProcAddress(iggy, "_IggySetWarningCallback@8");
-    if (!func) {
-        LogDebug("Failed to get the function address for IggySetWarningCallback@8");
-        return;
-    }
-
-    typedef void (*IGGYSetWarningCallbackType)(void* callback, void* param);
-    IGGYSetWarningCallbackType iggySetWarningCallback = reinterpret_cast<IGGYSetWarningCallbackType>(func);
-    if (!iggySetWarningCallback) {
-        LogDebug("Failed to cast the function address for IggySetWarningCallback@8");
-        return;
-    }
-
-    try {
-        LogDebug("Patching IggySetWarningCallback@8");
-        iggySetWarningCallback(param, reinterpret_cast<void*>(&iggy_warning_callback));
-    }
-    catch (const std::exception& ex) {
-        LogDebug("Exception occurred while patching IggySetWarningCallback@8: " + std::string(ex.what()));
-    }
-    catch (...) {
-        LogDebug("Unknown exception occurred while patching IggySetWarningCallback@8");
-    }
-}
-
-std::string ToString(const std::u16string& str)
-{
-    std::string result;
-    for (const char16_t& ch : str) {
-        result += static_cast<char>(ch);
-    }
-    return result;
-}
-
-void PatchGameVersionString(void* obj, int32_t code)
-{
-    try {
-        static std::u16string version = u"ver.1.08.00"; // THIS VAR MUST BE STATIC TO AVOID OBJECT DESTRUCTION AT THE END OF THE METHOD
-
-        LogDebug("PatchGameVersionString called");
-
-        LogDebug("Running game version " + ToString(version));
-        if (version.length() >= 4) {
-            version = u"<font size=\"9\">v" + version.substr(1) + u" (patcher " XVPATCHER_VERSION ")</font>";
-        }
-        else {
-            LogDebug("Invalid version string length");
-            // Gestire l'errore o restituire un valore di default
-            return;
-        }
-
-        SendToAS3(obj, code, version.c_str());
-        LogDebug("Patched version string: " + std::string(version.begin(), version.end()));
-    }
-    catch (std::exception& ex) {
-        LogDebug(ex.what());
-    }
-}
-
-void PatchGameVersionStringPatched(void* obj, int32_t code)
-{
-    PatchGameVersionString(obj, code);
-}
-
-void SetupExternalAS3Callback(ExternalAS3CallbackType orig)
-{
-    ExternalAS3Callback = orig;
-}
-
-std::string GetLatestIggyWarning()
-{
-    std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-    return latestIggyWarning;
-}
-
-std::string GetLatestIggyError()
-{
-    std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-    return latestIggyError;
-}
-
-int ExternalAS3CallbackPatched(void* custom_arg, void* iggy_obj, const char** pfunc_name)
-{
-    if (pfunc_name && *pfunc_name)
-    {
-        const char* func_name = *pfunc_name;
-
-        if (strcmp(func_name, "HelloWorld") == 0)
-        {
-            HMODULE iggy = GetModuleHandleA("iggy_w32.dll");
-            if (!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-                reinterpret_cast<LPCWSTR>(&ExternalAS3CallbackPatched), &iggy))
-            {
-                LogDebug("Failed to get the module handle for iggy_w32.dll");
-                return 0;
-            }
-
-            if (!IggyPlayerCallbackResultPath)
-            {
-                FARPROC func = GetProcAddress(iggy, "_IggyPlayerCallbackResultPath@4");
-                IggyPlayerCallbackResultPath = reinterpret_cast<IggyPlayerCallbackResultPathType>(func);
-                func = GetProcAddress(iggy, "_IggyValueSetStringUTF8RS@20");
-                IggyValueSetStringUTF8RS = reinterpret_cast<IggyValueSetStringUTF8RSType>(func);
-                func = GetProcAddress(iggy, "_IggyValueSetS32RS@16");
-                IggyValueSetS32RS = reinterpret_cast<IggyValueSetS32RSType>(func);
-            }
-
-            void* ret = IggyPlayerCallbackResultPath(iggy_obj);
-            if (!ret)
-            {
-                LogDebug("IggyPlayerCallbackResultPath returned NULL");
-                return 0;
-            }
-
-            static const char* hello_world = "Hello world from the native side";
-            IggyValueSetStringUTF8RS(ret, nullptr, nullptr, hello_world, strlen(hello_world));
-            return 1;
-        }
-    }
-
-    return ExternalAS3CallbackPatched(custom_arg, iggy_obj, pfunc_name);
-}
-
-void CheckIggyMessages()
-{
-    while (true) {
-        // Controlla periodicamente per nuovi errori o warning di Iggy
-        {
-            std::lock_guard<std::mutex> lock(iggyMessagesMutex);
-            if (!latestIggyWarning.empty()) {
-                // Esegui azioni in base al nuovo warning di Iggy
-                // Ad esempio, puoi loggarlo o visualizzare una notifica
-                LogDebug("New Iggy Warning: " + latestIggyWarning);
-                latestIggyWarning.clear(); // Resetta il warning
-            }
-            if (!latestIggyTrace.empty()) {
-                // Esegui azioni in base al nuovo trace di Iggy
-                // Ad esempio, puoi loggarlo o visualizzare una notifica
-                LogDebug("New Iggy Trace: " + latestIggyTrace);
-                latestIggyTrace.clear(); // Resetta il trace
-            }
-            if (!latestIggyError.empty()) {
-                // Esegui azioni in base al nuovo errore di Iggy
-                // Ad esempio, puoi loggarlo o visualizzare un messaggio di errore
-                LogDebug("New Iggy Error: " + latestIggyError);
-                latestIggyError.clear(); // Resetta l'errore
-            }
-        }
-
-        // Aggiungi una breve pausa tra i controlli
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-}
-
-void PatchGameVersionStringPatch()
-{
-    // Trova il punto in cui inserire la patch e sostituisci le istruzioni
-    uintptr_t address = 0x4F7D65; // Indirizzo da patchare
-
-    // Le istruzioni della patch
-    const unsigned char patchInstructions[] = {
-        0x4C, 0x8D, 0x05, 0x00, 0x00, 0x00, 0x00, // lea r8, '%ls'; comment=version_string
-        0xE8, 0x00, 0x00, 0x00, 0x00, // call <send_method>
-        0x4C, 0x8B, 0xC3, // mov r8, rbx
-        0xBA, 0x04, 0x00, 0x00, 0x00, // mov edx, 4
-        0x48, 0x8B, 0xCF, // mov rcx, rdi
-        0xE8, 0x00, 0x00, 0x00, 0x00 // call <send_method>
-    };
-
-    // Calcola gli offset per le chiamate a <send_method>
-    uintptr_t sendMethodOffset1 = 0x10; // L'offset della prima chiamata a <send_method>
-    uintptr_t sendMethodOffset2 = 0x1B; // L'offset della seconda chiamata a <send_method>
-
-    // Calcola l'indirizzo della funzione SendToAS3
-    SendToAS3Type sendToAS3 = reinterpret_cast<SendToAS3Type>(GetProcAddress(GetModuleHandleA("iggy_w32.dll"), "SendToAS3"));
-    if (!sendToAS3) {
-        LogDebug("Failed to get the address of SendToAS3 function");
-        return;
-    }
-
-    // Calcola gli indirizzi delle funzioni di callback
-    uintptr_t iggyTraceCallback = reinterpret_cast<uintptr_t>(&iggy_trace_callback);
-    uintptr_t iggyWarningCallback = reinterpret_cast<uintptr_t>(&iggy_warning_callback);
-
-    // Calcola gli indirizzi delle istruzioni di chiamata a <send_method>
-    uintptr_t sendMethodAddress1 = reinterpret_cast<uintptr_t>(sendToAS3) + sendMethodOffset1;
-    uintptr_t sendMethodAddress2 = reinterpret_cast<uintptr_t>(sendToAS3) + sendMethodOffset2;
-
-    // Calcola l'indirizzo della stringa di versione
-    std::u16string versionString = u"ver.1.08.00";
-    uintptr_t versionStringAddress = reinterpret_cast<uintptr_t>(&versionString[0]);
-
-    // Calcola gli indirizzi delle istruzioni da patchare
-    uintptr_t patchAddress1 = address + 0x3;
-    uintptr_t patchAddress2 = address + 0xA;
-
-    // Applica la patch sostituendo le istruzioni
-    DWORD oldProtection;
-    VirtualProtect(reinterpret_cast<void*>(address), sizeof(patchInstructions), PAGE_EXECUTE_READWRITE, &oldProtection);
-    memcpy(reinterpret_cast<void*>(address), patchInstructions, sizeof(patchInstructions));
-    VirtualProtect(reinterpret_cast<void*>(address), sizeof(patchInstructions), oldProtection, nullptr);
-
-    // Scrivi gli indirizzi delle funzioni di callback e degli indirizzi delle istruzioni di chiamata a <send_method>
-    *reinterpret_cast<uintptr_t*>(patchAddress1) = iggyTraceCallback;
-    *reinterpret_cast<uintptr_t*>(patchAddress2) = iggyWarningCallback;
-    *reinterpret_cast<uintptr_t*>(patchAddress1 + 0x12) = sendMethodAddress1;
-    *reinterpret_cast<uintptr_t*>(patchAddress2 + 0x12) = sendMethodAddress2;
-
-    // Aggiorna la versione nella funzione PatchGameVersionStringPatched
-    std::string patchedVersion = "<font size=\"9\">v" + ToString(versionString.substr(1)) + " (patcher " XVPATCHER_VERSION ")</font>";
-    *reinterpret_cast<uintptr_t*>(patchAddress1 + 0x7) = versionStringAddress;
-    *reinterpret_cast<uintptr_t*>(patchAddress2 + 0x7) = versionStringAddress;
-
-    LogDebug("PatchGameVersionString patch applied");
-}
-
-std::wstring ConvertTCharToWString(const TCHAR* tcharString)
-{
-#ifdef UNICODE
-    return std::wstring(tcharString);
-#else
-    int length = MultiByteToWideChar(CP_ACP, 0, tcharString, -1, nullptr, 0);
-    if (length == 0)
-    {
-        throw std::runtime_error("Failed to convert TCHAR to std::wstring.");
-    }
-
-    std::vector<wchar_t> buffer(length);
-    MultiByteToWideChar(CP_ACP, 0, tcharString, -1, buffer.data(), length);
-
-    return std::wstring(buffer.begin(), buffer.end());
 #endif
+
+
+const char *gSteamExportsNames[NUM_EXPORTED_FUNCTIONS] =
+{
+	"SteamAPI_SetMiniDumpComment",
+	"SteamAPI_WriteMiniDump",
+	"SteamUserStats",
+	"SteamAPI_UnregisterCallResult",
+	"SteamAPI_RegisterCallResult",
+	"SteamAPI_RunCallbacks",
+	"SteamAPI_RegisterCallback",
+	"SteamAPI_UnregisterCallback",
+	"SteamMatchmaking",
+	"SteamUtils",
+	"SteamUser",
+	"SteamFriends",
+	"SteamRemoteStorage",
+	"SteamClient",
+	"SteamAPI_Init",
+	"SteamAPI_Shutdown",
+	"SteamNetworking",
+	"SteamApps"
+};
+
+DummyFunction gMyExports[NUM_EXPORTED_FUNCTIONS] =
+{
+	SteamAPI_SetMiniDumpComment,
+	SteamAPI_WriteMiniDump,
+	SteamUserStats,
+	SteamAPI_UnregisterCallResult,
+	SteamAPI_RegisterCallResult,
+	SteamAPI_RunCallbacks,
+	SteamAPI_RegisterCallback,
+	SteamAPI_UnregisterCallback,
+	SteamMatchmaking,
+	SteamUtils,
+	SteamUser,
+	SteamFriends,
+	SteamRemoteStorage,
+	SteamClient,
+	SteamAPI_Init,
+	SteamAPI_Shutdown,
+	SteamNetworking,
+	SteamApps
+};
+
+uint8_t (* __thiscall cpk_file_exists)(void *, char *);
+
+static HANDLE gOrigSteam;
+
+static uint64_t data_toc_offset, data_toc_size;
+static uint64_t data2_toc_offset, data2_toc_size;
+static uint64_t datap1_toc_offset, datap1_toc_size;
+static uint64_t datap2_toc_offset, datap2_toc_size;
+static uint64_t datap3_toc_offset, datap3_toc_size;
+
+static uint8_t *data_toc, *data2_toc, *datap1_toc, *datap2_toc, *datap3_toc;
+static uint8_t *data_hdr, *data2_hdr, *datap1_hdr, *datap2_hdr, *datap3_hdr;
+static void **readfile_import;
+static void *original_readfile;
+
+static BOOL InGameProcess(VOID)
+{
+	char szPath[MAX_PATH];
+	
+	GetModuleFileName(NULL, szPath, MAX_PATH);
+	_strlwr(szPath);
+	
+	// A very poor aproach, I know
+	return (strstr(szPath, PROCESS_NAME) != NULL);
+}
+
+static BOOL LoadDllAndResolveExports(VOID)
+{
+	char szDll[32];
+	
+	strcpy(szDll, "steam_api_real.dll");
+	
+	gOrigSteam = LoadLibrary(szDll);		
+	if (!gOrigSteam)
+	{
+		UPRINTF("I told you to rename original steam_api.dll as steam_api_real.dll!");
+		return FALSE;
+	}
+		
+	for (int i = 0; i < NUM_EXPORTED_FUNCTIONS; i++)
+	{
+		PVOID orig_func = (PVOID)GetProcAddress((HMODULE)gOrigSteam, gSteamExportsNames[i]);
+		if (!orig_func)
+		{
+			DPRINTF("Failed to get original function: %s\n", gSteamExportsNames[i]);
+			return FALSE;
+		}
+		
+		uint8_t *my_func = (uint8_t *)gMyExports[i];	
+		if (*my_func != 0xB8) // Not what we expected
+		{
+			DPRINTF("Eeer hmmm, seems like this is not the real address of the function.\n");
+		}
+		
+		WriteMemory32(my_func+1, (DWORD)orig_func);	// my func+1 = the operand part in mov eax, 0x12345678 
+	}
+	
+	return TRUE;
+}
+
+static VOID UnloadDll(VOID)
+{
+	if (gOrigSteam)
+	{
+		FreeLibrary((HMODULE)gOrigSteam);
+		gOrigSteam = NULL;
+	}
+}
+
+static uint8_t *read_file_from(const char *file,  uint64_t offset, unsigned int *psize)
+{
+	HANDLE hFile;
+	LONG high;
+	uint8_t *buf;
+	
+	// Microsoft and their 5000 parameter functions...
+	hFile = CreateFile(	file, 
+						GENERIC_READ, 
+						FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE, 
+						NULL,
+						OPEN_EXISTING,
+						0,
+						NULL);
+						
+	if (hFile == INVALID_HANDLE_VALUE)
+		return NULL;
+	
+	high = (offset>>32);
+	if (SetFilePointer(hFile, offset&0xFFFFFFFF, &high, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
+	{
+		CloseHandle(hFile);
+		return NULL;		
+	}
+		
+	buf = new uint8_t[*psize];
+	if (!buf)
+	{
+		CloseHandle(hFile);
+		return NULL;
+	}
+	
+	if (!ReadFile(hFile, buf, *psize, (LPDWORD)psize, NULL))
+	{
+		delete[] buf;
+		CloseHandle(hFile);
+		return NULL;
+	}
+	
+	CloseHandle(hFile);						
+	return buf;
+}
+
+static CpkFile *get_cpk_toc(const char *file, uint64_t *toc_offset, uint64_t *toc_size, uint8_t **hdr_buf, uint8_t **toc_buf)
+{
+	unsigned rsize;
+	bool success = false;
+	
+	*hdr_buf = NULL;
+	*toc_buf = NULL;
+	
+	rsize = 0x800;
+	*hdr_buf = read_file_from(file, 0, &rsize);
+	if (!(*hdr_buf))
+		return NULL;
+	
+	CpkFile *cpk = new CpkFile();
+	
+	if (!cpk->ParseHeaderData(*hdr_buf))
+	{
+		goto clean;
+	}
+	
+	*toc_offset = cpk->GetTocOffset();
+	*toc_size = cpk->GetTocSize();
+	
+	if (*toc_offset == (uint64_t)-1 || *toc_size == 0)
+	{
+		goto clean;
+	}
+	
+	rsize = *toc_size;
+	*toc_buf = read_file_from(file, *toc_offset, &rsize);
+	
+	if (!(*toc_buf))
+	{
+		DPRINTF("read_file_from failed (2)\n");
+		delete[] *toc_buf;
+		goto clean;
+	}
+	
+	if (rsize != *toc_size)
+	{
+		DPRINTF("Warning: read size doesn't match requested size.\n");
+	}
+	
+	if (!cpk->ParseTocData(*toc_buf))
+	{
+		goto clean;
+	}	
+	
+	DPRINTF("This .cpk has %d files.\n", cpk->GetNumFiles());
+	success = true;
+	
+clean:
+
+	if (!success)
+	{
+		if (*hdr_buf)
+			delete[] *hdr_buf;
+		
+		if (*toc_buf)
+			delete[] *toc_buf;
+		
+		delete cpk;
+		cpk = NULL;
+	}
+	
+	return cpk;
+}
+
+static bool get_cpk_tocs(CpkFile **data, CpkFile **data2, CpkFile **datap1, CpkFile **datap2, CpkFile **datap3)
+{
+	*data = get_cpk_toc(DATA_CPK, &data_toc_offset, &data_toc_size, &data_hdr, &data_toc);
+	if (!(*data))
+		return false;	
+	
+	*data2 = get_cpk_toc(DATA2_CPK, &data2_toc_offset, &data2_toc_size, &data2_hdr, &data2_toc);
+	if (!(*data2))
+	{
+		delete[] data_toc;
+		delete *data;
+		return false;
+	}
+	*datap1 = get_cpk_toc(DATAP1_CPK, &datap1_toc_offset, &datap1_toc_size, &datap1_hdr, &datap1_toc);
+	if (!(*datap1))
+	{
+		delete[] data2_toc;
+		delete *data2;
+		return false;
+	}
+	*datap2 = get_cpk_toc(DATAP2_CPK, &datap2_toc_offset, &datap2_toc_size, &datap2_hdr, &datap2_toc);
+	if (!(*datap2))
+	{
+		delete[] datap1_toc;
+		delete *datap1;
+		return false;
+	}
+	*datap3 = get_cpk_toc(DATAP3_CPK, &datap3_toc_offset, &datap3_toc_size, &datap3_hdr, &datap3_toc);
+	if (!(*datap3))
+	{
+		delete[] datap2_toc;
+		delete *datap2;
+		return false;
+	}
+
+	DPRINTF("data.cpk.toc = %I64x, size = %I64x\n", data_toc_offset, data_toc_size);
+	DPRINTF("data2.cpk.toc = %I64x, size = %I64x\n", data2_toc_offset, data2_toc_size);
+	DPRINTF("datap1.cpk.toc = %I64x, size = %I64x\n", datap1_toc_offset, datap1_toc_size);
+	DPRINTF("datap2.cpk.toc = %I64x, size = %I64x\n", datap2_toc_offset, datap2_toc_size);
+	DPRINTF("datap3.cpk.toc = %I64x, size = %I64x\n", datap3_toc_offset, datap3_toc_size);
+
+	
+	return true;
+}
+
+static bool local_file_exists( char *path)
+{
+	HANDLE hFind;
+	WIN32_FIND_DATA wfd;
+	
+	hFind = FindFirstFile(path, &wfd);
+	if (hFind == INVALID_HANDLE_VALUE)
+		return false;
+	
+	FindClose(hFind);	
+	return true;
+}
+
+static bool local_file_exists(FileEntry *entry)
+{
+	char *path;
+		
+	path = new char[strlen(entry->dir_name) + strlen(entry->file_name) + 2];
+	if (!path)
+		return false;
+	
+	sprintf(path, "%s/%s", entry->dir_name, entry->file_name); // Should be safe... should...
+	
+	bool ret = local_file_exists(path);
+	delete[] path;
+	
+	return ret;
+}
+
+static void patch_toc(CpkFile *cpk)
+{
+	int count = 0;
+	size_t num_files = cpk->GetNumFiles();
+	
+	for (size_t i = 0; i < num_files; i++)
+	{
+		FileEntry *file = cpk->GetFileAt(i);
+		
+		if (local_file_exists(file))
+		{
+			cpk->UnlinkFileFromDirectory(i);
+			count++;
+		}
+	}
+	
+	DPRINTF("%d files deleted in RAM.\n", count);
+}
+
+static bool IsThisFile(HANDLE hFile, const char *name)
+{
+	static char path[MAX_PATH+1];
+	
+	memset(path, 0, sizeof(path));
+	
+	if (GetFinalPathNameByHandle(hFile, path, sizeof(path)-1, FILE_NAME_NORMALIZED) != 0)
+	{
+		_strlwr(path);
+		return (strstr(path, name) != NULL);
+	}
+	
+	return false;
+}
+
+static uint64_t GetFilePointer(HANDLE hFile)
+{
+	LONG high = 0;	
+	DWORD ret = SetFilePointer(hFile, 0, &high, FILE_CURRENT);
+	
+	if (ret == INVALID_SET_FILE_POINTER)
+		return (uint64_t)-1;
+	
+	return (((uint64_t)high << 32) | (uint64_t)ret);
+}
+
+static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped)
+{
+	static bool data_patched = false;
+	static bool data2_patched = false;
+	static bool datap1_patched = false;
+	static bool datap2_patched = false;
+	static bool datap3_patched = false;
+
+	if (data_patched && data2_patched && datap1_patched && datap2_patched && datap3_patched)
+	{
+		DPRINTF("Main patch is finished. Unhooking function.\n");
+		WriteMemory32((void *)readfile_import, (uint32_t)original_readfile);
+		
+		delete[] data_toc;
+		delete[] data2_toc;
+		delete[] datap1_toc;
+		delete[] datap2_toc;
+		delete[] datap3_toc;
+
+		delete[] data_hdr;
+		delete[] data2_hdr;
+		delete[] datap1_hdr;
+		delete[] datap2_hdr;
+		delete[] datap3_hdr;
+	}
+	else
+	{		
+		if (IsThisFile(hFile, DATA_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, data_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("data.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}
+			
+			if (nNumberOfBytesToRead == data_toc_size)
+			{
+				if (GetFilePointer(hFile) == data_toc_offset)
+				{
+					memcpy(lpBuffer, data_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("data.cpk TOC patched.\n");	
+					data_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		
+		else if (IsThisFile(hFile, DATA2_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, data2_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("data2.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == data2_toc_size)
+			{
+				if (GetFilePointer(hFile) == data2_toc_offset)
+				{
+					memcpy(lpBuffer, data2_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("data2.cpk TOC patched.\n");
+					data2_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		else if (IsThisFile(hFile, DATAP1_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, datap1_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap1.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == datap1_toc_size)
+			{
+				if (GetFilePointer(hFile) == datap1_toc_offset)
+				{
+					memcpy(lpBuffer, datap1_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap1.cpk TOC patched.\n");
+					data2_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		else if (IsThisFile(hFile, DATAP2_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, datap2_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap2.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == datap2_toc_size)
+			{
+				if (GetFilePointer(hFile) == datap2_toc_offset)
+				{
+					memcpy(lpBuffer, datap2_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap2.cpk TOC patched.\n");
+					datap2_patched = true;
+					return TRUE;
+				}
+			}
+		}
+		else if (IsThisFile(hFile, DATAP3_CPK))
+		{
+			if (nNumberOfBytesToRead == 0x800)
+			{
+				if (GetFilePointer(hFile) == 0)
+				{
+					memcpy(lpBuffer, datap3_hdr, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+					
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap3.cpk HDR patched.\n");						
+					return TRUE;
+				}
+			}			
+			
+			if (nNumberOfBytesToRead == datap3_toc_size)
+			{
+				if (GetFilePointer(hFile) == datap3_toc_offset)
+				{
+					memcpy(lpBuffer, datap3_toc, nNumberOfBytesToRead);
+					SetFilePointer(hFile, nNumberOfBytesToRead, NULL, FILE_CURRENT);
+				
+					if (lpNumberOfBytesRead)
+					{
+						*lpNumberOfBytesRead = nNumberOfBytesToRead;
+					}
+				
+					DPRINTF("datap3.cpk TOC patched.\n");
+					datap3_patched = true;
+					return TRUE;
+				}
+			}
+		}
+	}
+	
+	return ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
+}
+
+static uint8_t __thiscall cpk_file_exists_patched(void *object, char *file)
+{
+	uint8_t ret = cpk_file_exists(object, file);
+	
+	if (ret == 0)
+	{
+		//DPRINTF("File exists originally returned 0 (%s)", file);
+		return local_file_exists(file);
+	}
+	
+	return ret;
+}
+
+/*void *(* open_cpk_file)(int, const char *, int );
+
+void *my_open_cpk_file(int a1, const char *s, int a3)
+{
+	void *ret = open_cpk_file(a1, s, a3);
+	
+	DPRINTF("open_cpk_file = %s; a1=%x, a3=%x; ret = %p\n", s, a1, a3, ret);
+	
+	return ret;
+}*/
+
+void patches()
+{
+	readfile_import = (void **)GetModuleImport(GetModuleHandle(NULL), "KERNEL32.dll", "ReadFile");
+	if (!readfile_import)
+	{
+		DPRINTF("Cannot find ReadFile import!.\n");
+		return;
+	}
+	
+	original_readfile = *readfile_import;	
+	DPRINTF("Patch at %p\n", readfile_import);
+	WriteMemory32((void *)readfile_import, (uint32_t)ReadFile_patched);		
+
+	HookFunction(CPK_FILE_EXISTS_SYMBOL, (void **)&cpk_file_exists, (void *)cpk_file_exists_patched);	
+	//HookFunction(CPK_OPEN_FILE_SYMBOL, (void **)&open_cpk_file, (void *)my_open_cpk_file);
 }
 
 
-bool GetIggyModule(HANDLE processHandle, HMODULE& iggyModule)
+
+extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-    HMODULE hMods[1024];
-    DWORD cbNeeded;
-    if (EnumProcessModules(processHandle, hMods, sizeof(hMods), &cbNeeded))
-    {
-        DWORD numModules = cbNeeded / sizeof(HMODULE);
-        for (DWORD i = 0; i < numModules; i++)
-        {
-            TCHAR szModName[MAX_PATH];
-            if (GetModuleFileNameEx(processHandle, hMods[i], szModName, sizeof(szModName) / sizeof(TCHAR)))
-            {
-                std::wstring wideModuleName = ConvertTCharToWString(szModName);
-                std::string moduleName(wideModuleName.begin(), wideModuleName.end());
-                std::transform(moduleName.begin(), moduleName.end(), moduleName.begin(), ::tolower);
-                if (moduleName.find("iggy_w32.dll") != std::string::npos)
-                {
-                    iggyModule = hMods[i];
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
+	switch (fdwReason)
+	{
+		case DLL_PROCESS_ATTACH:
+		
+			DPRINTF("Hello world.\n");
+		
+			if (InGameProcess())
+			{
+				if (!LoadDllAndResolveExports())
+					return FALSE;
+				
+				CpkFile *data, *data2, *datap1, *datap2, *datap3;
+				
+				if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
+				{
+					patch_toc(data);
+					patch_toc(data2);
+					patch_toc(datap1);
+					patch_toc(datap2);
+					patch_toc(datap3);
 
-// Implementazione della funzione PatchIggyCallbacks
-void PatchIggyCallbacks(HMODULE iggyModule)
-{
-    FARPROC func = GetProcAddress(iggyModule, "_IggySetTraceCallbackUTF8@8");
-    if (!func)
-    {
-        LogDebug("Failed to get the function address for IggySetTraceCallbackUTF8@8");
-        return;
-    }
-    typedef void (*IggySetTraceCallbackType)(void* callback, void* param);
-    IggySetTraceCallbackType iggySetTraceCallback = reinterpret_cast<IggySetTraceCallbackType>(func);
-    if (!iggySetTraceCallback)
-    {
-        LogDebug("Failed to cast the function address for IggySetTraceCallbackUTF8@8");
-        return;
-    }
+					
+					data->RevertEncryption(false);
+					data2->RevertEncryption(false);
+					datap1->RevertEncryption(false);
+					datap2->RevertEncryption(false);
+					datap3->RevertEncryption(false);
 
-    func = GetProcAddress(iggyModule, "_IggySetWarningCallback@8");
-    if (!func)
-    {
-        LogDebug("Failed to get the function address for IggySetWarningCallback@8");
-        return;
-    }
-    typedef void (*IggySetWarningCallbackType)(void* callback, void* param);
-    IggySetWarningCallbackType iggySetWarningCallback = reinterpret_cast<IggySetWarningCallbackType>(func);
-    if (!iggySetWarningCallback)
-    {
-        LogDebug("Failed to cast the function address for IggySetWarningCallback@8");
-        return;
-    }
-
-    iggySetTraceCallback(nullptr, reinterpret_cast<void*>(&iggy_trace_callback));
-    iggySetWarningCallback(nullptr, reinterpret_cast<void*>(&iggy_warning_callback));
-}
-
-// Implementazione della funzione PatchExternalAS3Callback
-void PatchExternalAS3Callback(FARPROC externalAS3CallbackFunc, uintptr_t iggyBaseAddress)
-{
-    ExternalAS3Callback = reinterpret_cast<ExternalAS3CallbackType>(externalAS3CallbackFunc);
-
-    DWORD oldProtection;
-    VirtualProtect(reinterpret_cast<void*>(externalAS3CallbackFunc), sizeof(void*), PAGE_EXECUTE_READWRITE, &oldProtection);
-    *reinterpret_cast<uintptr_t*>(externalAS3CallbackFunc) = reinterpret_cast<uintptr_t>(&ExternalAS3CallbackPatched);
-    VirtualProtect(reinterpret_cast<void*>(externalAS3CallbackFunc), sizeof(void*), oldProtection, nullptr);
-
-    FARPROC func = GetProcAddress(reinterpret_cast<HMODULE>(iggyBaseAddress), "_IggyPlayerCallbackResultPath@4");
-    IggyPlayerCallbackResultPath = reinterpret_cast<IggyPlayerCallbackResultPathType>(func);
-
-    func = GetProcAddress(reinterpret_cast<HMODULE>(iggyBaseAddress), "_IggyValueSetStringUTF8RS@20");
-    IggyValueSetStringUTF8RS = reinterpret_cast<IggyValueSetStringUTF8RSType>(func);
-
-    func = GetProcAddress(reinterpret_cast<HMODULE>(iggyBaseAddress), "_IggyValueSetS32RS@16");
-    IggyValueSetS32RS = reinterpret_cast<IggyValueSetS32RSType>(func);
-}
-
-int main()
-{
-    try {
-        debug = GetIniValue(INI_FILE, "Patches", "debug_patches");
-
-        logFile.open(LOG_FILE, std::ofstream::out | std::ofstream::trunc);
-        if (!logFile.is_open()) {
-            std::cout << "Failed to open log file: " << LOG_FILE << std::endl;
-            return -1;
-        }
-
-        LogDebug(std::string("Welcome to XVPatcher! - version ") + XVPATCHER_VERSION);
-
-        // Find the process ID based on the window name
-        HWND windowHandle = FindWindowW(nullptr, L"DRAGON BALL XENOVERSE");
-        DWORD processId = 0;
-
-        if (!windowHandle) {
-            // Launch the DBXV.exe executable
-            ShellExecuteW(nullptr, L"open", L"DBXV.exe", nullptr, nullptr, SW_SHOWNORMAL);
-
-            // Wait for 5 seconds
-            Sleep(5000);
-
-            // Find the process ID again
-            windowHandle = FindWindowW(nullptr, L"DRAGON BALL XENOVERSE");
-        }
-
-        if (windowHandle) {
-            DWORD processId2 = GetWindowThreadProcessId(windowHandle, &processId);
-
-            // Load the iggy_w32.dll module from the DBXV.exe process
-            HANDLE processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processId);
-            if (!processHandle) {
-                LogDebug("Failed to open process");
-                return -1;
-            }
-
-            HMODULE iggyModule = GetModuleHandleA("iggy_w32.dll");
-            if (!GetIggyModule(processHandle, iggyModule)) {
-                LogDebug("Failed to find iggy_w32.dll module");
-                CloseHandle(processHandle);
-                return -1;
-            }
-
-            PatchIggyCallbacks(iggyModule);
-            LogDebug("Patched Iggy callbacks");
-
-            PatchGameVersionStringPatch();
-            LogDebug("Patched GameVersionString");
-
-            uintptr_t iggyBaseAddress = reinterpret_cast<uintptr_t>(iggyModule);
-            LogDebug("iggy_w32.dll base address: " + std::to_string(iggyBaseAddress));
-
-            FARPROC externalAS3CallbackFunc = GetProcAddress(iggyModule, "ExternalAS3Callback");
-            if (!externalAS3CallbackFunc) {
-                LogDebug("Failed to get the address of ExternalAS3Callback");
-                CloseHandle(processHandle);
-                return -1;
-            }
-
-            PatchExternalAS3Callback(externalAS3CallbackFunc, iggyBaseAddress);
-            LogDebug("Patched ExternalAS3Callback");
-
-            std::thread iggyMessageThread(CheckIggyMessages);
-            LogDebug("Started Iggy message thread");
-
-            WaitForSingleObject(processHandle, INFINITE);
-            LogDebug("DBXV.exe process exited");
-
-            CloseHandle(processHandle);
-            iggyMessageThread.join();
-            LogDebug("Cleanup complete");
-        }
-        else {
-            LogDebug("Failed to find the game window");
-            logFile.close();
-            return -1;
-        }
-
-        logFile.close();
-    }
-    catch (std::exception& ex) {
-        std::cout << "Exception occurred: " << ex.what() << std::endl;
-        LogDebug("Exception occurred: " + std::string(ex.what()));
-        logFile.close();
-        return -1;
-    }
-
-    return 0;
+					patches();
+#ifdef DEBUG
+					debug_patches();
+#endif
+					
+					delete data;
+					delete data2;
+					delete datap1;
+					delete datap2;
+					delete datap3;
+				}				
+			}		
+			
+		break;
+		
+		case DLL_PROCESS_DETACH:		
+			
+			if (!lpvReserved)
+				UnloadDll();
+			
+		break;
+	}
+	
+	return TRUE;
 }
