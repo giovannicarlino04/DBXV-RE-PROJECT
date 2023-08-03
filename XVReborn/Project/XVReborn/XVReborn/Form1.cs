@@ -240,7 +240,7 @@ namespace XVReborn
                         ZipArchive archive = new ZipArchive(myStream);
                         if (File.Exists(Settings.Default.datafolder + @"/../steam_api.dll"))
                             File.Delete(Settings.Default.datafolder + @"/../steam_api.dll");
-                        archive.ExtractToDirectory(Settings.Default.datafolder + @"/../steam_api_real.dll");
+                        archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
                     }
                 }
             }
@@ -329,12 +329,12 @@ namespace XVReborn
                 archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\msg"));
             }
 
-            if (Directory.Exists(Properties.Settings.Default.flexsdkfolder + @"\bin\scripts") == false)
+            if (Directory.Exists(Properties.Settings.Default.datafolder + @"\scripts") == false)
             {
                 var myAssembly = Assembly.GetExecutingAssembly();
                 var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.scripts.zip");
                 ZipArchive archive = new ZipArchive(myStream);
-                archive.ExtractToDirectory(Path.Combine(Settings.Default.flexsdkfolder + @"\bin"));
+                archive.ExtractToDirectory(Settings.Default.datafolder);
             }
 
             if (Properties.Settings.Default.modlist.Contains("System.Object"))
@@ -551,7 +551,7 @@ namespace XVReborn
             string imageFolderPath = Settings.Default.datafolder + @"\ui\texture\CHARA01";
 
             // Replace "CharaListDlc0_0" with the actual array containing the character codes.
-            string[] charaListLines = File.ReadAllLines(Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/Charalist.as");
+            string[] charaListLines = File.ReadAllLines(Properties.Settings.Default.datafolder + @"/scripts/action_script/Charalist.as");
 
             // Assuming the character data is stored in CharaListDlc0_0 variable in the AS3 file.
             string charaListVariable = "CharaListDlc0_0";
@@ -864,7 +864,7 @@ namespace XVReborn
         // Function to save the updated order in the Charalist.as file.
         void SaveCharacterOrderToFile()
         {
-            string charaListFilePath = Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/Charalist.as";
+            string charaListFilePath = Properties.Settings.Default.datafolder + @"/scripts/action_script/Charalist.as";
 
             // Assuming the character data is stored in CharaListDlc0_0 variable in the AS3 file.
             string charaListVariable = "public static var CharaListDlc0_0";
@@ -950,7 +950,7 @@ namespace XVReborn
         }
         private void RemoveSemicolonBeforeSquareBracket()
         {
-            string CharaList = File.ReadAllText(Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/CharaList.as");
+            string CharaList = File.ReadAllText(Properties.Settings.Default.datafolder + @"/scripts/action_script/CharaList.as");
 
             while (CharaList.Contains(";]"))
             {
@@ -960,7 +960,7 @@ namespace XVReborn
 
             // Now, CharaList contains the updated content with the semicolons removed.
             // You can write the updated content back to the file if needed.
-            File.WriteAllText(Properties.Settings.Default.flexsdkfolder + @"/bin/scripts/action_script/CharaList.as", CharaList);
+            File.WriteAllText(Properties.Settings.Default.datafolder + @"/scripts/action_script/CharaList.as", CharaList);
         }
 
         private void SaveCSSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -983,7 +983,8 @@ namespace XVReborn
             ProcessStartInfo processStartInfo = new ProcessStartInfo();
             Process process = new Process();
             StringBuilder stringBuilder = new StringBuilder();
-            string path3 = Settings.Default.flexsdkfolder + "\\bin\\scripts\\action_script\\CharaList.as";
+            string sourcepath = "\"" + Properties.Settings.Default.datafolder + "\\scripts\"";
+            string maintimelinepath = "\"" + Properties.Settings.Default.datafolder + "\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.as\"";
 
             processStartInfo.FileName = "cmd.exe";
             processStartInfo.CreateNoWindow = true;
@@ -996,58 +997,19 @@ namespace XVReborn
             {
                 if (standardInput.BaseStream.CanWrite)
                 {
-                    standardInput.WriteLine("cd " + Settings.Default.flexsdkfolder + "\\bin");
-                    standardInput.WriteLine("mxmlc -compiler.source-path=.\\\\scripts .\\\\scripts\\\\dlc3_CHARASELE_fla\\\\MainTimeline.as");
+                    standardInput.WriteLine("cd " + Properties.Settings.Default.flexsdkfolder + "\\bin");
+                    standardInput.WriteLine("mxmlc -compiler.source-path=" + sourcepath + " " + maintimelinepath);
                 }
             }
             process.WaitForExit();
-            Directory.CreateDirectory(Settings.Default.datafolder + "\\ui\\iggy\\");
+            Directory.CreateDirectory(Properties.Settings.Default.datafolder + "\\ui\\iggy\\");
 
-            if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf"))
-            {
-                File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
-                if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy"))
-                {
-                    File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy");
+            if (File.Exists(Properties.Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf"))
+                File.Delete(Properties.Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
 
-                    var myAssembly = Assembly.GetExecutingAssembly();
-                    var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
-                    ZipArchive archive = new ZipArchive(myStream);
-                    archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
 
-                    File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
-                }
-                else
-                {
-                    var myAssembly = Assembly.GetExecutingAssembly();
-                    var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
-                    ZipArchive archive = new ZipArchive(myStream);
-                    archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
+            File.Move(Properties.Settings.Default.datafolder + "\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Properties.Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
 
-                    File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
-                }
-            }
-            else if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy"))
-            {
-                File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.iggy");
-
-                var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
-                ZipArchive archive = new ZipArchive(myStream);
-                archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
-
-                File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
-
-            }
-            else
-            {
-                var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
-                ZipArchive archive = new ZipArchive(myStream);
-                archive.ExtractToDirectory(Settings.Default.datafolder + "\\ui\\iggy");
-
-                File.Move(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
-            }
             Thread.Sleep(1000);
             process.Start();
             using (StreamWriter standardInput = process.StandardInput)
@@ -1061,10 +1023,9 @@ namespace XVReborn
             process.WaitForExit();
 
             Thread.Sleep(1000);
-            if (File.Exists(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf"))
-                File.Delete(Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
-            if (File.Exists(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf"))
-                File.Delete(Settings.Default.flexsdkfolder + "\\bin\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf");
+
+            if (File.Exists(Properties.Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf"))
+                File.Delete(Properties.Settings.Default.datafolder + "\\ui\\iggy\\CHARASELE.swf");
         }
 
         private void saveLvItems()
@@ -1285,7 +1246,7 @@ namespace XVReborn
 
                         p.WaitForExit();
 
-                        string Charalist = Properties.Settings.Default.flexsdkfolder + @"\bin\scripts\action_script\Charalist.as";
+                        string Charalist = Properties.Settings.Default.datafolder + @"\scripts\action_script\Charalist.as";
 
                         var text3 = new StringBuilder();
 
@@ -2193,7 +2154,7 @@ namespace XVReborn
 
                     p.WaitForExit();
 
-                    string Charalist = Properties.Settings.Default.flexsdkfolder + @"\bin\scripts\action_script\Charalist.as";
+                    string Charalist = Properties.Settings.Default.datafolder + @"\scripts\action_script\Charalist.as";
 
                     var text3 = new StringBuilder();
 
@@ -2270,9 +2231,9 @@ namespace XVReborn
                     Directory.Delete(Properties.Settings.Default.datafolder, true);
                 }
 
-                if (Directory.Exists(Properties.Settings.Default.flexsdkfolder + @"\bin\scripts"))
+                if (Directory.Exists(Properties.Settings.Default.datafolder + @"\scripts"))
                 {
-                    Directory.Delete(Properties.Settings.Default.flexsdkfolder + @"\bin\scripts", true);
+                    Directory.Delete(Properties.Settings.Default.datafolder + @"\scripts", true);
                 }
 
                 Properties.Settings.Default.Reset();

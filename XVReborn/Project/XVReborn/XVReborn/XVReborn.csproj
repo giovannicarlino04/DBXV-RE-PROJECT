@@ -177,6 +177,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBXV.ico" />
+    <Content Include="EffectData.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FreeImage.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="stdole">
