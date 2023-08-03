@@ -341,19 +341,19 @@ namespace XVReborn
             // installModToolStripMenuItem
             // 
             this.installModToolStripMenuItem.Name = "installModToolStripMenuItem";
-            this.installModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.installModToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.installModToolStripMenuItem.Text = "Install Mod";
             this.installModToolStripMenuItem.Click += new System.EventHandler(this.installModToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(130, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -368,7 +368,7 @@ namespace XVReborn
             // uninstallModToolStripMenuItem
             // 
             this.uninstallModToolStripMenuItem.Name = "uninstallModToolStripMenuItem";
-            this.uninstallModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uninstallModToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.uninstallModToolStripMenuItem.Text = "Uninstall Mod";
             this.uninstallModToolStripMenuItem.Click += new System.EventHandler(this.uninstallModToolStripMenuItem_Click);
             // 
@@ -385,19 +385,19 @@ namespace XVReborn
             // compileScriptsToolStripMenuItem
             // 
             this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.compileScriptsToolStripMenuItem.Text = "Compile Scripts";
             this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
             // 
             // clearInstallationToolStripMenuItem
             // 
             this.clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearInstallationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.clearInstallationToolStripMenuItem.Text = "Clear Installation";
             this.clearInstallationToolStripMenuItem.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
             // 
