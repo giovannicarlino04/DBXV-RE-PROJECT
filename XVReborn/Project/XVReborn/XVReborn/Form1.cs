@@ -1319,10 +1319,17 @@ namespace XVReborn
                         {
                             if (File.Exists(line))
                             {
-                                MessageBox.Show("A mod containing file \n" + line + "\n is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                if(File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
-                                    File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
-                                Clean();
+                                if (MessageBox.Show("A mod containing file \"" + line + "\" is already installed, do you want to replace that file with the new one? \n\nWARNING: THIS COULD CORRUPT YOUR MODS INSTALLATION, ALWAYS KNOW WHAT YOU'RE DOING WHEN REPLACING STUFF", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                                {
+
+                                }
+                                else
+                                {
+                                    if(File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
+                                        File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
+                                    Clean();
+                                    return;
+                                }
                             }
                         }
 
@@ -1388,9 +1395,17 @@ namespace XVReborn
                         {
                             if (File.Exists(line))
                             {
-                                MessageBox.Show("A mod containing file \n" + line + "\n is already installed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
-                                Clean();
+                                if (MessageBox.Show("A mod containing file \"" + line + "\" is already installed, do you want to replace that file with the new one? \n\nWARNING: THIS COULD CORRUPT YOUR MODS INSTALLATION, ALWAYS KNOW WHAT YOU'RE DOING WHEN REPLACING STUFF", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                                {
+
+                                }
+                                else
+                                {
+                                    if(File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
+                                        File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
+                                    Clean();
+                                    return;
+                                }
                             }
                         }
 
