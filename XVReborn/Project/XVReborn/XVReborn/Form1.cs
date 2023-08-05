@@ -291,14 +291,14 @@ namespace XVReborn
                 Directory.CreateDirectory(Properties.Settings.Default.datafolder + @"\system");
 
                 var myAssembly = Assembly.GetExecutingAssembly();
+
                 var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.char_model_spec.zip");
                 var myStream2 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.chara_sound.zip");
                 var myStream3 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.parameter_spec_char.zip");
                 var myStream4 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.aura_setting.zip");
                 var myStream5 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.custom_skill.zip");
                 var myStream6 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.XMLSerializer.zip");
-                var myStream7 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.iggy_as3_test.zip");
-                var myStream8 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.item.zip");
+                var myStream7 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.item.zip");
 
                 ZipArchive archive = new ZipArchive(myStream);
                 ZipArchive archive2 = new ZipArchive(myStream2);
@@ -307,7 +307,6 @@ namespace XVReborn
                 ZipArchive archive5 = new ZipArchive(myStream5);
                 ZipArchive archive6 = new ZipArchive(myStream6);
                 ZipArchive archive7 = new ZipArchive(myStream7);
-                ZipArchive archive8 = new ZipArchive(myStream8);
 
                 archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
                 archive2.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
@@ -315,10 +314,23 @@ namespace XVReborn
                 archive4.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
                 archive5.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
                 archive6.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
-                archive7.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\ui\iggy"));
-                archive8.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
+                archive7.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\system"));
+            }
 
+            if (Directory.Exists(Properties.Settings.Default.datafolder + @"\ui\iggy") == false)
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.datafolder + @"\system");
 
+                var myAssembly = Assembly.GetExecutingAssembly();
+
+                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARASELE.zip");
+                var myStream2 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.iggy_as3_test.zip");
+
+                ZipArchive archive = new ZipArchive(myStream);
+                ZipArchive archive2 = new ZipArchive(myStream2);
+
+                archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\ui\iggy"));
+                archive2.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\ui\iggy"));
             }
 
             if (Directory.Exists(Properties.Settings.Default.datafolder + @"\msg") == false)
@@ -347,6 +359,13 @@ namespace XVReborn
                 Properties.Settings.Default.addonmodlist.Clear();
             }
 
+            loadFiles();
+
+        }
+
+        private void loadFiles()
+        {
+            lvMods.Items.Clear();
             loadLvItems();
 
             MSGFileName = Properties.Settings.Default.datafolder + @"\msg\proper_noun_character_name_" + language + ".msg";
@@ -360,6 +379,7 @@ namespace XVReborn
 
             Chartxt = msgStream.Load(Properties.Settings.Default.datafolder + "/msg/proper_noun_character_name_" + language + ".msg");
 
+            cbCharacter.Items.Clear();
             foreach (CMS_Data cd in cmsfile.Data)
             {
                 string name = Chartxt.Find("chara_" + cd.ShortName + "_000");
@@ -371,6 +391,7 @@ namespace XVReborn
 
             pFile.load(Properties.Settings.Default.datafolder + @"/system" + "/parameter_spec_char.psc");
 
+            PSClstData.Clear();
             foreach (string str in pFile.ValNames)
             {
                 var Item = new ListViewItem(new[] { str, "0" });
@@ -437,21 +458,20 @@ namespace XVReborn
             }
 
             //Install mod opening the .x1m file
-            string arg = Environment.GetCommandLineArgs()[0];
+            string[] args = Environment.GetCommandLineArgs();
 
-            if (arg.EndsWith(".x1m"))
+            foreach(string arg in args)
             {
-                if (MessageBox.Show("Do you want to install \"" + arg + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                if (arg.EndsWith(".x1m"))
                 {
-                    installmod(arg);
+                    if (MessageBox.Show("Do you want to install \"" + Path.GetFileNameWithoutExtension(arg) + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        installmod(arg);
+                    }
                 }
-                else
-                {
-                    Clean();
-                    Environment.Exit(0);
-                }
+
             }
-            
+
             flowLayoutPanelCharacters.Dock = DockStyle.Fill; // Adjust this based on your layout requirements.
             flowLayoutPanelCharacters.ControlAdded += new System.Windows.Forms.ControlEventHandler(flowLayoutPanelCharacters_ControlAdded);
             flowLayoutPanelCharacters.FlowDirection = FlowDirection.TopDown; // Set FlowDirection to TopDown.
@@ -464,9 +484,7 @@ namespace XVReborn
 
             //Load the default idb file
             loadidbfile("talisman", Settings.Default.datafolder + @"/system/item/talisman_item.idb");
-
         }
-
 
         // Event handlers for drag-and-drop reordering.
         private void ButtonCharacter_MouseMove(object sender, MouseEventArgs e)
@@ -1053,6 +1071,7 @@ namespace XVReborn
 
         private void installmod(string arg)
         {
+            Clean();
 
             string temp = Properties.Settings.Default.datafolder + @"\temp";
 
@@ -1479,7 +1498,7 @@ namespace XVReborn
             Clean();
             saveLvItems();
             MessageBox.Show("Installation Completed", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Application.Restart();
+            loadFiles();
         }
 
         public string FindCharName(int id)
@@ -1756,7 +1775,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\custom_skill.cus.xml");
             }
 
-            Application.Restart();
+            loadFiles();
 
         }
 
@@ -1829,7 +1848,7 @@ namespace XVReborn
             {
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml");
             }
-            Application.Restart();
+            loadFiles();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1842,12 +1861,18 @@ namespace XVReborn
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = ".x1m files | *.x1m";
             ofd.Title = "Install Mod";
-            ofd.Multiselect = false;
+            ofd.Multiselect = true;
 
 
-            if (ofd.ShowDialog() == DialogResult.OK && ofd.FileName.Length > 0)
+            if (ofd.ShowDialog() == DialogResult.OK && ofd.FileNames.Length > 0)
             {
-                    installmod(ofd.FileName);      
+                foreach(string file in ofd.FileNames)
+                {
+                    if (MessageBox.Show("Do you want to install \"" + Path.GetFileNameWithoutExtension(file) + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        installmod(file);
+                    }
+                }
             }
             else
             {
@@ -2013,7 +2038,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml");
             }
 
-            Application.Restart();
+            loadFiles();
         }
 
         private void saveCMSToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2220,7 +2245,7 @@ namespace XVReborn
                 }
 
                 MessageBox.Show("Mod uninstalled Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Application.Restart();
+                loadFiles();
             }
         }
 
@@ -2360,7 +2385,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\chara_sound.cso.xml");
             }
 
-            Application.Restart();
+            loadFiles();
         }
 
         private void editPSCFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2412,7 +2437,7 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\system\parameter_spec_char.psc.xml");
             }
 
-            Application.Restart();
+            loadFiles();
 
         }
 
@@ -2549,7 +2574,7 @@ namespace XVReborn
             msgStream.Save(file, MSGFileName);
             MessageBox.Show("MSG File Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            Application.Restart();
+            loadFiles();
         }
 
         private void txtAURID_TextChanged(object sender, EventArgs e)
