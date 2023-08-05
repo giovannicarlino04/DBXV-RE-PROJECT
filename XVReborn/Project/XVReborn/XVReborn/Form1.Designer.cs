@@ -368,7 +368,7 @@ namespace XVReborn
             // uninstallModToolStripMenuItem
             // 
             this.uninstallModToolStripMenuItem.Name = "uninstallModToolStripMenuItem";
-            this.uninstallModToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.uninstallModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uninstallModToolStripMenuItem.Text = "Uninstall Mod";
             this.uninstallModToolStripMenuItem.Click += new System.EventHandler(this.uninstallModToolStripMenuItem_Click);
             // 

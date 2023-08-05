@@ -171,6 +171,7 @@
     <EmbeddedResource Include="ZipFile_Blobs\XVPatcher.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\iggy_as3_test.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\item.zip" />
+    <EmbeddedResource Include="ZipFile_Blobs\DBXV_Patched.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

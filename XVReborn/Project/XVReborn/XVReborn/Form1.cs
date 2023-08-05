@@ -109,37 +109,23 @@ namespace XVReborn
             new CharName(40, "Broly"),
             new CharName(41, "Beerus"),
             new CharName(42, "Pan"),
-            new CharName(47, "Added Character 1"),
-            new CharName(48, "Eis Shenron"),
+            new CharName(48, "Eis Shenron"),                
             new CharName(49, "Nuova Shenron"),
             new CharName(50, "Omega Shenron"),
             new CharName(51, "Gogeta SSJ4"),
             new CharName(52, "Hercule"),
             new CharName(53, "Demigra"),
-            new CharName(55, "Added Character 2"),
             new CharName(59, "Nabana"),
             new CharName(60, "Raspberry"),
             new CharName(61, "Gohan 4 years old"),
             new CharName(62, "Mira"),
             new CharName(63, "Towa"),
-            new CharName(64, "Added Character 3"),
             new CharName(65, "Whis"),
             new CharName(67, "Jaco"),
-            new CharName(68, "Added Character 4"),
-            new CharName(69, "Added Character 5"),
-            new CharName(70, "Added Character 6"),
             new CharName(73, "Villinous Hercule"),
-            new CharName(79, "Added Character 7"),
             new CharName(80, "Goku SSGSS"),
             new CharName(81, "Vegeta SSGSS"),
             new CharName(82, "Golden Frieza"),
-            new CharName(83, "Added Character 8"),
-            new CharName(84, "Added Character 9"),
-            new CharName(85, "Added Character 10"),
-            new CharName(86, "Added Character 11"),
-            new CharName(87, "Added Character 12"),
-            new CharName(88, "Added Character 13"),
-            new CharName(95, "Added Character 14"),
             new CharName(100, "Human Male"),
             new CharName(101, "Human Female"),
             new CharName(102, "Saiyan Male"),
@@ -224,6 +210,13 @@ namespace XVReborn
             {
                 Form3 frm = new Form3();
                 frm.ShowDialog();
+
+                var myAssembly = Assembly.GetExecutingAssembly();
+                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.DBXV_Patched.zip");
+                ZipArchive archive = new ZipArchive(myStream);
+                if (File.Exists(Settings.Default.datafolder + @"/../DBXV.exe"))
+                    File.Delete(Settings.Default.datafolder + @"/../DBXV.exe");
+                archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
             }
             else
             {
@@ -1142,6 +1135,13 @@ namespace XVReborn
                             }
                         }
 
+
+                        Properties.Settings.Default.addonmodlist.Add(modname);
+                        Properties.Settings.Default.Save();
+
+                        int numberid = 108 + Settings.Default.addonmodlist.Count;
+                        string id = File.ReadAllLines(Properties.Settings.Default.datafolder + "//modinfo.xml").Last();
+
                         info.FileName = "cmd.exe";
                         info.CreateNoWindow = true;
                         info.WindowStyle = ProcessWindowStyle.Hidden;
@@ -1162,93 +1162,10 @@ namespace XVReborn
 
                         string cmspath = Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml";
                         string text2 = File.ReadAllText(cmspath);
-                        string id = File.ReadAllLines(Properties.Settings.Default.datafolder + "//modinfo.xml").Last();
 
-                        Properties.Settings.Default.addonmodlist.Add(modname);
-                        Properties.Settings.Default.Save();
+                        text2 = text2.Replace("</CMS>", "  <Entry ID=\"" + numberid + "\" ShortName=\"" + id + "\">\r\n    <I_08 value=\"0x0\" />\r\n    <I_16 value=\"0x1\" />\r\n    <LoadCamDist value=\"0\" />\r\n    <I_22 value=\"0xc801\" />\r\n    <I_24 value=\"0xffff\" />\r\n    <I_26 value=\"0x0\" />\r\n    <I_28 value=\"0x0\" />\r\n    <BCS value=\""+ id + "\" />\r\n    <EAN value=\"../GOK/GOK\" />\r\n    <FCE_EAN value=\""+id+"\" />\r\n    <FCE value=\"NULL\" />\r\n    <CAM_EAN value=\"../GOK/GOK\" />\r\n    <BAC value=\"../GOK/GOK\" />\r\n    <BCM value=\"../GOK/GOK\" />\r\n    <BAI value=\"../GOK/GOK\" />\r\n    <BDM value=\"\" />\r\n  </Entry>\r\n</CMS>");
 
-                        if (Properties.Settings.Default.addonmodlist.Count == 1)
-                        {
-                            text2 = text2.Replace("X01", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 2)
-                        {
-                            text2 = text2.Replace("X02", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 3)
-                        {
-                            text2 = text2.Replace("X03", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 4)
-                        {
-                            text2 = text2.Replace("X04", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 5)
-                        {
-                            text2 = text2.Replace("X05", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 6)
-                        {
-                            text2 = text2.Replace("X06", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 7)
-                        {
-                            text2 = text2.Replace("X07", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 8)
-                        {
-                            text2 = text2.Replace("X08", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 9)
-                        {
-                            text2 = text2.Replace("X09", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 10)
-                        {
-                            text2 = text2.Replace("X10", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 11)
-                        {
-                            text2 = text2.Replace("X11", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 12)
-                        {
-                            text2 = text2.Replace("X12", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-
-                        if (Properties.Settings.Default.addonmodlist.Count == 13)
-                        {
-                            text2 = text2.Replace("X13", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
-                        if (Properties.Settings.Default.addonmodlist.Count == 14)
-                        {
-                            text2 = text2.Replace("X14", id);
-                            File.WriteAllText(cmspath, text2);
-                        }
+                        File.WriteAllText(cmspath, text2);
 
                         p.Start();
 
@@ -1265,18 +1182,156 @@ namespace XVReborn
 
                         p.WaitForExit();
 
+
+                        p.StartInfo = info;
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"CSOXMLSerializer.exe chara_sound.cso");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string csopath = Properties.Settings.Default.datafolder + @"\system\chara_sound.cso.xml";
+                        string text3 = File.ReadAllText(csopath);
+
+                        text3 = text3.Replace("</CSO>", "  <CsoEntry Chara_ID=\"" + numberid + "\" Costume=\"0\">\r\n    <SE Path=\"\" />\r\n    <VOX Path=\"\" />\r\n    <AMK Path=\"\" />\r\n    <Skills Path=\"\" />\r\n  </CsoEntry>\r\n</CSO>");
+
+                        File.WriteAllText(csopath, text3);
+
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                const string quote = "\"";
+
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"CSOXMLSerializer.exe " + quote + Properties.Settings.Default.datafolder + @"\system\chara_sound.cso.xml" + quote);
+                            }
+                        }
+
+                        p.WaitForExit();
+
+
+                        p.StartInfo = info;
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"CUSXMLSerializer.exe custom_skill.cus");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string cuspath = Properties.Settings.Default.datafolder + @"\system\custom_skill.cus.xml";
+                        string text4 = File.ReadAllText(cuspath);
+
+                        text4 = text4.Replace("  </Skillsets>", "    <Skillset Character_ID=\""+numberid+ "\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"65535\" />\r\n      <SuperSkill2 ID1=\"65535\" />\r\n      <SuperSkill3 ID1=\"65535\" />\r\n      <SuperSkill4 ID1=\"65535\" />\r\n      <UltimateSkill1 ID1=\"65535\" />\r\n      <UltimateSkill2 ID1=\"65535\" />\r\n      <EvasiveSkill ID1=\"65535\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
+                        File.WriteAllText(cuspath, text4);
+
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                const string quote = "\"";
+
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"CUSXMLSerializer.exe " + quote + Properties.Settings.Default.datafolder + @"\system\custom_skill.cus.xml" + quote);
+                            }
+                        }
+
+                        p.WaitForExit();
+
+
+
+                        p.StartInfo = info;
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"AURXMLSerializer.exe aura_setting.aur");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string aurpath = Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml";
+                        string text5 = File.ReadAllText(aurpath);
+
+                        text5 = text5.Replace("  </CharacterAuras>", "    <CharacterAura Chara_ID=\"" +numberid+ "\" Costume=\"0\" Aura_ID=\"0\" Glare=\"False\" />\r\n  </CharacterAuras>");
+                        File.WriteAllText(aurpath, text5);
+
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                const string quote = "\"";
+
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"AURXMLSerializer.exe " + quote + Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml" + quote);
+                            }
+                        }
+
+                        p.WaitForExit();
+
+
+                        p.StartInfo = info;
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"PSCXMLSerializer.exe parameter_spec_char.psc");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string pscpath = Properties.Settings.Default.datafolder + @"\system\parameter_spec_char.psc.xml";
+                        string text6 = File.ReadAllText(pscpath);
+
+                        text6 = text6.Replace("  </Configuration>\r\n</PSC>", "    <PSC_Entry Chara_ID=\"" + numberid + "\">\r\n      <PscSpecEntry Costume=\"0\" Preset=\"0\">\r\n        <Camera_Position value=\"1\" />\r\n        <I_12 value=\"5\" />\r\n        <Health value=\"1.1155\" />\r\n        <F_20 value=\"1.0\" />\r\n        <Ki value=\"1.0\" />\r\n        <Ki_Recharge value=\"1.0\" />\r\n        <I_32 value=\"1\" />\r\n        <I_36 value=\"1\" />\r\n        <I_40 value=\"0\" />\r\n        <Stamina value=\"1.5\" />\r\n        <Stamina_Recharge value=\"0.75\" />\r\n        <F_52 value=\"1.0\" />\r\n        <F_56 value=\"1.1\" />\r\n        <I_60 value=\"0\" />\r\n        <Basic_Atk_Defense value=\"1.0\" />\r\n        <Basic_Ki_Defense value=\"0.95\" />\r\n        <Strike_Atk_Defense value=\"1.1\" />\r\n        <Super_Ki_Defense value=\"0.95\" />\r\n        <Ground_Speed value=\"1.0\" />\r\n        <Air_Speed value=\"1.0\" />\r\n        <Boost_Speed value=\"1.0\" />\r\n        <Dash_Speed value=\"1.0\" />\r\n        <F_96 value=\"1.0\" />\r\n        <Reinforcement_Skill_Duration value=\"1.0\" />\r\n        <F_104 value=\"1.0\" />\r\n        <Revival_HP_Amount value=\"1.0\" />\r\n        <Reviving_Speed value=\"1.0\" />\r\n        <F_116 value=\"1.0\" />\r\n        <F_120 value=\"0.55\" />\r\n        <F_124 value=\"1.0\" />\r\n        <F_128 value=\"1.0\" />\r\n        <F_132 value=\"1.0\" />\r\n        <F_136 value=\"1.0\" />\r\n        <I_140 value=\"0\" />\r\n        <F_144 value=\"1.0\" />\r\n        <F_148 value=\"1.0\" />\r\n        <F_152 value=\"1.0\" />\r\n        <F_156 value=\"1.0\" />\r\n        <F_160 value=\"1.0\" />\r\n        <F_164 value=\"1.0\" />\r\n        <Z-Soul value=\"98\" />\r\n        <I_172 value=\"1\" />\r\n        <I_176 value=\"1\" />\r\n        <F_180 value=\"8.0\" />\r\n      </PscSpecEntry>\r\n    </PSC_Entry>\r\n  </Configuration>\r\n</PSC>");
+                        File.WriteAllText(pscpath, text6);
+
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                const string quote = "\"";
+
+                                sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
+                                sw.WriteLine(@"PSCXMLSerializer.exe " + quote + Properties.Settings.Default.datafolder + @"\system\parameter_spec_char.psc.xml" + quote);
+                            }
+                        }
+
+                        p.WaitForExit();
+
                         string Charalist = Properties.Settings.Default.datafolder + @"\scripts\action_script\Charalist.as";
 
-                        var text3 = new StringBuilder();
+                        var text10 = new StringBuilder();
 
                         foreach (string s in File.ReadAllLines(Charalist))
                         {
-                            text3.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
+                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
                         }
 
                         using (var file = new StreamWriter(File.Create(Charalist)))
                         {
-                            file.Write(text3.ToString());
+                            file.Write(text10.ToString());
                         }
 
                         CompileScripts();
@@ -2075,124 +2130,6 @@ namespace XVReborn
                 if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems[0].Text + @" 2.xml"))
                 {
                     string id = File.ReadAllLines(Properties.Settings.Default.datafolder + @"\installed\" + lvMods.SelectedItems[0].Text + @" 2.xml").First();
-
-                    info.FileName = "cmd.exe";
-                    info.CreateNoWindow = true;
-                    info.WindowStyle = ProcessWindowStyle.Hidden;
-                    info.RedirectStandardInput = true;
-                    info.UseShellExecute = false;
-
-                    p.StartInfo = info;
-                    p.Start();
-                    using (StreamWriter sw = p.StandardInput)
-                    {
-                        if (sw.BaseStream.CanWrite)
-                        {
-                            sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
-                            sw.WriteLine(@"CMSXMLSerializer.exe char_model_spec.cms");
-                        }
-                    }
-                    p.WaitForExit();
-
-                    string cmspath = Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml";
-                    string text2 = File.ReadAllText(cmspath);
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 1)
-                    {
-                        text2 = text2.Replace(id, "X01");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 2)
-                    {
-                        text2 = text2.Replace(id, "X02");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 3)
-                    {
-                        text2 = text2.Replace(id, "X03");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 4)
-                    {
-                        text2 = text2.Replace(id, "X04");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 5)
-                    {
-                        text2 = text2.Replace(id, "X05");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 6)
-                    {
-                        text2 = text2.Replace(id, "X06");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 7)
-                    {
-                        text2 = text2.Replace(id, "X07");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 8)
-                    {
-                        text2 = text2.Replace(id, "X08");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 9)
-                    {
-                        text2 = text2.Replace(id, "X09");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 10)
-                    {
-                        text2 = text2.Replace(id, "X10");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 11)
-                    {
-                        text2 = text2.Replace(id, "X11");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    if (Properties.Settings.Default.addonmodlist.Count == 12)
-                    {
-                        text2 = text2.Replace(id, "X12");
-                        File.WriteAllText(cmspath, text2);
-                    }
-                    if (Properties.Settings.Default.addonmodlist.Count == 13)
-                    {
-                        text2 = text2.Replace(id, "X13");
-                        File.WriteAllText(cmspath, text2);
-                    }
-                    if (Properties.Settings.Default.addonmodlist.Count == 14)
-                    {
-                        text2 = text2.Replace(id, "X14");
-                        File.WriteAllText(cmspath, text2);
-                    }
-
-                    p.Start();
-
-                    using (StreamWriter sw = p.StandardInput)
-                    {
-                        if (sw.BaseStream.CanWrite)
-                        {
-                            const string quote = "\"";
-
-                            sw.WriteLine("cd " + Properties.Settings.Default.datafolder + @"\system");
-                            sw.WriteLine(@"CMSXMLSerializer.exe " + quote + Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml" + quote);
-                        }
-                    }
-
-                    p.WaitForExit();
 
                     string Charalist = Properties.Settings.Default.datafolder + @"\scripts\action_script\Charalist.as";
 
