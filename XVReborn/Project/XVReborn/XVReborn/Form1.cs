@@ -1163,7 +1163,7 @@ namespace XVReborn
                         string cmspath = Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml";
                         string text2 = File.ReadAllText(cmspath);
 
-                        text2 = text2.Replace("</CMS>", "  <Entry ID=\"" + numberid + "\" ShortName=\"" + id + "\">\r\n    <I_08 value=\"0x0\" />\r\n    <I_16 value=\"0x1\" />\r\n    <LoadCamDist value=\"0\" />\r\n    <I_22 value=\"0xc801\" />\r\n    <I_24 value=\"0xffff\" />\r\n    <I_26 value=\"0x0\" />\r\n    <I_28 value=\"0x0\" />\r\n    <BCS value=\""+ id + "\" />\r\n    <EAN value=\"../GOK/GOK\" />\r\n    <FCE_EAN value=\""+id+"\" />\r\n    <FCE value=\"NULL\" />\r\n    <CAM_EAN value=\"../GOK/GOK\" />\r\n    <BAC value=\"../GOK/GOK\" />\r\n    <BCM value=\"../GOK/GOK\" />\r\n    <BAI value=\"../GOK/GOK\" />\r\n    <BDM value=\"\" />\r\n  </Entry>\r\n</CMS>");
+                        text2 = text2.Replace("</CMS>", "  <Entry ID=\"" + numberid + "\" ShortName=\"" + id + "\">\r\n    <I_08 value=\"0x0\" />\r\n    <I_16 value=\"0x1\" />\r\n    <LoadCamDist value=\"0\" />\r\n    <I_22 value=\"0xc801\" />\r\n    <I_24 value=\"0xffff\" />\r\n    <I_26 value=\"0x0\" />\r\n    <I_28 value=\"0x0\" />\r\n    <BCS value=\""+ id + "\" />\r\n    <EAN value=\"" + id + "\" />\r\n    <FCE_EAN value=\""+id+"\" />\r\n    <FCE value=\"NULL\" />\r\n    <CAM_EAN value=\""+id+"\" />\r\n    <BAC value=\""+id+"\" />\r\n    <BCM value=\""+id+"\" />\r\n    <BAI value=\""+id+"\" />\r\n    <BDM value=\"\" />\r\n  </Entry>\r\n</CMS>");
 
                         File.WriteAllText(cmspath, text2);
 
