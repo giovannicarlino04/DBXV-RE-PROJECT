@@ -1,0 +1,16 @@
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.exe
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVSkillCreator.exe.config
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVSkillCreator.exe
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.exe

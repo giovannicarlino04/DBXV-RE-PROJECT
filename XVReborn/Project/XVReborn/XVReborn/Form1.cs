@@ -109,7 +109,7 @@ namespace XVReborn
             new CharName(40, "Broly"),
             new CharName(41, "Beerus"),
             new CharName(42, "Pan"),
-            new CharName(48, "Eis Shenron"),                
+            new CharName(48, "Eis Shenron"),
             new CharName(49, "Nuova Shenron"),
             new CharName(50, "Omega Shenron"),
             new CharName(51, "Gogeta SSJ4"),
@@ -453,7 +453,7 @@ namespace XVReborn
             //Install mod opening the .x1m file
             string[] args = Environment.GetCommandLineArgs();
 
-            foreach(string arg in args)
+            foreach (string arg in args)
             {
                 if (arg.EndsWith(".x1m"))
                 {
@@ -1163,7 +1163,7 @@ namespace XVReborn
                         string cmspath = Properties.Settings.Default.datafolder + @"\system\char_model_spec.cms.xml";
                         string text2 = File.ReadAllText(cmspath);
 
-                        text2 = text2.Replace("</CMS>", "  <Entry ID=\"" + numberid + "\" ShortName=\"" + id + "\">\r\n    <I_08 value=\"0x0\" />\r\n    <I_16 value=\"0x1\" />\r\n    <LoadCamDist value=\"0\" />\r\n    <I_22 value=\"0xc801\" />\r\n    <I_24 value=\"0xffff\" />\r\n    <I_26 value=\"0x0\" />\r\n    <I_28 value=\"0x0\" />\r\n    <BCS value=\""+ id + "\" />\r\n    <EAN value=\"" + id + "\" />\r\n    <FCE_EAN value=\""+id+"\" />\r\n    <FCE value=\"NULL\" />\r\n    <CAM_EAN value=\""+id+"\" />\r\n    <BAC value=\""+id+"\" />\r\n    <BCM value=\""+id+"\" />\r\n    <BAI value=\""+id+"\" />\r\n    <BDM value=\"\" />\r\n  </Entry>\r\n</CMS>");
+                        text2 = text2.Replace("</CMS>", "  <Entry ID=\"" + numberid + "\" ShortName=\"" + id + "\">\r\n    <I_08 value=\"0x0\" />\r\n    <I_16 value=\"0x1\" />\r\n    <LoadCamDist value=\"0\" />\r\n    <I_22 value=\"0xc801\" />\r\n    <I_24 value=\"0xffff\" />\r\n    <I_26 value=\"0x0\" />\r\n    <I_28 value=\"0x0\" />\r\n    <BCS value=\"" + id + "\" />\r\n    <EAN value=\"" + id + "\" />\r\n    <FCE_EAN value=\"" + id + "\" />\r\n    <FCE value=\"NULL\" />\r\n    <CAM_EAN value=\"" + id + "\" />\r\n    <BAC value=\"" + id + "\" />\r\n    <BCM value=\"" + id + "\" />\r\n    <BAI value=\"" + id + "\" />\r\n    <BDM value=\"\" />\r\n  </Entry>\r\n</CMS>");
 
                         File.WriteAllText(cmspath, text2);
 
@@ -1233,7 +1233,7 @@ namespace XVReborn
                         string cuspath = Properties.Settings.Default.datafolder + @"\system\custom_skill.cus.xml";
                         string text4 = File.ReadAllText(cuspath);
 
-                        text4 = text4.Replace("  </Skillsets>", "    <Skillset Character_ID=\""+numberid+ "\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"65535\" />\r\n      <SuperSkill2 ID1=\"65535\" />\r\n      <SuperSkill3 ID1=\"65535\" />\r\n      <SuperSkill4 ID1=\"65535\" />\r\n      <UltimateSkill1 ID1=\"65535\" />\r\n      <UltimateSkill2 ID1=\"65535\" />\r\n      <EvasiveSkill ID1=\"65535\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
+                        text4 = text4.Replace("  </Skillsets>", "    <Skillset Character_ID=\"" + numberid + "\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"65535\" />\r\n      <SuperSkill2 ID1=\"65535\" />\r\n      <SuperSkill3 ID1=\"65535\" />\r\n      <SuperSkill4 ID1=\"65535\" />\r\n      <UltimateSkill1 ID1=\"65535\" />\r\n      <UltimateSkill2 ID1=\"65535\" />\r\n      <EvasiveSkill ID1=\"65535\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
                         File.WriteAllText(cuspath, text4);
 
                         p.Start();
@@ -1268,7 +1268,7 @@ namespace XVReborn
                         string aurpath = Properties.Settings.Default.datafolder + @"\system\aura_setting.aur.xml";
                         string text5 = File.ReadAllText(aurpath);
 
-                        text5 = text5.Replace("  </CharacterAuras>", "    <CharacterAura Chara_ID=\"" +numberid+ "\" Costume=\"0\" Aura_ID=\"0\" Glare=\"False\" />\r\n  </CharacterAuras>");
+                        text5 = text5.Replace("  </CharacterAuras>", "    <CharacterAura Chara_ID=\"" + numberid + "\" Costume=\"0\" Aura_ID=\"0\" Glare=\"False\" />\r\n  </CharacterAuras>");
                         File.WriteAllText(aurpath, text5);
 
                         p.Start();
@@ -1400,7 +1400,7 @@ namespace XVReborn
                                 }
                                 else
                                 {
-                                    if(File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
+                                    if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
                                         File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                                     Clean();
                                     return;
@@ -1476,7 +1476,7 @@ namespace XVReborn
                                 }
                                 else
                                 {
-                                    if(File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
+                                    if (File.Exists(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml"))
                                         File.Delete(Properties.Settings.Default.datafolder + @"\installed\" + modname + @".xml");
                                     Clean();
                                     return;
@@ -1922,7 +1922,7 @@ namespace XVReborn
 
             if (ofd.ShowDialog() == DialogResult.OK && ofd.FileNames.Length > 0)
             {
-                foreach(string file in ofd.FileNames)
+                foreach (string file in ofd.FileNames)
                 {
                     if (MessageBox.Show("Do you want to install \"" + Path.GetFileNameWithoutExtension(file) + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
@@ -2925,11 +2925,11 @@ namespace XVReborn
                     Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, 4, 2);
 
 
-                    Items[itemList.SelectedIndex].msgIndexName = FindmsgIndex(ref Names, BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 4));
-                    txtMsgName.Text = Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
-                
+                Items[itemList.SelectedIndex].msgIndexName = FindmsgIndex(ref Names, BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 4));
+                txtMsgName.Text = Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
 
-                    itemList.Items[itemList.SelectedIndex] = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 0)) + "-" + Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
+
+                itemList.Items[itemList.SelectedIndex] = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 0)) + "-" + Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
             }
         }
 
@@ -2942,9 +2942,9 @@ namespace XVReborn
                     Array.Copy(BitConverter.GetBytes(ID), 0, Items[itemList.SelectedIndex].Data, 6, 2);
 
 
-                    Items[itemList.SelectedIndex].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 6));
-                    txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
-                
+                Items[itemList.SelectedIndex].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 6));
+                txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
+
             }
         }
 
@@ -3168,8 +3168,8 @@ namespace XVReborn
         {
             lockMod = true;
             // msg data
-                txtMsgName.Text = Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
-                txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
+            txtMsgName.Text = Names.data[Items[itemList.SelectedIndex].msgIndexName].Lines[0];
+            txtMsgDesc.Text = Descs.data[Items[itemList.SelectedIndex].msgIndexDesc].Lines[0];
 
             // basic data
             txtID.Text = BitConverter.ToInt16(Items[itemList.SelectedIndex].Data, 0).ToString();
@@ -3255,51 +3255,51 @@ namespace XVReborn
 
             //expand Names msg
             byte[] pass;
-            
-                msgData[] Expand2 = new msgData[Names.data.Length + 1];
-                Array.Copy(Names.data, Expand2, Names.data.Length);
-                Expand2[Expand2.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
-                Expand2[Expand2.Length - 1].ID = Names.data.Length;
-                if (nameCount > 0)
-                {
-                    pass = new byte[nameCount * 2];
-                    Array.Copy(zssfile, 12, pass, 0, nameCount * 2);
-                    Expand2[Expand2.Length - 1].Lines = new string[] { BytetoString(pass) };
-                }
-                else
-                    Expand2[Expand2.Length - 1].Lines = new string[] { "New Name Entry" };
 
-                Array.Copy(BitConverter.GetBytes((short)Expand2[Expand2.Length - 1].ID), 0, Items[Items.Length - 1].Data, 4, 2);
-                Names.data = Expand2;
-                Items[Items.Length - 1].msgIndexName = FindmsgIndex(ref Names, Names.data[Names.data.Length - 1].ID);
+            msgData[] Expand2 = new msgData[Names.data.Length + 1];
+            Array.Copy(Names.data, Expand2, Names.data.Length);
+            Expand2[Expand2.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
+            Expand2[Expand2.Length - 1].ID = Names.data.Length;
+            if (nameCount > 0)
+            {
+                pass = new byte[nameCount * 2];
+                Array.Copy(zssfile, 12, pass, 0, nameCount * 2);
+                Expand2[Expand2.Length - 1].Lines = new string[] { BytetoString(pass) };
+            }
+            else
+                Expand2[Expand2.Length - 1].Lines = new string[] { "New Name Entry" };
+
+            Array.Copy(BitConverter.GetBytes((short)Expand2[Expand2.Length - 1].ID), 0, Items[Items.Length - 1].Data, 4, 2);
+            Names.data = Expand2;
+            Items[Items.Length - 1].msgIndexName = FindmsgIndex(ref Names, Names.data[Names.data.Length - 1].ID);
 
 
 
-                msgData[] Expand3 = new msgData[Descs.data.Length + 1];
-                Array.Copy(Descs.data, Expand3, Descs.data.Length);
-                Expand3[Expand3.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
-                Expand3[Expand3.Length - 1].ID = Descs.data.Length;
-                if (DescCount > 0)
-                {
-                    pass = new byte[DescCount * 2];
-                    Array.Copy(zssfile, 12 + (nameCount * 2), pass, 0, DescCount * 2);
-                    Expand3[Expand3.Length - 1].Lines = new string[] { BytetoString(pass) };
-                }
-                else
-                    Expand3[Expand3.Length - 1].Lines = new string[] { "New Description Entry" };
+            msgData[] Expand3 = new msgData[Descs.data.Length + 1];
+            Array.Copy(Descs.data, Expand3, Descs.data.Length);
+            Expand3[Expand3.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
+            Expand3[Expand3.Length - 1].ID = Descs.data.Length;
+            if (DescCount > 0)
+            {
+                pass = new byte[DescCount * 2];
+                Array.Copy(zssfile, 12 + (nameCount * 2), pass, 0, DescCount * 2);
+                Expand3[Expand3.Length - 1].Lines = new string[] { BytetoString(pass) };
+            }
+            else
+                Expand3[Expand3.Length - 1].Lines = new string[] { "New Description Entry" };
 
-                Array.Copy(BitConverter.GetBytes((short)Expand3[Expand3.Length - 1].ID), 0, Items[Items.Length - 1].Data, 6, 2);
-                Descs.data = Expand3;
-                Items[Items.Length - 1].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
+            Array.Copy(BitConverter.GetBytes((short)Expand3[Expand3.Length - 1].ID), 0, Items[Items.Length - 1].Data, 6, 2);
+            Descs.data = Expand3;
+            Items[Items.Length - 1].msgIndexDesc = FindmsgIndex(ref Descs, Descs.data[Descs.data.Length - 1].ID);
 
-            
+
 
             //loadzss(browseFile.FileName, Items.Length - 1);
             //itemList.SelectedIndex = itemList.Items.Count - 1;
             itemList.Items.Clear();
             for (int i = 0; i < Items.Length; i++)
             {
-                    itemList.Items.Add(BitConverter.ToInt16(Items[i].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[i].Data, 0)) + "-" + Names.data[Items[i].msgIndexName].Lines[0]);
+                itemList.Items.Add(BitConverter.ToInt16(Items[i].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[i].Data, 0)) + "-" + Names.data[Items[i].msgIndexName].Lines[0]);
             }
 
         }
@@ -3318,7 +3318,7 @@ namespace XVReborn
                 itemList.Items.Clear();
                 for (int i = 0; i < Items.Length; i++)
                 {
-                    itemList.Items.Add(BitConverter.ToInt16(Items[i].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[i].Data, 0)) + "-" + Names.data[Items[i].msgIndexName].Lines[0]);      
+                    itemList.Items.Add(BitConverter.ToInt16(Items[i].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[i].Data, 0)) + "-" + Names.data[Items[i].msgIndexName].Lines[0]);
                 }
 
 
@@ -3328,23 +3328,23 @@ namespace XVReborn
         private void nameToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-                msgData[] Expand = new msgData[Names.data.Length + 1];
-                Array.Copy(Names.data, Expand, Names.data.Length);
-                Expand[Expand.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
-                Expand[Expand.Length - 1].ID = Names.data.Length;
-                Expand[Expand.Length - 1].Lines = new string[] { "New Name Entry" };
-                Names.data = Expand;
+            msgData[] Expand = new msgData[Names.data.Length + 1];
+            Array.Copy(Names.data, Expand, Names.data.Length);
+            Expand[Expand.Length - 1].NameID = "talisman_" + Names.data.Length.ToString("000");
+            Expand[Expand.Length - 1].ID = Names.data.Length;
+            Expand[Expand.Length - 1].Lines = new string[] { "New Name Entry" };
+            Names.data = Expand;
 
-                DialogResult msgbox = MessageBox.Show("Do you want to set current Z-soul to use this Name", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult msgbox = MessageBox.Show("Do you want to set current Z-soul to use this Name", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (msgbox == DialogResult.Yes)
-                    txtNameID.Text = Names.data[Names.data.Length - 1].ID.ToString();
-            
+            if (msgbox == DialogResult.Yes)
+                txtNameID.Text = Names.data[Names.data.Length - 1].ID.ToString();
+
         }
 
         private void descriptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             //remove msg name
             if (Items.Length > 211)
             {
@@ -3359,19 +3359,19 @@ namespace XVReborn
 
 
 
-                msgData[] Expand = new msgData[Descs.data.Length + 1];
-                Array.Copy(Descs.data, Expand, Descs.data.Length);
-                Expand[Expand.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
-                Expand[Expand.Length - 1].ID = Descs.data.Length;
-                Expand[Expand.Length - 1].Lines = new string[] { "New Description Entry" };
-                Descs.data = Expand;
+            msgData[] Expand = new msgData[Descs.data.Length + 1];
+            Array.Copy(Descs.data, Expand, Descs.data.Length);
+            Expand[Expand.Length - 1].NameID = "talisman_eff_" + Descs.data.Length.ToString("000");
+            Expand[Expand.Length - 1].ID = Descs.data.Length;
+            Expand[Expand.Length - 1].Lines = new string[] { "New Description Entry" };
+            Descs.data = Expand;
 
-                DialogResult msgbox = MessageBox.Show("Do you want to set current Z-soul to use this Description", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult msgbox = MessageBox.Show("Do you want to set current Z-soul to use this Description", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (msgbox == DialogResult.Yes)
-                    txtDescID.Text = Descs.data[Descs.data.Length - 1].ID.ToString();
+            if (msgbox == DialogResult.Yes)
+                txtDescID.Text = Descs.data[Descs.data.Length - 1].ID.ToString();
 
-            
+
         }
 
         private void descriptionToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -3390,14 +3390,14 @@ namespace XVReborn
             //export ZSS
             List<byte> zssfile = new List<byte>();
             zssfile.AddRange(new byte[] { 0x23, 0x5A, 0x53, 0x53 });
-                zssfile.AddRange(BitConverter.GetBytes(txtMsgName.TextLength));
+            zssfile.AddRange(BitConverter.GetBytes(txtMsgName.TextLength));
 
-            
-                zssfile.AddRange(BitConverter.GetBytes(txtMsgDesc.TextLength));
 
-                zssfile.AddRange(CharByteArray(txtMsgName.Text));
+            zssfile.AddRange(BitConverter.GetBytes(txtMsgDesc.TextLength));
 
-                zssfile.AddRange(CharByteArray(txtMsgDesc.Text));
+            zssfile.AddRange(CharByteArray(txtMsgName.Text));
+
+            zssfile.AddRange(CharByteArray(txtMsgDesc.Text));
 
             byte[] itempass = new byte[638];
             Array.Copy(Items[itemList.SelectedIndex].Data, 2, itempass, 0, 638);
@@ -3517,16 +3517,16 @@ namespace XVReborn
             //export ZSS
             List<byte> zssfile = new List<byte>();
             zssfile.AddRange(new byte[] { 0x23, 0x5A, 0x53, 0x53 });
-                zssfile.AddRange(BitConverter.GetBytes(txtMsgName.TextLength));
+            zssfile.AddRange(BitConverter.GetBytes(txtMsgName.TextLength));
 
 
 
-                zssfile.AddRange(BitConverter.GetBytes(txtMsgDesc.TextLength));
+            zssfile.AddRange(BitConverter.GetBytes(txtMsgDesc.TextLength));
 
 
-                zssfile.AddRange(CharByteArray(txtMsgName.Text));
+            zssfile.AddRange(CharByteArray(txtMsgName.Text));
 
-                zssfile.AddRange(CharByteArray(txtMsgDesc.Text));
+            zssfile.AddRange(CharByteArray(txtMsgDesc.Text));
 
             byte[] itempass = new byte[638];
             Array.Copy(Items[itemList.SelectedIndex].Data, 2, itempass, 0, 638);
@@ -3536,7 +3536,7 @@ namespace XVReborn
             browseFile.Filter = "Template file (*.template)|*.template";
             browseFile.Title = "Save Template";
 
-            if(browseFile.ShowDialog() == DialogResult.OK)
+            if (browseFile.ShowDialog() == DialogResult.OK)
             {
                 FileStream fs = new FileStream(browseFile.FileName, FileMode.Create);
 
@@ -3559,21 +3559,21 @@ namespace XVReborn
             idbfile = File.ReadAllBytes(IDBFileName);
             count = BitConverter.ToInt32(idbfile, 8);
 
-            
-                FileNameMsgN = Properties.Settings.Default.datafolder + @"/msg/proper_noun_" + arg1 + "_name_" + Settings.Default.language + ".msg";
-                Names = msgStream.Load(FileNameMsgN);
-            
-                FileNameMsgD = Properties.Settings.Default.datafolder + @"/msg/proper_noun_" + arg1 + "_info_" + Settings.Default.language + ".msg";
-                Descs = msgStream.Load(FileNameMsgD);
-            
+
+            FileNameMsgN = Properties.Settings.Default.datafolder + @"/msg/proper_noun_" + arg1 + "_name_" + Settings.Default.language + ".msg";
+            Names = msgStream.Load(FileNameMsgN);
+
+            FileNameMsgD = Properties.Settings.Default.datafolder + @"/msg/proper_noun_" + arg1 + "_info_" + Settings.Default.language + ".msg";
+            Descs = msgStream.Load(FileNameMsgD);
+
             //idbItems set
             Items = new idbItem[count];
             for (int i = 0; i < Items.Length; i++)
             {
                 Items[i].Data = new byte[640];
                 Array.Copy(idbfile, 16 + (i * 640), Items[i].Data, 0, 640);
-                    Items[i].msgIndexName = FindmsgIndex(ref Names, BitConverter.ToInt16(Items[i].Data, 4));
-                    Items[i].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToInt16(Items[i].Data, 6));
+                Items[i].msgIndexName = FindmsgIndex(ref Names, BitConverter.ToInt16(Items[i].Data, 4));
+                Items[i].msgIndexDesc = FindmsgIndex(ref Descs, BitConverter.ToInt16(Items[i].Data, 6));
             }
 
 
@@ -3581,7 +3581,7 @@ namespace XVReborn
             itemList.Items.Clear();
             for (int i = 0; i < count; i++)
             {
-                    itemList.Items.Add(BitConverter.ToInt16(Items[i].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[i].Data, 0)) + "-" + Names.data[Items[i].msgIndexName].Lines[0]);
+                itemList.Items.Add(BitConverter.ToInt16(Items[i].Data, 0).ToString() + " / " + String.Format("{0:X}", BitConverter.ToInt16(Items[i].Data, 0)) + "-" + Names.data[Items[i].msgIndexName].Lines[0]);
             }
             EffectData();
             itemList.SelectedItem = 0;
@@ -3672,9 +3672,9 @@ namespace XVReborn
             fs.Write(Finalize.ToArray(), 0, Finalize.Count);
             fs.Close();
 
-                msgStream.Save(Names, FileNameMsgN);
+            msgStream.Save(Names, FileNameMsgN);
 
-                msgStream.Save(Descs, FileNameMsgD);
+            msgStream.Save(Descs, FileNameMsgD);
 
             MessageBox.Show("IDB File Saved Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -3683,21 +3683,13 @@ namespace XVReborn
         private void txtModelID_TextChanged(object sender, EventArgs e)
         {
 
-                if (!lockMod)
-                {
-                    int n;
-                    if (int.TryParse(txtModelID.Text, out n))
-                        Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 612, 4);
-                }
-            
-        }
+            if (!lockMod)
+            {
+                int n;
+                if (int.TryParse(txtModelID.Text, out n))
+                    Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 612, 4);
+            }
 
-        private void editCSSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process p = Process.Start(Properties.Settings.Default.datafolder + @"\scripts\action_script\CharaList.as");
-            p.WaitForExit();
-            CompileScripts();
-            loadFiles();
         }
     }
 }

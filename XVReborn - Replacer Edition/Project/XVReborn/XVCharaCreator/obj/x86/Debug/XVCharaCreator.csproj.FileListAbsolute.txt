@@ -1,0 +1,16 @@
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.exe
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVCharaCreator.exe.config
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVCharaCreator.exe
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.SuggestedBindingRedirects.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn - Replacer Edition\Project\XVReborn\XVCharaCreator\obj\x86\Debug\XVCharaCreator.exe

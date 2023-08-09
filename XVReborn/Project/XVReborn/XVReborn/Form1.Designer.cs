@@ -275,8 +275,6 @@ namespace XVReborn
             this.menuStrip6 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editCSSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ch = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.header = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -2545,8 +2543,7 @@ namespace XVReborn
             // menuStrip6
             // 
             this.menuStrip6.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem2,
-            this.editToolStripMenuItem4});
+            this.fileToolStripMenuItem2});
             this.menuStrip6.Location = new System.Drawing.Point(3, 3);
             this.menuStrip6.Name = "menuStrip6";
             this.menuStrip6.Size = new System.Drawing.Size(1201, 24);
@@ -2564,24 +2561,9 @@ namespace XVReborn
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem1.Text = "Save CSS";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.SaveCSSToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem4
-            // 
-            this.editToolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editCSSToolStripMenuItem});
-            this.editToolStripMenuItem4.Name = "editToolStripMenuItem4";
-            this.editToolStripMenuItem4.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem4.Text = "Edit";
-            // 
-            // editCSSToolStripMenuItem
-            // 
-            this.editCSSToolStripMenuItem.Name = "editCSSToolStripMenuItem";
-            this.editCSSToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.editCSSToolStripMenuItem.Text = "Edit CSS";
-            this.editCSSToolStripMenuItem.Click += new System.EventHandler(this.editCSSToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
@@ -2964,8 +2946,6 @@ namespace XVReborn
         private ToolStripMenuItem superInfoToolStripMenuItem;
         private ToolStripMenuItem ultimatesInfoToolStripMenuItem;
         private ToolStripMenuItem evasivesInfoToolStripMenuItem;
-        private ToolStripMenuItem editToolStripMenuItem4;
-        private ToolStripMenuItem editCSSToolStripMenuItem;
     }
 }
 
