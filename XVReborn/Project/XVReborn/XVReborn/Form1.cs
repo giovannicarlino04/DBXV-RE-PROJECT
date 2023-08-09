@@ -1327,6 +1327,7 @@ namespace XVReborn
                         foreach (string s in File.ReadAllLines(Charalist))
                         {
                             text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
+
                         }
 
                         using (var file = new StreamWriter(File.Create(Charalist)))
@@ -3689,6 +3690,14 @@ namespace XVReborn
                         Array.Copy(BitConverter.GetBytes(n), 0, Items[itemList.SelectedIndex].Data, 612, 4);
                 }
             
+        }
+
+        private void editCSSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process p = Process.Start(Properties.Settings.Default.datafolder + @"\scripts\action_script\CharaList.as");
+            p.WaitForExit();
+            CompileScripts();
+            loadFiles();
         }
     }
 }
