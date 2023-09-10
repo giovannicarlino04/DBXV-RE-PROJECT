@@ -7,3 +7,9 @@ C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVRebor
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.GenerateResource.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.CoreCompileInputs.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.exe
+C:\Users\Giovanni\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.Form1.resources
+C:\Users\Giovanni\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.Properties.Resources.resources
+C:\Users\Giovanni\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVSkillCreator\obj\x86\Debug\XVSkillCreator.exe

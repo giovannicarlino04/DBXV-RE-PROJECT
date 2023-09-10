@@ -271,10 +271,9 @@ namespace XVReborn
             this.nameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.descriptionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.flowLayoutPanelCharacters = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip6 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editCSSFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ch = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.header = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
@@ -2524,7 +2523,6 @@ namespace XVReborn
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage6.Controls.Add(this.flowLayoutPanelCharacters);
             this.tabPage6.Controls.Add(this.menuStrip6);
             this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
@@ -2533,37 +2531,30 @@ namespace XVReborn
             this.tabPage6.TabIndex = 9;
             this.tabPage6.Text = "CSS";
             // 
-            // flowLayoutPanelCharacters
-            // 
-            this.flowLayoutPanelCharacters.Location = new System.Drawing.Point(0, 56);
-            this.flowLayoutPanelCharacters.Name = "flowLayoutPanelCharacters";
-            this.flowLayoutPanelCharacters.Size = new System.Drawing.Size(839, 171);
-            this.flowLayoutPanelCharacters.TabIndex = 0;
-            // 
             // menuStrip6
             // 
             this.menuStrip6.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem2});
+            this.editToolStripMenuItem4});
             this.menuStrip6.Location = new System.Drawing.Point(3, 3);
             this.menuStrip6.Name = "menuStrip6";
             this.menuStrip6.Size = new System.Drawing.Size(1201, 24);
             this.menuStrip6.TabIndex = 1;
             this.menuStrip6.Text = "menuStrip6";
             // 
-            // fileToolStripMenuItem2
+            // editToolStripMenuItem4
             // 
-            this.fileToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem1});
-            this.fileToolStripMenuItem2.Name = "fileToolStripMenuItem2";
-            this.fileToolStripMenuItem2.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem2.Text = "File";
+            this.editToolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editCSSFileToolStripMenuItem});
+            this.editToolStripMenuItem4.Name = "editToolStripMenuItem4";
+            this.editToolStripMenuItem4.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem4.Text = "Edit";
             // 
-            // saveToolStripMenuItem1
+            // editCSSFileToolStripMenuItem
             // 
-            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.saveToolStripMenuItem1.Text = "Save CSS";
-            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.SaveCSSToolStripMenuItem_Click);
+            this.editCSSFileToolStripMenuItem.Name = "editCSSFileToolStripMenuItem";
+            this.editCSSFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editCSSFileToolStripMenuItem.Text = "Edit CSS File";
+            this.editCSSFileToolStripMenuItem.Click += new System.EventHandler(this.editCSSFileToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
@@ -2844,10 +2835,7 @@ namespace XVReborn
         private System.Windows.Forms.ColumnHeader header;
         private System.Windows.Forms.ColumnHeader ch;
         private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelCharacters;
         private System.Windows.Forms.MenuStrip menuStrip6;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
         private TabPage tabPage8;
         private ComboBox itemList;
         private TabControl tabControl1;
@@ -2946,6 +2934,8 @@ namespace XVReborn
         private ToolStripMenuItem superInfoToolStripMenuItem;
         private ToolStripMenuItem ultimatesInfoToolStripMenuItem;
         private ToolStripMenuItem evasivesInfoToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem4;
+        private ToolStripMenuItem editCSSFileToolStripMenuItem;
     }
 }
 
