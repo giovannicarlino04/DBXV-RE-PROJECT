@@ -805,8 +805,17 @@ namespace XVReborn
 
                         foreach (string s in File.ReadAllLines(Charalist))
                         {
-                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
 
+                            // Now, the current method only allows for adding new slot characters to the game
+                            // but since we still haven't found a way to break the iggy slots limit we have to make
+                            // so the slot gets "inserted" inside an existing character slot es [GOK1,GOK2,XXX]
+                            // P.S. We also have a 16 costumes limit for each slot, so the tool also has to check 
+                            // if the slot's costumes limit has been reached
+
+
+                            // OLD CODE, MUST BE COMMENTED AND CHANGED
+                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + id + "\",0,0,0,[-1,-1]]]"));
+                            //
                         }
 
                         using (var file = new StreamWriter(File.Create(Charalist)))

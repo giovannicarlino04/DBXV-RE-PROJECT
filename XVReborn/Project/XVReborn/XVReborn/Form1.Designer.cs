@@ -340,19 +340,19 @@ namespace XVReborn
             // installModToolStripMenuItem
             // 
             this.installModToolStripMenuItem.Name = "installModToolStripMenuItem";
-            this.installModToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.installModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.installModToolStripMenuItem.Text = "Install Mod";
             this.installModToolStripMenuItem.Click += new System.EventHandler(this.installModToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(130, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -2552,7 +2552,7 @@ namespace XVReborn
             // editCSSFileToolStripMenuItem
             // 
             this.editCSSFileToolStripMenuItem.Name = "editCSSFileToolStripMenuItem";
-            this.editCSSFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editCSSFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.editCSSFileToolStripMenuItem.Text = "Edit CSS File";
             this.editCSSFileToolStripMenuItem.Click += new System.EventHandler(this.editCSSFileToolStripMenuItem_Click);
             // 
