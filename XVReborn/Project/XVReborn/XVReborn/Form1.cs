@@ -252,7 +252,6 @@ namespace XVReborn
                 var myAssembly = Assembly.GetExecutingAssembly();
                 var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.CHARA01.zip");
                 ZipArchive archive = new ZipArchive(myStream);
-                archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\ui\texture"));
 
                 Process p = new Process();
                 ProcessStartInfo info = new ProcessStartInfo();
