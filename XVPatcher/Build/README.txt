@@ -1,1 +1,0 @@
-Put everything that's here in the game directory
