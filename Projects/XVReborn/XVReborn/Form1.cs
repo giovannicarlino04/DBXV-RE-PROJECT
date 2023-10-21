@@ -1383,10 +1383,7 @@ namespace XVReborn
             {
                 foreach (string file in ofd.FileNames)
                 {
-                    if (MessageBox.Show("Do you want to install \"" + Path.GetFileNameWithoutExtension(file) + "\" ?", "Mod Installation", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        installmod(file);
-                    }
+                    installmod(file);
                 }
             }
             else
