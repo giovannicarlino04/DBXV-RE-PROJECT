@@ -1,0 +1,7 @@
+Copy the address of bytes you need to find 
+
+es. 01 00 00 00 8B E5 5D C3 57 8B 3D 54 8F
+
+Paste them into cheat engine (REMEMBER TO DISABLE THE OPTION "Writable")
+
+Find the address, lesgo!

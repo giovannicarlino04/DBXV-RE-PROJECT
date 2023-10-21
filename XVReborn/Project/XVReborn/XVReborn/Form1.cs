@@ -50,11 +50,7 @@ namespace XVReborn
             }
         }
 
-        List<DraggableButton> buttonCharacters = new List<DraggableButton>();
-        // Assuming you have a class-level variable to store the character codes and their corresponding images.
-        Dictionary<string, Image> characterImages = new Dictionary<string, Image>();
         string[][][] charaList; // Class-level variable to store the parsed character data.
-        Image defaultImage; // Class-level variable to store the default image.
 
         string AURFileName;
         Aura[] Auras;
@@ -207,12 +203,7 @@ namespace XVReborn
                 Form3 frm = new Form3();
                 frm.ShowDialog();
 
-                var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.DBXV_Patched.zip");
-                ZipArchive archive = new ZipArchive(myStream);
-                if (File.Exists(Settings.Default.datafolder + @"/../DBXV.exe"))
-                    File.Delete(Settings.Default.datafolder + @"/../DBXV.exe");
-                archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
+
             }
             else
             {
@@ -220,16 +211,10 @@ namespace XVReborn
                 {
                     MessageBox.Show("Data Folder not Found, Please Clear Installation", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (!File.Exists(Path.Combine(Settings.Default.datafolder + @"/../steam_api_real.dll")))
+                if (!File.Exists(Path.Combine(Settings.Default.datafolder + @"/../xvpatcher.exe")))
                 {
-                    if (MessageBox.Show("XVPatcher or one of it's components is missing, do you want the tool to install it automatically?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    if (MessageBox.Show("XVPatcher or one of it's components is missing, please install it, otherwise mods won't work!!!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        var myAssembly = Assembly.GetExecutingAssembly();
-                        var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.XVPatcher.zip");
-                        ZipArchive archive = new ZipArchive(myStream);
-                        if (File.Exists(Settings.Default.datafolder + @"/../steam_api.dll"))
-                            File.Delete(Settings.Default.datafolder + @"/../steam_api.dll");
-                        archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
                     }
                 }
             }
