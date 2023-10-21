@@ -211,7 +211,7 @@ namespace XVReborn
                 {
                     MessageBox.Show("Data Folder not Found, Please Clear Installation", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (!File.Exists(Path.Combine(Settings.Default.datafolder + @"/../xvpatcher.exe")))
+                if (!File.Exists(Path.Combine(Settings.Default.datafolder + @"/../xinput1_3.dll")))
                 {
                     if (MessageBox.Show("XVPatcher or one of it's components is missing, please install it, otherwise mods won't work!!!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {

@@ -31,3 +31,12 @@ C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\Project\
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.GenerateResource.cache
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.CoreCompileInputs.cache
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.ResolveComReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.Form2.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.Form3.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\x86\Debug\XVReborn.exe
