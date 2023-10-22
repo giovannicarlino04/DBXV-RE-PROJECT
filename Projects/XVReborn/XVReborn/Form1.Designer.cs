@@ -282,6 +282,16 @@ namespace XVReborn
             this.editPSCFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbCharacter = new System.Windows.Forms.ComboBox();
             this.cbCostumes = new System.Windows.Forms.ComboBox();
+            this.fileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.installModToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.uninstallModToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileSciptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.clearInstallationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.Mods.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -318,12 +328,13 @@ namespace XVReborn
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.toolsToolStripMenuItem});
+            this.fileToolStripMenuItem2,
+            this.editToolStripMenuItem7,
+            this.toolsToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1215, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1041, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -340,19 +351,19 @@ namespace XVReborn
             // installModToolStripMenuItem
             // 
             this.installModToolStripMenuItem.Name = "installModToolStripMenuItem";
-            this.installModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.installModToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.installModToolStripMenuItem.Text = "Install Mod";
             this.installModToolStripMenuItem.Click += new System.EventHandler(this.installModToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(130, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -405,9 +416,9 @@ namespace XVReborn
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(0, 562);
+            this.label1.Location = new System.Drawing.Point(0, 487);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 15);
+            this.label1.Size = new System.Drawing.Size(87, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Installed Mods: 0";
             // 
@@ -425,17 +436,17 @@ namespace XVReborn
             this.Mods.Location = new System.Drawing.Point(0, 24);
             this.Mods.Name = "Mods";
             this.Mods.SelectedIndex = 0;
-            this.Mods.Size = new System.Drawing.Size(1215, 538);
+            this.Mods.Size = new System.Drawing.Size(1041, 463);
             this.Mods.TabIndex = 5;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.Controls.Add(this.lvMods);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage1.Size = new System.Drawing.Size(1033, 437);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mods";
             // 
@@ -450,7 +461,7 @@ namespace XVReborn
             this.lvMods.Location = new System.Drawing.Point(3, 3);
             this.lvMods.MultiSelect = false;
             this.lvMods.Name = "lvMods";
-            this.lvMods.Size = new System.Drawing.Size(1201, 504);
+            this.lvMods.Size = new System.Drawing.Size(1027, 431);
             this.lvMods.TabIndex = 4;
             this.lvMods.UseCompatibleStateImageBehavior = false;
             this.lvMods.View = System.Windows.Forms.View.Details;
@@ -475,10 +486,10 @@ namespace XVReborn
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.menuStrip3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage3.Size = new System.Drawing.Size(1033, 437);
             this.tabPage3.TabIndex = 7;
             this.tabPage3.Text = "MSG";
             // 
@@ -492,9 +503,9 @@ namespace XVReborn
             this.groupBox5.Controls.Add(this.txtName);
             this.groupBox5.Controls.Add(this.label15);
             this.groupBox5.Controls.Add(this.txtID);
-            this.groupBox5.Location = new System.Drawing.Point(20, 71);
+            this.groupBox5.Location = new System.Drawing.Point(17, 62);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(277, 250);
+            this.groupBox5.Size = new System.Drawing.Size(237, 217);
             this.groupBox5.TabIndex = 18;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "MSG";
@@ -502,71 +513,71 @@ namespace XVReborn
             // cbList
             // 
             this.cbList.FormattingEnabled = true;
-            this.cbList.Location = new System.Drawing.Point(15, 33);
+            this.cbList.Location = new System.Drawing.Point(13, 29);
             this.cbList.Name = "cbList";
-            this.cbList.Size = new System.Drawing.Size(162, 23);
+            this.cbList.Size = new System.Drawing.Size(139, 21);
             this.cbList.TabIndex = 9;
             this.cbList.SelectedIndexChanged += new System.EventHandler(this.cbList_SelectedIndexChanged);
             // 
             // cbLine
             // 
             this.cbLine.FormattingEnabled = true;
-            this.cbLine.Location = new System.Drawing.Point(182, 33);
+            this.cbLine.Location = new System.Drawing.Point(156, 29);
             this.cbLine.Name = "cbLine";
-            this.cbLine.Size = new System.Drawing.Size(78, 23);
+            this.cbLine.Size = new System.Drawing.Size(67, 21);
             this.cbLine.TabIndex = 10;
             this.cbLine.SelectedIndexChanged += new System.EventHandler(this.cbLine_SelectedIndexChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(13, 103);
+            this.label13.Location = new System.Drawing.Point(11, 89);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(28, 15);
+            this.label13.Size = new System.Drawing.Size(28, 13);
             this.label13.TabIndex = 16;
             this.label13.Text = "Text";
             // 
             // txtText
             // 
-            this.txtText.Location = new System.Drawing.Point(15, 121);
+            this.txtText.Location = new System.Drawing.Point(13, 105);
             this.txtText.Multiline = true;
             this.txtText.Name = "txtText";
-            this.txtText.Size = new System.Drawing.Size(243, 115);
+            this.txtText.Size = new System.Drawing.Size(209, 100);
             this.txtText.TabIndex = 11;
             this.txtText.TextChanged += new System.EventHandler(this.txtText_TextChanged);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(179, 59);
+            this.label14.Location = new System.Drawing.Point(153, 51);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(19, 15);
+            this.label14.Size = new System.Drawing.Size(18, 13);
             this.label14.TabIndex = 15;
             this.label14.Text = "ID";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(15, 74);
+            this.txtName.Location = new System.Drawing.Point(13, 64);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(162, 21);
+            this.txtName.Size = new System.Drawing.Size(139, 20);
             this.txtName.TabIndex = 12;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(15, 56);
+            this.label15.Location = new System.Drawing.Point(13, 49);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(41, 15);
+            this.label15.Size = new System.Drawing.Size(35, 13);
             this.label15.TabIndex = 14;
             this.label15.Text = "Name";
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(182, 74);
+            this.txtID.Location = new System.Drawing.Point(156, 64);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(78, 21);
+            this.txtID.Size = new System.Drawing.Size(67, 20);
             this.txtID.TabIndex = 13;
             // 
             // menuStrip3
@@ -577,8 +588,8 @@ namespace XVReborn
             this.openToolStripMenuItem});
             this.menuStrip3.Location = new System.Drawing.Point(3, 3);
             this.menuStrip3.Name = "menuStrip3";
-            this.menuStrip3.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip3.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip3.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
+            this.menuStrip3.Size = new System.Drawing.Size(1027, 25);
             this.menuStrip3.TabIndex = 17;
             this.menuStrip3.Text = "menuStrip3";
             // 
@@ -697,10 +708,10 @@ namespace XVReborn
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.menuStrip2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage2.Size = new System.Drawing.Size(1033, 437);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CMS/CSO";
             // 
@@ -714,86 +725,78 @@ namespace XVReborn
             this.groupBox4.Controls.Add(this.label28);
             this.groupBox4.Controls.Add(this.label27);
             this.groupBox4.Controls.Add(this.txtCSO3);
-            this.groupBox4.Location = new System.Drawing.Point(522, 65);
+            this.groupBox4.Location = new System.Drawing.Point(447, 56);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(237, 161);
+            this.groupBox4.Size = new System.Drawing.Size(203, 140);
             this.groupBox4.TabIndex = 53;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "CSO";
             // 
             // txtCSO1
             // 
-            this.txtCSO1.Location = new System.Drawing.Point(41, 26);
-            this.txtCSO1.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCSO1.Location = new System.Drawing.Point(35, 23);
             this.txtCSO1.Name = "txtCSO1";
-            this.txtCSO1.Size = new System.Drawing.Size(159, 21);
+            this.txtCSO1.Size = new System.Drawing.Size(137, 20);
             this.txtCSO1.TabIndex = 42;
             this.txtCSO1.TextChanged += new System.EventHandler(this.txtCSO1_TextChanged);
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(13, 28);
-            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label29.Location = new System.Drawing.Point(11, 24);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(14, 15);
+            this.label29.Size = new System.Drawing.Size(13, 13);
             this.label29.TabIndex = 43;
             this.label29.Text = "1";
             // 
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(13, 118);
-            this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label26.Location = new System.Drawing.Point(11, 102);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(14, 15);
+            this.label26.Size = new System.Drawing.Size(13, 13);
             this.label26.TabIndex = 49;
             this.label26.Text = "4";
             // 
             // txtCSO2
             // 
-            this.txtCSO2.Location = new System.Drawing.Point(41, 56);
-            this.txtCSO2.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCSO2.Location = new System.Drawing.Point(35, 49);
             this.txtCSO2.Name = "txtCSO2";
-            this.txtCSO2.Size = new System.Drawing.Size(159, 21);
+            this.txtCSO2.Size = new System.Drawing.Size(137, 20);
             this.txtCSO2.TabIndex = 44;
             this.txtCSO2.TextChanged += new System.EventHandler(this.txtCSO2_TextChanged);
             // 
             // txtCSO4
             // 
-            this.txtCSO4.Location = new System.Drawing.Point(41, 116);
-            this.txtCSO4.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCSO4.Location = new System.Drawing.Point(35, 101);
             this.txtCSO4.Name = "txtCSO4";
-            this.txtCSO4.Size = new System.Drawing.Size(159, 21);
+            this.txtCSO4.Size = new System.Drawing.Size(137, 20);
             this.txtCSO4.TabIndex = 48;
             this.txtCSO4.TextChanged += new System.EventHandler(this.txtCSO4_TextChanged);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(13, 58);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Location = new System.Drawing.Point(11, 50);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(14, 15);
+            this.label28.Size = new System.Drawing.Size(13, 13);
             this.label28.TabIndex = 45;
             this.label28.Text = "2";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(13, 88);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Location = new System.Drawing.Point(11, 76);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(14, 15);
+            this.label27.Size = new System.Drawing.Size(13, 13);
             this.label27.TabIndex = 47;
             this.label27.Text = "3";
             // 
             // txtCSO3
             // 
-            this.txtCSO3.Location = new System.Drawing.Point(41, 86);
-            this.txtCSO3.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCSO3.Location = new System.Drawing.Point(35, 75);
             this.txtCSO3.Name = "txtCSO3";
-            this.txtCSO3.Size = new System.Drawing.Size(159, 21);
+            this.txtCSO3.Size = new System.Drawing.Size(137, 20);
             this.txtCSO3.TabIndex = 46;
             this.txtCSO3.TextChanged += new System.EventHandler(this.txtCSO3_TextChanged);
             // 
@@ -813,9 +816,9 @@ namespace XVReborn
             this.groupBox2.Controls.Add(this.txtCMS6);
             this.groupBox2.Controls.Add(this.txtCMS7);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(35, 65);
+            this.groupBox2.Location = new System.Drawing.Point(30, 56);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(301, 236);
+            this.groupBox2.Size = new System.Drawing.Size(258, 205);
             this.groupBox2.TabIndex = 52;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CMS";
@@ -823,133 +826,119 @@ namespace XVReborn
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 176);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(5, 153);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 15);
+            this.label6.Size = new System.Drawing.Size(30, 13);
             this.label6.TabIndex = 31;
             this.label6.Text = "BCM";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 28);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(5, 24);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(32, 15);
+            this.label10.Size = new System.Drawing.Size(28, 13);
             this.label10.TabIndex = 21;
             this.label10.Text = "BCS";
             // 
             // txtCMS1
             // 
-            this.txtCMS1.Location = new System.Drawing.Point(122, 22);
-            this.txtCMS1.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS1.Location = new System.Drawing.Point(105, 19);
             this.txtCMS1.Name = "txtCMS1";
-            this.txtCMS1.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS1.Size = new System.Drawing.Size(145, 20);
             this.txtCMS1.TabIndex = 22;
             this.txtCMS1.TextChanged += new System.EventHandler(this.txtCMS1_TextChanged);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 58);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(5, 50);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 15);
+            this.label9.Size = new System.Drawing.Size(29, 13);
             this.label9.TabIndex = 23;
             this.label9.Text = "EAN";
             // 
             // txtCMS2
             // 
-            this.txtCMS2.Location = new System.Drawing.Point(122, 52);
-            this.txtCMS2.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS2.Location = new System.Drawing.Point(105, 45);
             this.txtCMS2.Name = "txtCMS2";
-            this.txtCMS2.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS2.Size = new System.Drawing.Size(145, 20);
             this.txtCMS2.TabIndex = 24;
             this.txtCMS2.TextChanged += new System.EventHandler(this.txtCMS2_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 88);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(5, 76);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 15);
+            this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 25;
             this.label3.Text = "FCE_EAN";
             // 
             // txtCMS3
             // 
-            this.txtCMS3.Location = new System.Drawing.Point(122, 82);
-            this.txtCMS3.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS3.Location = new System.Drawing.Point(105, 71);
             this.txtCMS3.Name = "txtCMS3";
-            this.txtCMS3.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS3.Size = new System.Drawing.Size(145, 20);
             this.txtCMS3.TabIndex = 26;
             this.txtCMS3.TextChanged += new System.EventHandler(this.txtCMS3_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 118);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(5, 102);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 15);
+            this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 27;
             this.label4.Text = "CAM_EAN";
             // 
             // txtCMS4
             // 
-            this.txtCMS4.Location = new System.Drawing.Point(122, 112);
-            this.txtCMS4.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS4.Location = new System.Drawing.Point(105, 97);
             this.txtCMS4.Name = "txtCMS4";
-            this.txtCMS4.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS4.Size = new System.Drawing.Size(145, 20);
             this.txtCMS4.TabIndex = 28;
             this.txtCMS4.TextChanged += new System.EventHandler(this.txtCMS4_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 146);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(5, 127);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(31, 15);
+            this.label5.Size = new System.Drawing.Size(28, 13);
             this.label5.TabIndex = 29;
             this.label5.Text = "BAC";
             // 
             // txtCMS5
             // 
-            this.txtCMS5.Location = new System.Drawing.Point(122, 142);
-            this.txtCMS5.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS5.Location = new System.Drawing.Point(105, 123);
             this.txtCMS5.Name = "txtCMS5";
-            this.txtCMS5.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS5.Size = new System.Drawing.Size(145, 20);
             this.txtCMS5.TabIndex = 30;
             this.txtCMS5.TextChanged += new System.EventHandler(this.txtCMS5_TextChanged);
             // 
             // txtCMS6
             // 
-            this.txtCMS6.Location = new System.Drawing.Point(122, 172);
-            this.txtCMS6.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS6.Location = new System.Drawing.Point(105, 149);
             this.txtCMS6.Name = "txtCMS6";
-            this.txtCMS6.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS6.Size = new System.Drawing.Size(145, 20);
             this.txtCMS6.TabIndex = 32;
             this.txtCMS6.TextChanged += new System.EventHandler(this.txtCMS6_TextChanged);
             // 
             // txtCMS7
             // 
-            this.txtCMS7.Location = new System.Drawing.Point(122, 202);
-            this.txtCMS7.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCMS7.Location = new System.Drawing.Point(105, 175);
             this.txtCMS7.Name = "txtCMS7";
-            this.txtCMS7.Size = new System.Drawing.Size(169, 21);
+            this.txtCMS7.Size = new System.Drawing.Size(145, 20);
             this.txtCMS7.TabIndex = 34;
             this.txtCMS7.TextChanged += new System.EventHandler(this.txtCMS7_TextChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 206);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(5, 179);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(25, 15);
+            this.label7.Size = new System.Drawing.Size(24, 13);
             this.label7.TabIndex = 33;
             this.label7.Text = "BAI";
             // 
@@ -960,8 +949,8 @@ namespace XVReborn
             this.editToolStripMenuItem2});
             this.menuStrip2.Location = new System.Drawing.Point(3, 3);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip2.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip2.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
+            this.menuStrip2.Size = new System.Drawing.Size(1027, 25);
             this.menuStrip2.TabIndex = 41;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -1016,10 +1005,10 @@ namespace XVReborn
             this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage4.Controls.Add(this.groupBox1);
             this.tabPage4.Controls.Add(this.menuStrip4);
-            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage4.Size = new System.Drawing.Size(1033, 437);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "PSC";
             // 
@@ -1030,9 +1019,9 @@ namespace XVReborn
             this.groupBox1.Controls.Add(this.PSCtxtName);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.PSCtxtVal);
-            this.groupBox1.Location = new System.Drawing.Point(17, 38);
+            this.groupBox1.Location = new System.Drawing.Point(15, 33);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(388, 348);
+            this.groupBox1.Size = new System.Drawing.Size(333, 302);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PSC";
@@ -1043,11 +1032,10 @@ namespace XVReborn
             this.columnHeader1,
             this.columnHeader2});
             this.PSClstData.HideSelection = false;
-            this.PSClstData.Location = new System.Drawing.Point(6, 70);
-            this.PSClstData.Margin = new System.Windows.Forms.Padding(4);
+            this.PSClstData.Location = new System.Drawing.Point(5, 61);
             this.PSClstData.MultiSelect = false;
             this.PSClstData.Name = "PSClstData";
-            this.PSClstData.Size = new System.Drawing.Size(367, 263);
+            this.PSClstData.Size = new System.Drawing.Size(315, 228);
             this.PSClstData.TabIndex = 14;
             this.PSClstData.TileSize = new System.Drawing.Size(200, 30);
             this.PSClstData.UseCompatibleStateImageBehavior = false;
@@ -1057,36 +1045,34 @@ namespace XVReborn
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(259, 22);
+            this.label11.Location = new System.Drawing.Point(222, 19);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(26, 15);
+            this.label11.Size = new System.Drawing.Size(25, 13);
             this.label11.TabIndex = 16;
             this.label11.Text = "Val:";
             // 
             // PSCtxtName
             // 
-            this.PSCtxtName.Location = new System.Drawing.Point(6, 41);
-            this.PSCtxtName.Margin = new System.Windows.Forms.Padding(4);
+            this.PSCtxtName.Location = new System.Drawing.Point(5, 36);
             this.PSCtxtName.Name = "PSCtxtName";
             this.PSCtxtName.ReadOnly = true;
-            this.PSCtxtName.Size = new System.Drawing.Size(249, 21);
+            this.PSCtxtName.Size = new System.Drawing.Size(214, 20);
             this.PSCtxtName.TabIndex = 12;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(4, 22);
+            this.label8.Location = new System.Drawing.Point(3, 19);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 15);
+            this.label8.Size = new System.Drawing.Size(38, 13);
             this.label8.TabIndex = 15;
             this.label8.Text = "Name:";
             // 
             // PSCtxtVal
             // 
-            this.PSCtxtVal.Location = new System.Drawing.Point(262, 41);
-            this.PSCtxtVal.Margin = new System.Windows.Forms.Padding(4);
+            this.PSCtxtVal.Location = new System.Drawing.Point(225, 36);
             this.PSCtxtVal.Name = "PSCtxtVal";
-            this.PSCtxtVal.Size = new System.Drawing.Size(112, 21);
+            this.PSCtxtVal.Size = new System.Drawing.Size(97, 20);
             this.PSCtxtVal.TabIndex = 13;
             this.PSCtxtVal.TextChanged += new System.EventHandler(this.txtPSCVal_TextChanged);
             // 
@@ -1097,8 +1083,8 @@ namespace XVReborn
             this.editToolStripMenuItem3});
             this.menuStrip4.Location = new System.Drawing.Point(3, 3);
             this.menuStrip4.Name = "menuStrip4";
-            this.menuStrip4.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip4.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip4.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
+            this.menuStrip4.Size = new System.Drawing.Size(1027, 25);
             this.menuStrip4.TabIndex = 2;
             this.menuStrip4.Text = "menuStrip4";
             // 
@@ -1137,9 +1123,9 @@ namespace XVReborn
             this.tabPage7.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage7.Controls.Add(this.groupBox3);
             this.tabPage7.Controls.Add(this.menuStrip7);
-            this.tabPage7.Location = new System.Drawing.Point(4, 24);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage7.Size = new System.Drawing.Size(1033, 437);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "CUS";
             // 
@@ -1159,11 +1145,9 @@ namespace XVReborn
             this.groupBox3.Controls.Add(this.label38);
             this.groupBox3.Controls.Add(this.SupLst4);
             this.groupBox3.Controls.Add(this.label37);
-            this.groupBox3.Location = new System.Drawing.Point(24, 64);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Location = new System.Drawing.Point(21, 55);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(461, 266);
+            this.groupBox3.Size = new System.Drawing.Size(395, 231);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "CUS";
@@ -1171,140 +1155,126 @@ namespace XVReborn
             // UltLst1
             // 
             this.UltLst1.FormattingEnabled = true;
-            this.UltLst1.Location = new System.Drawing.Point(98, 153);
-            this.UltLst1.Margin = new System.Windows.Forms.Padding(4);
+            this.UltLst1.Location = new System.Drawing.Point(84, 133);
             this.UltLst1.Name = "UltLst1";
-            this.UltLst1.Size = new System.Drawing.Size(344, 23);
+            this.UltLst1.Size = new System.Drawing.Size(295, 21);
             this.UltLst1.TabIndex = 9;
             this.UltLst1.SelectedIndexChanged += new System.EventHandler(this.cbUlt1_SelectedIndexChanged);
             // 
             // SupLst1
             // 
             this.SupLst1.FormattingEnabled = true;
-            this.SupLst1.Location = new System.Drawing.Point(98, 26);
-            this.SupLst1.Margin = new System.Windows.Forms.Padding(4);
+            this.SupLst1.Location = new System.Drawing.Point(84, 23);
             this.SupLst1.Name = "SupLst1";
-            this.SupLst1.Size = new System.Drawing.Size(344, 23);
+            this.SupLst1.Size = new System.Drawing.Size(295, 21);
             this.SupLst1.TabIndex = 1;
             this.SupLst1.SelectedIndexChanged += new System.EventHandler(this.cbSuper1_SelectedIndexChanged);
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(20, 29);
-            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label32.Location = new System.Drawing.Point(17, 25);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(57, 15);
+            this.label32.Size = new System.Drawing.Size(51, 13);
             this.label32.TabIndex = 2;
             this.label32.Text = "Super #1";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(20, 218);
-            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label33.Location = new System.Drawing.Point(17, 189);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(66, 15);
+            this.label33.Size = new System.Drawing.Size(61, 13);
             this.label33.TabIndex = 14;
             this.label33.Text = "Evasive #1";
             // 
             // SupLst2
             // 
             this.SupLst2.FormattingEnabled = true;
-            this.SupLst2.Location = new System.Drawing.Point(98, 56);
-            this.SupLst2.Margin = new System.Windows.Forms.Padding(4);
+            this.SupLst2.Location = new System.Drawing.Point(84, 49);
             this.SupLst2.Name = "SupLst2";
-            this.SupLst2.Size = new System.Drawing.Size(344, 23);
+            this.SupLst2.Size = new System.Drawing.Size(295, 21);
             this.SupLst2.TabIndex = 3;
             this.SupLst2.SelectedIndexChanged += new System.EventHandler(this.cbSuper2_SelectedIndexChanged);
             // 
             // EvaLst
             // 
             this.EvaLst.FormattingEnabled = true;
-            this.EvaLst.Location = new System.Drawing.Point(98, 214);
-            this.EvaLst.Margin = new System.Windows.Forms.Padding(4);
+            this.EvaLst.Location = new System.Drawing.Point(84, 185);
             this.EvaLst.Name = "EvaLst";
-            this.EvaLst.Size = new System.Drawing.Size(344, 23);
+            this.EvaLst.Size = new System.Drawing.Size(295, 21);
             this.EvaLst.TabIndex = 13;
             this.EvaLst.SelectedIndexChanged += new System.EventHandler(this.cbEva_SelectedIndexChanged);
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(20, 60);
-            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Location = new System.Drawing.Point(17, 52);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(57, 15);
+            this.label34.Size = new System.Drawing.Size(51, 13);
             this.label34.TabIndex = 4;
             this.label34.Text = "Super #2";
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(20, 188);
-            this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label35.Location = new System.Drawing.Point(17, 163);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(70, 15);
+            this.label35.Size = new System.Drawing.Size(61, 13);
             this.label35.TabIndex = 12;
             this.label35.Text = "Ultimate #2";
             // 
             // SupLst3
             // 
             this.SupLst3.FormattingEnabled = true;
-            this.SupLst3.Location = new System.Drawing.Point(98, 87);
-            this.SupLst3.Margin = new System.Windows.Forms.Padding(4);
+            this.SupLst3.Location = new System.Drawing.Point(84, 75);
             this.SupLst3.Name = "SupLst3";
-            this.SupLst3.Size = new System.Drawing.Size(344, 23);
+            this.SupLst3.Size = new System.Drawing.Size(295, 21);
             this.SupLst3.TabIndex = 5;
             this.SupLst3.SelectedIndexChanged += new System.EventHandler(this.cbSuper3_SelectedIndexChanged);
             // 
             // UltLst2
             // 
             this.UltLst2.FormattingEnabled = true;
-            this.UltLst2.Location = new System.Drawing.Point(98, 184);
-            this.UltLst2.Margin = new System.Windows.Forms.Padding(4);
+            this.UltLst2.Location = new System.Drawing.Point(84, 159);
             this.UltLst2.Name = "UltLst2";
-            this.UltLst2.Size = new System.Drawing.Size(344, 23);
+            this.UltLst2.Size = new System.Drawing.Size(295, 21);
             this.UltLst2.TabIndex = 11;
             this.UltLst2.SelectedIndexChanged += new System.EventHandler(this.cbUlt2_SelectedIndexChanged);
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(20, 91);
-            this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label36.Location = new System.Drawing.Point(17, 79);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(57, 15);
+            this.label36.Size = new System.Drawing.Size(51, 13);
             this.label36.TabIndex = 6;
             this.label36.Text = "Super #3";
             // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(20, 156);
-            this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label38.Location = new System.Drawing.Point(17, 135);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(70, 15);
+            this.label38.Size = new System.Drawing.Size(61, 13);
             this.label38.TabIndex = 10;
             this.label38.Text = "Ultimate #1";
             // 
             // SupLst4
             // 
             this.SupLst4.FormattingEnabled = true;
-            this.SupLst4.Location = new System.Drawing.Point(98, 119);
-            this.SupLst4.Margin = new System.Windows.Forms.Padding(4);
+            this.SupLst4.Location = new System.Drawing.Point(84, 103);
             this.SupLst4.Name = "SupLst4";
-            this.SupLst4.Size = new System.Drawing.Size(344, 23);
+            this.SupLst4.Size = new System.Drawing.Size(295, 21);
             this.SupLst4.TabIndex = 7;
             this.SupLst4.SelectedIndexChanged += new System.EventHandler(this.cbSuper4_SelectedIndexChanged);
             // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(20, 123);
-            this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label37.Location = new System.Drawing.Point(17, 107);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(57, 15);
+            this.label37.Size = new System.Drawing.Size(51, 13);
             this.label37.TabIndex = 8;
             this.label37.Text = "Super #4";
             // 
@@ -1315,8 +1285,8 @@ namespace XVReborn
             this.editToolStripMenuItem6});
             this.menuStrip7.Location = new System.Drawing.Point(0, 0);
             this.menuStrip7.Name = "menuStrip7";
-            this.menuStrip7.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip7.Size = new System.Drawing.Size(1207, 25);
+            this.menuStrip7.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
+            this.menuStrip7.Size = new System.Drawing.Size(1033, 25);
             this.menuStrip7.TabIndex = 1;
             this.menuStrip7.Text = "menuStrip7";
             // 
@@ -1355,10 +1325,10 @@ namespace XVReborn
             this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage5.Controls.Add(this.groupBox6);
             this.tabPage5.Controls.Add(this.menuStrip5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage5.Size = new System.Drawing.Size(1033, 437);
             this.tabPage5.TabIndex = 8;
             this.tabPage5.Text = "AUR";
             // 
@@ -1366,9 +1336,9 @@ namespace XVReborn
             // 
             this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.groupBox7);
-            this.groupBox6.Location = new System.Drawing.Point(7, 27);
+            this.groupBox6.Location = new System.Drawing.Point(6, 23);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(827, 369);
+            this.groupBox6.Size = new System.Drawing.Size(709, 320);
             this.groupBox6.TabIndex = 8;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "AUR";
@@ -1391,26 +1361,26 @@ namespace XVReborn
             this.groupBox8.Controls.Add(this.label22);
             this.groupBox8.Controls.Add(this.label23);
             this.groupBox8.Controls.Add(this.label24);
-            this.groupBox8.Location = new System.Drawing.Point(420, 21);
+            this.groupBox8.Location = new System.Drawing.Point(360, 18);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(398, 334);
+            this.groupBox8.Size = new System.Drawing.Size(341, 289);
             this.groupBox8.TabIndex = 10;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Aura Editor";
             // 
             // txtBLoop
             // 
-            this.txtBLoop.Location = new System.Drawing.Point(244, 91);
+            this.txtBLoop.Location = new System.Drawing.Point(209, 79);
             this.txtBLoop.Name = "txtBLoop";
-            this.txtBLoop.Size = new System.Drawing.Size(126, 21);
+            this.txtBLoop.Size = new System.Drawing.Size(109, 20);
             this.txtBLoop.TabIndex = 23;
             this.txtBLoop.TextChanged += new System.EventHandler(this.txtBLoop_TextChanged);
             // 
             // txtBEnd
             // 
-            this.txtBEnd.Location = new System.Drawing.Point(28, 137);
+            this.txtBEnd.Location = new System.Drawing.Point(24, 119);
             this.txtBEnd.Name = "txtBEnd";
-            this.txtBEnd.Size = new System.Drawing.Size(126, 21);
+            this.txtBEnd.Size = new System.Drawing.Size(109, 20);
             this.txtBEnd.TabIndex = 25;
             this.txtBEnd.TextChanged += new System.EventHandler(this.txtBEnd_TextChanged);
             // 
@@ -1418,9 +1388,9 @@ namespace XVReborn
             // 
             this.label17.AutoSize = true;
             this.label17.BackColor = System.Drawing.Color.Transparent;
-            this.label17.Location = new System.Drawing.Point(270, 119);
+            this.label17.Location = new System.Drawing.Point(231, 103);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(62, 15);
+            this.label17.Size = new System.Drawing.Size(53, 13);
             this.label17.TabIndex = 26;
             this.label17.Text = "Ki Charge";
             // 
@@ -1428,33 +1398,33 @@ namespace XVReborn
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Location = new System.Drawing.Point(52, 119);
+            this.label18.Location = new System.Drawing.Point(45, 103);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(64, 15);
+            this.label18.Size = new System.Drawing.Size(56, 13);
             this.label18.TabIndex = 24;
             this.label18.Text = "Boost End";
             // 
             // txtHenshinEnd
             // 
-            this.txtHenshinEnd.Location = new System.Drawing.Point(141, 236);
+            this.txtHenshinEnd.Location = new System.Drawing.Point(121, 205);
             this.txtHenshinEnd.Name = "txtHenshinEnd";
-            this.txtHenshinEnd.Size = new System.Drawing.Size(126, 21);
+            this.txtHenshinEnd.Size = new System.Drawing.Size(109, 20);
             this.txtHenshinEnd.TabIndex = 33;
             this.txtHenshinEnd.TextChanged += new System.EventHandler(this.txtHenshinEnd_TextChanged);
             // 
             // txtKiCharge
             // 
-            this.txtKiCharge.Location = new System.Drawing.Point(244, 137);
+            this.txtKiCharge.Location = new System.Drawing.Point(209, 119);
             this.txtKiCharge.Name = "txtKiCharge";
-            this.txtKiCharge.Size = new System.Drawing.Size(126, 21);
+            this.txtKiCharge.Size = new System.Drawing.Size(109, 20);
             this.txtKiCharge.TabIndex = 27;
             this.txtKiCharge.TextChanged += new System.EventHandler(this.txtKiCharge_TextChanged);
             // 
             // txtBStart
             // 
-            this.txtBStart.Location = new System.Drawing.Point(28, 91);
+            this.txtBStart.Location = new System.Drawing.Point(24, 79);
             this.txtBStart.Name = "txtBStart";
-            this.txtBStart.Size = new System.Drawing.Size(126, 21);
+            this.txtBStart.Size = new System.Drawing.Size(109, 20);
             this.txtBStart.TabIndex = 21;
             this.txtBStart.TextChanged += new System.EventHandler(this.txtBStart_TextChanged);
             // 
@@ -1462,9 +1432,9 @@ namespace XVReborn
             // 
             this.label19.AutoSize = true;
             this.label19.BackColor = System.Drawing.Color.Transparent;
-            this.label19.Location = new System.Drawing.Point(64, 168);
+            this.label19.Location = new System.Drawing.Point(55, 146);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(42, 15);
+            this.label19.Size = new System.Drawing.Size(39, 13);
             this.label19.TabIndex = 28;
             this.label19.Text = "Ki Max";
             // 
@@ -1472,9 +1442,9 @@ namespace XVReborn
             // 
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Transparent;
-            this.label20.Location = new System.Drawing.Point(158, 219);
+            this.label20.Location = new System.Drawing.Point(135, 190);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(89, 15);
+            this.label20.Size = new System.Drawing.Size(76, 13);
             this.label20.TabIndex = 32;
             this.label20.Text = "Transform End";
             // 
@@ -1482,34 +1452,34 @@ namespace XVReborn
             // 
             this.label21.AutoSize = true;
             this.label21.BackColor = System.Drawing.Color.Transparent;
-            this.label21.Location = new System.Drawing.Point(270, 73);
+            this.label21.Location = new System.Drawing.Point(231, 63);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(70, 15);
+            this.label21.Size = new System.Drawing.Size(61, 13);
             this.label21.TabIndex = 22;
             this.label21.Text = "Boost Loop";
             // 
             // cbAuraList
             // 
             this.cbAuraList.FormattingEnabled = true;
-            this.cbAuraList.Location = new System.Drawing.Point(28, 47);
+            this.cbAuraList.Location = new System.Drawing.Point(24, 41);
             this.cbAuraList.Name = "cbAuraList";
-            this.cbAuraList.Size = new System.Drawing.Size(126, 23);
+            this.cbAuraList.Size = new System.Drawing.Size(109, 21);
             this.cbAuraList.TabIndex = 18;
             this.cbAuraList.SelectedIndexChanged += new System.EventHandler(this.cbAuraList_SelectedIndexChanged);
             // 
             // txtkiMax
             // 
-            this.txtkiMax.Location = new System.Drawing.Point(28, 185);
+            this.txtkiMax.Location = new System.Drawing.Point(24, 160);
             this.txtkiMax.Name = "txtkiMax";
-            this.txtkiMax.Size = new System.Drawing.Size(126, 21);
+            this.txtkiMax.Size = new System.Drawing.Size(109, 20);
             this.txtkiMax.TabIndex = 29;
             this.txtkiMax.TextChanged += new System.EventHandler(this.txtkiMax_TextChanged);
             // 
             // txtHenshinStart
             // 
-            this.txtHenshinStart.Location = new System.Drawing.Point(244, 185);
+            this.txtHenshinStart.Location = new System.Drawing.Point(209, 160);
             this.txtHenshinStart.Name = "txtHenshinStart";
-            this.txtHenshinStart.Size = new System.Drawing.Size(126, 21);
+            this.txtHenshinStart.Size = new System.Drawing.Size(109, 20);
             this.txtHenshinStart.TabIndex = 31;
             this.txtHenshinStart.TextChanged += new System.EventHandler(this.txtHenshinStart_TextChanged);
             // 
@@ -1517,9 +1487,9 @@ namespace XVReborn
             // 
             this.label22.AutoSize = true;
             this.label22.BackColor = System.Drawing.Color.Transparent;
-            this.label22.Location = new System.Drawing.Point(52, 73);
+            this.label22.Location = new System.Drawing.Point(45, 63);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(67, 15);
+            this.label22.Size = new System.Drawing.Size(59, 13);
             this.label22.TabIndex = 20;
             this.label22.Text = "Boost Start";
             // 
@@ -1527,9 +1497,9 @@ namespace XVReborn
             // 
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Location = new System.Drawing.Point(25, 29);
+            this.label23.Location = new System.Drawing.Point(21, 25);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(32, 15);
+            this.label23.Size = new System.Drawing.Size(29, 13);
             this.label23.TabIndex = 19;
             this.label23.Text = "Aura";
             // 
@@ -1537,9 +1507,9 @@ namespace XVReborn
             // 
             this.label24.AutoSize = true;
             this.label24.BackColor = System.Drawing.Color.Transparent;
-            this.label24.Location = new System.Drawing.Point(258, 168);
+            this.label24.Location = new System.Drawing.Point(221, 146);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(92, 15);
+            this.label24.Size = new System.Drawing.Size(79, 13);
             this.label24.TabIndex = 30;
             this.label24.Text = "Transform Start";
             // 
@@ -1550,9 +1520,9 @@ namespace XVReborn
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.label12);
             this.groupBox7.Controls.Add(this.txtAURID);
-            this.groupBox7.Location = new System.Drawing.Point(15, 21);
+            this.groupBox7.Location = new System.Drawing.Point(13, 18);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(399, 334);
+            this.groupBox7.Size = new System.Drawing.Size(342, 289);
             this.groupBox7.TabIndex = 9;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Character Auras";
@@ -1560,18 +1530,18 @@ namespace XVReborn
             // cbAURChar
             // 
             this.cbAURChar.FormattingEnabled = true;
-            this.cbAURChar.Location = new System.Drawing.Point(97, 44);
+            this.cbAURChar.Location = new System.Drawing.Point(83, 38);
             this.cbAURChar.Name = "cbAURChar";
-            this.cbAURChar.Size = new System.Drawing.Size(256, 23);
+            this.cbAURChar.Size = new System.Drawing.Size(220, 21);
             this.cbAURChar.TabIndex = 6;
             this.cbAURChar.SelectedIndexChanged += new System.EventHandler(this.cbChar_SelectedIndexChanged);
             // 
             // chkInf
             // 
             this.chkInf.AutoSize = true;
-            this.chkInf.Location = new System.Drawing.Point(238, 91);
+            this.chkInf.Location = new System.Drawing.Point(204, 79);
             this.chkInf.Name = "chkInf";
-            this.chkInf.Size = new System.Drawing.Size(89, 19);
+            this.chkInf.Size = new System.Drawing.Size(80, 17);
             this.chkInf.TabIndex = 5;
             this.chkInf.Text = "Infinite Flag";
             this.chkInf.UseVisualStyleBackColor = true;
@@ -1580,26 +1550,26 @@ namespace XVReborn
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(24, 47);
+            this.label16.Location = new System.Drawing.Point(21, 41);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(64, 15);
+            this.label16.Size = new System.Drawing.Size(56, 13);
             this.label16.TabIndex = 7;
             this.label16.Text = "Character:";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(39, 91);
+            this.label12.Location = new System.Drawing.Point(33, 79);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(50, 15);
+            this.label12.Size = new System.Drawing.Size(46, 13);
             this.label12.TabIndex = 4;
             this.label12.Text = "Aura ID:";
             // 
             // txtAURID
             // 
-            this.txtAURID.Location = new System.Drawing.Point(97, 88);
+            this.txtAURID.Location = new System.Drawing.Point(83, 76);
             this.txtAURID.Name = "txtAURID";
-            this.txtAURID.Size = new System.Drawing.Size(126, 21);
+            this.txtAURID.Size = new System.Drawing.Size(109, 20);
             this.txtAURID.TabIndex = 3;
             this.txtAURID.TextChanged += new System.EventHandler(this.txtAURID_TextChanged);
             // 
@@ -1610,8 +1580,8 @@ namespace XVReborn
             this.toolStripMenuItem10});
             this.menuStrip5.Location = new System.Drawing.Point(3, 3);
             this.menuStrip5.Name = "menuStrip5";
-            this.menuStrip5.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip5.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip5.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
+            this.menuStrip5.Size = new System.Drawing.Size(1027, 25);
             this.menuStrip5.TabIndex = 2;
             this.menuStrip5.Text = "menuStrip5";
             // 
@@ -1673,19 +1643,19 @@ namespace XVReborn
             this.tabPage8.Controls.Add(this.itemList);
             this.tabPage8.Controls.Add(this.tabControl1);
             this.tabPage8.Controls.Add(this.menuStrip8);
-            this.tabPage8.Location = new System.Drawing.Point(4, 24);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage8.Size = new System.Drawing.Size(1033, 437);
             this.tabPage8.TabIndex = 10;
             this.tabPage8.Text = "IDB";
             // 
             // itemList
             // 
             this.itemList.FormattingEnabled = true;
-            this.itemList.Location = new System.Drawing.Point(10, 43);
+            this.itemList.Location = new System.Drawing.Point(9, 37);
             this.itemList.Name = "itemList";
-            this.itemList.Size = new System.Drawing.Size(455, 23);
+            this.itemList.Size = new System.Drawing.Size(391, 21);
             this.itemList.TabIndex = 5;
             this.itemList.SelectedIndexChanged += new System.EventHandler(this.itemList_SelectedIndexChanged);
             // 
@@ -1695,10 +1665,10 @@ namespace XVReborn
             this.tabControl1.Controls.Add(this.tabPage10);
             this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Controls.Add(this.tabPage12);
-            this.tabControl1.Location = new System.Drawing.Point(6, 84);
+            this.tabControl1.Location = new System.Drawing.Point(5, 73);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(463, 424);
+            this.tabControl1.Size = new System.Drawing.Size(397, 367);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage9
@@ -1708,45 +1678,45 @@ namespace XVReborn
             this.tabPage9.Controls.Add(this.txtMsgDesc);
             this.tabPage9.Controls.Add(this.label25);
             this.tabPage9.Controls.Add(this.txtMsgName);
-            this.tabPage9.Location = new System.Drawing.Point(4, 24);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(455, 396);
+            this.tabPage9.Size = new System.Drawing.Size(389, 341);
             this.tabPage9.TabIndex = 0;
             this.tabPage9.Text = "Msg Details";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 52);
+            this.label2.Location = new System.Drawing.Point(5, 45);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 15);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 15;
             this.label2.Text = "Description";
             // 
             // txtMsgDesc
             // 
-            this.txtMsgDesc.Location = new System.Drawing.Point(6, 70);
+            this.txtMsgDesc.Location = new System.Drawing.Point(5, 61);
             this.txtMsgDesc.Multiline = true;
             this.txtMsgDesc.Name = "txtMsgDesc";
-            this.txtMsgDesc.Size = new System.Drawing.Size(443, 320);
+            this.txtMsgDesc.Size = new System.Drawing.Size(380, 278);
             this.txtMsgDesc.TabIndex = 14;
             this.txtMsgDesc.TextChanged += new System.EventHandler(this.txtMsgDesc_TextChanged);
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(6, 3);
+            this.label25.Location = new System.Drawing.Point(5, 3);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(41, 15);
+            this.label25.Size = new System.Drawing.Size(35, 13);
             this.label25.TabIndex = 13;
             this.label25.Text = "Name";
             // 
             // txtMsgName
             // 
-            this.txtMsgName.Location = new System.Drawing.Point(6, 22);
+            this.txtMsgName.Location = new System.Drawing.Point(5, 19);
             this.txtMsgName.Name = "txtMsgName";
-            this.txtMsgName.Size = new System.Drawing.Size(443, 21);
+            this.txtMsgName.Size = new System.Drawing.Size(380, 20);
             this.txtMsgName.TabIndex = 12;
             this.txtMsgName.TextChanged += new System.EventHandler(this.txtMsgName_TextChanged);
             // 
@@ -1770,147 +1740,147 @@ namespace XVReborn
             this.tabPage10.Controls.Add(this.label43);
             this.tabPage10.Controls.Add(this.textBox1);
             this.tabPage10.Controls.Add(this.lstvBasic);
-            this.tabPage10.Location = new System.Drawing.Point(4, 24);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
             this.tabPage10.Name = "tabPage10";
             this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(455, 396);
+            this.tabPage10.Size = new System.Drawing.Size(389, 341);
             this.tabPage10.TabIndex = 1;
             this.tabPage10.Text = "Basic Details";
             // 
             // txtModelID
             // 
-            this.txtModelID.Location = new System.Drawing.Point(221, 118);
+            this.txtModelID.Location = new System.Drawing.Point(189, 102);
             this.txtModelID.Name = "txtModelID";
-            this.txtModelID.Size = new System.Drawing.Size(100, 21);
+            this.txtModelID.Size = new System.Drawing.Size(86, 20);
             this.txtModelID.TabIndex = 18;
             this.txtModelID.TextChanged += new System.EventHandler(this.txtModelID_TextChanged);
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(158, 121);
+            this.label30.Location = new System.Drawing.Point(135, 105);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(55, 15);
+            this.label30.Size = new System.Drawing.Size(50, 13);
             this.label30.TabIndex = 17;
             this.label30.Text = "Model ID";
             // 
             // txtEditValueb
             // 
-            this.txtEditValueb.Location = new System.Drawing.Point(221, 144);
+            this.txtEditValueb.Location = new System.Drawing.Point(189, 125);
             this.txtEditValueb.Name = "txtEditValueb";
-            this.txtEditValueb.Size = new System.Drawing.Size(188, 21);
+            this.txtEditValueb.Size = new System.Drawing.Size(162, 20);
             this.txtEditValueb.TabIndex = 16;
             this.txtEditValueb.TextChanged += new System.EventHandler(this.txtEditValueb_TextChanged);
             // 
             // txtEditNameb
             // 
-            this.txtEditNameb.Location = new System.Drawing.Point(27, 144);
+            this.txtEditNameb.Location = new System.Drawing.Point(23, 125);
             this.txtEditNameb.Name = "txtEditNameb";
             this.txtEditNameb.ReadOnly = true;
-            this.txtEditNameb.Size = new System.Drawing.Size(188, 21);
+            this.txtEditNameb.Size = new System.Drawing.Size(162, 20);
             this.txtEditNameb.TabIndex = 14;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(221, 73);
+            this.label31.Location = new System.Drawing.Point(189, 63);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(61, 15);
+            this.label31.Size = new System.Drawing.Size(54, 13);
             this.label31.TabIndex = 13;
             this.label31.Text = "Sell Value";
             // 
             // txtSell
             // 
-            this.txtSell.Location = new System.Drawing.Point(221, 92);
+            this.txtSell.Location = new System.Drawing.Point(189, 80);
             this.txtSell.Name = "txtSell";
-            this.txtSell.Size = new System.Drawing.Size(188, 21);
+            this.txtSell.Size = new System.Drawing.Size(162, 20);
             this.txtSell.TabIndex = 12;
             this.txtSell.TextChanged += new System.EventHandler(this.txtSell_TextChanged);
             // 
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(27, 73);
+            this.label39.Location = new System.Drawing.Point(23, 63);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(155, 15);
+            this.label39.Size = new System.Drawing.Size(138, 13);
             this.label39.TabIndex = 11;
             this.label39.Text = "Buy Value (0 = Not in Store)";
             // 
             // txtBuy
             // 
-            this.txtBuy.Location = new System.Drawing.Point(27, 92);
+            this.txtBuy.Location = new System.Drawing.Point(23, 80);
             this.txtBuy.Name = "txtBuy";
-            this.txtBuy.Size = new System.Drawing.Size(188, 21);
+            this.txtBuy.Size = new System.Drawing.Size(162, 20);
             this.txtBuy.TabIndex = 10;
             this.txtBuy.TextChanged += new System.EventHandler(this.txtBuy_TextChanged);
             // 
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(121, 25);
+            this.label40.Location = new System.Drawing.Point(104, 22);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(36, 15);
+            this.label40.Size = new System.Drawing.Size(31, 13);
             this.label40.TabIndex = 9;
             this.label40.Text = "Stars";
             // 
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(318, 25);
+            this.label41.Location = new System.Drawing.Point(273, 22);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(111, 15);
+            this.label41.Size = new System.Drawing.Size(97, 13);
             this.label41.TabIndex = 8;
             this.label41.Text = "Description Msg ID";
             // 
             // txtDescID
             // 
-            this.txtDescID.Location = new System.Drawing.Point(318, 44);
+            this.txtDescID.Location = new System.Drawing.Point(273, 38);
             this.txtDescID.Name = "txtDescID";
-            this.txtDescID.Size = new System.Drawing.Size(91, 21);
+            this.txtDescID.Size = new System.Drawing.Size(79, 20);
             this.txtDescID.TabIndex = 7;
             this.txtDescID.TextChanged += new System.EventHandler(this.txtDescID_TextChanged);
             // 
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(221, 25);
+            this.label42.Location = new System.Drawing.Point(189, 22);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(82, 15);
+            this.label42.Size = new System.Drawing.Size(72, 13);
             this.label42.TabIndex = 6;
             this.label42.Text = "Name Msg ID";
             // 
             // txtNameID
             // 
-            this.txtNameID.Location = new System.Drawing.Point(221, 44);
+            this.txtNameID.Location = new System.Drawing.Point(189, 38);
             this.txtNameID.Name = "txtNameID";
-            this.txtNameID.Size = new System.Drawing.Size(91, 21);
+            this.txtNameID.Size = new System.Drawing.Size(79, 20);
             this.txtNameID.TabIndex = 5;
             this.txtNameID.TextChanged += new System.EventHandler(this.txtNameID_TextChanged);
             // 
             // cbStar
             // 
             this.cbStar.FormattingEnabled = true;
-            this.cbStar.Location = new System.Drawing.Point(124, 44);
+            this.cbStar.Location = new System.Drawing.Point(106, 38);
             this.cbStar.Name = "cbStar";
-            this.cbStar.Size = new System.Drawing.Size(91, 23);
+            this.cbStar.Size = new System.Drawing.Size(79, 21);
             this.cbStar.TabIndex = 4;
             this.cbStar.SelectedIndexChanged += new System.EventHandler(this.cbStar_SelectedIndexChanged);
             // 
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(27, 25);
+            this.label43.Location = new System.Drawing.Point(23, 22);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(19, 15);
+            this.label43.Size = new System.Drawing.Size(18, 13);
             this.label43.TabIndex = 3;
             this.label43.Text = "ID";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 44);
+            this.textBox1.Location = new System.Drawing.Point(23, 38);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(91, 21);
+            this.textBox1.Size = new System.Drawing.Size(79, 20);
             this.textBox1.TabIndex = 2;
             // 
             // lstvBasic
@@ -1920,10 +1890,10 @@ namespace XVReborn
             this.columnHeader9});
             this.lstvBasic.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstvBasic.HideSelection = false;
-            this.lstvBasic.Location = new System.Drawing.Point(5, 183);
+            this.lstvBasic.Location = new System.Drawing.Point(4, 159);
             this.lstvBasic.MultiSelect = false;
             this.lstvBasic.Name = "lstvBasic";
-            this.lstvBasic.Size = new System.Drawing.Size(445, 207);
+            this.lstvBasic.Size = new System.Drawing.Size(382, 180);
             this.lstvBasic.TabIndex = 1;
             this.lstvBasic.TileSize = new System.Drawing.Size(200, 30);
             this.lstvBasic.UseCompatibleStateImageBehavior = false;
@@ -1954,139 +1924,139 @@ namespace XVReborn
             this.tabPage11.Controls.Add(this.label49);
             this.tabPage11.Controls.Add(this.label50);
             this.tabPage11.Controls.Add(this.lstvEffect1);
-            this.tabPage11.Location = new System.Drawing.Point(4, 24);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(455, 396);
+            this.tabPage11.Size = new System.Drawing.Size(389, 341);
             this.tabPage11.TabIndex = 2;
             this.tabPage11.Text = "Effect 1 Details";
             // 
             // txtChance1
             // 
-            this.txtChance1.Location = new System.Drawing.Point(19, 159);
+            this.txtChance1.Location = new System.Drawing.Point(16, 138);
             this.txtChance1.Name = "txtChance1";
-            this.txtChance1.Size = new System.Drawing.Size(163, 21);
+            this.txtChance1.Size = new System.Drawing.Size(140, 20);
             this.txtChance1.TabIndex = 31;
             this.txtChance1.TextChanged += new System.EventHandler(this.txtChance1_TextChanged);
             // 
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(16, 142);
+            this.label44.Location = new System.Drawing.Point(14, 123);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(148, 15);
+            this.label44.Size = new System.Drawing.Size(132, 13);
             this.label44.TabIndex = 30;
             this.label44.Text = "Chance of being activated";
             // 
             // txtEditValue1
             // 
-            this.txtEditValue1.Location = new System.Drawing.Point(227, 274);
+            this.txtEditValue1.Location = new System.Drawing.Point(195, 237);
             this.txtEditValue1.Name = "txtEditValue1";
-            this.txtEditValue1.Size = new System.Drawing.Size(188, 21);
+            this.txtEditValue1.Size = new System.Drawing.Size(162, 20);
             this.txtEditValue1.TabIndex = 29;
             this.txtEditValue1.TextChanged += new System.EventHandler(this.txtEditValue1_TextChanged);
             // 
             // txtEditName1
             // 
-            this.txtEditName1.Location = new System.Drawing.Point(33, 274);
+            this.txtEditName1.Location = new System.Drawing.Point(28, 237);
             this.txtEditName1.Name = "txtEditName1";
             this.txtEditName1.ReadOnly = true;
-            this.txtEditName1.Size = new System.Drawing.Size(188, 21);
+            this.txtEditName1.Size = new System.Drawing.Size(162, 20);
             this.txtEditName1.TabIndex = 28;
             // 
             // txtAVal1
             // 
-            this.txtAVal1.Location = new System.Drawing.Point(303, 114);
+            this.txtAVal1.Location = new System.Drawing.Point(260, 99);
             this.txtAVal1.Name = "txtAVal1";
-            this.txtAVal1.Size = new System.Drawing.Size(130, 21);
+            this.txtAVal1.Size = new System.Drawing.Size(112, 20);
             this.txtAVal1.TabIndex = 27;
             this.txtAVal1.TextChanged += new System.EventHandler(this.txtAVal1_TextChanged);
             // 
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(300, 97);
+            this.label45.Location = new System.Drawing.Point(257, 84);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(91, 15);
+            this.label45.Size = new System.Drawing.Size(84, 13);
             this.label45.TabIndex = 26;
             this.label45.Text = "Activation Value";
             // 
             // txtADelay1
             // 
-            this.txtADelay1.Location = new System.Drawing.Point(188, 114);
+            this.txtADelay1.Location = new System.Drawing.Point(161, 99);
             this.txtADelay1.Name = "txtADelay1";
-            this.txtADelay1.Size = new System.Drawing.Size(109, 21);
+            this.txtADelay1.Size = new System.Drawing.Size(94, 20);
             this.txtADelay1.TabIndex = 25;
             this.txtADelay1.TextChanged += new System.EventHandler(this.txtADelay1_TextChanged);
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(188, 97);
+            this.label46.Location = new System.Drawing.Point(161, 84);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(89, 15);
+            this.label46.Size = new System.Drawing.Size(80, 13);
             this.label46.TabIndex = 24;
             this.label46.Text = "Activation Time";
             // 
             // txtTimes1
             // 
-            this.txtTimes1.Location = new System.Drawing.Point(19, 114);
+            this.txtTimes1.Location = new System.Drawing.Point(16, 99);
             this.txtTimes1.Name = "txtTimes1";
-            this.txtTimes1.Size = new System.Drawing.Size(163, 21);
+            this.txtTimes1.Size = new System.Drawing.Size(140, 20);
             this.txtTimes1.TabIndex = 23;
             this.txtTimes1.TextChanged += new System.EventHandler(this.txtTimes1_TextChanged);
             // 
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(16, 97);
+            this.label47.Location = new System.Drawing.Point(14, 84);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(187, 15);
+            this.label47.Size = new System.Drawing.Size(166, 13);
             this.label47.TabIndex = 22;
             this.label47.Text = "how many times can be Activated";
             // 
             // cbActive1
             // 
             this.cbActive1.FormattingEnabled = true;
-            this.cbActive1.Location = new System.Drawing.Point(19, 73);
+            this.cbActive1.Location = new System.Drawing.Point(16, 63);
             this.cbActive1.Name = "cbActive1";
-            this.cbActive1.Size = new System.Drawing.Size(414, 23);
+            this.cbActive1.Size = new System.Drawing.Size(355, 21);
             this.cbActive1.TabIndex = 21;
             this.cbActive1.SelectedIndexChanged += new System.EventHandler(this.cbActive1_SelectedIndexChanged);
             // 
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(16, 57);
+            this.label48.Location = new System.Drawing.Point(14, 49);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(148, 15);
+            this.label48.Size = new System.Drawing.Size(136, 13);
             this.label48.TabIndex = 20;
             this.label48.Text = "How the Effect is Activated";
             // 
             // cbEffect1
             // 
             this.cbEffect1.FormattingEnabled = true;
-            this.cbEffect1.Location = new System.Drawing.Point(19, 28);
+            this.cbEffect1.Location = new System.Drawing.Point(16, 24);
             this.cbEffect1.Name = "cbEffect1";
-            this.cbEffect1.Size = new System.Drawing.Size(414, 23);
+            this.cbEffect1.Size = new System.Drawing.Size(355, 21);
             this.cbEffect1.TabIndex = 19;
             this.cbEffect1.SelectedIndexChanged += new System.EventHandler(this.cbEffect1_SelectedIndexChanged);
             // 
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(16, 12);
+            this.label49.Location = new System.Drawing.Point(14, 10);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(37, 15);
+            this.label49.Size = new System.Drawing.Size(35, 13);
             this.label49.TabIndex = 18;
             this.label49.Text = "Effect";
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(4, -173);
+            this.label50.Location = new System.Drawing.Point(3, -150);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(70, 15);
+            this.label50.Size = new System.Drawing.Size(60, 13);
             this.label50.TabIndex = 17;
             this.label50.Text = "Description";
             // 
@@ -2097,10 +2067,10 @@ namespace XVReborn
             this.columnHeader5});
             this.lstvEffect1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstvEffect1.HideSelection = false;
-            this.lstvEffect1.Location = new System.Drawing.Point(5, 300);
+            this.lstvEffect1.Location = new System.Drawing.Point(4, 260);
             this.lstvEffect1.MultiSelect = false;
             this.lstvEffect1.Name = "lstvEffect1";
-            this.lstvEffect1.Size = new System.Drawing.Size(445, 90);
+            this.lstvEffect1.Size = new System.Drawing.Size(382, 79);
             this.lstvEffect1.TabIndex = 2;
             this.lstvEffect1.TileSize = new System.Drawing.Size(200, 30);
             this.lstvEffect1.UseCompatibleStateImageBehavior = false;
@@ -2130,130 +2100,130 @@ namespace XVReborn
             this.tabPage12.Controls.Add(this.cbEffect2);
             this.tabPage12.Controls.Add(this.label56);
             this.tabPage12.Controls.Add(this.lstvEffect2);
-            this.tabPage12.Location = new System.Drawing.Point(4, 24);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
             this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage12.Size = new System.Drawing.Size(455, 396);
+            this.tabPage12.Size = new System.Drawing.Size(389, 341);
             this.tabPage12.TabIndex = 3;
             this.tabPage12.Text = "Effect 2 Details";
             // 
             // txtChance2
             // 
-            this.txtChance2.Location = new System.Drawing.Point(19, 158);
+            this.txtChance2.Location = new System.Drawing.Point(16, 137);
             this.txtChance2.Name = "txtChance2";
-            this.txtChance2.Size = new System.Drawing.Size(163, 21);
+            this.txtChance2.Size = new System.Drawing.Size(140, 20);
             this.txtChance2.TabIndex = 44;
             this.txtChance2.TextChanged += new System.EventHandler(this.txtChance2_TextChanged);
             // 
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(16, 141);
+            this.label51.Location = new System.Drawing.Point(14, 122);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(148, 15);
+            this.label51.Size = new System.Drawing.Size(132, 13);
             this.label51.TabIndex = 43;
             this.label51.Text = "Chance of being activated";
             // 
             // txtEditValue2
             // 
-            this.txtEditValue2.Location = new System.Drawing.Point(227, 274);
+            this.txtEditValue2.Location = new System.Drawing.Point(195, 237);
             this.txtEditValue2.Name = "txtEditValue2";
-            this.txtEditValue2.Size = new System.Drawing.Size(188, 21);
+            this.txtEditValue2.Size = new System.Drawing.Size(162, 20);
             this.txtEditValue2.TabIndex = 42;
             this.txtEditValue2.TextChanged += new System.EventHandler(this.txtEditValue2_TextChanged);
             // 
             // txtEditName2
             // 
-            this.txtEditName2.Location = new System.Drawing.Point(33, 274);
+            this.txtEditName2.Location = new System.Drawing.Point(28, 237);
             this.txtEditName2.Name = "txtEditName2";
             this.txtEditName2.ReadOnly = true;
-            this.txtEditName2.Size = new System.Drawing.Size(188, 21);
+            this.txtEditName2.Size = new System.Drawing.Size(162, 20);
             this.txtEditName2.TabIndex = 41;
             // 
             // txtAVal2
             // 
-            this.txtAVal2.Location = new System.Drawing.Point(303, 114);
+            this.txtAVal2.Location = new System.Drawing.Point(260, 99);
             this.txtAVal2.Name = "txtAVal2";
-            this.txtAVal2.Size = new System.Drawing.Size(130, 21);
+            this.txtAVal2.Size = new System.Drawing.Size(112, 20);
             this.txtAVal2.TabIndex = 40;
             this.txtAVal2.TextChanged += new System.EventHandler(this.txtAVal2_TextChanged);
             // 
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(300, 97);
+            this.label52.Location = new System.Drawing.Point(257, 84);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(91, 15);
+            this.label52.Size = new System.Drawing.Size(84, 13);
             this.label52.TabIndex = 39;
             this.label52.Text = "Activation Value";
             // 
             // txtADelay2
             // 
-            this.txtADelay2.Location = new System.Drawing.Point(188, 114);
+            this.txtADelay2.Location = new System.Drawing.Point(161, 99);
             this.txtADelay2.Name = "txtADelay2";
-            this.txtADelay2.Size = new System.Drawing.Size(109, 21);
+            this.txtADelay2.Size = new System.Drawing.Size(94, 20);
             this.txtADelay2.TabIndex = 38;
             this.txtADelay2.TextChanged += new System.EventHandler(this.txtADelay2_TextChanged);
             // 
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(188, 97);
+            this.label53.Location = new System.Drawing.Point(161, 84);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(89, 15);
+            this.label53.Size = new System.Drawing.Size(80, 13);
             this.label53.TabIndex = 37;
             this.label53.Text = "Activation Time";
             // 
             // txtTimes2
             // 
-            this.txtTimes2.Location = new System.Drawing.Point(19, 114);
+            this.txtTimes2.Location = new System.Drawing.Point(16, 99);
             this.txtTimes2.Name = "txtTimes2";
-            this.txtTimes2.Size = new System.Drawing.Size(163, 21);
+            this.txtTimes2.Size = new System.Drawing.Size(140, 20);
             this.txtTimes2.TabIndex = 36;
             this.txtTimes2.TextChanged += new System.EventHandler(this.txtTimes2_TextChanged);
             // 
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(16, 97);
+            this.label54.Location = new System.Drawing.Point(14, 84);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(187, 15);
+            this.label54.Size = new System.Drawing.Size(166, 13);
             this.label54.TabIndex = 35;
             this.label54.Text = "how many times can be Activated";
             // 
             // cbActive2
             // 
             this.cbActive2.FormattingEnabled = true;
-            this.cbActive2.Location = new System.Drawing.Point(19, 73);
+            this.cbActive2.Location = new System.Drawing.Point(16, 63);
             this.cbActive2.Name = "cbActive2";
-            this.cbActive2.Size = new System.Drawing.Size(414, 23);
+            this.cbActive2.Size = new System.Drawing.Size(355, 21);
             this.cbActive2.TabIndex = 34;
             this.cbActive2.SelectedIndexChanged += new System.EventHandler(this.cbActive2_SelectedIndexChanged);
             // 
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(16, 57);
+            this.label55.Location = new System.Drawing.Point(14, 49);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(148, 15);
+            this.label55.Size = new System.Drawing.Size(136, 13);
             this.label55.TabIndex = 33;
             this.label55.Text = "How the Effect is Activated";
             // 
             // cbEffect2
             // 
             this.cbEffect2.FormattingEnabled = true;
-            this.cbEffect2.Location = new System.Drawing.Point(19, 28);
+            this.cbEffect2.Location = new System.Drawing.Point(16, 24);
             this.cbEffect2.Name = "cbEffect2";
-            this.cbEffect2.Size = new System.Drawing.Size(414, 23);
+            this.cbEffect2.Size = new System.Drawing.Size(355, 21);
             this.cbEffect2.TabIndex = 32;
             this.cbEffect2.SelectedIndexChanged += new System.EventHandler(this.cbEffect2_SelectedIndexChanged);
             // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(16, 12);
+            this.label56.Location = new System.Drawing.Point(14, 10);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(37, 15);
+            this.label56.Size = new System.Drawing.Size(35, 13);
             this.label56.TabIndex = 31;
             this.label56.Text = "Effect";
             // 
@@ -2264,10 +2234,10 @@ namespace XVReborn
             this.columnHeader7});
             this.lstvEffect2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstvEffect2.HideSelection = false;
-            this.lstvEffect2.Location = new System.Drawing.Point(5, 300);
+            this.lstvEffect2.Location = new System.Drawing.Point(4, 260);
             this.lstvEffect2.MultiSelect = false;
             this.lstvEffect2.Name = "lstvEffect2";
-            this.lstvEffect2.Size = new System.Drawing.Size(445, 90);
+            this.lstvEffect2.Size = new System.Drawing.Size(382, 79);
             this.lstvEffect2.TabIndex = 30;
             this.lstvEffect2.TileSize = new System.Drawing.Size(200, 30);
             this.lstvEffect2.UseCompatibleStateImageBehavior = false;
@@ -2287,7 +2257,8 @@ namespace XVReborn
             this.msgToolStripMenuItem});
             this.menuStrip8.Location = new System.Drawing.Point(3, 3);
             this.menuStrip8.Name = "menuStrip8";
-            this.menuStrip8.Size = new System.Drawing.Size(1201, 24);
+            this.menuStrip8.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip8.Size = new System.Drawing.Size(1027, 24);
             this.menuStrip8.TabIndex = 3;
             this.menuStrip8.Text = "menuStrip8";
             // 
@@ -2524,10 +2495,10 @@ namespace XVReborn
             // 
             this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage6.Controls.Add(this.menuStrip6);
-            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage6.Size = new System.Drawing.Size(1033, 437);
             this.tabPage6.TabIndex = 9;
             this.tabPage6.Text = "CSS";
             // 
@@ -2537,7 +2508,8 @@ namespace XVReborn
             this.editToolStripMenuItem4});
             this.menuStrip6.Location = new System.Drawing.Point(3, 3);
             this.menuStrip6.Name = "menuStrip6";
-            this.menuStrip6.Size = new System.Drawing.Size(1201, 24);
+            this.menuStrip6.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip6.Size = new System.Drawing.Size(1027, 24);
             this.menuStrip6.TabIndex = 1;
             this.menuStrip6.Text = "menuStrip6";
             // 
@@ -2590,9 +2562,9 @@ namespace XVReborn
             // 
             this.cbCharacter.Dock = System.Windows.Forms.DockStyle.Right;
             this.cbCharacter.FormattingEnabled = true;
-            this.cbCharacter.Location = new System.Drawing.Point(1045, 24);
+            this.cbCharacter.Location = new System.Drawing.Point(895, 24);
             this.cbCharacter.Name = "cbCharacter";
-            this.cbCharacter.Size = new System.Drawing.Size(170, 23);
+            this.cbCharacter.Size = new System.Drawing.Size(146, 21);
             this.cbCharacter.TabIndex = 6;
             this.cbCharacter.SelectedIndexChanged += new System.EventHandler(this.cbCharacter_SelectedIndexChanged);
             // 
@@ -2600,26 +2572,98 @@ namespace XVReborn
             // 
             this.cbCostumes.Dock = System.Windows.Forms.DockStyle.Right;
             this.cbCostumes.FormattingEnabled = true;
-            this.cbCostumes.Location = new System.Drawing.Point(875, 24);
+            this.cbCostumes.Location = new System.Drawing.Point(749, 24);
             this.cbCostumes.Name = "cbCostumes";
-            this.cbCostumes.Size = new System.Drawing.Size(170, 23);
+            this.cbCostumes.Size = new System.Drawing.Size(146, 21);
             this.cbCostumes.TabIndex = 7;
             this.cbCostumes.SelectedIndexChanged += new System.EventHandler(this.cbCostumes_SelectedIndexChanged);
             // 
+            // fileToolStripMenuItem2
+            // 
+            this.fileToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.installModToolStripMenuItem1,
+            this.toolStripSeparator4,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem2.Name = "fileToolStripMenuItem2";
+            this.fileToolStripMenuItem2.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem2.Text = "File";
+            // 
+            // installModToolStripMenuItem1
+            // 
+            this.installModToolStripMenuItem1.Name = "installModToolStripMenuItem1";
+            this.installModToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.installModToolStripMenuItem1.Text = "Install Mod";
+            this.installModToolStripMenuItem1.Click += new System.EventHandler(this.installModToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem7
+            // 
+            this.editToolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uninstallModToolStripMenuItem1});
+            this.editToolStripMenuItem7.Name = "editToolStripMenuItem7";
+            this.editToolStripMenuItem7.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem7.Text = "Edit";
+            // 
+            // uninstallModToolStripMenuItem1
+            // 
+            this.uninstallModToolStripMenuItem1.Name = "uninstallModToolStripMenuItem1";
+            this.uninstallModToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.uninstallModToolStripMenuItem1.Text = "Uninstall Mod";
+            this.uninstallModToolStripMenuItem1.Click += new System.EventHandler(this.uninstallModToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem1
+            // 
+            this.toolsToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileSciptsToolStripMenuItem,
+            this.toolStripSeparator5,
+            this.clearInstallationToolStripMenuItem1});
+            this.toolsToolStripMenuItem1.Name = "toolsToolStripMenuItem1";
+            this.toolsToolStripMenuItem1.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem1.Text = "Tools";
+            // 
+            // compileSciptsToolStripMenuItem
+            // 
+            this.compileSciptsToolStripMenuItem.Name = "compileSciptsToolStripMenuItem";
+            this.compileSciptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compileSciptsToolStripMenuItem.Text = "Compile Scipts";
+            this.compileSciptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            // 
+            // clearInstallationToolStripMenuItem1
+            // 
+            this.clearInstallationToolStripMenuItem1.Name = "clearInstallationToolStripMenuItem1";
+            this.clearInstallationToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.clearInstallationToolStripMenuItem1.Text = "Clear Installation";
+            this.clearInstallationToolStripMenuItem1.Click += new System.EventHandler(this.clearInstallationToolStripMenuItem_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1215, 577);
+            this.ClientSize = new System.Drawing.Size(1041, 500);
             this.Controls.Add(this.cbCostumes);
             this.Controls.Add(this.cbCharacter);
             this.Controls.Add(this.Mods);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "XVReborn";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -2936,6 +2980,16 @@ namespace XVReborn
         private ToolStripMenuItem evasivesInfoToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem4;
         private ToolStripMenuItem editCSSFileToolStripMenuItem;
+        private ToolStripMenuItem fileToolStripMenuItem2;
+        private ToolStripMenuItem installModToolStripMenuItem1;
+        private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem7;
+        private ToolStripMenuItem uninstallModToolStripMenuItem1;
+        private ToolStripMenuItem toolsToolStripMenuItem1;
+        private ToolStripMenuItem compileSciptsToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem clearInstallationToolStripMenuItem1;
     }
 }
 

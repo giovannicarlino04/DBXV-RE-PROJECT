@@ -60,8 +60,8 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(474, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(406, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -84,10 +84,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
+            this.tabControl1.Location = new System.Drawing.Point(0, 21);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(474, 463);
+            this.tabControl1.Size = new System.Drawing.Size(406, 401);
             this.tabControl1.TabIndex = 7;
             // 
             // tabPage1
@@ -100,18 +100,18 @@
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(466, 435);
+            this.tabPage1.Size = new System.Drawing.Size(398, 375);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mod Info";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(220, 97);
+            this.button3.Location = new System.Drawing.Point(189, 84);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(81, 23);
+            this.button3.Size = new System.Drawing.Size(69, 20);
             this.button3.TabIndex = 12;
             this.button3.Text = "Randomize";
             this.button3.UseVisualStyleBackColor = true;
@@ -119,49 +119,49 @@
             // 
             // txtAuthor
             // 
-            this.txtAuthor.Location = new System.Drawing.Point(144, 146);
+            this.txtAuthor.Location = new System.Drawing.Point(123, 127);
             this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.Size = new System.Drawing.Size(247, 21);
+            this.txtAuthor.Size = new System.Drawing.Size(212, 20);
             this.txtAuthor.TabIndex = 11;
             // 
             // txtID
             // 
-            this.txtID.Location = new System.Drawing.Point(144, 98);
+            this.txtID.Location = new System.Drawing.Point(123, 85);
             this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(64, 21);
+            this.txtID.Size = new System.Drawing.Size(55, 20);
             this.txtID.TabIndex = 10;
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(144, 49);
+            this.txtName.Location = new System.Drawing.Point(123, 42);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(247, 21);
+            this.txtName.Size = new System.Drawing.Size(212, 20);
             this.txtName.TabIndex = 9;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 101);
+            this.label4.Location = new System.Drawing.Point(48, 88);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 15);
+            this.label4.Size = new System.Drawing.Size(70, 13);
             this.label4.TabIndex = 8;
             this.label4.Text = "Character ID:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(66, 146);
+            this.label5.Location = new System.Drawing.Point(57, 127);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 15);
+            this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 7;
             this.label5.Text = "Mod Author:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(34, 52);
+            this.label6.Location = new System.Drawing.Point(29, 45);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(101, 15);
+            this.label6.Size = new System.Drawing.Size(87, 13);
             this.label6.TabIndex = 6;
             this.label6.Text = "Character Name:";
             // 
@@ -174,18 +174,18 @@
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.txtFolder);
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(466, 433);
+            this.tabPage2.Size = new System.Drawing.Size(398, 373);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Mod Files";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(379, 90);
+            this.button2.Location = new System.Drawing.Point(325, 78);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(36, 22);
+            this.button2.Size = new System.Drawing.Size(31, 19);
             this.button2.TabIndex = 15;
             this.button2.Text = "...";
             this.button2.UseVisualStyleBackColor = true;
@@ -193,9 +193,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(379, 43);
+            this.button1.Location = new System.Drawing.Point(325, 37);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(36, 22);
+            this.button1.Size = new System.Drawing.Size(31, 19);
             this.button1.TabIndex = 14;
             this.button1.Text = "...";
             this.button1.UseVisualStyleBackColor = true;
@@ -203,48 +203,47 @@
             // 
             // txtPortrait
             // 
-            this.txtPortrait.Location = new System.Drawing.Point(131, 90);
+            this.txtPortrait.Location = new System.Drawing.Point(112, 78);
             this.txtPortrait.Name = "txtPortrait";
-            this.txtPortrait.Size = new System.Drawing.Size(243, 21);
+            this.txtPortrait.Size = new System.Drawing.Size(209, 20);
             this.txtPortrait.TabIndex = 13;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(74, 93);
+            this.label2.Location = new System.Drawing.Point(63, 81);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 15);
+            this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 12;
             this.label2.Text = "Portrait:";
             // 
             // txtFolder
             // 
-            this.txtFolder.Location = new System.Drawing.Point(131, 43);
+            this.txtFolder.Location = new System.Drawing.Point(112, 37);
             this.txtFolder.Name = "txtFolder";
-            this.txtFolder.Size = new System.Drawing.Size(243, 21);
+            this.txtFolder.Size = new System.Drawing.Size(209, 20);
             this.txtFolder.TabIndex = 11;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 46);
+            this.label1.Location = new System.Drawing.Point(16, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 15);
+            this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 10;
             this.label1.Text = "Character Folder:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(474, 484);
+            this.ClientSize = new System.Drawing.Size(406, 419);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "XVCharaCreator";
