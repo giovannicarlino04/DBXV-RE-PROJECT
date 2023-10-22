@@ -1,0 +1,11 @@
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\bin\Debug\net6.0\Xenoverse.deps.json
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\bin\Debug\net6.0\Xenoverse.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\bin\Debug\net6.0\Xenoverse.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\Xenoverse.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\Xenoverse.AssemblyInfoInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\Xenoverse.AssemblyInfo.cs
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\Xenoverse.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\Xenoverse.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\refint\Xenoverse.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\Xenoverse.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\Xenoverse\obj\Debug\net6.0\ref\Xenoverse.dll

@@ -1,0 +1,25 @@
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\XVCharaCreator.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\XVCharaCreator.deps.json
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\XVCharaCreator.runtimeconfig.json
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\XVCharaCreator.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\XVCharaCreator.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\Xenoverse.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\bin\Debug\net6.0-windows\Xenoverse.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.AssemblyInfoInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.AssemblyInfo.cs
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.csproj.CopyComplete
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\refint\XVCharaCreator.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\XVCharaCreator.genruntimeconfig.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\net6.0-windows\ref\XVCharaCreator.dll
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\Debug\net6.0-windows\XVCharaCreator.exe
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\Debug\net6.0-windows\XVCharaCreator.deps.json
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\Debug\net6.0-windows\XVCharaCreator.runtimeconfig.json
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\Debug\net6.0-windows\XVCharaCreator.dll
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\Debug\net6.0-windows\XVCharaCreator.pdb
