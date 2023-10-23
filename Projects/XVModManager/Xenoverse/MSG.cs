@@ -38,7 +38,7 @@ namespace Xenoverse
 
     }
 
-    static class msgStream
+    public class msgStream
     {
 
         public static msg Load2(string FileName)

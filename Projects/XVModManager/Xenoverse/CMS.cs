@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
 
 namespace Xenoverse
 {
-    public struct CMS_Data
+    public class CharacterData
     {
-        public int ID;
-        public string ShortName;
-        public byte[] Unknown;
-        public string[] Paths;
+        public int ID { get; set; }
+        public string ShortName { get; set; }
+        public byte[] Unknown { get; set; }
+        public string[] Paths { get; set; }
     }
-
     public class CMS
     {
-        public CMS_Data[] Data;
+        public CharacterData[]? Data; // Modifica il tipo di Data in CharacterData[]
         BinaryReader br;
         BinaryWriter bw;
         string FileName;
@@ -28,11 +28,12 @@ namespace Xenoverse
                 FileName = path;
                 br.BaseStream.Seek(8, SeekOrigin.Begin);
                 int Count = br.ReadInt32();
-                Data = new CMS_Data[Count];
+                Data = new CharacterData[Count];
                 int Offset = br.ReadInt32();
 
                 for (int i = 0; i < Count; i++)
                 {
+                    Data[i] = new CharacterData(); // Inizializza il nuovo oggetto CharacterData
                     br.BaseStream.Seek(Offset + (80 * i), SeekOrigin.Begin);
                     Data[i].ID = br.ReadInt32();
                     Data[i].ShortName = System.Text.Encoding.ASCII.GetString(br.ReadBytes(3));
@@ -50,6 +51,7 @@ namespace Xenoverse
                     Data[i].Paths[5] = TextAtAddress(br.ReadInt32());
                     Data[i].Paths[6] = TextAtAddress(br.ReadInt32());
 
+                    //94 Lunghezza 50 Byte per personaggio
                 }
 
             }
@@ -78,7 +80,6 @@ namespace Xenoverse
             }
             return rText;
         }
-
         public void Save()
         {
             List<string> CmnText = new List<string>();
@@ -89,12 +90,13 @@ namespace Xenoverse
                     if (!CmnText.Contains(Data[i].Paths[j]))
                         CmnText.Add(Data[i].Paths[j]);
                 }
-
             }
 
             int[] wordAddress = new int[CmnText.Count];
             int wordstartposition = 16 + (Data.Length * 80);
-            using (bw = new BinaryWriter(File.Create(FileName)))
+
+            // Usa FileMode.Create per sovrascrivere un file esistente o crearne uno nuovo
+            using (bw = new BinaryWriter(File.Open(FileName, FileMode.Create)))
             {
                 bw.Write(new byte[] { 0x23, 0x43, 0x4D, 0x53, 0xFE, 0xFF, 0x00, 0x00 });
                 bw.Write(Data.Length);
@@ -126,11 +128,35 @@ namespace Xenoverse
                     bw.Write(wordAddress[CmnText.IndexOf(Data[i].Paths[5])]);
                     bw.Write(wordAddress[CmnText.IndexOf(Data[i].Paths[6])]);
                 }
+            }
+        }
 
 
+        public void AddCharacter(CharacterData character)
+        {
+            if (character == null)
+            {
+                Console.WriteLine("Character data is null.");
+                return;
             }
 
+            if (Data == null)
+            {
+                Console.WriteLine("CMS data is not loaded.");
+                return;
+            }
+
+            // Aggiungi il personaggio alla fine dei dati CMS
+            List<CharacterData> newData = Data.ToList();
+            newData.Add(character);
+
+            // Assegna i nuovi dati CMS
+            Data = newData.ToArray();
+
+            // Salva i dati CMS aggiornati nel file
+            Save();
         }
 
     }
 }
+

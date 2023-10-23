@@ -1,21 +1,25 @@
+using System.Diagnostics;
 using System.IO.Compression;
+using System.Net.Security;
+using System.Reflection;
 using System.Text;
 using System.Xml;
 using Xenoverse;
+using XVModManager.Properties;
+using static Xenoverse.CMS;
 
 namespace XVModManager
 {
     public partial class Form1 : Form
     {
         CPK cpk = new CPK();
-
         public Form1()
         {
             InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             if (!File.Exists(Xenoverse.Xenoverse.xvpatcher_dll))
             {
                 MessageBox.Show("XVPatcher not detected, XVModManager cannot work without it.",
@@ -42,14 +46,49 @@ namespace XVModManager
 
                 extractfilefromCPK("data/msg/proper_noun_character_name_en.msg", br);
                 extractfilefromCPK("data/msg/proper_noun_costume_name_en.msg", br);
+                extractfilefromCPK("data/msg/proper_noun_skill_spa_name_en.msg", br);
+                extractfilefromCPK("data/msg/proper_noun_skill_ult_name_en.msg", br);
+                extractfilefromCPK("data/msg/proper_noun_skill_esc_name_en.msg", br);
 
+                extractfilefromCPK("data/ui/texture/CHARA01.emb", br);
+
+                var myAssembly = Assembly.GetExecutingAssembly();
+                var myStream = myAssembly.GetManifestResourceStream("XVModManager.ZipFile_Blobs.scripts.zip");
+                ZipArchive archive = new ZipArchive(myStream);
+                archive.ExtractToDirectory(Xenoverse.Xenoverse.data_path);
+
+                var myAssembly2 = Assembly.GetExecutingAssembly();
+                var myStream2 = myAssembly2.GetManifestResourceStream("XVModManager.ZipFile_Blobs.iggy_as3_test.zip");
+                ZipArchive archive2 = new ZipArchive(myStream2);
+                archive2.ExtractToDirectory(Path.Combine(Xenoverse.Xenoverse.data_path + @"\ui\iggy"));
+
+                var myAssembly3 = Assembly.GetExecutingAssembly();
+                var myStream3 = myAssembly3.GetManifestResourceStream("XVModManager.ZipFile_Blobs.embpack.zip");
+                ZipArchive archive3 = new ZipArchive(myStream3);
+                archive3.ExtractToDirectory(Path.Combine(Xenoverse.Xenoverse.data_path + @"\ui\texture"));
+
+                Process p = new Process();
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.FileName = "cmd.exe";
+                info.CreateNoWindow = true;
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+                info.RedirectStandardInput = true;
+                info.UseShellExecute = false;
+
+                p.StartInfo = info;
+                p.Start();
+
+                using (StreamWriter sw = p.StandardInput)
+                {
+                    if (sw.BaseStream.CanWrite)
+                    {
+                        sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\ui\texture");
+                        sw.WriteLine(@"embpack.exe CHARA01.emb");
+                    }
+                }
 
             }
-
-
-
             Clean();
-
         }
 
         private void extractfilefromCPK(string extractMe, BinaryReader oldFile)
@@ -82,7 +121,7 @@ namespace XVModManager
                     chunk = cpk.DecompressCRILAYLA(chunk, size);
                 }
 
-                
+
                 File.WriteAllBytes(((entries[i].DirName != null) ? entries[i].DirName + "/" : "") + entries[i].FileName.ToString(), chunk);
 
                 //MessageBox.Show("Debug: File extracted!");
@@ -101,6 +140,28 @@ namespace XVModManager
             string modname = "";
             string modauthor = "";
             string modversion = "";
+            int AUR_ID = 0;
+            int AUR_GLARE = 0;
+            string CMS_BCS = "";
+            string CMS_EAN = "";
+            string CMS_FCE_EAN = "";
+            string CMS_CAM_EAN = "";
+            string CMS_BAC = "";
+            string CMS_BCM = "";
+            string CMS_BAI = "";
+            string CSO_1 = "";
+            string CSO_2 = "";
+            string CSO_3 = "";
+            string CSO_4 = "";
+            string CUS_SUPER_1 = "";
+            string CUS_SUPER_2 = "";
+            string CUS_SUPER_3 = "";
+            string CUS_SUPER_4 = "";
+            string CUS_ULTIMATE_1 = "";
+            string CUS_ULTIMATE_2 = "";
+            string CUS_EVASIVE = "";
+            string MSG_CHARACTER_NAME = "";
+            string MSG_COSTUME_NAME = "";
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -165,63 +226,400 @@ namespace XVModManager
                                     }
                                 }
 
+                                if (reader.Name == "AUR_ID")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        bool parseSuccess = Int32.TryParse(reader.GetAttribute("value").Trim(), out AUR_ID);
+                                        if (!parseSuccess)
+                                        {
+                                            // Gestisci il caso in cui la conversione non riesce, ad esempio, fornisci un valore predefinito o mostra un messaggio di errore.
+                                            MessageBox.Show("AUR_GLARE value not recognized", "Error", MessageBoxButtons.OK);
+                                            return;
+                                        }
+                                    }
+                                }
+                                if (reader.Name == "AUR_GLARE")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        bool parseSuccess = Int32.TryParse(reader.GetAttribute("value").Trim(), out AUR_GLARE);
+                                        if (!parseSuccess)
+                                        {
+                                            // Gestisci il caso in cui la conversione non riesce, ad esempio, fornisci un valore predefinito o mostra un messaggio di errore.
+                                            MessageBox.Show("AUR_GLARE value not recognized", "Error", MessageBoxButtons.OK);
+                                            return;
+                                        }
+                                    }
+                                }
+                                if (reader.Name == "CMS_BCS")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_BCS = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CMS_EAN")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_EAN = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CMS_FCE_EAN")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_FCE_EAN = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CMS_CAM_EAN")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_CAM_EAN = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CMS_BAC")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_BAC = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CMS_BCM")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_BCM = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CMS_BAI")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CMS_BAI = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CSO_1")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CSO_1 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CSO_2")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CSO_2 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CSO_3")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CSO_3 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CSO_4")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CSO_4 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_SUPER_1")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_SUPER_1 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_SUPER_2")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_SUPER_2 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_SUPER_3")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_SUPER_3 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_SUPER_4")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_SUPER_4 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_ULTIMATE_1")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_ULTIMATE_1 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_ULTIMATE_2")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_ULTIMATE_2 = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "CUS_EVASIVE")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        CUS_EVASIVE = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "MSG_CHARACTER_NAME")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        MSG_CHARACTER_NAME = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+                                if (reader.Name == "MSG_COSTUME_NAME")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        MSG_COSTUME_NAME = reader.GetAttribute("value").Trim();
+                                    }
+                                }
+
                             }
                         }
 
                     }
                     if (modtype == "REPLACER")
                     {
-                        if (!DoesAnyFileExistInDestination(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path))
-                        {
-                            MergeDirectories(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path);
 
-                            Clean();
-                            listBox1.Items.Add(modname);
-                            foreach (string item in listBox1.Items)
-                            {
-                                Properties.Settings.Default.modlist.Add(item);
-                                Properties.Settings.Default.Save();
-                            }
-                            MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                        }
-                        else
+                        MergeDirectoriesWithConfirmation(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path);
+
+                        Clean();
+                        listBox1.Items.Add(modname);
+                        foreach (string item in listBox1.Items)
                         {
-                            MessageBox.Show("File already exists in data folder, cannot proceed with installation.", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Properties.Settings.Default.modlist.Add(item);
+                            Properties.Settings.Default.Save();
                         }
+                        MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                     }
+                    
                     else if (modtype == "ADDED_CHARACTER")
                     {
-                        if (!DoesAnyFileExistInDestination(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path))
-                        {
-                            MergeDirectories(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path);
+                        int CharID = 108 + Properties.Settings.Default.modlist.Count;
+                        MergeDirectoriesWithConfirmation(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path);
 
-                            Clean();
-                            listBox1.Items.Add(modname);
-                            foreach (string item in listBox1.Items)
-                            {
-                                Properties.Settings.Default.modlist.Add(item);
-                                Properties.Settings.Default.Save();
-                            }
-                            MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
-                        }
-                        else
+                        Clean();
+                        listBox1.Items.Add(modname);
+                        foreach (string item in listBox1.Items)
                         {
-                            MessageBox.Show("File already exists in data folder, cannot proceed with installation.", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Properties.Settings.Default.modlist.Add(item);
+                            Properties.Settings.Default.Save();
                         }
+
+                        // Carica i dati CMS dal file binario
+                        CMS cms = new CMS();
+                        cms.Load(Xenoverse.Xenoverse.CMSFile);
+
+                        // Crea un nuovo personaggio
+                        CharacterData newCharacter = new CharacterData
+                        {
+                            ID = CharID, // ID del personaggio
+                            ShortName = CMS_BCS, // Nome abbreviato del personaggio
+                            Unknown = new byte[8], // Array di byte sconosciuto
+                            Paths = new string[7] // Array di percorsi
+                        };
+
+                        // Inizializza gli elementi dell'array dei percorsi
+                        newCharacter.Paths[0] = CMS_BCS;
+                        newCharacter.Paths[1] = CMS_EAN;
+                        newCharacter.Paths[2] = CMS_FCE_EAN;
+                        newCharacter.Paths[3] = CMS_CAM_EAN;
+                        newCharacter.Paths[4] = CMS_BAC;
+                        newCharacter.Paths[5] = CMS_BCM;
+                        newCharacter.Paths[6] = CMS_BAI;
+
+                        // Aggiungi il nuovo personaggio ai dati CMS
+                        cms.AddCharacter(newCharacter);
+
+                        // Crea un'istanza della classe CSO
+                        CSO cso = new CSO();
+                        cso.Load(Xenoverse.Xenoverse.CSOFile);
+
+                        // Supponiamo di avere un oggetto characterData con i dati da aggiungere
+                        CSO_Data characterData = new CSO_Data
+                        {
+                            Char_ID = CharID,           // Sostituisci con l'ID del personaggio desiderato
+                            Costume_ID = 0,      // Sostituisci con l'ID del costume desiderato
+                            Paths = new string[4]  // Aggiungi i percorsi desiderati
+                            {
+                                    CSO_1,
+                                    CSO_2,
+                                    CSO_3,
+                                    CSO_4
+                            }
+                        };
+
+                        // Chiama la funzione AddCharacter per aggiungere i dati del personaggio
+                        cso.AddCharacter(characterData);
+
+                        CharSkill charSkill = new CharSkill();
+                        charSkill.populateSkillData(Xenoverse.Xenoverse.data_path + @"/msg", Xenoverse.Xenoverse.CUSFile, "en"); //Leave it to "en" rn, we'll change it later
+
+                        // Crea un nuovo personaggio
+                        Char_Data newCharacterCUS = new Char_Data
+                        {
+                            charID = CharID, // ID del personaggio
+                            CostumeID = 0, // ID del costume
+                            SuperIDs = new short[]
+                            {
+                                    charSkill.FindSuperByName(CUS_SUPER_1),
+                                    charSkill.FindSuperByName(CUS_SUPER_2),
+                                    charSkill.FindSuperByName(CUS_SUPER_3),
+                                    charSkill.FindSuperByName(CUS_SUPER_4)
+                            }, // Array di ID delle Super mosse
+                            UltimateIDs = new short[]
+                            {
+                                    charSkill.FindUltimateByName(CUS_ULTIMATE_1),
+                                    charSkill.FindUltimateByName(CUS_ULTIMATE_2)
+                            }, // Array di ID delle mosse Ultimate
+
+                            EvasiveID = charSkill.FindEvasiveByName(CUS_EVASIVE)
+                        };
+
+                        // Aggiungi il nuovo personaggio ai dati di CharSkill
+                        charSkill.AddCharacter(newCharacterCUS);
+
+                        AUR aur = new AUR(); // Crea un'istanza della classe AUR
+                        aur.Load(Xenoverse.Xenoverse.AURFile);
+
+                        string Charalist = Xenoverse.Xenoverse.data_path + @"\scripts\action_script\Charalist.as";
+
+                        var text10 = new StringBuilder();
+
+                        foreach (string s in File.ReadAllLines(Charalist))
+                        {
+                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + CMS_BCS + "\",0,0,0,[-1,-1]]]"));
+                        }
+
+                        using (var file1 = new StreamWriter(File.Create(Charalist)))
+                        {
+                            file1.Write(text10.ToString());
+                        }
+
+                        CompileScripts();
+
+                        msg MSGfile;
+                        MSGfile = msgStream.Load(Xenoverse.Xenoverse.proper_noun_character_name);
+                        msgData[] expand = new msgData[MSGfile.data.Length + 1];
+                        Array.Copy(MSGfile.data, expand, MSGfile.data.Length);
+                        string nameid = MSGfile.data[MSGfile.data.Length - 1].NameID;
+                        int endid = int.Parse(nameid.Substring(nameid.Length - 3, 3));
+                        expand[expand.Length - 1].ID = MSGfile.data.Length;
+                        expand[expand.Length - 1].Lines = new string[] { MSG_CHARACTER_NAME };
+                        expand[expand.Length - 1].NameID = "chara_" + CMS_BCS + "_" + (endid).ToString("000");
+
+                        MSGfile.data = expand;
+
+                        msgStream.Save(MSGfile, Xenoverse.Xenoverse.proper_noun_character_name);
+
+                        Process p = new Process();
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = "cmd.exe";
+                        info.CreateNoWindow = true;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
+                        info.RedirectStandardInput = true;
+                        info.UseShellExecute = false;
+
+                        p.StartInfo = info;
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\ui\texture");
+                                sw.WriteLine(@"embpack.exe CHARA01");
+                            }
+                        }
+
+                        MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Mod type not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        MessageBox.Show("File already exists in data folder, cannot proceed with installation.", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Mod type not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+     
+        
+        private void CompileScripts()
+        {
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            Process process = new Process();
+            string sourcepath = "\"" + Xenoverse.Xenoverse.data_path + "\\scripts\"";
+            string maintimelinepath = "\"" + Xenoverse.Xenoverse.data_path + "\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.as\"";
+
+            processStartInfo.FileName = "cmd.exe";
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.UseShellExecute = false;
+            process.StartInfo = processStartInfo;
+            process.Start();
+            using (StreamWriter standardInput = process.StandardInput)
+            {
+                if (standardInput.BaseStream.CanWrite)
+                {
+                    standardInput.WriteLine("cd " + Xenoverse.Xenoverse.flex_sdk_path + "\\bin");
+                    standardInput.WriteLine("mxmlc -compiler.source-path=" + sourcepath + " " + maintimelinepath);
+                }
+            }
+            process.WaitForExit();
+            Directory.CreateDirectory(Xenoverse.Xenoverse.data_path + "\\ui\\iggy\\");
+
+            if (File.Exists(Xenoverse.Xenoverse.data_path + "\\ui\\iggy\\CHARASELE.swf"))
+                File.Delete(Xenoverse.Xenoverse.data_path + "\\ui\\iggy\\CHARASELE.swf");
+
+
+            File.Move(Xenoverse.Xenoverse.data_path + "\\scripts\\dlc3_CHARASELE_fla\\MainTimeline.swf", Xenoverse.Xenoverse.data_path + "\\ui\\iggy\\CHARASELE.swf");
+
+            Thread.Sleep(1000);
+            process.Start();
+            using (StreamWriter standardInput = process.StandardInput)
+            {
+                if (standardInput.BaseStream.CanWrite)
+                {
+                    standardInput.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\ui\iggy");
+                    standardInput.WriteLine("iggy_as3_test.exe CHARASELE.swf");
+                }
+            }
+            process.WaitForExit();
+
+            Thread.Sleep(1000);
+
+            if (File.Exists(Xenoverse.Xenoverse.data_path + "\\ui\\iggy\\CHARASELE.swf"))
+                File.Delete(Xenoverse.Xenoverse.data_path + "\\ui\\iggy\\CHARASELE.swf");
         }
 
-        public static void MergeDirectories(string sourceDir, string destDir)
+        public static void MergeDirectoriesWithConfirmation(string sourceDir, string destDir)
         {
             if (!Directory.Exists(sourceDir) || !Directory.Exists(destDir))
             {
@@ -237,14 +635,25 @@ namespace XVModManager
                 string fileName = Path.GetFileName(sourceFile);
                 string destFile = Path.Combine(destDir, fileName);
 
-                // Handle file conflicts here, e.g., by renaming the file.
                 if (File.Exists(destFile))
                 {
-                    string uniqueName = GetUniqueFileName(destDir, fileName);
-                    destFile = Path.Combine(destDir, uniqueName);
-                }
+                    // Ask for confirmation to replace the existing file.
+                    var result = MessageBox.Show($"A file with the name '{fileName}' already exists. Do you want to replace it?", "File Replace Confirmation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
 
-                File.Copy(sourceFile, destFile);
+                    if (result == DialogResult.Yes)
+                    {
+                        File.Copy(sourceFile, destFile, true); // Replace the existing file.
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        return; // Cancel the entire operation.
+                    }
+                    // If 'No' is chosen, the existing file will not be replaced.
+                }
+                else
+                {
+                    File.Copy(sourceFile, destFile);
+                }
             }
 
             // Recursively merge the subdirectories.
@@ -260,62 +669,16 @@ namespace XVModManager
                 }
 
                 // Recursively merge this subdirectory.
-                MergeDirectories(sourceSubDir, destSubDir);
+                MergeDirectoriesWithConfirmation(sourceSubDir, destSubDir);
             }
         }
 
-        // Helper function to generate a unique file name to handle conflicts.
-        private static string GetUniqueFileName(string directory, string fileName)
-        {
-            string baseName = Path.GetFileNameWithoutExtension(fileName);
-            string extension = Path.GetExtension(fileName);
-            int counter = 1;
-
-            while (File.Exists(Path.Combine(directory, fileName)))
-            {
-                fileName = $"{baseName}_{counter}{extension}";
-                counter++;
-            }
-
-            return fileName;
-        }
-
-        public static bool DoesAnyFileExistInDestination(string sourceDir, string destDir)
-        {
-            if (!Directory.Exists(sourceDir) || !Directory.Exists(destDir))
-            {
-                throw new DirectoryNotFoundException("Source or destination directory does not exist.");
-            }
-
-            foreach (string sourceFile in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
-            {
-                string relativePath = sourceFile.Substring(sourceDir.Length);
-                string destFile = Path.Combine(destDir, relativePath);
-
-                if (File.Exists(destFile))
-                {
-                    return true; // At least one file exists in the destination
-                }
-            }
-
-            // Check for subdirectories in the destination that are not in the source
-            foreach (string destSubDir in Directory.GetDirectories(destDir, "*", SearchOption.AllDirectories))
-            {
-                string relativePath = destSubDir.Substring(destDir.Length);
-                string sourceSubDir = Path.Combine(sourceDir, relativePath);
-
-                if (!Directory.Exists(sourceSubDir))
-                {
-                    return true; // At least one subdirectory exists in the destination but not in the source
-                }
-            }
-
-            return false; // No files or subdirectories from the source directory exist in the destination
-        }
         private void Clean()
         {
             if (Directory.Exists(Xenoverse.Xenoverse.temp_path))
-                Directory.Delete(Xenoverse.Xenoverse.temp_path, true);
+                Directory.Delete(Xenoverse.Xenoverse.temp_path, true); 
+            if (Directory.Exists(Xenoverse.Xenoverse.data_path + @"/xvmod.xml"))
+                Directory.Delete(Xenoverse.Xenoverse.data_path + @"/xvmod.xml", true);
         }
 
 
@@ -335,6 +698,11 @@ namespace XVModManager
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Clean();
+        }
+
+        private void compileScriptsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CompileScripts();
         }
     }
 }

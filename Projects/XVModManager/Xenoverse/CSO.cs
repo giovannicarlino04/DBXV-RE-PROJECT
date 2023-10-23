@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
 
 namespace Xenoverse
 {
-    struct CSO_Data
+    public struct CSO_Data
     {
         public int Char_ID;
         public int Costume_ID;
         public string[] Paths;
     }
 
-    class CSO
+    public class CSO
     {
         public CSO_Data[] Data;
         BinaryReader br;
         BinaryWriter bw;
         string FileName;
+
         public void Load(string path)
         {
-
             using (br = new BinaryReader(File.Open(path, FileMode.Open)))
             {
                 FileName = path;
@@ -40,12 +40,8 @@ namespace Xenoverse
                     Data[i].Paths[1] = TextAtAddress(br.ReadInt32());
                     Data[i].Paths[2] = TextAtAddress(br.ReadInt32());
                     Data[i].Paths[3] = TextAtAddress(br.ReadInt32());
-
-
                 }
-
             }
-
         }
 
         public string TextAtAddress(int Address)
@@ -81,7 +77,6 @@ namespace Xenoverse
                     if (!CmnText.Contains(Data[i].Paths[j]))
                         CmnText.Add(Data[i].Paths[j]);
                 }
-
             }
 
             int[] wordAddress = new int[CmnText.Count];
@@ -108,14 +103,9 @@ namespace Xenoverse
                     bw.Write(wordAddress[CmnText.IndexOf(Data[i].Paths[1])]);
                     bw.Write(wordAddress[CmnText.IndexOf(Data[i].Paths[2])]);
                     bw.Write(wordAddress[CmnText.IndexOf(Data[i].Paths[3])]);
-
                 }
-
-
             }
-
         }
-
 
         public int DataExist(int id, int c)
         {
@@ -133,5 +123,23 @@ namespace Xenoverse
 
             return -1;
         }
+        public void AddCharacter(CSO_Data character)
+        {
+            int existingIndex = DataExist(character.Char_ID, character.Costume_ID);
+
+            if (existingIndex >= 0)
+            {
+                Data[existingIndex] = character;
+            }
+            else
+            {
+                List<CSO_Data> newData = Data.ToList();
+                newData.Add(character);
+                Data = newData.ToArray();
+            }
+
+            Save();
+        }
+
     }
 }

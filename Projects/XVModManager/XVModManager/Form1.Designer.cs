@@ -37,6 +37,8 @@
             toolsToolStripMenuItem = new ToolStripMenuItem();
             clearInstallationToolStripMenuItem = new ToolStripMenuItem();
             listBox1 = new ListBox();
+            toolStripSeparator2 = new ToolStripSeparator();
+            compileScriptsToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -76,7 +78,7 @@
             // 
             // toolsToolStripMenuItem
             // 
-            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clearInstallationToolStripMenuItem });
+            toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { compileScriptsToolStripMenuItem, toolStripSeparator2, clearInstallationToolStripMenuItem });
             toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             toolsToolStripMenuItem.Size = new Size(46, 20);
             toolsToolStripMenuItem.Text = "Tools";
@@ -84,7 +86,7 @@
             // clearInstallationToolStripMenuItem
             // 
             clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            clearInstallationToolStripMenuItem.Size = new Size(162, 22);
+            clearInstallationToolStripMenuItem.Size = new Size(180, 22);
             clearInstallationToolStripMenuItem.Text = "Clear Installation";
             clearInstallationToolStripMenuItem.Click += clearInstallationToolStripMenuItem_Click;
             // 
@@ -97,6 +99,18 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(841, 407);
             listBox1.TabIndex = 1;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(177, 6);
+            // 
+            // compileScriptsToolStripMenuItem
+            // 
+            compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
+            compileScriptsToolStripMenuItem.Size = new Size(180, 22);
+            compileScriptsToolStripMenuItem.Text = "Compile Scripts";
+            compileScriptsToolStripMenuItem.Click += compileScriptsToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -127,5 +141,7 @@
         private ToolStripMenuItem toolsToolStripMenuItem;
         private ToolStripMenuItem clearInstallationToolStripMenuItem;
         private ListBox listBox1;
+        private ToolStripMenuItem compileScriptsToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

@@ -1,5 +1,10 @@
+using Microsoft.VisualBasic.ApplicationServices;
+using System.IO;
+using System;
 using System.IO.Compression;
 using System.Xml;
+using Xenoverse;
+using System.Windows.Forms;
 
 namespace XVCharaCreator
 {
@@ -18,13 +23,15 @@ namespace XVCharaCreator
 
             if (txtName.Text.Length > 0 && txtAuthor.Text.Length > 0
                 && Directory.Exists(txtFolder.Text)
-                && sfd.ShowDialog() == DialogResult.OK)
+                && sfd.ShowDialog() == DialogResult.OK
+                && File.Exists(textBox1.Text))
             {
                 // Specify the path where you want to save the XML file
-                string xmlFilePath = txtFolder.Text + "/xvmod.xml";
+                string xmlFilePath = "C:/XVCharaCreatorTemp/xvmod.xml";
 
-                if (File.Exists(xmlFilePath))
-                    File.Delete(xmlFilePath);
+                if (Directory.Exists("C:/XVCharaCreatorTemp"))
+                    Directory.Delete("C:/XVCharaCreatorTemp", true);
+                Directory.CreateDirectory("C:/XVCharaCreatorTemp");
 
                 // Create an XmlWriterSettings instance for formatting the XML
                 XmlWriterSettings settings = new XmlWriterSettings
@@ -48,9 +55,9 @@ namespace XVCharaCreator
                     // Let's start adding the actual character attributes (AUR, CMS, CSO, etc...)
                     WriteElementWithValue(writer, "AUR_ID", txtAuraID.Text);
                     if (cbAuraGlare.Checked)
-                        WriteElementWithValue(writer, "AUR_GLARE", "true");
+                        WriteElementWithValue(writer, "AUR_GLARE", "1");
                     else
-                        WriteElementWithValue(writer, "AUR_GLARE", "false");
+                        WriteElementWithValue(writer, "AUR_GLARE", "0");
 
                     WriteElementWithValue(writer, "CMS_BCS", txtBCS.Text);
                     WriteElementWithValue(writer, "CMS_EAN", txtEAN.Text);
@@ -66,38 +73,52 @@ namespace XVCharaCreator
                     WriteElementWithValue(writer, "CSO_4", txtCSO4.Text);
 
 
-                    WriteElementWithValue(writer, "CUS_SUPER_1", txtBCS.Text);
-                    WriteElementWithValue(writer, "CUS_SUPER_2", txtEAN.Text);
-                    WriteElementWithValue(writer, "CUS_SUPER_3", txtFCEEAN.Text);
-                    WriteElementWithValue(writer, "CUS_SUPER_4", txtCAMEAN.Text);
-                    WriteElementWithValue(writer, "CUS_ULTIMATE_1", txtBAC.Text);
-                    WriteElementWithValue(writer, "CUS_ULTIMATE_2", txtBCM.Text);
-                    WriteElementWithValue(writer, "CUS_EVASIVE_1", cbEvasive.SelectedItem.ToString());
+                    SetComboBoxValue(writer, cbSuper1, "CUS_SUPER_1");
+                    SetComboBoxValue(writer, cbSuper2, "CUS_SUPER_2");
+                    SetComboBoxValue(writer, cbSuper3, "CUS_SUPER_3");
+                    SetComboBoxValue(writer, cbSuper4, "CUS_SUPER_4");
+                    SetComboBoxValue(writer, cbUltimate1, "CUS_ULTIMATE_1");
+                    SetComboBoxValue(writer, cbUltimate2, "CUS_ULTIMATE_2");
+                    SetComboBoxValue(writer, cbEvasive, "CUS_EVASIVE");
 
-
-
+                    WriteElementWithValue(writer, "MSG_CHARACTER_NAME", txtMSG1.Text);
+                    WriteElementWithValue(writer, "MSG_COSTUME_NAME", txtMSG2.Text);
 
                     writer.WriteEndElement(); // Close XVMOD
                     writer.WriteEndDocument(); // Close the document
                 }
 
                 Console.WriteLine("XML file created at: " + xmlFilePath);
+                Directory.Move(txtFolder.Text, @"C:/XVCharaCreatorTemp/chara/" + txtCharID.Text);
+                Directory.CreateDirectory("C:/XVCharaCreatorTemp/ui/texture/CHARA01");
+                File.Move(textBox1.Text, @"C:/XVCharaCreatorTemp/ui/texture/CHARA01/" + txtCharID.Text + "_000.DDS");
 
-                ZipFile.CreateFromDirectory(txtFolder.Text, sfd.FileName);
+                ZipFile.CreateFromDirectory(@"C:/XVCharaCreatorTemp/", sfd.FileName);
 
                 if (File.Exists(xmlFilePath))
                     File.Delete(xmlFilePath);
 
                 MessageBox.Show("Mod Created Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Directory.Delete("C:/XVCharaCreatorTemp", true);
+
             }
-            // Helper method to write an element with a value
-            static void WriteElementWithValue(XmlWriter writer, string elementName, string value)
-            {
-                writer.WriteStartElement(elementName);
-                writer.WriteAttributeString("value", value);
-                writer.WriteEndElement();
-            }
+
         }
+        // Helper method to write an element with a value
+        static void WriteElementWithValue(XmlWriter writer, string elementName, string value)
+        {
+            writer.WriteStartElement(elementName);
+            writer.WriteAttributeString("value", value);
+            writer.WriteEndElement();
+        }
+        private void SetComboBoxValue(XmlWriter xmlWriter, ComboBox comboBox, string elementName)
+        {
+            if (comboBox.SelectedIndex >= 0)
+                WriteElementWithValue(xmlWriter, elementName, comboBox.SelectedItem.ToString());
+            else
+                WriteElementWithValue(xmlWriter, elementName, "");
+        }
+
 
         private void btnGenID_Click(object sender, EventArgs e)
         {
@@ -127,27 +148,47 @@ namespace XVCharaCreator
                 fbd.Description = $"Select {txtCharID.Text} Folder";
                 fbd.UseDescriptionForTitle = true;
 
-                if (fbd.ShowDialog() == DialogResult.OK &&
-                    Path.GetDirectoryName(fbd.SelectedPath) == txtCharID.Text
-                    && Directory.Exists(fbd.SelectedPath))
-                    txtFolder.Text = fbd.SelectedPath;
-                else if (Path.GetDirectoryName(fbd.SelectedPath) != txtCharID.Text)
+                if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Invalid Character folder, you should select a folder with a name that corresponds exactly to the character id you put in the appropriate textbox", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string selectedPath = fbd.SelectedPath;
+                    string selectedDirName = Path.GetFileName(selectedPath);
+
+                    if (selectedDirName == txtCharID.Text && Directory.Exists(selectedPath))
+                    {
+                        txtFolder.Text = selectedPath;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Please select the folder matching {txtCharID.Text}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else if (Xenoverse.Xenoverse.characterIds.Contains(txtCharID.Text))
-            {
                 MessageBox.Show("Names of characters that are already present in the game are not allowed. (Ex. GOK)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
+            CharSkill CS = new CharSkill();
+            CS.populateSkillData(Xenoverse.Xenoverse.data_path + @"/msg", Xenoverse.Xenoverse.CUSFile, "en");
 
+            //populate skill lists
+            foreach (skill sk in CS.Supers)
+            {
+                cbSuper1.Items.Add(sk.Name);
+                cbSuper2.Items.Add(sk.Name);
+                cbSuper3.Items.Add(sk.Name);
+                cbSuper4.Items.Add(sk.Name);
+            }
+            foreach (skill sk in CS.Ultimates)
+            {
+                cbUltimate1.Items.Add(sk.Name);
+                cbUltimate2.Items.Add(sk.Name);
+            }
+            foreach (skill sk in CS.Evasives)
+            {
+                cbEvasive.Items.Add(sk.Name);
+            }
         }
-
         private void txtAuraID_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)  // Allow digits and Backspace
@@ -164,5 +205,20 @@ namespace XVCharaCreator
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = $"Select .DDS file";
+            ofd.Filter = "Direct Draw Surface files (*.DDS)|*.DDS";
+            if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
+            {
+                textBox1.Text = ofd.FileName;
+            }
+        }
+
+        private void sToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Xenoverse
     }
 
 
-    class PSC
+    public class PSC
     {
         string FileName;
         public int statposition;

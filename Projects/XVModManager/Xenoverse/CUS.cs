@@ -21,7 +21,7 @@ namespace Xenoverse
         public short EvasiveID;
     }
 
-    class CharSkill
+    public class CharSkill
     {
         string FileName;
         public skill[] Supers;
@@ -100,6 +100,21 @@ namespace Xenoverse
 
             }
         }
+        public void AddCharacter(Char_Data characterData)
+        {
+            // Aggiungi il personaggio alla fine dei dati Char_Data
+            Array.Resize(ref Chars, CharCount + 1); // Espandi l'array Char_Data
+
+            // Assegna i dati del nuovo personaggio all'ultima posizione dell'array
+            Chars[CharCount] = characterData;
+
+            // Incrementa il numero di personaggi
+            CharCount++;
+
+            // Salva i dati Char_Data aggiornati nel file
+            Save();
+        }
+
 
         public void Save()
         {
@@ -119,6 +134,43 @@ namespace Xenoverse
                 }
             }
         }
+
+        public short FindSuperByName(string name)
+        {
+            for (int i = 0; i < Supers.Length; i++)
+            {
+                if (Supers[i].Name == name)
+                {
+                    return Supers[i].ID;
+                }
+            }
+            return -1; // Restituisci un valore speciale (ad esempio -1) se la skill non viene trovata
+        }
+
+        public short FindUltimateByName(string name)
+        {
+            for (int i = 0; i < Ultimates.Length; i++)
+            {
+                if (Ultimates[i].Name == name)
+                {
+                    return Ultimates[i].ID;
+                }
+            }
+            return -1; // Restituisci un valore speciale (ad esempio -1) se la skill non viene trovata
+        }
+
+        public short FindEvasiveByName(string name)
+        {
+            for (int i = 0; i < Evasives.Length; i++)
+            {
+                if (Evasives[i].Name == name)
+                {
+                    return Evasives[i].ID;
+                }
+            }
+            return -1; // Restituisci un valore speciale (ad esempio -1) se la skill non viene trovata
+        }
+
 
         private string findName(string text_ID)
         {

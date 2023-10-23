@@ -12,10 +12,11 @@ namespace Xenoverse
     {
         // XVMODMANAGER PATHS
         public static string temp_path = "C:/XVModManagerTemp";
+        public static string flex_sdk_path = "C:/flexsdk";
 
         // GAME PATHS
         public static string executable_name = "DBXV.exe";
-        public static string xenoverse_path = @"./";
+        public static string xenoverse_path = @"C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse";
         public static string data_path = xenoverse_path + @"/data";
         public static string xvpatcher_dll = xenoverse_path + @"/xinput1_3.dll";
 

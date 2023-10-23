@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <PackageOutputPath>C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse</PackageOutputPath>
 	  <OutputPath>C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse</OutputPath>
 	  <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <ApplicationIcon>DBXV_101.ico</ApplicationIcon>
@@ -30,8 +29,27 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="ZipFile_Blobs\CHARA01.zip" />
+	  <None Remove="ZipFile_Blobs\embpack.zip" />
+	  <None Remove="ZipFile_Blobs\iggy_as3_test.zip" />
+	  <None Remove="ZipFile_Blobs\scripts.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
     <Content Include="DBXV_101.ico" />
   </ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="ZipFile_Blobs\scripts.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="ZipFile_Blobs\iggy_as3_test.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="ZipFile_Blobs\embpack.zip" />
+	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Xenoverse\Xenoverse.csproj" />

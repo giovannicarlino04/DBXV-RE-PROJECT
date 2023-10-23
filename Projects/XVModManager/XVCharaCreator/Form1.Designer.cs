@@ -36,6 +36,9 @@
             sToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            button1 = new Button();
+            textBox1 = new TextBox();
+            label27 = new Label();
             btnGenID = new Button();
             txtCharID = new TextBox();
             btnFolder = new Button();
@@ -93,10 +96,10 @@
             cbSuper1 = new ComboBox();
             tabPage6 = new TabPage();
             tabPage7 = new TabPage();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            label25 = new Label();
             label26 = new Label();
+            label25 = new Label();
+            txtMSG2 = new TextBox();
+            txtMSG1 = new TextBox();
             menuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -126,20 +129,21 @@
             // buildXVModFileToolStripMenuItem
             // 
             buildXVModFileToolStripMenuItem.Name = "buildXVModFileToolStripMenuItem";
-            buildXVModFileToolStripMenuItem.Size = new Size(164, 22);
+            buildXVModFileToolStripMenuItem.Size = new Size(180, 22);
             buildXVModFileToolStripMenuItem.Text = "Build XVMod File";
             buildXVModFileToolStripMenuItem.Click += buildXVModFileToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(161, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // sToolStripMenuItem
             // 
             sToolStripMenuItem.Name = "sToolStripMenuItem";
-            sToolStripMenuItem.Size = new Size(164, 22);
+            sToolStripMenuItem.Size = new Size(180, 22);
             sToolStripMenuItem.Text = "Exit";
+            sToolStripMenuItem.Click += sToolStripMenuItem_Click;
             // 
             // tabControl1
             // 
@@ -160,6 +164,9 @@
             // tabPage1
             // 
             tabPage1.BackColor = SystemColors.Control;
+            tabPage1.Controls.Add(button1);
+            tabPage1.Controls.Add(textBox1);
+            tabPage1.Controls.Add(label27);
             tabPage1.Controls.Add(btnGenID);
             tabPage1.Controls.Add(txtCharID);
             tabPage1.Controls.Add(btnFolder);
@@ -179,9 +186,35 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Mod Info";
             // 
+            // button1
+            // 
+            button1.Location = new Point(317, 177);
+            button1.Name = "button1";
+            button1.Size = new Size(33, 23);
+            button1.TabIndex = 30;
+            button1.Text = "...";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(141, 177);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(170, 23);
+            textBox1.TabIndex = 29;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Location = new Point(28, 181);
+            label27.Name = "label27";
+            label27.Size = new Size(103, 15);
+            label27.TabIndex = 28;
+            label27.Text = "Character Portrait:";
+            // 
             // btnGenID
             // 
-            btnGenID.Location = new Point(213, 188);
+            btnGenID.Location = new Point(213, 221);
             btnGenID.Name = "btnGenID";
             btnGenID.Size = new Size(75, 23);
             btnGenID.TabIndex = 27;
@@ -191,7 +224,8 @@
             // 
             // txtCharID
             // 
-            txtCharID.Location = new Point(141, 188);
+            txtCharID.CharacterCasing = CharacterCasing.Upper;
+            txtCharID.Location = new Point(141, 221);
             txtCharID.MaxLength = 3;
             txtCharID.Name = "txtCharID";
             txtCharID.Size = new Size(66, 23);
@@ -266,7 +300,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(76, 191);
+            label5.Location = new Point(76, 224);
             label5.Name = "label5";
             label5.Size = new Size(49, 15);
             label5.TabIndex = 19;
@@ -697,8 +731,8 @@
             tabPage7.BackColor = SystemColors.Control;
             tabPage7.Controls.Add(label26);
             tabPage7.Controls.Add(label25);
-            tabPage7.Controls.Add(textBox2);
-            tabPage7.Controls.Add(textBox1);
+            tabPage7.Controls.Add(txtMSG2);
+            tabPage7.Controls.Add(txtMSG1);
             tabPage7.Location = new Point(4, 24);
             tabPage7.Name = "tabPage7";
             tabPage7.Padding = new Padding(3);
@@ -706,19 +740,14 @@
             tabPage7.TabIndex = 6;
             tabPage7.Text = "MSG";
             // 
-            // textBox1
+            // label26
             // 
-            textBox1.Location = new Point(139, 38);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(248, 23);
-            textBox1.TabIndex = 0;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(139, 67);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(248, 23);
-            textBox2.TabIndex = 0;
+            label26.AutoSize = true;
+            label26.Location = new Point(37, 70);
+            label26.Name = "label26";
+            label26.Size = new Size(93, 15);
+            label26.TabIndex = 1;
+            label26.Text = "Costume Name:";
             // 
             // label25
             // 
@@ -729,14 +758,19 @@
             label25.TabIndex = 1;
             label25.Text = "Character Name:";
             // 
-            // label26
+            // txtMSG2
             // 
-            label26.AutoSize = true;
-            label26.Location = new Point(37, 70);
-            label26.Name = "label26";
-            label26.Size = new Size(93, 15);
-            label26.TabIndex = 1;
-            label26.Text = "Costume Name:";
+            txtMSG2.Location = new Point(139, 67);
+            txtMSG2.Name = "txtMSG2";
+            txtMSG2.Size = new Size(248, 23);
+            txtMSG2.TabIndex = 0;
+            // 
+            // txtMSG1
+            // 
+            txtMSG1.Location = new Point(139, 38);
+            txtMSG1.Name = "txtMSG1";
+            txtMSG1.Size = new Size(248, 23);
+            txtMSG1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -836,8 +870,11 @@
         private Label label24;
         private ComboBox cbSuper4;
         private Label label25;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox txtMSG2;
+        private TextBox txtMSG1;
         private Label label26;
+        private Button button1;
+        private TextBox textBox1;
+        private Label label27;
     }
 }

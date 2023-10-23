@@ -7,26 +7,26 @@ using System.Xml;
 
 namespace Xenoverse
 {
-    struct Effect
+    public struct Effect
     {
         public int ID;
         public string Description;  
     }
 
-    struct Activation
+    public struct Activation
     {
         public int ID;
         public string Description;   
     }
 
-    struct idbItem
+    public struct idbItem
     {
         public int msgIndexName;
         public int msgIndexDesc;
         public byte[] Data;
     }
 
-    class EffectList
+    public class EffectList
     {
         public Effect[] effects;
         public void ConstructList(XmlNodeList effectlist)

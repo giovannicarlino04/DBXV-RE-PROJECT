@@ -786,7 +786,7 @@ uintptr_t GetModuleBaseAddress(HANDLE processHandle, const std::wstring& moduleN
 
 // Function to apply patches
 bool ApplyPatches() {
-   	const char* newBytes1 = "\x7F\x7C\x09\xB8\x00";  // CMS Patch 1
+   	const char* newBytes1 = "\x7F\x7C\x09\xB8\x00";  // CMS Patch 1  //7F 7C 09 B8 00
     const char* newBytes2 = "\x70\x7D\x6E\xC7\x45";  // CMS Patch 2
 
 	LPVOID address1 = nullptr;
