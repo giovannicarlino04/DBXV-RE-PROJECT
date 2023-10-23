@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Net;
 
 namespace Xenoverse
 {
@@ -51,7 +52,6 @@ namespace Xenoverse
                 int UltAddress = CUS.ReadInt32();
                 int EvaAddress = CUS.ReadInt32();
 
-
                 Chars = new Char_Data[CharCount];
                 for (int i = 0; i < CharCount; i++)
                 {
@@ -99,7 +99,10 @@ namespace Xenoverse
                 }
 
             }
+
         }
+
+
         public void AddCharacter(Char_Data characterData)
         {
             // Aggiungi il personaggio alla fine dei dati Char_Data
@@ -114,8 +117,6 @@ namespace Xenoverse
             // Salva i dati Char_Data aggiornati nel file
             Save();
         }
-
-
         public void Save()
         {
             using (BinaryWriter CUS = new BinaryWriter(File.Open(FileName, FileMode.Open)))
@@ -225,5 +226,4 @@ namespace Xenoverse
             return -1;
         }
     }
-
 }

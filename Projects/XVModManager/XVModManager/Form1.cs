@@ -499,8 +499,8 @@ namespace XVModManager
                         // Aggiungi il nuovo personaggio ai dati di CharSkill
                         charSkill.AddCharacter(newCharacterCUS);
 
-                        AUR aur = new AUR(); // Crea un'istanza della classe AUR
-                        aur.Load(Xenoverse.Xenoverse.AURFile);
+
+
 
                         string Charalist = Xenoverse.Xenoverse.data_path + @"\scripts\action_script\Charalist.as";
 
