@@ -84,6 +84,9 @@ namespace XVCharaCreator
                     WriteElementWithValue(writer, "MSG_CHARACTER_NAME", txtMSG1.Text);
                     WriteElementWithValue(writer, "MSG_COSTUME_NAME", txtMSG2.Text);
 
+                    WriteElementWithValue(writer, "VOX_1", txtVOX1.Text);
+                    WriteElementWithValue(writer, "VOX_2", txtVOX2.Text);
+
                     writer.WriteEndElement(); // Close XVMOD
                     writer.WriteEndDocument(); // Close the document
                 }
@@ -169,24 +172,24 @@ namespace XVCharaCreator
         private void Form1_Load(object sender, EventArgs e)
         {
             CharSkill CS = new CharSkill();
-            CS.populateSkillData(Xenoverse.Xenoverse.data_path + @"/msg", Xenoverse.Xenoverse.CUSFile, "en");
+            CS.populateSkillData(Xenoverse.Xenoverse.CUSFile);
 
             //populate skill lists
             foreach (skill sk in CS.Supers)
             {
-                cbSuper1.Items.Add(sk.Name);
-                cbSuper2.Items.Add(sk.Name);
-                cbSuper3.Items.Add(sk.Name);
-                cbSuper4.Items.Add(sk.Name);
+                cbSuper1.Items.Add(sk.ID);
+                cbSuper2.Items.Add(sk.ID);
+                cbSuper3.Items.Add(sk.ID);
+                cbSuper4.Items.Add(sk.ID);
             }
             foreach (skill sk in CS.Ultimates)
             {
-                cbUltimate1.Items.Add(sk.Name);
-                cbUltimate2.Items.Add(sk.Name);
+                cbUltimate1.Items.Add(sk.ID);
+                cbUltimate2.Items.Add(sk.ID);
             }
             foreach (skill sk in CS.Evasives)
             {
-                cbEvasive.Items.Add(sk.Name);
+                cbEvasive.Items.Add(sk.ID);
             }
         }
         private void txtAuraID_KeyPress(object sender, KeyPressEventArgs e)

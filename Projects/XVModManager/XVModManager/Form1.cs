@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Net.Security;
@@ -7,6 +8,8 @@ using System.Text;
 using System.Xml;
 using Xenoverse;
 using XVModManager.Properties;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.LinkLabel;
 using static Xenoverse.CMS;
 
 namespace XVModManager
@@ -23,12 +26,11 @@ namespace XVModManager
 
             if (!File.Exists(Xenoverse.Xenoverse.xvpatcher_dll))
             {
-                MessageBox.Show("XVPatcher not detected, XVModManager cannot work without it.",
+                MessageBox.Show("XVPatcher not detected, XVModManager can't work without it.",
                 "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
-            foreach (string mod in Properties.Settings.Default.modlist)
-                listBox1.Items.Add(mod);
+            loadLvItems();
 
             if (!Directory.Exists(Xenoverse.Xenoverse.data_path))
             {
@@ -68,6 +70,11 @@ namespace XVModManager
                 ZipArchive archive3 = new ZipArchive(myStream3);
                 archive3.ExtractToDirectory(Path.Combine(Xenoverse.Xenoverse.data_path + @"\ui\texture"));
 
+                var myAssembly4 = Assembly.GetExecutingAssembly();
+                var myStream4 = myAssembly4.GetManifestResourceStream("XVModManager.ZipFile_Blobs.XMLSerializer.zip");
+                ZipArchive archive4 = new ZipArchive(myStream4);
+                archive4.ExtractToDirectory(Path.Combine(Xenoverse.Xenoverse.data_path + @"\system"));
+
                 Process p = new Process();
                 ProcessStartInfo info = new ProcessStartInfo();
                 info.FileName = "cmd.exe";
@@ -90,6 +97,25 @@ namespace XVModManager
 
             }
             Clean();
+        }
+        private void saveLvItems()
+        {
+            Properties.Settings.Default.modlist = new StringCollection();
+            Properties.Settings.Default.modlist.AddRange((from i in this.lvMods.Items.Cast<ListViewItem>()
+                                                          select string.Join("|", from si in i.SubItems.Cast<ListViewItem.ListViewSubItem>()
+                                                                                  select si.Text)).ToArray());
+            Properties.Settings.Default.Save();
+        }
+
+        private void loadLvItems()
+        {
+            if (Properties.Settings.Default.modlist == null)
+            {
+                Properties.Settings.Default.modlist = new StringCollection();
+            }
+
+            this.lvMods.Items.AddRange((from i in Properties.Settings.Default.modlist.Cast<string>()
+                                        select new ListViewItem(i.Split('|'))).ToArray());
         }
 
         private void extractfilefromCPK(string extractMe, BinaryReader oldFile)
@@ -163,6 +189,8 @@ namespace XVModManager
             string CUS_EVASIVE = "";
             string MSG_CHARACTER_NAME = "";
             string MSG_COSTUME_NAME = "";
+            short VOX_1 = -1;
+            short VOX_2 = -1;
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -393,6 +421,32 @@ namespace XVModManager
                                         MSG_COSTUME_NAME = reader.GetAttribute("value").Trim();
                                     }
                                 }
+                                if (reader.Name == "VOX_1")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        bool parseSuccess = Int16.TryParse(reader.GetAttribute("value").Trim(), out VOX_1);
+                                        if (!parseSuccess)
+                                        {
+                                            // Gestisci il caso in cui la conversione non riesce, ad esempio, fornisci un valore predefinito o mostra un messaggio di errore.
+                                            MessageBox.Show("VOX_1 value not recognized", "Error", MessageBoxButtons.OK);
+                                            return;
+                                        }
+                                    }
+                                }
+                                if (reader.Name == "VOX_2")
+                                {
+                                    if (reader.HasAttributes)
+                                    {
+                                        bool parseSuccess = Int16.TryParse(reader.GetAttribute("value").Trim(), out VOX_2);
+                                        if (!parseSuccess)
+                                        {
+                                            // Gestisci il caso in cui la conversione non riesce, ad esempio, fornisci un valore predefinito o mostra un messaggio di errore.
+                                            MessageBox.Show("VOX_2 value not recognized", "Error", MessageBoxButtons.OK);
+                                            return;
+                                        }
+                                    }
+                                }
 
                             }
                         }
@@ -404,28 +458,21 @@ namespace XVModManager
                         MergeDirectoriesWithConfirmation(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path);
 
                         Clean();
-                        listBox1.Items.Add(modname);
-                        foreach (string item in listBox1.Items)
-                        {
-                            Properties.Settings.Default.modlist.Add(item);
-                            Properties.Settings.Default.Save();
-                        }
+
                         MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
-                    }
 
+                        string[] row = { modname, modauthor, "Replacer" };
+                        ListViewItem lvi = new ListViewItem(row);
+                        lvMods.Items.Add(lvi);
+                        saveLvItems();
+                    }
                     else if (modtype == "ADDED_CHARACTER")
                     {
                         int CharID = 108 + Properties.Settings.Default.modlist.Count;
                         MergeDirectoriesWithConfirmation(Xenoverse.Xenoverse.temp_path, Xenoverse.Xenoverse.data_path);
 
                         Clean();
-                        listBox1.Items.Add(modname);
-                        foreach (string item in listBox1.Items)
-                        {
-                            Properties.Settings.Default.modlist.Add(item);
-                            Properties.Settings.Default.Save();
-                        }
 
                         // CMS
                         CMS cms = new CMS();
@@ -464,47 +511,123 @@ namespace XVModManager
                         cso.AddCharacter(characterData);
 
                         // CUS
-                        CharSkill charSkill = new CharSkill();
-                        charSkill.populateSkillData(Xenoverse.Xenoverse.data_path + @"/msg", Xenoverse.Xenoverse.CUSFile, "en"); //Leave it to "en" rn, we'll change it later
-                        Char_Data newCharacterCUS = new Char_Data
+                        Process p = new Process();
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = "cmd.exe";
+                        info.CreateNoWindow = true;
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
+                        info.RedirectStandardInput = true;
+                        info.UseShellExecute = false;
+                        p.StartInfo = info;
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
                         {
-                            charID = CharID, // ID del personaggio
-                            CostumeID = 0, // ID del costume
-                            SuperIDs = new short[]
+                            if (sw.BaseStream.CanWrite)
                             {
-                                charSkill.FindSuperByName(CUS_SUPER_1),
-                                charSkill.FindSuperByName(CUS_SUPER_2),
-                                charSkill.FindSuperByName(CUS_SUPER_3),
-                                charSkill.FindSuperByName(CUS_SUPER_4)
-                            }, // Array di ID delle Super mosse
-                            UltimateIDs = new short[]
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\system");
+                                sw.WriteLine(@"CUSXMLSerializer.exe custom_skill.cus");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string cuspath = Xenoverse.Xenoverse.data_path + @"\system\custom_skill.cus.xml";
+                        string text4 = File.ReadAllText(cuspath);
+
+                        text4 = text4.Replace("  </Skillsets>", "    <Skillset Character_ID=\"" + CharID + $"\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"{CUS_SUPER_1}\" />\r\n      <SuperSkill2 ID1=\"{CUS_SUPER_2}\" />\r\n      <SuperSkill3 ID1=\"{CUS_SUPER_3}\" />\r\n      <SuperSkill4 ID1=\"{CUS_SUPER_4}\" />\r\n      <UltimateSkill1 ID1=\"{CUS_ULTIMATE_1}\" />\r\n      <UltimateSkill2 ID1=\"{CUS_ULTIMATE_2}\" />\r\n      <EvasiveSkill ID1=\"{CUS_EVASIVE}\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
+                        File.WriteAllText(cuspath, text4);
+
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
                             {
-                                charSkill.FindUltimateByName(CUS_ULTIMATE_1),
-                                charSkill.FindUltimateByName(CUS_ULTIMATE_2)
-                            }, // Array di ID delle mosse Ultimate
+                                const string quote = "\"";
 
-                            EvasiveID = charSkill.FindEvasiveByName(CUS_EVASIVE)
-                        };
-                        charSkill.AddCharacter(newCharacterCUS);
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\system");
+                                sw.WriteLine(@"CUSXMLSerializer.exe " + quote + Xenoverse.Xenoverse.data_path + @"\system\custom_skill.cus.xml" + quote);
+                            }
+                        }
 
+                        p.WaitForExit();
 
                         // AUR
-                        AUR aur = new AUR();
-                        aur.ReadAUR();
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\system");
+                                sw.WriteLine(@"AURXMLSerializer.exe aura_setting.aur");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string aurpath = Xenoverse.Xenoverse.data_path + @"\system\aura_setting.aur.xml";
+                        string text5 = File.ReadAllText(aurpath);
+                        string glare;
                         if (AUR_GLARE == 1)
                         {
-                            aur.AURAddCharacter(CharID, AUR_ID, true);
-
+                            glare = "True";
                         }
                         else
                         {
-                            aur.AURAddCharacter(CharID, AUR_ID, false);
-
+                            glare = "False";
                         }
-                        aur.SaveAUR();
+                        text5 = text5.Replace("  </CharacterAuras>", "    <CharacterAura Chara_ID=\"" + CharID + $"\" Costume=\"0\" Aura_ID=\"{glare}\" Glare=\"False\" />\r\n  </CharacterAuras>");
+                        File.WriteAllText(aurpath, text5);
 
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                const string quote = "\"";
+
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\system");
+                                sw.WriteLine(@"AURXMLSerializer.exe " + quote + Xenoverse.Xenoverse.data_path + @"\system\aura_setting.aur.xml" + quote);
+                            }
+                        }
+
+                        p.WaitForExit();
+
+
+                        //////
 
                         // PSC
+                        p.Start();
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\system");
+                                sw.WriteLine(@"PSCXMLSerializer.exe parameter_spec_char.psc");
+                            }
+                        }
+                        p.WaitForExit();
+
+                        string pscpath = Xenoverse.Xenoverse.data_path + @"\system\parameter_spec_char.psc.xml";
+                        string text6 = File.ReadAllText(pscpath);
+
+                        text6 = text6.Replace("  </Configuration>\r\n</PSC>", "    <PSC_Entry Chara_ID=\"" + CharID + "\">\r\n      <PscSpecEntry Costume=\"0\" Preset=\"0\">\r\n        <Camera_Position value=\"1\" />\r\n        <I_12 value=\"5\" />\r\n        <Health value=\"1.1155\" />\r\n        <F_20 value=\"1.0\" />\r\n        <Ki value=\"1.0\" />\r\n        <Ki_Recharge value=\"1.0\" />\r\n        <I_32 value=\"1\" />\r\n        <I_36 value=\"1\" />\r\n        <I_40 value=\"0\" />\r\n        <Stamina value=\"1.5\" />\r\n        <Stamina_Recharge value=\"0.75\" />\r\n        <F_52 value=\"1.0\" />\r\n        <F_56 value=\"1.1\" />\r\n        <I_60 value=\"0\" />\r\n        <Basic_Atk_Defense value=\"1.0\" />\r\n        <Basic_Ki_Defense value=\"0.95\" />\r\n        <Strike_Atk_Defense value=\"1.1\" />\r\n        <Super_Ki_Defense value=\"0.95\" />\r\n        <Ground_Speed value=\"1.0\" />\r\n        <Air_Speed value=\"1.0\" />\r\n        <Boost_Speed value=\"1.0\" />\r\n        <Dash_Speed value=\"1.0\" />\r\n        <F_96 value=\"1.0\" />\r\n        <Reinforcement_Skill_Duration value=\"1.0\" />\r\n        <F_104 value=\"1.0\" />\r\n        <Revival_HP_Amount value=\"1.0\" />\r\n        <Reviving_Speed value=\"1.0\" />\r\n        <F_116 value=\"1.0\" />\r\n        <F_120 value=\"0.55\" />\r\n        <F_124 value=\"1.0\" />\r\n        <F_128 value=\"1.0\" />\r\n        <F_132 value=\"1.0\" />\r\n        <F_136 value=\"1.0\" />\r\n        <I_140 value=\"0\" />\r\n        <F_144 value=\"1.0\" />\r\n        <F_148 value=\"1.0\" />\r\n        <F_152 value=\"1.0\" />\r\n        <F_156 value=\"1.0\" />\r\n        <F_160 value=\"1.0\" />\r\n        <F_164 value=\"1.0\" />\r\n        <Z-Soul value=\"98\" />\r\n        <I_172 value=\"1\" />\r\n        <I_176 value=\"1\" />\r\n        <F_180 value=\"8.0\" />\r\n      </PscSpecEntry>\r\n    </PSC_Entry>\r\n  </Configuration>\r\n</PSC>");
+                        File.WriteAllText(pscpath, text6);
+
+                        p.Start();
+
+                        using (StreamWriter sw = p.StandardInput)
+                        {
+                            if (sw.BaseStream.CanWrite)
+                            {
+                                const string quote = "\"";
+
+                                sw.WriteLine("cd " + Xenoverse.Xenoverse.data_path + @"\system");
+                                sw.WriteLine(@"PSCXMLSerializer.exe " + quote + Xenoverse.Xenoverse.data_path + @"\system\parameter_spec_char.psc.xml" + quote);
+                            }
+                        }
+
+                        p.WaitForExit();
+                        //////
 
                         string Charalist = Xenoverse.Xenoverse.data_path + @"\scripts\action_script\Charalist.as";
 
@@ -512,14 +635,13 @@ namespace XVModManager
 
                         foreach (string s in File.ReadAllLines(Charalist))
                         {
-                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + CMS_BCS + "\",0,0,0,[-1,-1]]]"));
+                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + CMS_BCS + $"\",0,0,0,[{VOX_1},{VOX_2}]]]"));
                         }
 
                         using (var file1 = new StreamWriter(File.Create(Charalist)))
                         {
                             file1.Write(text10.ToString());
                         }
-
                         CompileScripts();
 
                         msg MSGfile;
@@ -536,15 +658,6 @@ namespace XVModManager
 
                         msgStream.Save(MSGfile, Xenoverse.Xenoverse.proper_noun_character_name);
 
-                        Process p = new Process();
-                        ProcessStartInfo info = new ProcessStartInfo();
-                        info.FileName = "cmd.exe";
-                        info.CreateNoWindow = true;
-                        info.WindowStyle = ProcessWindowStyle.Hidden;
-                        info.RedirectStandardInput = true;
-                        info.UseShellExecute = false;
-
-                        p.StartInfo = info;
                         p.Start();
 
                         using (StreamWriter sw = p.StandardInput)
@@ -555,6 +668,11 @@ namespace XVModManager
                                 sw.WriteLine(@"embpack.exe CHARA01");
                             }
                         }
+
+                        string[] row = { modname, modauthor, "Added Character" };
+                        ListViewItem lvi = new ListViewItem(row);
+                        lvMods.Items.Add(lvi);
+                        saveLvItems();
 
                         MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
@@ -567,13 +685,9 @@ namespace XVModManager
                     }
                 }
             }
-            else
-            {
-                MessageBox.Show("Mod type not implemented", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
-     
-        
+
+
         private void CompileScripts()
         {
             ProcessStartInfo processStartInfo = new ProcessStartInfo();
@@ -680,7 +794,7 @@ namespace XVModManager
         private void Clean()
         {
             if (Directory.Exists(Xenoverse.Xenoverse.temp_path))
-                Directory.Delete(Xenoverse.Xenoverse.temp_path, true); 
+                Directory.Delete(Xenoverse.Xenoverse.temp_path, true);
             if (Directory.Exists(Xenoverse.Xenoverse.data_path + @"/xvmod.xml"))
                 Directory.Delete(Xenoverse.Xenoverse.data_path + @"/xvmod.xml", true);
         }

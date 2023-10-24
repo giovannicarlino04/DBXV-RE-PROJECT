@@ -35,10 +35,13 @@
             toolStripSeparator1 = new ToolStripSeparator();
             exitToolStripMenuItem = new ToolStripMenuItem();
             toolsToolStripMenuItem = new ToolStripMenuItem();
-            clearInstallationToolStripMenuItem = new ToolStripMenuItem();
-            listBox1 = new ListBox();
-            toolStripSeparator2 = new ToolStripSeparator();
             compileScriptsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            clearInstallationToolStripMenuItem = new ToolStripMenuItem();
+            lvMods = new ListView();
+            Mod_Name = new ColumnHeader();
+            Mod_Author = new ColumnHeader();
+            Mod_Type = new ColumnHeader();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -83,41 +86,57 @@
             toolsToolStripMenuItem.Size = new Size(46, 20);
             toolsToolStripMenuItem.Text = "Tools";
             // 
-            // clearInstallationToolStripMenuItem
+            // compileScriptsToolStripMenuItem
             // 
-            clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
-            clearInstallationToolStripMenuItem.Size = new Size(180, 22);
-            clearInstallationToolStripMenuItem.Text = "Clear Installation";
-            clearInstallationToolStripMenuItem.Click += clearInstallationToolStripMenuItem_Click;
-            // 
-            // listBox1
-            // 
-            listBox1.Dock = DockStyle.Fill;
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(0, 24);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(841, 407);
-            listBox1.TabIndex = 1;
+            compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
+            compileScriptsToolStripMenuItem.Size = new Size(162, 22);
+            compileScriptsToolStripMenuItem.Text = "Compile Scripts";
+            compileScriptsToolStripMenuItem.Click += compileScriptsToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(159, 6);
             // 
-            // compileScriptsToolStripMenuItem
+            // clearInstallationToolStripMenuItem
             // 
-            compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            compileScriptsToolStripMenuItem.Size = new Size(180, 22);
-            compileScriptsToolStripMenuItem.Text = "Compile Scripts";
-            compileScriptsToolStripMenuItem.Click += compileScriptsToolStripMenuItem_Click;
+            clearInstallationToolStripMenuItem.Name = "clearInstallationToolStripMenuItem";
+            clearInstallationToolStripMenuItem.Size = new Size(162, 22);
+            clearInstallationToolStripMenuItem.Text = "Clear Installation";
+            clearInstallationToolStripMenuItem.Click += clearInstallationToolStripMenuItem_Click;
+            // 
+            // lvMods
+            // 
+            lvMods.Columns.AddRange(new ColumnHeader[] { Mod_Name, Mod_Author, Mod_Type });
+            lvMods.Dock = DockStyle.Fill;
+            lvMods.Location = new Point(0, 24);
+            lvMods.Name = "lvMods";
+            lvMods.Size = new Size(841, 407);
+            lvMods.TabIndex = 1;
+            lvMods.UseCompatibleStateImageBehavior = false;
+            lvMods.View = View.Details;
+            // 
+            // Mod_Name
+            // 
+            Mod_Name.Text = "Name";
+            Mod_Name.Width = 160;
+            // 
+            // Mod_Author
+            // 
+            Mod_Author.Text = "Author";
+            Mod_Author.Width = 160;
+            // 
+            // Mod_Type
+            // 
+            Mod_Type.Text = "Type";
+            Mod_Type.Width = 120;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(841, 431);
-            Controls.Add(listBox1);
+            Controls.Add(lvMods);
             Controls.Add(menuStrip1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
@@ -140,8 +159,11 @@
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem toolsToolStripMenuItem;
         private ToolStripMenuItem clearInstallationToolStripMenuItem;
-        private ListBox listBox1;
         private ToolStripMenuItem compileScriptsToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator2;
+        private ListView lvMods;
+        private ColumnHeader Mod_Name;
+        private ColumnHeader Mod_Author;
+        private ColumnHeader Mod_Type;
     }
 }

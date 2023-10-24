@@ -100,6 +100,11 @@
             label25 = new Label();
             txtMSG2 = new TextBox();
             txtMSG1 = new TextBox();
+            tabPage8 = new TabPage();
+            txtVOX2 = new TextBox();
+            txtVOX1 = new TextBox();
+            label29 = new Label();
+            label28 = new Label();
             menuStrip1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
@@ -108,6 +113,7 @@
             tabPage4.SuspendLayout();
             tabPage5.SuspendLayout();
             tabPage7.SuspendLayout();
+            tabPage8.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -154,6 +160,7 @@
             tabControl1.Controls.Add(tabPage5);
             tabControl1.Controls.Add(tabPage6);
             tabControl1.Controls.Add(tabPage7);
+            tabControl1.Controls.Add(tabPage8);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 24);
             tabControl1.Name = "tabControl1";
@@ -188,7 +195,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(317, 177);
+            button1.Location = new Point(316, 217);
             button1.Name = "button1";
             button1.Size = new Size(33, 23);
             button1.TabIndex = 30;
@@ -198,7 +205,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(141, 177);
+            textBox1.Location = new Point(140, 217);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(170, 23);
             textBox1.TabIndex = 29;
@@ -206,7 +213,7 @@
             // label27
             // 
             label27.AutoSize = true;
-            label27.Location = new Point(28, 181);
+            label27.Location = new Point(27, 221);
             label27.Name = "label27";
             label27.Size = new Size(103, 15);
             label27.TabIndex = 28;
@@ -214,7 +221,7 @@
             // 
             // btnGenID
             // 
-            btnGenID.Location = new Point(213, 221);
+            btnGenID.Location = new Point(212, 138);
             btnGenID.Name = "btnGenID";
             btnGenID.Size = new Size(75, 23);
             btnGenID.TabIndex = 27;
@@ -225,7 +232,7 @@
             // txtCharID
             // 
             txtCharID.CharacterCasing = CharacterCasing.Upper;
-            txtCharID.Location = new Point(141, 221);
+            txtCharID.Location = new Point(140, 138);
             txtCharID.MaxLength = 3;
             txtCharID.Name = "txtCharID";
             txtCharID.Size = new Size(66, 23);
@@ -233,7 +240,7 @@
             // 
             // btnFolder
             // 
-            btnFolder.Location = new Point(317, 138);
+            btnFolder.Location = new Point(316, 178);
             btnFolder.Name = "btnFolder";
             btnFolder.Size = new Size(33, 23);
             btnFolder.TabIndex = 25;
@@ -265,7 +272,7 @@
             // 
             // txtFolder
             // 
-            txtFolder.Location = new Point(141, 138);
+            txtFolder.Location = new Point(140, 178);
             txtFolder.Name = "txtFolder";
             txtFolder.Size = new Size(170, 23);
             txtFolder.TabIndex = 24;
@@ -300,7 +307,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(76, 224);
+            label5.Location = new Point(55, 141);
             label5.Name = "label5";
             label5.Size = new Size(49, 15);
             label5.TabIndex = 19;
@@ -309,7 +316,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(28, 142);
+            label1.Location = new Point(27, 182);
             label1.Name = "label1";
             label1.Size = new Size(97, 15);
             label1.TabIndex = 20;
@@ -772,6 +779,52 @@
             txtMSG1.Size = new Size(248, 23);
             txtMSG1.TabIndex = 0;
             // 
+            // tabPage8
+            // 
+            tabPage8.BackColor = SystemColors.Control;
+            tabPage8.Controls.Add(txtVOX2);
+            tabPage8.Controls.Add(txtVOX1);
+            tabPage8.Controls.Add(label29);
+            tabPage8.Controls.Add(label28);
+            tabPage8.Location = new Point(4, 24);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Padding = new Padding(3);
+            tabPage8.Size = new Size(425, 398);
+            tabPage8.TabIndex = 7;
+            tabPage8.Text = "VOX";
+            // 
+            // txtVOX2
+            // 
+            txtVOX2.Location = new Point(99, 51);
+            txtVOX2.Name = "txtVOX2";
+            txtVOX2.Size = new Size(47, 23);
+            txtVOX2.TabIndex = 1;
+            // 
+            // txtVOX1
+            // 
+            txtVOX1.Location = new Point(46, 51);
+            txtVOX1.Name = "txtVOX1";
+            txtVOX1.Size = new Size(47, 23);
+            txtVOX1.TabIndex = 1;
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(99, 33);
+            label29.Name = "label29";
+            label29.Size = new Size(47, 15);
+            label29.TabIndex = 0;
+            label29.Text = "Voice 2:";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(46, 33);
+            label28.Name = "label28";
+            label28.Size = new Size(47, 15);
+            label28.TabIndex = 0;
+            label28.Text = "Voice 1:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -800,6 +853,8 @@
             tabPage5.PerformLayout();
             tabPage7.ResumeLayout(false);
             tabPage7.PerformLayout();
+            tabPage8.ResumeLayout(false);
+            tabPage8.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -876,5 +931,10 @@
         private Button button1;
         private TextBox textBox1;
         private Label label27;
+        private TabPage tabPage8;
+        private Label label28;
+        private TextBox txtVOX2;
+        private TextBox txtVOX1;
+        private Label label29;
     }
 }

@@ -1,0 +1,474 @@
+id in Numeric format - id in hex - short name - full name
+
+Supers:
+SPOILER: Click to hide
+0 - 0000 - KMH - Kamehameha
+1 - 0100 - KMC - Bending Kamehameha
+2 - 0200 - CSG - Super God Fist
+3 - 0300 - CRG - Super Dragon Fist
+4 - 0400 - GKD - Spirit Bomb
+5 - 0500 - SKI - Instant Transmission
+6 - 0600 - GTW - Spirit Bomb Tower (Time Patrol Specific)
+7 - 0700 - AST - Kaioken Assault
+8 - 0800 - 4KM - Kaioken Kamehameha
+10 - 0a00 - RJV - Riot Javelin
+11 - 0b00 - TSN - Rebellion Spear
+12 - 0c00 - FPW - Tyrant Lancer
+14 - 0e00 - SPG - Super Guard
+15 - 0f00 - KBH - Ki Explosion
+16 - 1000 - REN - Charged Ki Wave
+20 - 1400 - ZZK - Afterimage Strike
+21 - 1500 - 10K - x10 Kamehameha
+22 - 1600 - SAI - Super Afterimage
+30 - 1e00 - CSA - Super God Fist
+31 - 1f00 - SWV - Shockwave
+32 - 2000 - BKF - Backflip
+40 - 2800 - KMB - Kamehameha Boost
+41 - 2900 - JAN - Scissors Paper Rock
+42 - 2a00 - NY2 - Power Pole
+43 - 2b00 - NY3 - Power Pole Combo
+44 - 2c00 - NYG - Power Pole
+50 - 3200 - TGK - Charge
+51 - 3300 - ISI - Stone Bullet
+52 - 3400 - RPG - Consecutive Energy Blast
+53 - 3500 - KKM - Kamekameha
+60 - 3c00 - TDK - Evil Ray Strike
+61 - 3d00 - KTZ - Evil Rise Strike
+62 - 3e00 - MSK - Masenko
+70 - 4600 - RSG - Super Dragon Flight
+71 - 4700 - MSP - Evil Whirlwind
+80 - 5000 - RUS - Burst Rush
+81 - 5100 - KIH - Ki Blast Cannon
+82 - 5200 - GSY - Justice Pose
+90 - 5a00 - BRM - Evil Explosion
+91 - 5b00 - PRT - Wall of Defense
+92 - 5c00 - MKZ - Evil Flight Strike
+93 - 5d00 - KDN - Light Grenade
+94 - 5e00 - EYE - Evil Eyes
+95 - 5f00 - SMK - Dust Attack
+96 - 6000 - MYS - Paralyze Beam
+97 - 6100 - SNC - Sonic Kick
+100 - 6400 - KDH - Orin Combo
+101 - 6500 - KEZ - Destructo-Disc
+102 - 6600 - 3XK - Kaioken
+103 - 6700 - 5XK - X3 Kaioken
+104 - 6800 - 0XK - X20 Kaioken
+105 - 6900 - BBS - Turtle Style Last Resort
+106 - 6a00 - YMM - Lullaby Punch
+107 - 6b00 - TXK - Cross Arm Dive
+108 - 6c00 - BKZ - Super Destructo-Disc
+110 - 6e00 - RWK - Wolf Fang Fist
+111 - 6f00 - SKD - Ki Blast Thrust
+115 - 7300 - ZZA - Afterimage
+116 - 7400 - DIE - Fake Death
+117 - 7500 - SWK - Neo Wolf Fang Fist
+120 - 7800 - DDP - Dodon Ray
+121 - 7900 - KKH - Tri-Beam
+122 - 7a00 - HKK - Volleyball Fist
+123 - 7b00 - TYK - Solar Flare
+124 - 7c00 - GRE - Rise to Action
+125 - 7d00 - ANG - Spirit Boost
+130 - 8200 - SUN - Double Sunday
+131 - 8300 - SAT - Saturday Crash
+132 - 8400 - FRI - Shining Friday
+140 - 8c00 - YKE - Acid
+141 - 8d00 - DOK - Poison
+142 - 8e00 - BEM - Saibabeam
+150 - 9600 - DXB - Bomber DX
+151 - 9700 - GCS - Genocide Shell
+152 - 9800 - ARC - Arm Crash
+153 - 9900 - MDG - Murder Grenade
+160 - a000 - GLC - Galick Gun
+161 - a100 - FST - Flash Strike
+162 - a200 - FNB - Finish Breaker
+163 - a300 - SHN - Shine Shot
+164 - a400 - HMR - Sledgehammer
+165 - a500 - ATM - Atomic Blast
+166 - a600 - BOM - Mighty Explosive Wave
+167 - a700 - GLX - Earth Splitting Galick Gun
+180 - b400 - STP - Time Control
+182 - b600 - GFC - Guldo Fighting Pose
+183 - b700 - FPC - Fighting Pose C
+184 - b800 - FPH - Fighting Pose H
+190 - be00 - FPD - Fighting Pose D
+191 - bf00 - FPI - Fighting Pose I
+192 - c000 - MAP - Mach Punch
+193 - c100 - MAK - Mach Kick
+200 - c800 - ERG - Recoome Eraser Gun
+201 - c900 - RCK - Recoome Kick
+202 - ca00 - FPE - Fighting Pose E
+203 - cb00 - FPJ - Fighting Pose J
+204 - cc00 - FPK - Fighting Pose K
+210 - d200 - CSB - Crusher Ball
+211 - d300 - BLD - Sauzer Blade
+212 - d400 - FPB - Fighting Pose B
+213 - d500 - FPG - Fighting Pose G
+220 - dc00 - FPA - Fighting Pose A
+221 - dd00 - HSS - Holstein Shock
+222 - de00 - MKC - Milky Cannon
+223 - df00 - FPF - Fighting Pose F
+224 - e000 - GSF - Ginyu Force Special Combo
+230 - e600 - MKM - Emperor's Sign
+240 - f000 - DBM - Death Beam
+241 - f100 - ESP - Death Psycho Bomb
+242 - f200 - DWV - Death Slash
+243 - f300 - DTC - Death Crasher
+244 - f400 - DSC - Death Slicer
+245 - f500 - ESA - Death Psycho Bomb
+246 - f600 - DRZ - Death Wave
+247 - f700 - CRZ - Crazy Finger Shot
+260 - 0401 - BSC - Burning Attack
+261 - 0501 - GCP - God Breaker
+262 - 0601 - SCB - Change The Future
+264 - 0801 - SW2 - Shining Slash
+265 - 0901 - SW3 - Burning Slash
+270 - 0e01 - FBS - Finish Buster
+271 - 0f01 - WBS - Double Buster
+272 - 1001 - FCN - Final Cannon
+280 - 1801 - 171 - Side Bridge
+281 - 1901 - 172 - Freedom Kick
+282 - 1a01 - 173 - Smile Charge
+290 - 2201 - FLB - Flash Bomber
+291 - 2301 - DRF - Drain Field
+292 - 2401 - RMS - Thunder Eraser
+293 - 2501 - ABN - Drain Charge
+294 - 2601 - ABS - Super Drain
+295 - 2701 - ABH - Hyper Drain
+300 - 2c01 - PWB - Power Blitz
+301 - 2d01 - IFB - Endless Shoot
+302 - 2e01 - 18K - Deadly Dance
+310 - 3601 - CL31 - All Clear
+311 - 3701 - CL32 - Gravity Impact
+312 - 3801 - CL33 - Perfect Shot
+330 - 4a01 - PRV - Taunt
+340 - 5401 - VDR - Justice Rush
+341 - 5501 - EGK - Eagle Kick
+342 - 5601 - VDC - Hawk Charge
+350 - 5e01 - BUL1 - Innocence Bullet
+351 - 5f01 - BUL2 - Innocence Cannon
+352 - 6001 - BUL3 - Angry Hit
+353 - 6101 - BUL4 - Zigzag Express
+354 - 6201 - BUL5 - Explosive Buu Buu Punch
+355 - 6301 - GGG - Go-Go Gum
+360 - 6801 - ILF - Ill Flash
+361 - 6901 - ILB - Ill Bomber
+362 - 6a01 - ILR - Ill Rain
+370 - 7201 - BKM - Majin Kamehameha
+371 - 7301 - VSB - Vanishing Ball
+372 - 7401 - SLP - Quick Sleep
+373 - 7501 - PFL - Pearl Flash
+380 - 7c01 - RSS - DIE DIE Missile Barrage
+381 - 7d01 - GLD - Galactic Donuts
+382 - 7e01 - SGK - Super Ghost Kamikaze Attack
+383 - 7f01 - DNT - Super Donut Volley
+390 - 8601 - BBA - Big Bang Attack
+391 - 8701 - ATK - Pressure Sign
+392 - 8801 - IMN - Split Finger Shot
+400 - 9001 - ERC - Blaster Shell
+401 - 9101 - ERB - Gigantic Omega
+402 - 9201 - GTO - Gigantic Slam
+410 - 9a01 - IKR - God of Destruction's Anger
+411 - 9b01 - RSH - God of Destruction's Rampage
+412 - 9c01 - GRN - God of Destruction's Wrath
+420 - a401 - FSH - Feint Shot
+421 - a501 - SBK - Prepare to be Punished
+422 - a601 - DNC - Dancing Parapara
+440 - b801 - OB0 - Great Ape Beam
+441 - b901 - ING - Boulder Toss
+442 - ba01 - KKS - Boulder Break
+443 - bb01 - SCG - Brainwash Attack
+444 - bc01 - SAR - Peeler Storm
+480 - e001 - IBM - Freezing Beam
+481 - e101 - IBM - Freezing Beam
+482 - e201 - ICL - Ice Claw
+483 - e301 - ICL - Ice Claw
+484 - e401 - IFW - Ice Field
+485 - e501 - IFW - Ice Field
+490 - ea01 - BAT - Burst Attack
+491 - eb01 - BAT - Burst Attack
+492 - ec01 - BRE - Burst Reflection
+493 - ed01 - BRE - Burst Reflection
+494 - ee01 - FSN - Fighting Sun
+495 - ef01 - FSN - Fighting Sun
+500 - f401 - BSM - Dragon Flash Bullet
+501 - f501 - SPK - Whirlwind Blade
+502 - f601 - DRT - Dragon Thunder
+510 - fe01 - BBK - Big Bang Kamehameha
+511 - ff01 - BRK - Bluff Kamehameha
+520 - 0802 - DMK - Dynamite Kick
+521 - 0902 - RSP - Rolling Hercule Punch
+522 - 0a02 - PRE - Present For You
+532 - 1402 - DNM - Darkness Mixer
+533 - 1502 - BDS - Bloody Sauce
+534 - 1602 - RSW - Rage Saucer
+590 - 4e02 - ENS - Energy Shot
+591 - 4f02 - KTN - Energy Charge
+592 - 5002 - KTS - Full Power Charge
+593 - 5102 - KTH - Maximum Charge
+594 - 5202 - FTB - Meteor Blow
+595 - 5302 - TTK - Meteor Strike
+596 - 5402 - ORA - Meteor Crash
+597 - 5502 - RPL - Energy Wave Combo
+600 - 5802 - BMR - Beam Rifle
+620 - 6c02 - GKS - Galick Beam Cannon
+621 - 6d02 - IFE - Infinity Explosion
+622 - 6e02 - ADK - Android Kick
+623 - 6f02 - GEN - Phantom Fist
+630 - 7602 - PSS - Position Shift
+631 - 7702 - TMB - Time Bullet
+632 - 7802 - KNK - Energy Release
+633 - 7902 - PSA - Position Shift
+650 - 8a02 - JKK - Prelude to Destruction
+651 - 8b02 - IKE - Strike of Revelation
+652 - 8c02 - KAI - Kai Kai
+653 - 8d02 - MSN - Finishing Blow
+670 - 9e02 - BM1 - Elite Beam
+671 - 9f02 - BM2 - Elite Shooting
+672 - a002 - EPS - Hero's Pose
+673 - a102 - BM3 - Elite Beam
+674 - a202 - BM4 - Elite Shooting
+675 - a302 - HPS - Hero's Pose
+750 - ee02 - CLD - Life Absorption
+751 - ef02 - CLK - Kamehameha
+800 - 2003 - CSS - Super God Shock Flash
+801 - 2103 - BST - Burst Kamehameha
+810 - 2a03 - FBL - Final Blow
+811 - 2b03 - CBT - Counter Burst
+820 - 3403 - EEG - Emperor's Edge
+821 - 3503 - EBT - Emperor's Blast
+830 - 3e03 - RKP - Rocket Punch
+831 - 3f03 - RKT - Rocket Tackle
+832 - 4003 - EBM - Eye Beam
+833 - 4103 - ATC - Android Rush
+840 - 4803 - FEC - Feint Crash
+841 - 4903 - HYB - Destructive Ray
+850 - 5203 - GBA - Shadow Crusher
+860 - 5c03 - FRH - Sonic Rush
+861 - 5d03 - BMK - Super Explosive Wave
+862 - 5e03 - FLH - Senko Ki Blast
+870 - 6603 - KIL - Kill Driver
+871 - 6703 - TOM - Fruit of the Tree of Might
+872 - 6803 - SDS - Sudden Storm
+880 - 7003 - KEN - Rakshasa's Claw
+881 - 7103 - HAL - Dimensional Hole
+1200 - b004 - PDV - Punisher Drive
+1201 - b104 - SPR - Super Mad Dance
+1210 - ba04 - TWN - Darkness Twin Star
+1211 - bb04 - DEB - Darkness Eye Beam
+1212 - bc04 - NMF - Namek Finger
+1213 - bd04 - MCA - Mouth Cannon: short-range
+1214 - be04 - MCB - Mouth Cannon: mid-range
+1215 - bf04 - MCC - Mouth Cannon: long-range
+1216 - c004 - MRA - Evil Roar
+1220 - c404 - ZBS - Gorgeous Shot
+1221 - c504 - SML - Audacious Laugh
+1230 - ce04 - HED - Dodoria Headbutt
+1231 - cf04 - DBM - Dodoria Beam
+1232 - d004 - UPR - Critical Upper
+1233 - d104 - BMV - Giga Boost
+1240 - d804 - DOP - Do or Die
+1250 - e204 - ARG - Peeler Storm
+1251 - e304 - BKB - Marbling Drop
+1252 - e404 - RCH - Instant Charge
+1253 - e504 - BWH - Brainwash Attack
+1254 - e604 - BW2 - Brainwash Attack
+1255 - e704 - BW3 - Brainwash Attack
+1256 - e804 - BW4 - Brainwash Attack
+1257 - e904 - BK2 - Marbling Drop
+1258 - ea04 - BK3 - Marbling Drop
+1259 - eb04 - BK4 - Marbling Drop
+1260 - ec04 - PRS - Flash Fist Crush
+1310 - 1e05 - ASD - Aura Slide
+1320 - 2805 - WMK - Dual Masenko
+1330 - 3205 - CBM - No Matching ID
+1340 - 3c05 - GCN - No Matching ID
+1350 - 4605 - FRT - No Matching ID
+1351 - 4705 - BAK - No Matching ID
+1352 - 4805 - DSH - No Matching ID
+
+
+Ultimates:
+SPOILER: Click to hide
+5000 - 8813 - CKM - Super Kamehameha
+5001 - 8913 - SS1 - Super Saiyan
+5002 - 8a13 - SS2 - Super Saiyan 2
+5003 - 8b13 - SS3 - Super Saiyan 3
+5004 - 8c13 - RYU - Dragon Fist
+5005 - 8d13 - KOK - x4 Kaioken Kamehameha
+5006 - 8e13 - 20K - x20 Kaioken Kamehameha
+5007 - 8f13 - BKY - No Matching ID
+5010 - 9213 - SOS - Saiyan Spirit
+5011 - 9313 - CKB - Super Ki Explosion
+5012 - 9413 - DMB - Brave Heat
+5013 - 9513 - FLL - Full Power Energy Wave
+5040 - b013 - GKD - Super Spirit Bomb
+5050 - ba13 - KIR - Full Power Energy Blast Volley
+5060 - c413 - BMR - Explosive Assault
+5061 - c513 - DGD - Unrelenting Barrage
+5070 - ce13 - OYA - Father-Son Kamehameha
+5080 - d813 - ULT - Potential Unleashed
+5081 - d913 - ULA - Potential Awoken
+5090 - e213 - MKS - Special Beam Cannon
+5091 - e313 - MHD - Hellzone Grenade
+5092 - e413 - CBR - Reverse Mabakusenko
+5100 - ec13 - KRZ - Chain Destructo-disc Barrage
+5101 - ed13 - KKM - Scatter Kamehameha
+5110 - f613 - SKD - Spirit Ball
+5120 - 0014 - SKH - Neo Tri-Beam
+5130 - 0a14 - RAD0 - Weekend
+5131 - 0b14 - RAD1 - Vacation Delete
+5140 - 1414 - JBK - Self-Destruct
+5150 - 1e14 - BCN - Break Cannon
+5151 - 1f14 - JST - Giant Storm
+5160 - 2814 - VS1 - Super Vegeta
+5161 - 2914 - FNF - Final Flash
+5162 - 2a14 - VS2 - Super Vegeta 2
+5163 - 2b14 - FEX - Final Explosion
+5170 - 3214 - FSA - Final Shine Attack
+5180 - 3c14 - KSB - Paralysis
+5190 - 4614 - BLH - Blue Hurricane
+5200 - 5014 - UFB - Ultra Fighting Bomber
+5210 - 5a14 - JES0 - Crusher Volcano
+5220 - 6414 - BCG - Body Change
+5230 - 6e14 - SNV - Supernova
+5240 - 7814 - DBL - Death Ball
+5241 - 7914 - DMT - Death Meteor
+5242 - 7a14 - DDS - Double Death Slicer
+5243 - 7b14 - LEP - Last Emperor
+5260 - 8c14 - HDA - Heat Dome Attack
+5270 - 9614 - VRH - Victory Rush
+5280 - a014 - G171 - Super Electric Strike
+5281 - a114 - SDL - Dead End Bullet
+5290 - aa14 - DJD - Shocking Death Ball
+5301 - b514 - RTZ - Dual Destructo-Disc
+5302 - b614 - SDN - Dead End Rain
+5310 - be14 - KMH - Perfect Kamehameha
+5340 - dc14 - HVR - Justice Combination
+5350 - e614 - BUL1 - Innocence Breath
+5351 - e714 - CKI - Cookie Beam
+5352 - e814 - AGE - Angry Explosion
+5360 - f014 - ASR - Assault Rain
+5370 - fa14 - VSB - Super Vanishing Ball
+5371 - fb14 - SVB - Teleporting Vanishing Ball
+5380 - 0415 - SGK - Super Ghost Kamikaze Attack
+5390 - 0e15 - SPS - Spirit Sword
+5391 - 0f15 - FLK - Final Kamehameha
+5400 - 1815 - GTM - Gigantic Meteor
+5410 - 2215 - HKI - Sphere of Destruction
+5420 - 2c15 - PAN1 - Maiden Blast
+5440 - 4015 - OBM - Super Great Ape Beam
+5441 - 4115 - ORD - Gigantic Ki Blast
+5480 - 6815 - ICN - Ice Cannon
+5481 - 6915 - ICN - Ice Cannon
+5490 - 7215 - BSP - Burning Spin
+5491 - 7315 - BSP - Burning Spin
+5500 - 7c15 - MEP - Minus Energy Power Ball
+5510 - 8615 - BBK - X 100 Big Bang Kamehameha
+5520 - 9015 - QSS - The Savior Has Come
+5530 - 9a15 - EVL - Villainous Mode
+5531 - 9b15 - BKS - Baked Sphere
+5533 - 9d15 - EVS1 - Villainous Mode (Super Saiyan)
+5534 - 9e15 - EVS2 - Villainous Mode (Super Saiyan 2)
+5620 - f415 - HKD - Serious Bomb
+5630 - fe15 - KLZ - Energy Zone
+5631 - ff15 - KLA - Energy Zone
+5650 - 1216 - KKK - Symphonic Destruction
+5670 - 2616 - SEC - Super Elite Combo
+5671 - 2716 - SHC - Super Elite Combo
+5750 - 7616 - BYE - Zetsumei Bullet
+5800 - a816 - SKM - Warp Kamehameha
+5810 - b216 - SGL - Super Galick Gun
+5820 - bc16 - EDB - Emperor's Death Beam
+5821 - bd16 - EDA - Emperor's Death Beam
+5830 - c616 - HZF - Hell Flash
+5850 - da16 - SPN - Supernova Cooler
+5860 - e416 - FKM - One-Handed Kamehameha mk.II
+5861 - e516 - SSF - Future Super Saiyan
+5862 - e616 - FKL - One-Handed Kamehameha
+5870 - ee16 - MTB - Meteor Burst
+5880 - f816 - NDL - Dimension Ray
+6200 - 3818 - SOL - Soul Punisher
+6210 - 4218 - DKR - Darkness Rush (Ranged)
+6211 - 4318 - DKA - Darkness Rush (Melee)
+6220 - 4c18 - ZBB - Elegant Blaster
+6230 - 5618 - LNC - Dodoria Launcher
+6240 - 6018 - MSF - Mystic Flash
+6251 - 6b18 - CKD - Gigantic Ki Blast
+6260 - 7418 - WLD - Time Skip/Molotov
+6310 - a618 - CBK - Super Black Kamehameha
+6320 - b018 - STR - Burning Strike
+6330 - ba18 - PSN - No Matching ID
+6340 - c418 - IMP - No Matching ID
+
+Evasives:
+SPOILER: Click to hide
+10000 - 1027 - KAB - Spirit Explosion
+10001 - 1127 - KUR - Turn Retreat
+10050 - 4227 - BKC - High Tension Turn
+10060 - 4c27 - KRZ - Spirit Slash
+10090 - 6a27 - KAN - Super Explosive Wave
+10091 - 6b27 - EMK - Special Beam Blast
+10101 - 7527 - SDK - Spread Shot Retreat
+10130 - 9227 - SGH - Break Strike
+10160 - b027 - KAI - Explosive Wave
+10180 - c427 - PYN - Psycho Escape
+10181 - c527 - SYG - Miracle Kneel
+10190 - ce27 - MDS - Mach Dash
+10200 - d827 - FNP - Final Pose
+10210 - e227 - SPN - Spinning Blade
+10240 - 0028 - NGH - Psychic Move
+10260 - 1428 - AMB - Armored Boost
+10280 - 2828 - EFD - Energy Field
+10300 - 3c28 - RBT - Rolling Bullet
+10310 - 4628 - BRI - Energy Barrier
+10331 - 5b28 - SKJ - Instant Rise
+10340 - 6428 - SBJ - Super Back Jump
+10341 - 6528 - SFJ - Super Front Jump
+10350 - 6e28 - CDY - Candy Beam
+10351 - 6f28 - BUB - Buu Buu Ball
+10360 - 7828 - GMB - Dimension Cannon
+10370 - 8228 - SUT - Angry Shout
+10380 - 8c28 - OKS - Victory Cannon
+10390 - 9628 - BAR - Force Shield
+10400 - a028 - BSM - Blaster Meteor
+10410 - aa28 - DKP - Headshot
+10420 - b428 - OTB - Maiden Burst
+10440 - c828 - HOK - Howl
+10480 - f028 - TMP - Absolute Zero
+10490 - fa28 - BRN - Dragon Burn
+10510 - 0e29 - PNG - Vanisher Guard
+10630 - 8629 - SEV - Science Vanish
+10650 - 9a29 - WRP - Warp
+10670 - ae29 - OSC - Elite Barrage
+10840 - 582a - TLP - Hyper Movement
+10850 - 622a - FBL - Fake Blast
+10860 - 6c2a - FBR - Energy Dome
+11220 - d42b - ZBK - Bloody Counter
+11350 - 562c - FKE - No Matching ID
+
+Awaken:
+SPOILER: Click to hide
+25000 - a861 - SSJ - Super Saiyan
+25001 - a961 - KIN - Power Pole Pro
+25002 - aa61 - GNT - Become Giant
+25003 - ab61 - GLD - Turn Golden
+25004 - ac61 - MAP - Purification
+25005 - ad61 - KOK - Kaioken
+25006 - ae61 - AWK - Potential Unleashed
+25007 - af61 - GS1 - Super Saiyan
+25008 - b061 - GS2 - Super Saiyan
+25009 - b161 - GS3 - Super Saiyan
+25040 - d061 - GS4 - Super Saiyan
+25070 - ee61 - GH2 - Super Saiyan 2
+25080 - f861 - ULT - Potential Unleashed
+25160 - 4862 - VS1 - Super Vegeta
+25161 - 4962 - VS2 - Super Vegeta
+25162 - 4a62 - VSA - Super Vegeta
+25320 - e862 - VL1 - Supervillain: Giant
+25321 - e962 - VL2 - Supervillain: Giant
+25322 - ea62 - VL3 - Supervillain: Giant
+25323 - eb62 - VML - No Matching ID
+25800 - c864 - BLK - No Matching ID
+25860 - 0465 - SSF - Future Super Saiyan
+25861 - 0565 - SFA - Future Super Saiyan
+26350 - ee66 - LVU - No Matching ID

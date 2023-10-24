@@ -36,7 +36,7 @@ namespace Xenoverse
         public int SupAddress;
         public int UltAddress;
         public int EvaAddress;
-        public void populateSkillData(string msgFolder, string CUSFile, string lang)
+        public void populateSkillData(string CUSFile)
         {
             FileName = CUSFile;
             using (BinaryReader CUS = new BinaryReader(File.Open(CUSFile, FileMode.Open)))
@@ -75,63 +75,37 @@ namespace Xenoverse
                 }
 
                 Supers = new skill[SuperCount];
-                mText = msgStream.Load(msgFolder + "/proper_noun_skill_spa_name_" + lang + ".msg");
                 for (int i = 0; i < SuperCount; i++)
                 {
                     CUS.BaseStream.Seek(SupAddress + (i * 48) + 8, SeekOrigin.Begin);
                     Supers[i].ID = CUS.ReadInt16();
-                    Supers[i].Name = findName("spe_skill_" + CUS.ReadInt16().ToString("000"));
                 }
 
                 Ultimates = new skill[UltimateCount];
-                mText = msgStream.Load(msgFolder + "/proper_noun_skill_ult_name_" + lang + ".msg");
                 for (int i = 0; i < UltimateCount; i++)
                 {
                     CUS.BaseStream.Seek(UltAddress + (i * 48) + 8, SeekOrigin.Begin);
                     Ultimates[i].ID = CUS.ReadInt16();
-                    Ultimates[i].Name = findName("ult_" + CUS.ReadInt16().ToString("000"));
                 }
 
                 Evasives = new skill[EvasiveCount];
-                mText = msgStream.Load(msgFolder + "/proper_noun_skill_esc_name_" + lang + ".msg");
                 for (int i = 0; i < EvasiveCount; i++)
                 {
                     CUS.BaseStream.Seek(EvaAddress + (i * 48) + 8, SeekOrigin.Begin);
                     Evasives[i].ID = CUS.ReadInt16();
-                    Evasives[i].Name = findName("avoid_skill_" + CUS.ReadInt16().ToString("000"));
                 }
 
             }
 
         }
-        public void AddCharacter(Char_Data characterData)
+        public void Save()
         {
-            Array.Resize(ref Chars, CharCount + 1); // Espandi l'array Char_Data
-            Chars[CharCount] = characterData;
-            CharCount++;
-            Save(Xenoverse.xenoverse_path + @"/msg");
-        }
-        public void Save(string msgFolder)
-        {
-            using (BinaryWriter CUS = new BinaryWriter(File.Open(FileName, FileMode.Open)))
+            using (BinaryWriter CUS = new BinaryWriter(File.Open(Xenoverse.CUSFile, FileMode.Open)))
             {
-                CUS.BaseStream.Seek(8, SeekOrigin.Begin);
-                CUS.Write(CharCount);
-                CUS.Write(CharAddress);
-                CUS.Write(Supers.Length);
-                CUS.Write(Ultimates.Length);
-                CUS.Write(Evasives.Length);
-                CUS.BaseStream.Seek(8, SeekOrigin.Current);
-
-                CUS.Write(SupAddress);
-                CUS.Write(UltAddress);
-                CUS.Write(EvaAddress);
-
+                CUS.BaseStream.Seek(CharAddress, SeekOrigin.Begin);
                 for (int i = 0; i < CharCount; i++)
                 {
-                    CUS.BaseStream.Seek(CharAddress + (i * 32), SeekOrigin.Begin);
-                    CUS.Write(Chars[i].charID);
-                    CUS.Write(Chars[i].CostumeID);
+                    CUS.BaseStream.Seek(CharAddress + (i * 32) + 8, SeekOrigin.Begin);
                     CUS.Write(Chars[i].SuperIDs[0]);
                     CUS.Write(Chars[i].SuperIDs[1]);
                     CUS.Write(Chars[i].SuperIDs[2]);
@@ -140,74 +114,7 @@ namespace Xenoverse
                     CUS.Write(Chars[i].UltimateIDs[1]);
                     CUS.Write(Chars[i].EvasiveID);
                 }
-
-                for (int i = 0; i < Supers.Length; i++)
-                {
-                    CUS.BaseStream.Seek(SupAddress + (i * 48) + 8, SeekOrigin.Begin);
-                    CUS.Write(Supers[i].ID);
-                }
-
-                for (int i = 0; i < Ultimates.Length; i++)
-                {
-                    CUS.BaseStream.Seek(UltAddress + (i * 48) + 8, SeekOrigin.Begin);
-                    CUS.Write(Ultimates[i].ID);
-                }
-
-                for (int i = 0; i < Evasives.Length; i++)
-                {
-                    CUS.BaseStream.Seek(EvaAddress + (i * 48) + 8, SeekOrigin.Begin);
-                    CUS.Write(Evasives[i].ID);
-                }
             }
-        }
-
-        public short FindSuperByName(string name)
-        {
-            for (int i = 0; i < Supers.Length; i++)
-            {
-                if (Supers[i].Name == name)
-                {
-                    return Supers[i].ID;
-                }
-            }
-            return -1; // Restituisci un valore speciale (ad esempio -1) se la skill non viene trovata
-        }
-
-        public short FindUltimateByName(string name)
-        {
-            for (int i = 0; i < Ultimates.Length; i++)
-            {
-                if (Ultimates[i].Name == name)
-                {
-                    return Ultimates[i].ID;
-                }
-            }
-            return -1; // Restituisci un valore speciale (ad esempio -1) se la skill non viene trovata
-        }
-
-        public short FindEvasiveByName(string name)
-        {
-            for (int i = 0; i < Evasives.Length; i++)
-            {
-                if (Evasives[i].Name == name)
-                {
-                    return Evasives[i].ID;
-                }
-            }
-            return -1; // Restituisci un valore speciale (ad esempio -1) se la skill non viene trovata
-        }
-
-
-        private string findName(string text_ID)
-        {
-            for (int i = 0; i < mText.data.Length; i++)
-            {
-                if (mText.data[i].NameID == text_ID)
-                    return mText.data[i].Lines[0];
-            }
-
-
-            return "Unknown Skill";
         }
 
     }

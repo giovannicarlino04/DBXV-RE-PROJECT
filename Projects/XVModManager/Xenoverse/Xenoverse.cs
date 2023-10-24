@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace Xenoverse
 
         // GAME PATHS
         public static string executable_name = "DBXV.exe";
-        public static string xenoverse_path = @"C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse";
+        public static string xenoverse_path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         public static string data_path = xenoverse_path + @"/data";
         public static string xvpatcher_dll = xenoverse_path + @"/xinput1_3.dll";
 
