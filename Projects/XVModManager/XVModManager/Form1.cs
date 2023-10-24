@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Net.Security;
@@ -412,7 +413,7 @@ namespace XVModManager
                         MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                     }
-                    
+
                     else if (modtype == "ADDED_CHARACTER")
                     {
                         int CharID = 108 + Properties.Settings.Default.modlist.Count;
@@ -426,11 +427,9 @@ namespace XVModManager
                             Properties.Settings.Default.Save();
                         }
 
-                        // Carica i dati CMS dal file binario
+                        // CMS
                         CMS cms = new CMS();
                         cms.Load(Xenoverse.Xenoverse.CMSFile);
-
-                        // Crea un nuovo personaggio
                         CharacterData newCharacter = new CharacterData
                         {
                             ID = CharID, // ID del personaggio
@@ -438,8 +437,6 @@ namespace XVModManager
                             Unknown = new byte[8], // Array di byte sconosciuto
                             Paths = new string[7] // Array di percorsi
                         };
-
-                        // Inizializza gli elementi dell'array dei percorsi
                         newCharacter.Paths[0] = CMS_BCS;
                         newCharacter.Paths[1] = CMS_EAN;
                         newCharacter.Paths[2] = CMS_FCE_EAN;
@@ -447,15 +444,11 @@ namespace XVModManager
                         newCharacter.Paths[4] = CMS_BAC;
                         newCharacter.Paths[5] = CMS_BCM;
                         newCharacter.Paths[6] = CMS_BAI;
-
-                        // Aggiungi il nuovo personaggio ai dati CMS
                         cms.AddCharacter(newCharacter);
 
-                        // Crea un'istanza della classe CSO
+                        // CSO
                         CSO cso = new CSO();
                         cso.Load(Xenoverse.Xenoverse.CSOFile);
-
-                        // Supponiamo di avere un oggetto characterData con i dati da aggiungere
                         CSO_Data characterData = new CSO_Data
                         {
                             Char_ID = CharID,           // Sostituisci con l'ID del personaggio desiderato
@@ -468,39 +461,50 @@ namespace XVModManager
                                     CSO_4
                             }
                         };
-
-                        // Chiama la funzione AddCharacter per aggiungere i dati del personaggio
                         cso.AddCharacter(characterData);
 
+                        // CUS
                         CharSkill charSkill = new CharSkill();
                         charSkill.populateSkillData(Xenoverse.Xenoverse.data_path + @"/msg", Xenoverse.Xenoverse.CUSFile, "en"); //Leave it to "en" rn, we'll change it later
-
-                        // Crea un nuovo personaggio
                         Char_Data newCharacterCUS = new Char_Data
                         {
                             charID = CharID, // ID del personaggio
                             CostumeID = 0, // ID del costume
                             SuperIDs = new short[]
                             {
-                                    charSkill.FindSuperByName(CUS_SUPER_1),
-                                    charSkill.FindSuperByName(CUS_SUPER_2),
-                                    charSkill.FindSuperByName(CUS_SUPER_3),
-                                    charSkill.FindSuperByName(CUS_SUPER_4)
+                                charSkill.FindSuperByName(CUS_SUPER_1),
+                                charSkill.FindSuperByName(CUS_SUPER_2),
+                                charSkill.FindSuperByName(CUS_SUPER_3),
+                                charSkill.FindSuperByName(CUS_SUPER_4)
                             }, // Array di ID delle Super mosse
                             UltimateIDs = new short[]
                             {
-                                    charSkill.FindUltimateByName(CUS_ULTIMATE_1),
-                                    charSkill.FindUltimateByName(CUS_ULTIMATE_2)
+                                charSkill.FindUltimateByName(CUS_ULTIMATE_1),
+                                charSkill.FindUltimateByName(CUS_ULTIMATE_2)
                             }, // Array di ID delle mosse Ultimate
 
                             EvasiveID = charSkill.FindEvasiveByName(CUS_EVASIVE)
                         };
-
-                        // Aggiungi il nuovo personaggio ai dati di CharSkill
                         charSkill.AddCharacter(newCharacterCUS);
 
 
+                        // AUR
+                        AUR aur = new AUR();
+                        aur.ReadAUR();
+                        if (AUR_GLARE == 1)
+                        {
+                            aur.AURAddCharacter(CharID, AUR_ID, true);
 
+                        }
+                        else
+                        {
+                            aur.AURAddCharacter(CharID, AUR_ID, false);
+
+                        }
+                        aur.SaveAUR();
+
+
+                        // PSC
 
                         string Charalist = Xenoverse.Xenoverse.data_path + @"\scripts\action_script\Charalist.as";
 

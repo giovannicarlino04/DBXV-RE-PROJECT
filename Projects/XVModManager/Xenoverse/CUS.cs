@@ -7,6 +7,7 @@ using System.Net;
 
 namespace Xenoverse
 {
+
     public struct skill
     {
         public string Name;
@@ -32,7 +33,9 @@ namespace Xenoverse
         int CharAddress = 0;
         public Char_Data[] Chars;
         msg mText = new msg();
-
+        public int SupAddress;
+        public int UltAddress;
+        public int EvaAddress;
         public void populateSkillData(string msgFolder, string CUSFile, string lang)
         {
             FileName = CUSFile;
@@ -48,9 +51,9 @@ namespace Xenoverse
 
                 CUS.BaseStream.Seek(8, SeekOrigin.Current);
 
-                int SupAddress = CUS.ReadInt32();
-                int UltAddress = CUS.ReadInt32();
-                int EvaAddress = CUS.ReadInt32();
+                SupAddress = CUS.ReadInt32();
+                UltAddress = CUS.ReadInt32();
+                EvaAddress = CUS.ReadInt32();
 
                 Chars = new Char_Data[CharCount];
                 for (int i = 0; i < CharCount; i++)
@@ -101,30 +104,34 @@ namespace Xenoverse
             }
 
         }
-
-
         public void AddCharacter(Char_Data characterData)
         {
-            // Aggiungi il personaggio alla fine dei dati Char_Data
             Array.Resize(ref Chars, CharCount + 1); // Espandi l'array Char_Data
-
-            // Assegna i dati del nuovo personaggio all'ultima posizione dell'array
             Chars[CharCount] = characterData;
-
-            // Incrementa il numero di personaggi
             CharCount++;
-
-            // Salva i dati Char_Data aggiornati nel file
-            Save();
+            Save(Xenoverse.xenoverse_path + @"/msg");
         }
-        public void Save()
+        public void Save(string msgFolder)
         {
             using (BinaryWriter CUS = new BinaryWriter(File.Open(FileName, FileMode.Open)))
             {
-                CUS.BaseStream.Seek(CharAddress, SeekOrigin.Begin);
+                CUS.BaseStream.Seek(8, SeekOrigin.Begin);
+                CUS.Write(CharCount);
+                CUS.Write(CharAddress);
+                CUS.Write(Supers.Length);
+                CUS.Write(Ultimates.Length);
+                CUS.Write(Evasives.Length);
+                CUS.BaseStream.Seek(8, SeekOrigin.Current);
+
+                CUS.Write(SupAddress);
+                CUS.Write(UltAddress);
+                CUS.Write(EvaAddress);
+
                 for (int i = 0; i < CharCount; i++)
                 {
-                    CUS.BaseStream.Seek(CharAddress + (i * 32) + 8, SeekOrigin.Begin);
+                    CUS.BaseStream.Seek(CharAddress + (i * 32), SeekOrigin.Begin);
+                    CUS.Write(Chars[i].charID);
+                    CUS.Write(Chars[i].CostumeID);
                     CUS.Write(Chars[i].SuperIDs[0]);
                     CUS.Write(Chars[i].SuperIDs[1]);
                     CUS.Write(Chars[i].SuperIDs[2]);
@@ -132,6 +139,24 @@ namespace Xenoverse
                     CUS.Write(Chars[i].UltimateIDs[0]);
                     CUS.Write(Chars[i].UltimateIDs[1]);
                     CUS.Write(Chars[i].EvasiveID);
+                }
+
+                for (int i = 0; i < Supers.Length; i++)
+                {
+                    CUS.BaseStream.Seek(SupAddress + (i * 48) + 8, SeekOrigin.Begin);
+                    CUS.Write(Supers[i].ID);
+                }
+
+                for (int i = 0; i < Ultimates.Length; i++)
+                {
+                    CUS.BaseStream.Seek(UltAddress + (i * 48) + 8, SeekOrigin.Begin);
+                    CUS.Write(Ultimates[i].ID);
+                }
+
+                for (int i = 0; i < Evasives.Length; i++)
+                {
+                    CUS.BaseStream.Seek(EvaAddress + (i * 48) + 8, SeekOrigin.Begin);
+                    CUS.Write(Evasives[i].ID);
                 }
             }
         }
@@ -185,45 +210,5 @@ namespace Xenoverse
             return "Unknown Skill";
         }
 
-        public int FindSuper(short id)
-        {
-            for (int i = 0; i < Supers.Length; i++)
-            {
-                if (Supers[i].ID == id)
-                    return i;
-            }
-            return -1;
-        }
-
-        public int FindUltimate(short id)
-        {
-            for (int i = 0; i < Ultimates.Length; i++)
-            {
-                if (Ultimates[i].ID == id)
-                    return i;
-            }
-            return -1;
-        }
-
-        public int FindEvasive(short id)
-        {
-            for (int i = 0; i < Evasives.Length; i++)
-            {
-                if (Evasives[i].ID == id)
-                    return i;
-            }
-            return -1;
-        }
-
-        public int DataExist(int id, int c)
-        {
-            for (int i = 0; i < Chars.Length; i++)
-            {
-                if (Chars[i].charID == id && Chars[i].CostumeID == c)
-                    return i;
-            }
-
-            return -1;
-        }
     }
 }
