@@ -1,0 +1,17 @@
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\EffectData.xml
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\XVReborn.exe.config
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\XVReborn.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\XVReborn.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\FreeImage.Standard.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\System.Drawing.Common.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.ResolveComReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Form2.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Form3.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.CopyComplete
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.pdb

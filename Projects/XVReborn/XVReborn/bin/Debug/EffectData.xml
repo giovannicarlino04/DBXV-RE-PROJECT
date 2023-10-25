@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EffectData>
+<Effects>
+<Item id="-1" hex="FFFFFFFF">Undetermined</Item>
+<Item id="0" hex="0">Undetermined</Item>
+<Item id="1" hex="1">Undetermined</Item>
+<Item id="2" hex="2">Hp Regeneration</Item>
+<Item id="3" hex="3">Undetermined</Item>
+<Item id="4" hex="4">Unlimited Ki</Item>
+<Item id="5" hex="5">Undetermined</Item>
+<Item id="6" hex="6">Undetermined</Item>
+<Item id="9" hex="9">Undetermined</Item>
+<Item id="11" hex="B">When you as going to K.O, Health to max</Item>
+<Item id="14" hex="E">Undetermined</Item>
+<Item id="15" hex="F">Undetermined</Item>
+<Item id="16" hex="10">Auto Guard</Item>
+<Item id="17" hex="11">Auto just Guard</Item>
+<Item id="18" hex="12">No stagger</Item>
+<Item id="19" hex="13">No Stagger, No Damage</Item>
+<Item id="20" hex="14">Undetermined</Item>
+<Item id="24" hex="18">No Skills Allowed</Item>
+<Item id="25" hex="19">Undetermined</Item>
+<Item id="27" hex="1B">Undetermined</Item>
+<Item id="28" hex="1C">Free Skills</Item>
+<Item id="31" hex="1F">Undetermined</Item>
+<Item id="32" hex="20">Undetermined</Item>
+<Item id="34" hex="22">Nullify Negative Effects</Item>
+<Item id="35" hex="23">Undetermined</Item>
+<Item id="47" hex="2F">Undetermined</Item>
+<Item id="51" hex="33">Undetermined</Item>
+<Item id="56" hex="38">Undetermined</Item>
+<Item id="60" hex="3C">Undetermined</Item>
+<Item id="61" hex="3D">Undetermined</Item>
+<Item id="62" hex="3E">Undetermined</Item>
+<Item id="67" hex="43">Undetermined</Item>
+<Item id="69" hex="45">Undetermined</Item>
+</Effects>
+<Activations>
+<Item id="-1" hex="FFFFFFFF">Undetermined</Item>
+<Item id="0" hex="0">Undetermined</Item>
+<Item id="1" hex="1">Undetermined</Item>
+<Item id="2" hex="2">Undetermined</Item>
+<Item id="3" hex="3">when Ally Dies</Item>
+<Item id="5" hex="5">When U kill Enemy</Item>
+<Item id="6" hex="6">Undetermined</Item>
+<Item id="7" hex="7">use Super Skill</Item>
+<Item id="8" hex="8">use Ultimate Skill</Item>
+<Item id="9" hex="9">use Evasive Skill</Item>
+<Item id="13" hex="D">use Reinforcement Skill</Item>
+<Item id="14" hex="E">use Transformation Skill</Item>
+<Item id="15" hex="F">revive Ally</Item>
+<Item id="17" hex="11">when enemy revived</Item>
+<Item id="18" hex="12">Undetermined</Item>
+<Item id="19" hex="13">Undetermined</Item>
+<Item id="20" hex="14">Undetermined</Item>
+<Item id="21" hex="15">Undetermined</Item>
+<Item id="22" hex="16">Undetermined</Item>
+<Item id="23" hex="17">Undetermined</Item>
+<Item id="24" hex="18">Undetermined</Item>
+<Item id="27" hex="1B">Undetermined</Item>
+</Activations>
+</EffectData>

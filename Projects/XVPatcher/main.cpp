@@ -21,12 +21,16 @@
 
 #define NUM_EXPORTED_FUNCTIONS	18
 
+#define EXE_PATH	"DBXV.exe"
 #define PROCESS_NAME 	"dbxv.exe"
 #define DATA_CPK		"data.cpk"
 #define DATA2_CPK		"data2.cpk"
 #define DATAP1_CPK		"datap1.cpk"
 #define DATAP2_CPK		"datap2.cpk"
 #define DATAP3_CPK		"datap3.cpk"
+
+#define XVPATCHER_VERSION "0.6"
+#define MINIMUM_GAME_VERSION	1.00f
 
 uint8_t (* __thiscall cpk_file_exists)(void *, char *);
 
@@ -234,7 +238,6 @@ static bool load_dll(bool critical)
 		PatchUtils::Hook(my_func, nullptr, orig_func);
 		DPRINTF("Content of my func after patch: %02X%02X%02X%02X%02X\n", my_func[0], my_func[1], my_func[2], my_func[3], my_func[4]);
 	}
-	
 	loaded = true;
 	return true;
 }
@@ -784,6 +787,19 @@ uintptr_t GetModuleBaseAddress(HANDLE processHandle, const std::wstring& moduleN
     return 0;
 }
 
+void CheckVersion(){
+	DPRINTF("XVPATCHER VERSION " XVPATCHER_VERSION ". Exe base = %p. My Dll base = %p. My dll name: %s\n", GetModuleHandle(NULL), GetModuleHandle(my_dll_name), my_dll_name);	
+	
+	float version = Utils::GetExeVersion(myself_path+EXE_PATH);
+	DPRINTF("Running on game version %.3f\n", version);
+	
+	if (version != 0.0 && version < (MINIMUM_GAME_VERSION - 0.00001))
+	{
+		UPRINTF("This game version (%.3f) is not compatible with this version of the patcher.\nMin version required is: %.3f\n", version, MINIMUM_GAME_VERSION);
+		exit(-1);
+	}
+}
+
 // Function to apply patches
 bool ApplyPatches() {
    	const char* newBytes1 = "\x7F\x7C\x09\xB8\x00";  // CMS Patch 1  //7F 7C 09 B8 00
@@ -845,6 +861,7 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 				
 				
 				//PATCHES GO HERE
+				CheckVersion();
 				ApplyPatches();
 
 				CpkFile *data, *data2, *datap1, *datap2, *datap3;

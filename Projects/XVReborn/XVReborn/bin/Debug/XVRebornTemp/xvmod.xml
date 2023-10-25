@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XVMOD type="ADDED_CHARACTER">
+    <MOD_NAME value="Vegeta SSJ (Whis Armor)" />
+    <MOD_AUTHOR value="Lucifer9666" />
+    <MOD_VERSION value="1" />
+    <AUR_ID value="11" />
+    <AUR_GLARE value="1" />
+    <CMS_BCS value="SVG" />
+    <CMS_EAN value="../VGT/VGT" />
+    <CMS_FCE_EAN value="SVG" />
+    <CMS_CAM_EAN value="../VGT/VGT" />
+    <CMS_BAC value="../VGT/VGT" />
+    <CMS_BCM value="../VGT/VGT" />
+    <CMS_BAI value="../VGT/VGT" />
+    <CSO_1 value="" />
+    <CSO_2 value="CAR_BTL_VGT_VOX" />
+    <CSO_3 value="VGT/VGT" />
+    <CSO_4 value="" />
+    <CUS_SUPER_1 value="595" />
+    <CUS_SUPER_2 value="160" />
+    <CUS_SUPER_3 value="125" />
+    <CUS_SUPER_4 value="593" />
+    <CUS_ULTIMATE_1 value="" />
+    <CUS_ULTIMATE_2 value="5810" />
+    <CUS_EVASIVE value="10101" />
+    <MSG_CHARACTER_NAME value="Vegeta SSJ (Whis Armor)" />
+    <MSG_COSTUME_NAME value="Whis Armor" />
+    <VOX_1 value="102" />
+    <VOX_2 value="103" />
+</XVMOD>
