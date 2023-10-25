@@ -38,8 +38,6 @@
             compileScriptsToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             clearInstallationToolStripMenuItem = new ToolStripMenuItem();
-            settingsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripComboBox1 = new ToolStripComboBox();
             lvMods = new ListView();
             Mod_Name = new ColumnHeader();
             Mod_Author = new ColumnHeader();
@@ -49,7 +47,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolsToolStripMenuItem, settingsToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolsToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(841, 24);
@@ -66,19 +64,19 @@
             // installModToolStripMenuItem
             // 
             installModToolStripMenuItem.Name = "installModToolStripMenuItem";
-            installModToolStripMenuItem.Size = new Size(133, 22);
+            installModToolStripMenuItem.Size = new Size(180, 22);
             installModToolStripMenuItem.Text = "Install Mod";
             installModToolStripMenuItem.Click += installModToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(130, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(133, 22);
+            exitToolStripMenuItem.Size = new Size(180, 22);
             exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
@@ -106,19 +104,6 @@
             clearInstallationToolStripMenuItem.Size = new Size(162, 22);
             clearInstallationToolStripMenuItem.Text = "Clear Installation";
             clearInstallationToolStripMenuItem.Click += clearInstallationToolStripMenuItem_Click;
-            // 
-            // settingsToolStripMenuItem
-            // 
-            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripComboBox1 });
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(61, 20);
-            settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // toolStripComboBox1
-            // 
-            toolStripComboBox1.Name = "toolStripComboBox1";
-            toolStripComboBox1.Size = new Size(121, 23);
-            toolStripComboBox1.SelectedIndexChanged += toolstripcbbox1_selectedindexchanged;
             // 
             // lvMods
             // 
@@ -180,7 +165,5 @@
         private ColumnHeader Mod_Name;
         private ColumnHeader Mod_Author;
         private ColumnHeader Mod_Type;
-        private ToolStripMenuItem settingsToolStripMenuItem;
-        private ToolStripComboBox toolStripComboBox1;
     }
 }

@@ -17,7 +17,8 @@ namespace XVModManager
         string data_path;
         string flex_sdk_path;
         string xenoverse_path;
-        string lang;
+        string lang = "en";
+
         public Form1()
         {
             InitializeComponent();
@@ -82,84 +83,71 @@ namespace XVModManager
             }
             loadLvItems();
 
-            foreach (string item in Xenoverse.Xenoverse.languages)
-                toolStripComboBox1.Items.Add(item);
-
-            if (Settings.Default.language.Length == 0)
-            {
-                lang = "en";
-                toolStripComboBox1.SelectedItem = "en";
-                Settings.Default.language = "en";
-                Settings.Default.Save();
-            }
-
-            toolStripComboBox1.SelectedItem = Settings.Default.language;
-            lang = toolStripComboBox1.SelectedItem.ToString();
-
-
             if (!Directory.Exists(Settings.Default.data_path))
             {
                 Directory.CreateDirectory(Settings.Default.data_path);
-
                 BinaryReader br = new BinaryReader(File.OpenRead(xenoverse_path + "/" + Xenoverse.Xenoverse.data2_cpk));
-                cpk.ReadCPK(xenoverse_path + "/" + Xenoverse.Xenoverse.data2_cpk);
 
-                extractfilefromCPK("data/ui/iggy/CHARASELE.iggy", br);
-
-                extractfilefromCPK("data/system/aura_setting.aur", br);
-                extractfilefromCPK("data/system/chara_sound.cso", br);
-                extractfilefromCPK("data/system/char_model_spec.cms", br);
-                extractfilefromCPK("data/system/custom_skill.cus", br);
-                extractfilefromCPK("data/system/parameter_spec_char.psc", br);
-
-                extractfilefromCPK("data/msg/proper_noun_character_name_" + lang + ".msg", br);
-                extractfilefromCPK("data/msg/proper_noun_costume_name_" + lang + ".msg", br);
-                extractfilefromCPK("data/msg/proper_noun_skill_spa_name_" + lang + ".msg", br);
-                extractfilefromCPK("data/msg/proper_noun_skill_ult_name_" + lang + ".msg", br);
-                extractfilefromCPK("data/msg/proper_noun_skill_esc_name_" + lang + ".msg", br);
-
-                extractfilefromCPK("data/ui/texture/CHARA01.emb", br);
-
-                var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVModManager.ZipFile_Blobs.scripts.zip");
-                ZipArchive archive = new ZipArchive(myStream);
-                archive.ExtractToDirectory(data_path);
-
-                var myAssembly2 = Assembly.GetExecutingAssembly();
-                var myStream2 = myAssembly2.GetManifestResourceStream("XVModManager.ZipFile_Blobs.iggy_as3_test.zip");
-                ZipArchive archive2 = new ZipArchive(myStream2);
-                archive2.ExtractToDirectory(Path.Combine(data_path + @"\ui\iggy"));
-
-                var myAssembly3 = Assembly.GetExecutingAssembly();
-                var myStream3 = myAssembly3.GetManifestResourceStream("XVModManager.ZipFile_Blobs.embpack.zip");
-                ZipArchive archive3 = new ZipArchive(myStream3);
-                archive3.ExtractToDirectory(Path.Combine(data_path + @"\ui\texture"));
-
-                var myAssembly4 = Assembly.GetExecutingAssembly();
-                var myStream4 = myAssembly4.GetManifestResourceStream("XVModManager.ZipFile_Blobs.XMLSerializer.zip");
-                ZipArchive archive4 = new ZipArchive(myStream4);
-                archive4.ExtractToDirectory(Path.Combine(data_path + @"\system"));
-
-                Process p = new Process();
-                ProcessStartInfo info = new ProcessStartInfo();
-                info.FileName = "cmd.exe";
-                info.CreateNoWindow = true;
-                info.WindowStyle = ProcessWindowStyle.Hidden;
-                info.RedirectStandardInput = true;
-                info.UseShellExecute = false;
-
-                p.StartInfo = info;
-                p.Start();
-
-                using (StreamWriter sw = p.StandardInput)
+                if (cpk.ReadCPK(xenoverse_path + "/" + Xenoverse.Xenoverse.data2_cpk))
                 {
-                    if (sw.BaseStream.CanWrite)
-                    {
-                        sw.WriteLine("cd " + data_path + @"\ui\texture");
-                        sw.WriteLine(@"embpack.exe CHARA01.emb");
-                    }
-                }
 
+                    extractfilefromCPK("data/ui/iggy/CHARASELE.iggy", br);
+
+                    extractfilefromCPK("data/system/aura_setting.aur", br);
+                    extractfilefromCPK("data/system/chara_sound.cso", br);
+                    extractfilefromCPK("data/system/char_model_spec.cms", br);
+                    extractfilefromCPK("data/system/custom_skill.cus", br);
+                    extractfilefromCPK("data/system/parameter_spec_char.psc", br);
+
+                    extractfilefromCPK("data/msg/proper_noun_character_name_" + lang + ".msg", br);
+                    extractfilefromCPK("data/msg/proper_noun_costume_name_" + lang + ".msg", br);
+                    extractfilefromCPK("data/msg/proper_noun_skill_spa_name_" + lang + ".msg", br);
+                    extractfilefromCPK("data/msg/proper_noun_skill_ult_name_" + lang + ".msg", br);
+                    extractfilefromCPK("data/msg/proper_noun_skill_esc_name_" + lang + ".msg", br);
+
+                    extractfilefromCPK("data/ui/texture/CHARA01.emb", br);
+
+                    var myAssembly = Assembly.GetExecutingAssembly();
+                    var myStream = myAssembly.GetManifestResourceStream("XVModManager.ZipFile_Blobs.scripts.zip");
+                    ZipArchive archive = new ZipArchive(myStream);
+                    archive.ExtractToDirectory(data_path);
+
+                    var myAssembly2 = Assembly.GetExecutingAssembly();
+                    var myStream2 = myAssembly2.GetManifestResourceStream("XVModManager.ZipFile_Blobs.iggy_as3_test.zip");
+                    ZipArchive archive2 = new ZipArchive(myStream2);
+                    archive2.ExtractToDirectory(Path.Combine(data_path + @"\ui\iggy"));
+
+                    var myAssembly3 = Assembly.GetExecutingAssembly();
+                    var myStream3 = myAssembly3.GetManifestResourceStream("XVModManager.ZipFile_Blobs.embpack.zip");
+                    ZipArchive archive3 = new ZipArchive(myStream3);
+                    archive3.ExtractToDirectory(Path.Combine(data_path + @"\ui\texture"));
+
+                    var myAssembly4 = Assembly.GetExecutingAssembly();
+                    var myStream4 = myAssembly4.GetManifestResourceStream("XVModManager.ZipFile_Blobs.XMLSerializer.zip");
+                    ZipArchive archive4 = new ZipArchive(myStream4);
+                    archive4.ExtractToDirectory(Path.Combine(data_path + @"\system"));
+
+                    Process p = new Process();
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = "cmd.exe";
+                    info.CreateNoWindow = true;
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.RedirectStandardInput = true;
+                    info.UseShellExecute = false;
+
+                    p.StartInfo = info;
+                    p.Start();
+
+                    using (StreamWriter sw = p.StandardInput)
+                    {
+                        if (sw.BaseStream.CanWrite)
+                        {
+                            sw.WriteLine("cd " + data_path + @"\ui\texture");
+                            sw.WriteLine(@"embpack.exe CHARA01.emb");
+                        }
+                    }
+
+                }
             }
             Clean();
         }
@@ -886,21 +874,6 @@ namespace XVModManager
         private void compileScriptsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CompileScripts();
-        }
-
-        private void toolstripcbbox1_selectedindexchanged(object sender, EventArgs e)
-        {
-            lang = toolStripComboBox1.SelectedItem.ToString();
-            Settings.Default.language = toolStripComboBox1.SelectedItem.ToString();
-            Settings.Default.Save();
-
-            BinaryReader br = new BinaryReader(File.OpenRead(xenoverse_path + "/" + Xenoverse.Xenoverse.data2_cpk));
-            cpk.ReadCPK(xenoverse_path + "/" + Xenoverse.Xenoverse.data2_cpk);
-            extractfilefromCPK("data/msg/proper_noun_character_name_" + lang + ".msg", br);
-            extractfilefromCPK("data/msg/proper_noun_costume_name_" + lang + ".msg", br);
-            extractfilefromCPK("data/msg/proper_noun_skill_spa_name_" + lang + ".msg", br);
-            extractfilefromCPK("data/msg/proper_noun_skill_ult_name_" + lang + ".msg", br);
-            extractfilefromCPK("data/msg/proper_noun_skill_esc_name_" + lang + ".msg", br);
         }
     }
 }
