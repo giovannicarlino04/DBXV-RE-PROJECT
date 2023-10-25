@@ -12,3 +12,4 @@ C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModMan
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\XVCharaCreator.csproj.CopyComplete
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\XVCharaCreator.dll
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVCharaCreator\obj\Debug\XVCharaCreator.genruntimeconfig.cache
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVCharaCreator.dll.config

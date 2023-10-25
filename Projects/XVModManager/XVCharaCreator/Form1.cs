@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Xml;
 using Xenoverse;
 using System.Windows.Forms;
+using XVCharaCreator.Properties;
 
 namespace XVCharaCreator
 {
@@ -171,8 +172,30 @@ namespace XVCharaCreator
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            FolderBrowserDialog datadialog = new FolderBrowserDialog();
+            datadialog.Description = "Select \"DB Xenoverse 2\" folder";
+
+            if (Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse"))
+            {
+
+                Properties.Settings.Default.data_path = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data";
+                Properties.Settings.Default.Save();
+            }
+
+            if (Properties.Settings.Default.data_path.Length == 0)
+            {
+                if (datadialog.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.data_path = datadialog.SelectedPath + @"/data";
+                    Properties.Settings.Default.Save();
+                }
+            }
+
+            if (!Directory.Exists(Settings.Default.data_path))
+                MessageBox.Show("Data folder not found, you must start XVModManager first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             CharSkill CS = new CharSkill();
-            CS.populateSkillData(Xenoverse.Xenoverse.CUSFile);
+            CS.populateSkillData(Settings.Default.data_path + @"/system/custom_skill.cus");
 
             //populate skill lists
             foreach (skill sk in CS.Supers)
