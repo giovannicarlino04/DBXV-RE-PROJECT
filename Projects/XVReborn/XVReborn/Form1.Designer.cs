@@ -320,7 +320,7 @@ namespace XVReborn
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1215, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(859, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -387,7 +387,7 @@ namespace XVReborn
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label1.Location = new System.Drawing.Point(0, 562);
+            this.label1.Location = new System.Drawing.Point(0, 455);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 15);
             this.label1.TabIndex = 3;
@@ -407,7 +407,7 @@ namespace XVReborn
             this.Mods.Location = new System.Drawing.Point(0, 24);
             this.Mods.Name = "Mods";
             this.Mods.SelectedIndex = 0;
-            this.Mods.Size = new System.Drawing.Size(1215, 538);
+            this.Mods.Size = new System.Drawing.Size(859, 431);
             this.Mods.TabIndex = 5;
             // 
             // tabPage1
@@ -417,7 +417,7 @@ namespace XVReborn
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage1.Size = new System.Drawing.Size(851, 403);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mods";
             // 
@@ -432,7 +432,7 @@ namespace XVReborn
             this.lvMods.Location = new System.Drawing.Point(3, 3);
             this.lvMods.MultiSelect = false;
             this.lvMods.Name = "lvMods";
-            this.lvMods.Size = new System.Drawing.Size(1201, 504);
+            this.lvMods.Size = new System.Drawing.Size(845, 397);
             this.lvMods.TabIndex = 4;
             this.lvMods.UseCompatibleStateImageBehavior = false;
             this.lvMods.View = System.Windows.Forms.View.Details;
@@ -460,7 +460,7 @@ namespace XVReborn
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage3.Size = new System.Drawing.Size(851, 403);
             this.tabPage3.TabIndex = 7;
             this.tabPage3.Text = "MSG";
             // 
@@ -560,7 +560,7 @@ namespace XVReborn
             this.menuStrip3.Location = new System.Drawing.Point(3, 3);
             this.menuStrip3.Name = "menuStrip3";
             this.menuStrip3.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip3.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip3.Size = new System.Drawing.Size(845, 25);
             this.menuStrip3.TabIndex = 17;
             this.menuStrip3.Text = "menuStrip3";
             // 
@@ -682,7 +682,7 @@ namespace XVReborn
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage2.Size = new System.Drawing.Size(851, 403);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "CMS/CSO";
             // 
@@ -943,7 +943,7 @@ namespace XVReborn
             this.menuStrip2.Location = new System.Drawing.Point(3, 3);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip2.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip2.Size = new System.Drawing.Size(845, 25);
             this.menuStrip2.TabIndex = 41;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -1001,7 +1001,7 @@ namespace XVReborn
             this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage4.Size = new System.Drawing.Size(851, 403);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "PSC";
             // 
@@ -1080,7 +1080,7 @@ namespace XVReborn
             this.menuStrip4.Location = new System.Drawing.Point(3, 3);
             this.menuStrip4.Name = "menuStrip4";
             this.menuStrip4.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip4.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip4.Size = new System.Drawing.Size(845, 25);
             this.menuStrip4.TabIndex = 2;
             this.menuStrip4.Text = "menuStrip4";
             // 
@@ -1121,7 +1121,7 @@ namespace XVReborn
             this.tabPage7.Controls.Add(this.menuStrip7);
             this.tabPage7.Location = new System.Drawing.Point(4, 24);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage7.Size = new System.Drawing.Size(851, 403);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "CUS";
             // 
@@ -1298,7 +1298,7 @@ namespace XVReborn
             this.menuStrip7.Location = new System.Drawing.Point(0, 0);
             this.menuStrip7.Name = "menuStrip7";
             this.menuStrip7.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip7.Size = new System.Drawing.Size(1207, 25);
+            this.menuStrip7.Size = new System.Drawing.Size(851, 25);
             this.menuStrip7.TabIndex = 1;
             this.menuStrip7.Text = "menuStrip7";
             // 
@@ -1340,7 +1340,7 @@ namespace XVReborn
             this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage5.Size = new System.Drawing.Size(851, 403);
             this.tabPage5.TabIndex = 8;
             this.tabPage5.Text = "AUR";
             // 
@@ -1593,7 +1593,7 @@ namespace XVReborn
             this.menuStrip5.Location = new System.Drawing.Point(3, 3);
             this.menuStrip5.Name = "menuStrip5";
             this.menuStrip5.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip5.Size = new System.Drawing.Size(1201, 25);
+            this.menuStrip5.Size = new System.Drawing.Size(845, 25);
             this.menuStrip5.TabIndex = 2;
             this.menuStrip5.Text = "menuStrip5";
             // 
@@ -1658,7 +1658,7 @@ namespace XVReborn
             this.tabPage8.Location = new System.Drawing.Point(4, 24);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage8.Size = new System.Drawing.Size(851, 403);
             this.tabPage8.TabIndex = 10;
             this.tabPage8.Text = "IDB";
             // 
@@ -2269,7 +2269,7 @@ namespace XVReborn
             this.msgToolStripMenuItem});
             this.menuStrip8.Location = new System.Drawing.Point(3, 3);
             this.menuStrip8.Name = "menuStrip8";
-            this.menuStrip8.Size = new System.Drawing.Size(1201, 24);
+            this.menuStrip8.Size = new System.Drawing.Size(845, 24);
             this.menuStrip8.TabIndex = 3;
             this.menuStrip8.Text = "menuStrip8";
             // 
@@ -2509,7 +2509,7 @@ namespace XVReborn
             this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(1207, 510);
+            this.tabPage6.Size = new System.Drawing.Size(851, 403);
             this.tabPage6.TabIndex = 9;
             this.tabPage6.Text = "CSS";
             // 
@@ -2519,7 +2519,7 @@ namespace XVReborn
             this.editToolStripMenuItem4});
             this.menuStrip6.Location = new System.Drawing.Point(3, 3);
             this.menuStrip6.Name = "menuStrip6";
-            this.menuStrip6.Size = new System.Drawing.Size(1201, 24);
+            this.menuStrip6.Size = new System.Drawing.Size(845, 24);
             this.menuStrip6.TabIndex = 1;
             this.menuStrip6.Text = "menuStrip6";
             // 
@@ -2572,7 +2572,7 @@ namespace XVReborn
             // 
             this.cbCharacter.Dock = System.Windows.Forms.DockStyle.Right;
             this.cbCharacter.FormattingEnabled = true;
-            this.cbCharacter.Location = new System.Drawing.Point(1045, 24);
+            this.cbCharacter.Location = new System.Drawing.Point(689, 24);
             this.cbCharacter.Name = "cbCharacter";
             this.cbCharacter.Size = new System.Drawing.Size(170, 23);
             this.cbCharacter.TabIndex = 6;
@@ -2582,7 +2582,7 @@ namespace XVReborn
             // 
             this.cbCostumes.Dock = System.Windows.Forms.DockStyle.Right;
             this.cbCostumes.FormattingEnabled = true;
-            this.cbCostumes.Location = new System.Drawing.Point(875, 24);
+            this.cbCostumes.Location = new System.Drawing.Point(519, 24);
             this.cbCostumes.Name = "cbCostumes";
             this.cbCostumes.Size = new System.Drawing.Size(170, 23);
             this.cbCostumes.TabIndex = 7;
@@ -2592,7 +2592,7 @@ namespace XVReborn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1215, 577);
+            this.ClientSize = new System.Drawing.Size(859, 470);
             this.Controls.Add(this.cbCostumes);
             this.Controls.Add(this.cbCharacter);
             this.Controls.Add(this.Mods);

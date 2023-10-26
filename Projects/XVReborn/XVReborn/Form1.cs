@@ -14,7 +14,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using XVReborn.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace XVReborn
 {
@@ -549,10 +548,13 @@ namespace XVReborn
             {
                 foreach (string file in ofd.FileNames)
                 {
-
-                    ZipFile.ExtractToDirectory(file, "./XVRebornTemp");
-
                     string xmlfile = "./XVRebornTemp" + @"/xvmod.xml";
+
+                    if (File.Exists(Settings.Default.datafolder + @"/xvmod.xml"))
+                        File.Delete(Settings.Default.datafolder + @"/xvmod.xml");
+                    if (File.Exists(xmlfile))
+                        File.Delete(xmlfile);
+                    ZipFile.ExtractToDirectory(file, "./XVRebornTemp");
 
                     if (!File.Exists(xmlfile))
                         MessageBox.Show("xvmod.xml file not found.",
@@ -803,7 +805,8 @@ namespace XVReborn
 
                             }
                         }
-
+                        if (File.Exists(xmlfile))
+                            File.Delete(xmlfile);
                     }
                     if (modtype == "REPLACER")
                     {
@@ -1040,6 +1043,7 @@ namespace XVReborn
                     }
                 }
             }
+            Clean();
         }
 
         public static void MergeDirectoriesWithConfirmation(string sourceDir, string destDir)
@@ -1553,6 +1557,9 @@ namespace XVReborn
                 File.Delete(Properties.Settings.Default.datafolder + @"\quest\TMQ\tmq_data.qxd.bak");
             }
             */
+
+            if (Directory.Exists("./XVRebornTemp"))
+                Directory.Delete("./XVRebornTemp", true);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1623,14 +1630,10 @@ namespace XVReborn
             if (MessageBox.Show("Are you sure you want to clear installation?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 if (Directory.Exists(Properties.Settings.Default.datafolder))
-                {
                     Directory.Delete(Properties.Settings.Default.datafolder, true);
-                }
 
-                if (Directory.Exists(Properties.Settings.Default.datafolder + @"\scripts"))
-                {
-                    Directory.Delete(Properties.Settings.Default.datafolder + @"\scripts", true);
-                }
+                if (Directory.Exists("./XVRebornTemp"))
+                    Directory.Delete("./XVRebornTemp", true);
 
                 Properties.Settings.Default.Reset();
                 MessageBox.Show("Installation cleared, XVReborn will now close", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
