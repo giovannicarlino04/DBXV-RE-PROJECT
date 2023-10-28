@@ -50,7 +50,6 @@ namespace XVCharaCreator
 
                     WriteElementWithValue(writer, "MOD_NAME", txtName.Text);
                     WriteElementWithValue(writer, "MOD_AUTHOR", txtAuthor.Text);
-                    WriteElementWithValue(writer, "MOD_VERSION", txtVersion.Text);
 
 
                     // Let's start adding the actual character attributes (AUR, CMS, CSO, etc...)
@@ -130,13 +129,13 @@ namespace XVCharaCreator
             char[] id = new char[3];
             string generatedID;
 
-                for (int i = 0; i < 3; i++)
-                {
-                    id[i] = chars[random.Next(chars.Length)];
-                }
+            for (int i = 0; i < 3; i++)
+            {
+                id[i] = chars[random.Next(chars.Length)];
+            }
 
-                generatedID = new string(id);
-            
+            generatedID = new string(id);
+
 
             txtCharID.Text = generatedID;
         }
@@ -241,5 +240,21 @@ namespace XVCharaCreator
         {
             this.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.Description = $"Select Extra Folder (Data)";
+            fbd.UseDescriptionForTitle = true;
+
+            if (fbd.ShowDialog() == DialogResult.OK)
+            {
+                string selectedPath = fbd.SelectedPath;
+
+                txtXtraFiles.Text = selectedPath;
+
+            }
+        }
+
     }
 }

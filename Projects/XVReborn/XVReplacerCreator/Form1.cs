@@ -42,7 +42,6 @@ namespace XVReplacerCreator
 
                     WriteElementWithValue(writer, "MOD_NAME", txtName.Text);
                     WriteElementWithValue(writer, "MOD_AUTHOR", txtAuthor.Text);
-                    WriteElementWithValue(writer, "MOD_VERSION", txtVersion.Text);
 
                     writer.WriteEndElement(); // Close XVMOD
                     writer.WriteEndDocument(); // Close the document
@@ -77,7 +76,7 @@ namespace XVReplacerCreator
                 Directory.Exists(fbd.SelectedPath))
                 txtFolder.Text = fbd.SelectedPath;
         }
-        
+
         private void txtVersion_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)8)  // Allow digits and Backspace

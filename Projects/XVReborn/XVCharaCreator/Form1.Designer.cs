@@ -36,6 +36,9 @@
             sToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            button2 = new Button();
+            txtXtraFiles = new TextBox();
+            label30 = new Label();
             button1 = new Button();
             textBox1 = new TextBox();
             label27 = new Label();
@@ -43,11 +46,9 @@
             txtCharID = new TextBox();
             btnFolder = new Button();
             txtName = new TextBox();
-            txtVersion = new TextBox();
             txtAuthor = new TextBox();
             txtFolder = new TextBox();
             label3 = new Label();
-            label4 = new Label();
             label2 = new Label();
             label5 = new Label();
             label1 = new Label();
@@ -135,19 +136,19 @@
             // buildXVModFileToolStripMenuItem
             // 
             buildXVModFileToolStripMenuItem.Name = "buildXVModFileToolStripMenuItem";
-            buildXVModFileToolStripMenuItem.Size = new Size(180, 22);
+            buildXVModFileToolStripMenuItem.Size = new Size(164, 22);
             buildXVModFileToolStripMenuItem.Text = "Build XVMod File";
             buildXVModFileToolStripMenuItem.Click += buildXVModFileToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(161, 6);
             // 
             // sToolStripMenuItem
             // 
             sToolStripMenuItem.Name = "sToolStripMenuItem";
-            sToolStripMenuItem.Size = new Size(180, 22);
+            sToolStripMenuItem.Size = new Size(164, 22);
             sToolStripMenuItem.Text = "Exit";
             sToolStripMenuItem.Click += sToolStripMenuItem_Click;
             // 
@@ -171,6 +172,9 @@
             // tabPage1
             // 
             tabPage1.BackColor = SystemColors.Control;
+            tabPage1.Controls.Add(button2);
+            tabPage1.Controls.Add(txtXtraFiles);
+            tabPage1.Controls.Add(label30);
             tabPage1.Controls.Add(button1);
             tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(label27);
@@ -178,11 +182,9 @@
             tabPage1.Controls.Add(txtCharID);
             tabPage1.Controls.Add(btnFolder);
             tabPage1.Controls.Add(txtName);
-            tabPage1.Controls.Add(txtVersion);
             tabPage1.Controls.Add(txtAuthor);
             tabPage1.Controls.Add(txtFolder);
             tabPage1.Controls.Add(label3);
-            tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label1);
@@ -193,9 +195,35 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Mod Info";
             // 
+            // button2
+            // 
+            button2.Location = new Point(317, 227);
+            button2.Name = "button2";
+            button2.Size = new Size(33, 23);
+            button2.TabIndex = 33;
+            button2.Text = "...";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // txtXtraFiles
+            // 
+            txtXtraFiles.Location = new Point(141, 227);
+            txtXtraFiles.Name = "txtXtraFiles";
+            txtXtraFiles.Size = new Size(170, 23);
+            txtXtraFiles.TabIndex = 32;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(59, 230);
+            label30.Name = "label30";
+            label30.Size = new Size(72, 15);
+            label30.TabIndex = 31;
+            label30.Text = "Extra Folder:";
+            // 
             // button1
             // 
-            button1.Location = new Point(316, 217);
+            button1.Location = new Point(317, 187);
             button1.Name = "button1";
             button1.Size = new Size(33, 23);
             button1.TabIndex = 30;
@@ -205,7 +233,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(140, 217);
+            textBox1.Location = new Point(141, 187);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(170, 23);
             textBox1.TabIndex = 29;
@@ -213,7 +241,7 @@
             // label27
             // 
             label27.AutoSize = true;
-            label27.Location = new Point(27, 221);
+            label27.Location = new Point(28, 191);
             label27.Name = "label27";
             label27.Size = new Size(103, 15);
             label27.TabIndex = 28;
@@ -221,7 +249,7 @@
             // 
             // btnGenID
             // 
-            btnGenID.Location = new Point(212, 138);
+            btnGenID.Location = new Point(213, 108);
             btnGenID.Name = "btnGenID";
             btnGenID.Size = new Size(75, 23);
             btnGenID.TabIndex = 27;
@@ -232,7 +260,7 @@
             // txtCharID
             // 
             txtCharID.CharacterCasing = CharacterCasing.Upper;
-            txtCharID.Location = new Point(140, 138);
+            txtCharID.Location = new Point(141, 108);
             txtCharID.MaxLength = 3;
             txtCharID.Name = "txtCharID";
             txtCharID.Size = new Size(66, 23);
@@ -240,7 +268,7 @@
             // 
             // btnFolder
             // 
-            btnFolder.Location = new Point(316, 178);
+            btnFolder.Location = new Point(317, 148);
             btnFolder.Name = "btnFolder";
             btnFolder.Size = new Size(33, 23);
             btnFolder.TabIndex = 25;
@@ -255,14 +283,6 @@
             txtName.Size = new Size(170, 23);
             txtName.TabIndex = 21;
             // 
-            // txtVersion
-            // 
-            txtVersion.Location = new Point(141, 103);
-            txtVersion.Name = "txtVersion";
-            txtVersion.Size = new Size(170, 23);
-            txtVersion.TabIndex = 22;
-            txtVersion.KeyPress += txtVersion_KeyPress;
-            // 
             // txtAuthor
             // 
             txtAuthor.Location = new Point(141, 70);
@@ -272,7 +292,7 @@
             // 
             // txtFolder
             // 
-            txtFolder.Location = new Point(140, 178);
+            txtFolder.Location = new Point(141, 148);
             txtFolder.Name = "txtFolder";
             txtFolder.Size = new Size(170, 23);
             txtFolder.TabIndex = 24;
@@ -286,15 +306,6 @@
             label3.TabIndex = 16;
             label3.Text = "Mod Name:";
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(28, 106);
-            label4.Name = "label4";
-            label4.Size = new Size(76, 15);
-            label4.TabIndex = 17;
-            label4.Text = "Mod Version:";
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -307,7 +318,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(55, 141);
+            label5.Location = new Point(56, 111);
             label5.Name = "label5";
             label5.Size = new Size(49, 15);
             label5.TabIndex = 19;
@@ -316,7 +327,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(27, 182);
+            label1.Location = new Point(28, 152);
             label1.Name = "label1";
             label1.Size = new Size(97, 15);
             label1.TabIndex = 20;
@@ -871,11 +882,9 @@
         private TextBox txtCharID;
         private Button btnFolder;
         private TextBox txtName;
-        private TextBox txtVersion;
         private TextBox txtAuthor;
         private TextBox txtFolder;
         private Label label3;
-        private Label label4;
         private Label label2;
         private Label label5;
         private Label label1;
@@ -936,5 +945,8 @@
         private TextBox txtVOX2;
         private TextBox txtVOX1;
         private Label label29;
+        private Button button2;
+        private TextBox txtXtraFiles;
+        private Label label30;
     }
 }

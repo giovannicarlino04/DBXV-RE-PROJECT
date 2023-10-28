@@ -518,7 +518,6 @@ namespace XVReborn
             string modtype = "";
             string modname = "";
             string modauthor = "";
-            string modversion = "";
             int AUR_ID = 0;
             int AUR_GLARE = 0;
             string CMS_BCS = "";
@@ -602,14 +601,6 @@ namespace XVReborn
                                         modauthor = reader.GetAttribute("value").Trim();
                                     }
                                 }
-                                if (reader.Name == "MOD_VERSION")
-                                {
-                                    if (reader.HasAttributes)
-                                    {
-                                        modversion = reader.GetAttribute("value").Trim();
-                                    }
-                                }
-
                                 if (reader.Name == "AUR_ID")
                                 {
                                     if (reader.HasAttributes)
@@ -890,6 +881,7 @@ namespace XVReborn
                         string text4 = File.ReadAllText(cuspath);
 
                         text4 = text4.Replace("  </Skillsets>", "    <Skillset Character_ID=\"" + CharID + $"\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"{CUS_SUPER_1}\" />\r\n      <SuperSkill2 ID1=\"{CUS_SUPER_2}\" />\r\n      <SuperSkill3 ID1=\"{CUS_SUPER_3}\" />\r\n      <SuperSkill4 ID1=\"{CUS_SUPER_4}\" />\r\n      <UltimateSkill1 ID1=\"{CUS_ULTIMATE_1}\" />\r\n      <UltimateSkill2 ID1=\"{CUS_ULTIMATE_2}\" />\r\n      <EvasiveSkill ID1=\"{CUS_EVASIVE}\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
+                        MessageBox.Show("    <Skillset Character_ID=\"" + CharID + $"\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"{CUS_SUPER_1}\" />\r\n      <SuperSkill2 ID1=\"{CUS_SUPER_2}\" />\r\n      <SuperSkill3 ID1=\"{CUS_SUPER_3}\" />\r\n      <SuperSkill4 ID1=\"{CUS_SUPER_4}\" />\r\n      <UltimateSkill1 ID1=\"{CUS_ULTIMATE_1}\" />\r\n      <UltimateSkill2 ID1=\"{CUS_ULTIMATE_2}\" />\r\n      <EvasiveSkill ID1=\"{CUS_EVASIVE}\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
                         File.WriteAllText(cuspath, text4);
 
                         p.Start();
@@ -991,7 +983,7 @@ namespace XVReborn
 
                         foreach (string s in File.ReadAllLines(Charalist))
                         {
-                            text10.AppendLine(s.Replace("[[\"JCO\",0,0,0,[110,111]]]", "[[\"JCO\",0,0,0,[110,111]]],[[\"" + CMS_BCS + $"\",0,0,0,[{VOX_1},{VOX_2}]]]"));
+                            text10.AppendLine(s.Replace("];", ",[[\"" + CMS_BCS + $"\",0,0,0,[{VOX_1},{VOX_2}]]];"));
                         }
 
                         using (var file1 = new StreamWriter(File.Create(Charalist)))
@@ -3122,5 +3114,6 @@ namespace XVReborn
             CompileScripts();
             loadFiles();
         }
+
     }
 }

@@ -41,15 +41,13 @@
             txtAuthor = new TextBox();
             label3 = new Label();
             txtName = new TextBox();
-            label4 = new Label();
-            txtVersion = new TextBox();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(43, 149);
+            label1.Location = new Point(43, 120);
             label1.Name = "label1";
             label1.Size = new Size(71, 15);
             label1.TabIndex = 0;
@@ -74,31 +72,31 @@
             // buildXVModFileToolStripMenuItem
             // 
             buildXVModFileToolStripMenuItem.Name = "buildXVModFileToolStripMenuItem";
-            buildXVModFileToolStripMenuItem.Size = new Size(164, 22);
+            buildXVModFileToolStripMenuItem.Size = new Size(180, 22);
             buildXVModFileToolStripMenuItem.Text = "Build XVMod File";
             buildXVModFileToolStripMenuItem.Click += buildXVModFileToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(161, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // sToolStripMenuItem
             // 
             sToolStripMenuItem.Name = "sToolStripMenuItem";
-            sToolStripMenuItem.Size = new Size(164, 22);
+            sToolStripMenuItem.Size = new Size(180, 22);
             sToolStripMenuItem.Text = "Exit";
             // 
             // txtFolder
             // 
-            txtFolder.Location = new Point(125, 145);
+            txtFolder.Location = new Point(125, 116);
             txtFolder.Name = "txtFolder";
             txtFolder.Size = new Size(170, 23);
             txtFolder.TabIndex = 2;
             // 
             // btnFolder
             // 
-            btnFolder.Location = new Point(301, 145);
+            btnFolder.Location = new Point(301, 116);
             btnFolder.Name = "btnFolder";
             btnFolder.Size = new Size(33, 23);
             btnFolder.TabIndex = 3;
@@ -138,35 +136,16 @@
             txtName.Size = new Size(170, 23);
             txtName.TabIndex = 2;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(43, 113);
-            label4.Name = "label4";
-            label4.Size = new Size(76, 15);
-            label4.TabIndex = 0;
-            label4.Text = "Mod Version:";
-            // 
-            // txtVersion
-            // 
-            txtVersion.Location = new Point(125, 110);
-            txtVersion.Name = "txtVersion";
-            txtVersion.Size = new Size(170, 23);
-            txtVersion.TabIndex = 2;
-            txtVersion.KeyPress += txtVersion_KeyPress;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(376, 201);
+            ClientSize = new Size(376, 179);
             Controls.Add(btnFolder);
             Controls.Add(txtName);
-            Controls.Add(txtVersion);
             Controls.Add(txtAuthor);
             Controls.Add(txtFolder);
             Controls.Add(label3);
-            Controls.Add(label4);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(menuStrip1);
@@ -196,7 +175,5 @@
         private TextBox txtAuthor;
         private Label label3;
         private TextBox txtName;
-        private Label label4;
-        private TextBox txtVersion;
     }
 }
