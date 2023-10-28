@@ -81,6 +81,14 @@
             txtCSO1 = new TextBox();
             label17 = new Label();
             tabPage5 = new TabPage();
+            label4 = new Label();
+            tbEva1 = new TextBox();
+            tbUlt2 = new TextBox();
+            tbSuper3 = new TextBox();
+            tbUlt1 = new TextBox();
+            tbSuper4 = new TextBox();
+            tbSuper2 = new TextBox();
+            tbSuper1 = new TextBox();
             label23 = new Label();
             label22 = new Label();
             label21 = new Label();
@@ -88,13 +96,6 @@
             label20 = new Label();
             label19 = new Label();
             label18 = new Label();
-            cbEvasive = new ComboBox();
-            cbUltimate2 = new ComboBox();
-            cbSuper4 = new ComboBox();
-            cbUltimate1 = new ComboBox();
-            cbSuper3 = new ComboBox();
-            cbSuper2 = new ComboBox();
-            cbSuper1 = new ComboBox();
             tabPage6 = new TabPage();
             tabPage7 = new TabPage();
             label26 = new Label();
@@ -594,6 +595,14 @@
             // tabPage5
             // 
             tabPage5.BackColor = SystemColors.Control;
+            tabPage5.Controls.Add(label4);
+            tabPage5.Controls.Add(tbEva1);
+            tabPage5.Controls.Add(tbUlt2);
+            tabPage5.Controls.Add(tbSuper3);
+            tabPage5.Controls.Add(tbUlt1);
+            tabPage5.Controls.Add(tbSuper4);
+            tabPage5.Controls.Add(tbSuper2);
+            tabPage5.Controls.Add(tbSuper1);
             tabPage5.Controls.Add(label23);
             tabPage5.Controls.Add(label22);
             tabPage5.Controls.Add(label21);
@@ -601,19 +610,70 @@
             tabPage5.Controls.Add(label20);
             tabPage5.Controls.Add(label19);
             tabPage5.Controls.Add(label18);
-            tabPage5.Controls.Add(cbEvasive);
-            tabPage5.Controls.Add(cbUltimate2);
-            tabPage5.Controls.Add(cbSuper4);
-            tabPage5.Controls.Add(cbUltimate1);
-            tabPage5.Controls.Add(cbSuper3);
-            tabPage5.Controls.Add(cbSuper2);
-            tabPage5.Controls.Add(cbSuper1);
             tabPage5.Location = new Point(4, 24);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
             tabPage5.Size = new Size(425, 398);
             tabPage5.TabIndex = 4;
             tabPage5.Text = "CUS";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(164, 257);
+            label4.Name = "label4";
+            label4.Size = new Size(127, 15);
+            label4.TabIndex = 3;
+            label4.Text = "SKILL IDS, NOT NAMES";
+            // 
+            // tbEva1
+            // 
+            tbEva1.Location = new Point(136, 210);
+            tbEva1.Name = "tbEva1";
+            tbEva1.Size = new Size(198, 23);
+            tbEva1.TabIndex = 2;
+            // 
+            // tbUlt2
+            // 
+            tbUlt2.Location = new Point(136, 184);
+            tbUlt2.Name = "tbUlt2";
+            tbUlt2.Size = new Size(198, 23);
+            tbUlt2.TabIndex = 2;
+            // 
+            // tbSuper3
+            // 
+            tbSuper3.Location = new Point(136, 96);
+            tbSuper3.Name = "tbSuper3";
+            tbSuper3.Size = new Size(198, 23);
+            tbSuper3.TabIndex = 2;
+            // 
+            // tbUlt1
+            // 
+            tbUlt1.Location = new Point(136, 155);
+            tbUlt1.Name = "tbUlt1";
+            tbUlt1.Size = new Size(198, 23);
+            tbUlt1.TabIndex = 2;
+            // 
+            // tbSuper4
+            // 
+            tbSuper4.Location = new Point(136, 126);
+            tbSuper4.Name = "tbSuper4";
+            tbSuper4.Size = new Size(198, 23);
+            tbSuper4.TabIndex = 2;
+            // 
+            // tbSuper2
+            // 
+            tbSuper2.Location = new Point(136, 67);
+            tbSuper2.Name = "tbSuper2";
+            tbSuper2.Size = new Size(198, 23);
+            tbSuper2.TabIndex = 2;
+            // 
+            // tbSuper1
+            // 
+            tbSuper1.Location = new Point(136, 38);
+            tbSuper1.Name = "tbSuper1";
+            tbSuper1.Size = new Size(198, 23);
+            tbSuper1.TabIndex = 2;
             // 
             // label23
             // 
@@ -677,62 +737,6 @@
             label18.Size = new Size(49, 15);
             label18.TabIndex = 1;
             label18.Text = "Super 1:";
-            // 
-            // cbEvasive
-            // 
-            cbEvasive.FormattingEnabled = true;
-            cbEvasive.Location = new Point(131, 213);
-            cbEvasive.Name = "cbEvasive";
-            cbEvasive.Size = new Size(218, 23);
-            cbEvasive.TabIndex = 0;
-            // 
-            // cbUltimate2
-            // 
-            cbUltimate2.FormattingEnabled = true;
-            cbUltimate2.Location = new Point(131, 184);
-            cbUltimate2.Name = "cbUltimate2";
-            cbUltimate2.Size = new Size(218, 23);
-            cbUltimate2.TabIndex = 0;
-            // 
-            // cbSuper4
-            // 
-            cbSuper4.FormattingEnabled = true;
-            cbSuper4.Location = new Point(131, 126);
-            cbSuper4.Name = "cbSuper4";
-            cbSuper4.Size = new Size(218, 23);
-            cbSuper4.TabIndex = 0;
-            // 
-            // cbUltimate1
-            // 
-            cbUltimate1.FormattingEnabled = true;
-            cbUltimate1.Location = new Point(131, 155);
-            cbUltimate1.Name = "cbUltimate1";
-            cbUltimate1.Size = new Size(218, 23);
-            cbUltimate1.TabIndex = 0;
-            // 
-            // cbSuper3
-            // 
-            cbSuper3.FormattingEnabled = true;
-            cbSuper3.Location = new Point(131, 96);
-            cbSuper3.Name = "cbSuper3";
-            cbSuper3.Size = new Size(218, 23);
-            cbSuper3.TabIndex = 0;
-            // 
-            // cbSuper2
-            // 
-            cbSuper2.FormattingEnabled = true;
-            cbSuper2.Location = new Point(131, 67);
-            cbSuper2.Name = "cbSuper2";
-            cbSuper2.Size = new Size(218, 23);
-            cbSuper2.TabIndex = 0;
-            // 
-            // cbSuper1
-            // 
-            cbSuper1.FormattingEnabled = true;
-            cbSuper1.Location = new Point(131, 38);
-            cbSuper1.Name = "cbSuper1";
-            cbSuper1.Size = new Size(218, 23);
-            cbSuper1.TabIndex = 0;
             // 
             // tabPage6
             // 
@@ -922,17 +926,10 @@
         private Label label20;
         private Label label19;
         private Label label18;
-        private ComboBox cbEvasive;
-        private ComboBox cbUltimate2;
-        private ComboBox cbUltimate1;
-        private ComboBox cbSuper3;
-        private ComboBox cbSuper2;
-        private ComboBox cbSuper1;
         private Label label23;
         private Label label22;
         private Label label21;
         private Label label24;
-        private ComboBox cbSuper4;
         private Label label25;
         private TextBox txtMSG2;
         private TextBox txtMSG1;
@@ -948,5 +945,13 @@
         private Button button2;
         private TextBox txtXtraFiles;
         private Label label30;
+        private TextBox tbEva1;
+        private TextBox tbUlt2;
+        private TextBox tbSuper3;
+        private TextBox tbUlt1;
+        private TextBox tbSuper4;
+        private TextBox tbSuper2;
+        private TextBox tbSuper1;
+        private Label label4;
     }
 }

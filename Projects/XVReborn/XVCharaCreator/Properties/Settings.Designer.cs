@@ -22,17 +22,5 @@ namespace XVCharaCreator.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string data_path {
-            get {
-                return ((string)(this["data_path"]));
-            }
-            set {
-                this["data_path"] = value;
-            }
-        }
     }
 }

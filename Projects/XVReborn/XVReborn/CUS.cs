@@ -30,8 +30,9 @@ namespace XVReborn
         int CharCount = 0;
         int CharAddress = 0;
         public Char_Data[] Chars;
+        msg mText = new msg();
 
-        public void populateSkillData(string CUSFile)
+        public void populateSkillData(string msgFolder, string CUSFile, string lang)
         {
             FileName = CUSFile;
             using (BinaryReader CUS = new BinaryReader(File.Open(CUSFile, FileMode.Open)))
@@ -71,24 +72,30 @@ namespace XVReborn
                 }
 
                 Supers = new skill[SuperCount];
+                mText = msgStream.Load(msgFolder + "/proper_noun_skill_spa_name_" + lang + ".msg");
                 for (int i = 0; i < SuperCount; i++)
                 {
                     CUS.BaseStream.Seek(SupAddress + (i * 48) + 8, SeekOrigin.Begin);
                     Supers[i].ID = CUS.ReadInt16();
+                    Supers[i].Name = findName("spe_skill_" + CUS.ReadInt16().ToString("000"));
                 }
 
                 Ultimates = new skill[UltimateCount];
+                mText = msgStream.Load(msgFolder + "/proper_noun_skill_ult_name_" + lang + ".msg");
                 for (int i = 0; i < UltimateCount; i++)
                 {
                     CUS.BaseStream.Seek(UltAddress + (i * 48) + 8, SeekOrigin.Begin);
                     Ultimates[i].ID = CUS.ReadInt16();
+                    Ultimates[i].Name = findName("ult_" + CUS.ReadInt16().ToString("000"));
                 }
 
                 Evasives = new skill[EvasiveCount];
+                mText = msgStream.Load(msgFolder + "/proper_noun_skill_esc_name_" + lang + ".msg");
                 for (int i = 0; i < EvasiveCount; i++)
                 {
                     CUS.BaseStream.Seek(EvaAddress + (i * 48) + 8, SeekOrigin.Begin);
                     Evasives[i].ID = CUS.ReadInt16();
+                    Evasives[i].Name = findName("avoid_skill_" + CUS.ReadInt16().ToString("000"));
                 }
 
             }
@@ -111,6 +118,18 @@ namespace XVReborn
                     CUS.Write(Chars[i].EvasiveID);
                 }
             }
+        }
+
+        private string findName(string text_ID)
+        {
+            for (int i = 0; i < mText.data.Length; i++)
+            {
+                if (mText.data[i].NameID == text_ID)
+                    return mText.data[i].Lines[0];
+            }
+
+
+            return "Unknown Skill";
         }
 
         public int FindSuper(short id)

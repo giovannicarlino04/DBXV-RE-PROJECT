@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
@@ -17,6 +18,7 @@ using XVReborn.Properties;
 
 namespace XVReborn
 {
+
     struct Aura
     {
         public int[] Color;
@@ -370,26 +372,26 @@ namespace XVReborn
                 var Item = new ListViewItem(new[] { str, "0" });
                 PSClstData.Items.Add(Item);
             }
-            CS.populateSkillData(Settings.Default.datafolder + @"/system/custom_skill.cus");
+            CS.populateSkillData(Settings.Default.datafolder + @"/msg", Settings.Default.datafolder + @"/system/custom_skill.cus", language);
 
             //populate skill lists
             foreach (skill sk in CS.Supers)
             {
-                SupLst1.Items.Add(sk.ID);
-                SupLst2.Items.Add(sk.ID);
-                SupLst3.Items.Add(sk.ID);
-                SupLst4.Items.Add(sk.ID);
+                SupLst1.Items.Add(sk.Name);
+                SupLst2.Items.Add(sk.Name);
+                SupLst3.Items.Add(sk.Name);
+                SupLst4.Items.Add(sk.Name);
             }
 
             foreach (skill sk in CS.Ultimates)
             {
-                UltLst1.Items.Add(sk.ID);
-                UltLst2.Items.Add(sk.ID);
+                UltLst1.Items.Add(sk.Name);
+                UltLst2.Items.Add(sk.Name);
             }
 
             foreach (skill sk in CS.Evasives)
             {
-                EvaLst.Items.Add(sk.ID);
+                EvaLst.Items.Add(sk.Name);
             }
 
             csoFile.Load(Properties.Settings.Default.datafolder + @"/system" + "/chara_sound.cso");
@@ -506,7 +508,6 @@ namespace XVReborn
 
             label1.Text = "Installed Mods: " + lvMods.Items.Count.ToString();
         }
-
         private void installmod(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -881,7 +882,6 @@ namespace XVReborn
                         string text4 = File.ReadAllText(cuspath);
 
                         text4 = text4.Replace("  </Skillsets>", "    <Skillset Character_ID=\"" + CharID + $"\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"{CUS_SUPER_1}\" />\r\n      <SuperSkill2 ID1=\"{CUS_SUPER_2}\" />\r\n      <SuperSkill3 ID1=\"{CUS_SUPER_3}\" />\r\n      <SuperSkill4 ID1=\"{CUS_SUPER_4}\" />\r\n      <UltimateSkill1 ID1=\"{CUS_ULTIMATE_1}\" />\r\n      <UltimateSkill2 ID1=\"{CUS_ULTIMATE_2}\" />\r\n      <EvasiveSkill ID1=\"{CUS_EVASIVE}\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
-                        MessageBox.Show("    <Skillset Character_ID=\"" + CharID + $"\" Costume_Index=\"0\" Model_Preset=\"0\">\r\n      <SuperSkill1 ID1=\"{CUS_SUPER_1}\" />\r\n      <SuperSkill2 ID1=\"{CUS_SUPER_2}\" />\r\n      <SuperSkill3 ID1=\"{CUS_SUPER_3}\" />\r\n      <SuperSkill4 ID1=\"{CUS_SUPER_4}\" />\r\n      <UltimateSkill1 ID1=\"{CUS_ULTIMATE_1}\" />\r\n      <UltimateSkill2 ID1=\"{CUS_ULTIMATE_2}\" />\r\n      <EvasiveSkill ID1=\"{CUS_EVASIVE}\" />\r\n      <BlastType ID1=\"65535\" />\r\n      <AwokenSkill ID1=\"0\" />\r\n    </Skillset>\r\n  </Skillsets>");
                         File.WriteAllText(cuspath, text4);
 
                         p.Start();
@@ -922,7 +922,7 @@ namespace XVReborn
                         {
                             glare = "False";
                         }
-                        text5 = text5.Replace("  </CharacterAuras>", "    <CharacterAura Chara_ID=\"" + CharID + $"\" Costume=\"0\" Aura_ID=\"{glare}\" Glare=\"False\" />\r\n  </CharacterAuras>");
+                        text5 = text5.Replace("  </CharacterAuras>", "    <CharacterAura Chara_ID=\"" + CharID + $"\" Costume=\"0\" Aura_ID=\"{AUR_ID}\" Glare=\"{glare}\" />\r\n  </CharacterAuras>");
                         File.WriteAllText(aurpath, text5);
 
                         p.Start();
@@ -977,21 +977,16 @@ namespace XVReborn
                         p.WaitForExit();
                         //////
 
-                        string Charalist = Settings.Default.datafolder + @"\scripts\action_script\Charalist.as";
+                        // IGGY
+                        Process p2 = Process.Start(Properties.Settings.Default.datafolder + @"\scripts\action_script\Charalist.as");
 
-                        var text10 = new StringBuilder();
+                        p2.WaitForExit();
 
-                        foreach (string s in File.ReadAllLines(Charalist))
-                        {
-                            text10.AppendLine(s.Replace("];", ",[[\"" + CMS_BCS + $"\",0,0,0,[{VOX_1},{VOX_2}]]];"));
-                        }
-
-                        using (var file1 = new StreamWriter(File.Create(Charalist)))
-                        {
-                            file1.Write(text10.ToString());
-                        }
                         CompileScripts();
 
+                        /////
+                        
+                        // MSG
                         msg MSGfile;
                         MSGfile = msgStream.Load(Settings.Default.datafolder + @"/msg/proper_noun_character_name_" + language + ".msg");
                         msgData[] expand = new msgData[MSGfile.data.Length + 1];
@@ -1005,7 +1000,9 @@ namespace XVReborn
                         MSGfile.data = expand;
 
                         msgStream.Save(MSGfile, Settings.Default.datafolder + @"/msg/proper_noun_character_name_" + language + ".msg");
-
+                        ////
+                        
+                        // EMB
                         p.Start();
 
                         using (StreamWriter sw = p.StandardInput)
@@ -1016,7 +1013,8 @@ namespace XVReborn
                                 sw.WriteLine(@"embpack.exe CHARA01");
                             }
                         }
-
+                        ////
+                        
                         string[] row = { modname, modauthor, "Added Character" };
                         ListViewItem lvi = new ListViewItem(row);
                         lvMods.Items.Add(lvi);
