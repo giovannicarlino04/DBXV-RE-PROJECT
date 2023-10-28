@@ -7,7 +7,7 @@
     <ProjectGuid>{3E07395A-9BD9-4018-933B-19322B69245D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>XVRebornReplacerEdition</RootNamespace>
-    <AssemblyName>XVReborn - Replacer Edition</AssemblyName>
+    <AssemblyName>XVReborn</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -159,6 +159,7 @@
     </Compile>
     <EmbeddedResource Include="ZipFile_Blobs\item.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\xinput1_3.zip" />
+    <EmbeddedResource Include="ZipFile_Blobs\CHARA01.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

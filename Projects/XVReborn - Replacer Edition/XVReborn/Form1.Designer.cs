@@ -45,7 +45,6 @@ namespace XVRebornReplacerEdition
             this.lvMods = new System.Windows.Forms.ListView();
             this.ch1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ch2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ch3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cbList = new System.Windows.Forms.ComboBox();
@@ -346,19 +345,19 @@ namespace XVRebornReplacerEdition
             // installModToolStripMenuItem
             // 
             this.installModToolStripMenuItem.Name = "installModToolStripMenuItem";
-            this.installModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.installModToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.installModToolStripMenuItem.Text = "Install Mod";
             this.installModToolStripMenuItem.Click += new System.EventHandler(this.installmod);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(130, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.closeToolStripMenuItem.Text = "Exit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -420,8 +419,7 @@ namespace XVRebornReplacerEdition
             // 
             this.lvMods.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ch1,
-            this.ch2,
-            this.ch3});
+            this.ch2});
             this.lvMods.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvMods.HideSelection = false;
             this.lvMods.Location = new System.Drawing.Point(3, 3);
@@ -435,17 +433,12 @@ namespace XVRebornReplacerEdition
             // ch1
             // 
             this.ch1.Text = "Name";
-            this.ch1.Width = 116;
+            this.ch1.Width = 213;
             // 
             // ch2
             // 
             this.ch2.Text = "Author";
-            this.ch2.Width = 122;
-            // 
-            // ch3
-            // 
-            this.ch3.Text = "Type";
-            this.ch3.Width = 591;
+            this.ch2.Width = 250;
             // 
             // tabPage3
             // 
@@ -2790,7 +2783,6 @@ namespace XVRebornReplacerEdition
         private System.Windows.Forms.ListView lvMods;
         private System.Windows.Forms.ColumnHeader ch1;
         private System.Windows.Forms.ColumnHeader ch2;
-        private System.Windows.Forms.ColumnHeader ch3;
         private System.Windows.Forms.ColumnHeader header;
         private System.Windows.Forms.ColumnHeader ch;
         private ToolStripMenuItem superInfoToolStripMenuItem;

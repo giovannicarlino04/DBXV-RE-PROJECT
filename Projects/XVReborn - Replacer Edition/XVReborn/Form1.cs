@@ -191,19 +191,21 @@ namespace XVRebornReplacerEdition
             {
                 Form3 frm = new Form3();
                 frm.ShowDialog();
-
-                var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.xinput1_3.zip");
-                ZipArchive archive = new ZipArchive(myStream);
-                if (File.Exists(Settings.Default.datafolder + @"/../xinput1_3.dll"))
-                    File.Delete(Settings.Default.datafolder + @"/../xinput1_3.dll");
-                archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
             }
             else
             {
                 if (Directory.Exists(Properties.Settings.Default.datafolder) == false)
                 {
                     MessageBox.Show("Data Folder not Found, Please Clear Installation", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if(!File.Exists(Settings.Default.datafolder + @"/../xinput1_3.dll"))
+                {
+                    var myAssembly = Assembly.GetExecutingAssembly();
+                    var myStream = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.xinput1_3.zip");
+                    ZipArchive archive = new ZipArchive(myStream);
+                    if (File.Exists(Settings.Default.datafolder + @"/../xinput1_3.dll"))
+                        File.Delete(Settings.Default.datafolder + @"/../xinput1_3.dll");
+                    archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
                 }
             }
             if (Directory.Exists(Properties.Settings.Default.datafolder + @"\system") == false)
@@ -212,12 +214,12 @@ namespace XVRebornReplacerEdition
 
                 var myAssembly = Assembly.GetExecutingAssembly();
 
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.char_model_spec.zip");
-                var myStream2 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.chara_sound.zip");
-                var myStream3 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.parameter_spec_char.zip");
-                var myStream4 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.aura_setting.zip");
-                var myStream5 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.custom_skill.zip");
-                var myStream7 = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.item.zip");
+                var myStream = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.char_model_spec.zip");
+                var myStream2 = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.chara_sound.zip");
+                var myStream3 = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.parameter_spec_char.zip");
+                var myStream4 = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.aura_setting.zip");
+                var myStream5 = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.custom_skill.zip");
+                var myStream7 = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.item.zip");
 
                 ZipArchive archive = new ZipArchive(myStream);
                 ZipArchive archive2 = new ZipArchive(myStream2);
@@ -238,9 +240,16 @@ namespace XVRebornReplacerEdition
             if (Directory.Exists(Properties.Settings.Default.datafolder + @"\msg") == false)
             {
                 var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.msg.zip");
+                var myStream = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.msg.zip");
                 ZipArchive archive = new ZipArchive(myStream);
                 archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\msg"));
+            }
+            if (Directory.Exists(Properties.Settings.Default.datafolder + @"\ui\texture") == false)
+            {
+                var myAssembly = Assembly.GetExecutingAssembly();
+                var myStream = myAssembly.GetManifestResourceStream("XVRebornReplacerEdition.ZipFile_Blobs.CHARA01.zip");
+                ZipArchive archive = new ZipArchive(myStream);
+                archive.ExtractToDirectory(Path.Combine(Settings.Default.datafolder + @"\ui\texture"));
             }
 
 
@@ -375,24 +384,22 @@ namespace XVRebornReplacerEdition
         }
 
         private void installmod(object sender, EventArgs e)
+        { 
+        OpenFileDialog ofd = new OpenFileDialog();
+        ofd.Title = "Install Mod";
+        ofd.Filter = "Xenoverse Mod Files (*.xvmod)|*.xvmod";
+        ofd.Multiselect = true;
+        ofd.CheckFileExists = true;
+        string modtype = "";
+        string modname = "";
+        string modauthor = "";
+        if (ofd.ShowDialog() == DialogResult.OK)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Install Mod";
-            ofd.Filter = "Xenoverse Mod Files (*.xvmod)|*.xvmod";
-            ofd.Multiselect = true;
-            ofd.CheckFileExists = true;
-
-            string modtype = "";
-            string modname = "";
-            string modauthor = "";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
+            foreach (string file in ofd.FileNames)
             {
-                foreach (string file in ofd.FileNames)
-                {
-                    string xmlfile = "./XVRebornTemp" + @"/xvmod.xml";
+                string xmlfile = "./XVRebornTemp" + @"/xvmod.xml";
 
-                    if (File.Exists(Settings.Default.datafolder + @"/xvmod.xml"))
+                    if (System.IO.File.Exists(Settings.Default.datafolder + @"/xvmod.xml"))
                         File.Delete(Settings.Default.datafolder + @"/xvmod.xml");
                     if (File.Exists(xmlfile))
                         File.Delete(xmlfile);
@@ -449,22 +456,31 @@ namespace XVRebornReplacerEdition
                         if (File.Exists(xmlfile))
                             File.Delete(xmlfile);
                     }
+
+
+
                     if (modtype == "REPLACER")
                     {
+                        if (Directory.Exists("./XVRebornTemp/system/") || Directory.Exists("./XVRebornTemp/msg"))
+                        {
+                            MessageBox.Show("Mod contains files that may break your mod installation. Folders like msg or system are not allowed and used by the tool for important operations.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MergeDirectoriesWithConfirmation("./XVRebornTemp", Settings.Default.datafolder);
 
-                        MergeDirectoriesWithConfirmation("./XVRebornTemp", Settings.Default.datafolder);
+                            Clean();
 
-                        Clean();
+                            MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
 
-                        MessageBox.Show("Mod installed successfully", "Success", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                            string[] row = { modname, modauthor, "Replacer" };
+                            ListViewItem lvi = new ListViewItem(row);
+                            lvMods.Items.Add(lvi);
+                            saveLvItems();
 
-                        string[] row = { modname, modauthor, "Replacer" };
-                        ListViewItem lvi = new ListViewItem(row);
-                        lvMods.Items.Add(lvi);
-                        saveLvItems();
-
-                        loadFiles();
+                            loadFiles();
+                        }
                     }
                     else
                     {
@@ -495,17 +511,8 @@ namespace XVRebornReplacerEdition
 
                 if (File.Exists(destFile))
                 {
-                    // Ask for confirmation to replace the existing file.
-                    var result = MessageBox.Show($"A file with the name '{fileName}' already exists. Do you want to replace it?", "File Replace Confirmation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    File.Copy(sourceFile, destFile, true); // Replace the existing file.
 
-                    if (result == DialogResult.Yes)
-                    {
-                        File.Copy(sourceFile, destFile, true); // Replace the existing file.
-                    }
-                    else if (result == DialogResult.Cancel)
-                    {
-                        return; // Cancel the entire operation.
-                    }
                     // If 'No' is chosen, the existing file will not be replaced.
                 }
                 else
