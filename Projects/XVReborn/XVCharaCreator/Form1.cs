@@ -73,13 +73,13 @@ namespace XVCharaCreator
                     WriteElementWithValue(writer, "CSO_4", txtCSO4.Text);
 
 
-                    WriteElementWithValue(writer, tbSuper1.Text, "CUS_SUPER_1");
-                    WriteElementWithValue(writer, tbSuper2.Text, "CUS_SUPER_2");
-                    WriteElementWithValue(writer, tbSuper3.Text, "CUS_SUPER_3");
-                    WriteElementWithValue(writer, tbSuper4.Text, "CUS_SUPER_4");
-                    WriteElementWithValue(writer, tbUlt1.Text, "CUS_ULTIMATE_1");
-                    WriteElementWithValue(writer, tbUlt2.Text, "CUS_ULTIMATE_2");
-                    WriteElementWithValue(writer, tbEva1.Text, "CUS_EVASIVE");
+                    WriteElementWithValue(writer, "CUS_SUPER_1", tbSuper1.Text);
+                    WriteElementWithValue(writer, "CUS_SUPER_2", tbSuper2.Text);
+                    WriteElementWithValue(writer, "CUS_SUPER_3", tbSuper3.Text);
+                    WriteElementWithValue(writer, "CUS_SUPER_4", tbSuper4.Text);
+                    WriteElementWithValue(writer, "CUS_ULTIMATE_1", tbUlt1.Text);
+                    WriteElementWithValue(writer, "CUS_ULTIMATE_2", tbUlt2.Text);
+                    WriteElementWithValue(writer, "CUS_EVASIVE", tbEva1.Text);
 
                     WriteElementWithValue(writer, "MSG_CHARACTER_NAME", txtMSG1.Text);
                     WriteElementWithValue(writer, "MSG_COSTUME_NAME", txtMSG2.Text);
