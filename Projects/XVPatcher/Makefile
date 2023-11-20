@@ -10,7 +10,7 @@ CFLAGS += -static -static-libgcc -static-libstdc++
 CPPFLAGS=-Wall -O2 -mno-ms-bitfields 
 CPPFLAGS += -static-libgcc -static-libstdc++ -static -Wl,--subsystem,windows,--kill-at
 CXXFLAGS +=-Wall -Wno-strict-aliasing -I./ -O2 -std=c++11 -mms-bitfields -DTIXML_USE_STL
-CXXFLAGS += -static-libgcc -static-libstdc++ -static -Wl,--subsystem,windows,--kill-at 
+CXXFLAGS += -static-libgcc -static-libstdc++ -static -Wl,--subsystem,windows,--kill-at
 CPPFLAGS += -DNO_ZLIB 
 LDFLAGS=-L. -static xinput.def
 LIBS = -lstdc++ -lversion -lMinHook -lxinput1_3 -lPsapi

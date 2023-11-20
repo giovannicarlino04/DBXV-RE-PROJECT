@@ -40,7 +40,7 @@ int __attribute__ ((format (printf, 1, 2))) UserPrintf(const char* fmt, ...)
 	size_t len = vsnprintf(dbg, DEBUG_BUFFER_SIZE, fmt, ap);
 	va_end(ap);
 
-	MessageBox(NULL, dbg, "SSSS Patcher", 0);
+	MessageBox(NULL, dbg, "XVPatcher", 0);
 	free(dbg);
 	return len;
 }
