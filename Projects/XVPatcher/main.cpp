@@ -32,10 +32,8 @@
 #define DATAP2_CPK		"datap2.cpk"
 #define DATAP3_CPK		"datap3.cpk"
 
-#define XVPATCHER_VERSION "0.6"
+#define XVPATCHER_VERSION "0.7"
 #define MINIMUM_GAME_VERSION	1.00f
-
-#define INI_FILE "./XVPatcher/XVPatcher.ini"
 
 uint8_t (* __thiscall cpk_file_exists)(void *, char *);
 
@@ -53,51 +51,6 @@ static HMODULE patched_dll;
 static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
-
-std::string getIniValue(const std::string& filename, const std::string& section, const std::string& key) {
-    std::ifstream file(filename);
-    std::string line;
-    std::string currentSection;
-    bool sectionFound = false;
-
-    while (std::getline(file, line)) {
-        // Rimuovi spazi e tabulazioni dal principio della riga
-        line.erase(0, line.find_first_not_of(" \t"));
-
-        // Ignora i commenti e le righe vuote
-        if (line.empty() || line[0] == ';')
-            continue;
-
-        // Controlla se la riga contiene una sezione
-        if (line[0] == '[' && line[line.size() - 1] == ']') {
-            currentSection = line.substr(1, line.size() - 2);
-            if (currentSection == section) {
-                sectionFound = true;
-            } else {
-                sectionFound = false;
-            }
-            continue;
-        }
-
-        // Sezione trovata, cerca la chiave e restituisci il valore
-        if (sectionFound) {
-            size_t delimiterPos = line.find('=');
-            if (delimiterPos != std::string::npos) {
-                std::string currentKey = line.substr(0, delimiterPos);
-                std::string value = line.substr(delimiterPos + 1);
-                // Rimuovi spazi e tabulazioni dal valore
-                value.erase(0, value.find_first_not_of(" \t"));
-                // Rimuovi spazi e tabulazioni dalla chiave
-                currentKey.erase(currentKey.find_last_not_of(" \t") + 1);
-                if (currentKey == key) {
-                    return value;
-                }
-            }
-        }
-    }
-
-    return ""; // Valore non trovato
-}
 
 extern "C"
 {
@@ -850,8 +803,10 @@ void CheckVersion(){
 	}
 }
 
-// Function to apply patches
-bool CMSPatch() {
+bool ApplyPatches() {
+	HANDLE hProcess = GetCurrentProcess();
+	uintptr_t moduleBaseAddress = GetModuleBaseAddress(hProcess, L"DBXV.EXE");
+
    	const char* newBytes1 = "\x7F\x7C\x09\xB8\x00";  // CMS Patch 1  //7F 7C 09 B8 00
     const char* newBytes2 = "\x70\x7D\x6E\xC7\x45";  // CMS Patch 2  //70 7D 6E C7 45
 
@@ -859,9 +814,7 @@ bool CMSPatch() {
     LPVOID address2 = nullptr;
     SIZE_T numberOfBytesWritten;
     DWORD oldProtect;
-	HANDLE hProcess = GetCurrentProcess();
 
-    uintptr_t moduleBaseAddress = GetModuleBaseAddress(hProcess, L"DBXV.EXE");
     if (moduleBaseAddress != 0) {
         address1 = (LPVOID)(moduleBaseAddress + 0x15EE39);
         address2 = (LPVOID)(moduleBaseAddress + 0x19363A);
@@ -895,7 +848,6 @@ bool CMSPatch() {
 	return 0;
 }
 
-
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch (fdwReason)
@@ -912,21 +864,7 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 				
 				//PATCHES GO HERE
 				CheckVersion();
-				
-				std::string value = getIniValue(INI_FILE, "Patches", "CMS_Patch");
-				if (!value.empty()) {
-					if(value == "True"){
-						CMSPatch;
-						DPRINTF("XVPatcher.ini - CMS patch applied successfully.");
-					}
-					else if(value == "False"){
-						DPRINTF("XVPatcher.ini - CMS patch is set to false, do nothing...");
-					}
-				} else {
-					DPRINTF("XVPatcher.ini - Chiave non trovata o valore vuoto.");
-				}
-
-
+				ApplyPatches();
 
 				CpkFile *data, *data2, *datap1, *datap2, *datap3;
 				
