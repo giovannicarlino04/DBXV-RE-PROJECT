@@ -1,0 +1,67 @@
+00 -- Blue aura
+
+01 -- Violet aura
+
+02 -- Purple aura
+
+03 -- Purple aura
+
+04 -- Red aura
+
+05 -- Super Saiyan aura
+
+06 -- Super Saiyan 2 aura
+
+07 -- Super Saiyan 3 aura
+
+08 -- Super Saiyan 4 aura
+
+09 -- Super Saiyan God aura
+
+10 -- Broly's  aura
+
+11 -- Very Evil aura
+
+12 -- Nothing 
+
+13 -- Kaioken aura
+
+14 -- Villainous Mode aura
+
+15 -- Mystic Gohan aura
+
+16 -- Cell's aura green with little tunderbolts
+
+17 -- Villainous Mode aura (Little)
+
+18 -- Villainous Mode SSJ aura
+
+19 -- Villainous Mode SSJ2 aura
+
+20 -- Golden Frieza's aura
+
+21 -- Super Saiyan God Super Saiyan aura
+
+22 -- Black Aura /w red eyes
+
+23 -- Black Aura SSJ 
+
+24 -- Flying Nimbus
+
+25 -- Some kind of Very Dark Big Aura (Good for boss) Only if not moving
+
+26 -- Black aura without red eyes
+
+27 -- Blue
+
+28 -- Super Saiyan God Super Saiyan Kaioken x 10 aura (OMFG)
+
+29 -- Nothing
+
+30 -- Red eyes without aura
+
+31 -- The same as 19 but character is darker and aura is always
+
+32 -- The same as 1F but character isn't darker
+
+33 -- Blue
