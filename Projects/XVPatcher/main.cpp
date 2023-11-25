@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <cstdio>
 
 #include "patch.h"
 #include "debug.h"
@@ -52,70 +53,86 @@ static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
 
+// Custom implementation of CustomDPRINTF to redirect output to console
+void CustomDPRINTF(const char* format, ...) {
+    // Format the variable arguments using vsprintf and print to std::cout
+    va_list args;
+    va_start(args, format);
+
+    // Format the output
+    char buffer[512]; // Adjust buffer size as needed
+    vsnprintf(buffer, sizeof(buffer), format, args);
+
+    // Output the formatted string to console
+    std::cout << "Debug: " << buffer << std::endl;
+
+    va_end(args);
+}
+
 extern "C"
 {
 	PUBLIC DWORD XInputGetState()
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputSetState()
 	{
-		DPRINTF("%s ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputGetBatteryInformation(DWORD,  BYTE, void *)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC void XInputEnable(BOOL)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 	}
 	
 	PUBLIC DWORD XInputGetCapabilities(DWORD, DWORD, void *)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputGetDSoundAudioDeviceGuids(DWORD, void *, void *)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputGetKeystroke(DWORD, DWORD, void *)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputGetStateEx(DWORD, void *)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputWaitForGuideButton(DWORD, DWORD, void *)
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputCancelGuideButtonWait()
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 	
 	PUBLIC DWORD XInputPowerOffController()
 	{
-		DPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
+		CustomDPRINTF("%s: ****************I have been called but I shouldn't!!!\n", FUNCNAME);
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 }
@@ -165,7 +182,7 @@ static bool load_dll(bool critical)
 	
 	myself_path = Utils::NormalizePath(mod_path);
 	myself_path = myself_path.substr(0, myself_path.rfind('/')+1);	
-	DPRINTF("Myself path = %s\n", myself_path.c_str());
+	CustomDPRINTF("Myself path = %s\n", myself_path.c_str());
 	
 	if (Utils::FileExists(myself_path+"xinput_other.dll"))
 	{
@@ -188,7 +205,7 @@ static bool load_dll(bool critical)
 		return false;
 	}
 	
-	DPRINTF("original DLL path: %s   base=%p\n", original_path, patched_dll);
+	CustomDPRINTF("original DLL path: %s   base=%p\n", original_path, patched_dll);
 		
 	for (auto &export_name : exports)
 	{
@@ -200,14 +217,14 @@ static bool load_dll(bool critical)
 		{
 			if (ordinal < 0x1000)			
 			{
-				DPRINTF("Warning: ordinal function %I64d doesn't exist in this system.\n", ordinal);
+				CustomDPRINTF("Warning: ordinal function %I64d doesn't exist in this system.\n", ordinal);
 				continue;		
 			}
 			else
 			{
 				if (Utils::IsWine())
 				{
-					DPRINTF("Failed to get original function: %s --- ignoring error because running under wine.\n", export_name);
+					CustomDPRINTF("Failed to get original function: %s --- ignoring error because running under wine.\n", export_name);
 					continue;
 				}
 				else
@@ -231,15 +248,15 @@ static bool load_dll(bool critical)
 		}
 		
 		if (ordinal < 0x1000)
-			DPRINTF("%I64d: address of microsoft: %p, address of mine: %p\n", ordinal, orig_func, my_func);
+			CustomDPRINTF("%I64d: address of microsoft: %p, address of mine: %p\n", ordinal, orig_func, my_func);
 		else
-			DPRINTF("%s: address of microsoft: %p, address of mine: %p\n", export_name, orig_func, my_func);
+			CustomDPRINTF("%s: address of microsoft: %p, address of mine: %p\n", export_name, orig_func, my_func);
 		
-		DPRINTF("Content of microsoft func: %02X%02X%02X%02X%02X\n", orig_func[0], orig_func[1], orig_func[2], orig_func[3], orig_func[4]);
-		DPRINTF("Content of my func: %02X%02X%02X%02X%02X\n", my_func[0], my_func[1], my_func[2], my_func[3], my_func[4]);
+		CustomDPRINTF("Content of microsoft func: %02X%02X%02X%02X%02X\n", orig_func[0], orig_func[1], orig_func[2], orig_func[3], orig_func[4]);
+		CustomDPRINTF("Content of my func: %02X%02X%02X%02X%02X\n", my_func[0], my_func[1], my_func[2], my_func[3], my_func[4]);
 		
 		PatchUtils::Hook(my_func, nullptr, orig_func);
-		DPRINTF("Content of my func after patch: %02X%02X%02X%02X%02X\n", my_func[0], my_func[1], my_func[2], my_func[3], my_func[4]);
+		CustomDPRINTF("Content of my func after patch: %02X%02X%02X%02X%02X\n", my_func[0], my_func[1], my_func[2], my_func[3], my_func[4]);
 	}
 	loaded = true;
 	return true;
@@ -329,14 +346,14 @@ static CpkFile *get_cpk_toc(const char *file, uint64_t *toc_offset, uint64_t *to
 	
 	if (!(*toc_buf))
 	{
-		DPRINTF("read_file_from failed (2)\n");
+		CustomDPRINTF("read_file_from failed (2)\n");
 		delete[] *toc_buf;
 		goto clean;
 	}
 	
 	if (rsize != *toc_size)
 	{
-		DPRINTF("Warning: read size doesn't match requested size.\n");
+		CustomDPRINTF("Warning: read size doesn't match requested size.\n");
 	}
 	
 	if (!cpk->ParseTocData(*toc_buf))
@@ -344,7 +361,7 @@ static CpkFile *get_cpk_toc(const char *file, uint64_t *toc_offset, uint64_t *to
 		goto clean;
 	}	
 	
-	DPRINTF("This .cpk has %d files.\n", cpk->GetNumFiles());
+	CustomDPRINTF("This .cpk has %d files.\n", cpk->GetNumFiles());
 	success = true;
 	
 clean:
@@ -399,11 +416,11 @@ static bool get_cpk_tocs(CpkFile **data, CpkFile **data2, CpkFile **datap1, CpkF
 		return false;
 	}
 
-	DPRINTF("data.cpk.toc = %I64x, size = %I64x\n", data_toc_offset, data_toc_size);
-	DPRINTF("data2.cpk.toc = %I64x, size = %I64x\n", data2_toc_offset, data2_toc_size);
-	DPRINTF("datap1.cpk.toc = %I64x, size = %I64x\n", datap1_toc_offset, datap1_toc_size);
-	DPRINTF("datap2.cpk.toc = %I64x, size = %I64x\n", datap2_toc_offset, datap2_toc_size);
-	DPRINTF("datap3.cpk.toc = %I64x, size = %I64x\n", datap3_toc_offset, datap3_toc_size);
+	CustomDPRINTF("data.cpk.toc = %I64x, size = %I64x\n", data_toc_offset, data_toc_size);
+	CustomDPRINTF("data2.cpk.toc = %I64x, size = %I64x\n", data2_toc_offset, data2_toc_size);
+	CustomDPRINTF("datap1.cpk.toc = %I64x, size = %I64x\n", datap1_toc_offset, datap1_toc_size);
+	CustomDPRINTF("datap2.cpk.toc = %I64x, size = %I64x\n", datap2_toc_offset, datap2_toc_size);
+	CustomDPRINTF("datap3.cpk.toc = %I64x, size = %I64x\n", datap3_toc_offset, datap3_toc_size);
 
 	
 	return true;
@@ -454,7 +471,7 @@ static void patch_toc(CpkFile *cpk)
 		}
 	}
 	
-	DPRINTF("%d files deleted in RAM.\n", count);
+	CustomDPRINTF("%d files deleted in RAM.\n", count);
 }
 
 static bool IsThisFile(HANDLE hFile, const char *name)
@@ -493,7 +510,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 
 	if (data_patched && data2_patched && datap1_patched && datap2_patched && datap3_patched)
 	{
-		DPRINTF("Main patch is finished. Unhooking function.\n");
+		CustomDPRINTF("Main patch is finished. Unhooking function.\n");
 		WriteMemory32((void *)readfile_import, (uint32_t)original_readfile);
 		
 		delete[] data_toc;
@@ -524,7 +541,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("data.cpk HDR patched.\n");						
+					CustomDPRINTF("data.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}
@@ -541,7 +558,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("data.cpk TOC patched.\n");	
+					CustomDPRINTF("data.cpk TOC patched.\n");	
 					data_patched = true;
 					return TRUE;
 				}
@@ -562,7 +579,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("data2.cpk HDR patched.\n");						
+					CustomDPRINTF("data2.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}			
@@ -579,7 +596,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("data2.cpk TOC patched.\n");
+					CustomDPRINTF("data2.cpk TOC patched.\n");
 					data2_patched = true;
 					return TRUE;
 				}
@@ -599,7 +616,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("datap1.cpk HDR patched.\n");						
+					CustomDPRINTF("datap1.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}			
@@ -616,7 +633,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("datap1.cpk TOC patched.\n");
+					CustomDPRINTF("datap1.cpk TOC patched.\n");
 					data2_patched = true;
 					return TRUE;
 				}
@@ -636,7 +653,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("datap2.cpk HDR patched.\n");						
+					CustomDPRINTF("datap2.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}			
@@ -653,7 +670,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("datap2.cpk TOC patched.\n");
+					CustomDPRINTF("datap2.cpk TOC patched.\n");
 					datap2_patched = true;
 					return TRUE;
 				}
@@ -673,7 +690,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("datap3.cpk HDR patched.\n");						
+					CustomDPRINTF("datap3.cpk HDR patched.\n");						
 					return TRUE;
 				}
 			}			
@@ -690,7 +707,7 @@ static BOOL WINAPI ReadFile_patched(HANDLE hFile, LPVOID lpBuffer, DWORD nNumber
 						*lpNumberOfBytesRead = nNumberOfBytesToRead;
 					}
 				
-					DPRINTF("datap3.cpk TOC patched.\n");
+					CustomDPRINTF("datap3.cpk TOC patched.\n");
 					datap3_patched = true;
 					return TRUE;
 				}
@@ -707,7 +724,7 @@ static uint8_t __thiscall cpk_file_exists_patched(void *object, char *file)
 	
 	if (ret == 0)
 	{
-		//DPRINTF("File exists originally returned 0 (%s)", file);
+		//CustomDPRINTF("File exists originally returned 0 (%s)", file);
 		return local_file_exists(file);
 	}
 	
@@ -720,7 +737,7 @@ void *my_open_cpk_file(int a1, const char *s, int a3)
 {
 	void *ret = open_cpk_file(a1, s, a3);
 	
-	DPRINTF("open_cpk_file = %s; a1=%x, a3=%x; ret = %p\n", s, a1, a3, ret);
+	CustomDPRINTF("open_cpk_file = %s; a1=%x, a3=%x; ret = %p\n", s, a1, a3, ret);
 	
 	return ret;
 }*/
@@ -730,12 +747,12 @@ void patches()
 	readfile_import = (void **)GetModuleImport(GetModuleHandle(NULL), "KERNEL32.dll", "ReadFile");
 	if (!readfile_import)
 	{
-		DPRINTF("Cannot find ReadFile import!.\n");
+		CustomDPRINTF("Cannot find ReadFile import!.\n");
 		return;
 	}
 	
 	original_readfile = *readfile_import;	
-	DPRINTF("Patch at %p\n", readfile_import);
+	CustomDPRINTF("Patch at %p\n", readfile_import);
 	WriteMemory32((void *)readfile_import, (uint32_t)ReadFile_patched);		
 
 	HookFunction(CPK_FILE_EXISTS_SYMBOL, (void **)&cpk_file_exists, (void *)cpk_file_exists_patched);	
@@ -791,10 +808,11 @@ uintptr_t GetModuleBaseAddress(HANDLE processHandle, const std::wstring& moduleN
 }
 
 void CheckVersion(){
-	DPRINTF("XVPATCHER VERSION " XVPATCHER_VERSION ". Exe base = %p. My Dll base = %p. My dll name: %s\n", GetModuleHandle(NULL), GetModuleHandle(my_dll_name), my_dll_name);	
+	LPCWSTR my_dll_name = L"xinput1_3.dll";
+	CustomDPRINTF("XVPATCHER VERSION " XVPATCHER_VERSION ". Exe base = %p. My Dll base = %p. My dll name: %s\n", GetModuleHandle(NULL), GetModuleHandleW(my_dll_name), my_dll_name);	
 	
 	float version = Utils::GetExeVersion(myself_path+EXE_PATH);
-	DPRINTF("Running on game version %.3f\n", version);
+	CustomDPRINTF("Running on game version %.3f\n", version);
 	
 	if (version != 0.0 && version < (MINIMUM_GAME_VERSION - 0.00001))
 	{
@@ -803,7 +821,7 @@ void CheckVersion(){
 	}
 }
 
-bool ApplyPatches() {
+bool CMSPatches() {
 	HANDLE hProcess = GetCurrentProcess();
 	uintptr_t moduleBaseAddress = GetModuleBaseAddress(hProcess, L"DBXV.EXE");
 
@@ -824,48 +842,61 @@ bool ApplyPatches() {
 
     // CMS Patch 1
     if (address1 == nullptr) {
-        DPRINTF("Failed to calculate the address.");
+        CustomDPRINTF("Failed to calculate the address.");
     }
 
     if (WriteProcessMemory(hProcess, address1, newBytes1, strlen(newBytes1), &numberOfBytesWritten)) {
-        DPRINTF("Successfully applied CMS Patch n.1");
+        CustomDPRINTF("Successfully applied CMS Patch n.1");
     }
     else {
-        DPRINTF("Failed to replace the bytes.");
+        CustomDPRINTF("Failed to replace the bytes.");
     }
 
     // CMS Patch 2
     if (address2 == nullptr) {
-        DPRINTF("Failed to calculate the address.");
+        CustomDPRINTF("Failed to calculate the address.");
     }
 
     if (WriteProcessMemory(hProcess, address2, newBytes2, strlen(newBytes2), &numberOfBytesWritten)) {
-        DPRINTF("Successfully applied CMS Patch n.2");
+        CustomDPRINTF("Successfully applied CMS Patch n.2");
     }
     else {
-        DPRINTF("Failed to replace the bytes.");
+        CustomDPRINTF("Failed to replace the bytes.");
     }
 	return 0;
 }
 
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
+	HANDLE consoleHandle = nullptr;
+
 	switch (fdwReason)
 	{
 		case DLL_PROCESS_ATTACH:
-		
-			DPRINTF("Hello world.\n");
-		
+			// Allocate a console for the application
+			AllocConsole();
+
+			// Get handle to the console output
+            consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (consoleHandle == INVALID_HANDLE_VALUE) {
+                // Handle error, if needed
+                return 1;
+            }
+			
+			// Redirect standard output to the console
+			freopen("CONOUT$", "w", stdout);
+			freopen("CONOUT$", "w", stderr);
+
+			// Now you can use cout and cerr to print debug information to the console
+			std::cout << "Debug console opened!" << std::endl;
+
 			if (InGameProcess())
 			{
 				if (!load_dll(false))
-					return FALSE;
-				
-				
+					return FALSE;			
 				//PATCHES GO HERE
 				CheckVersion();
-				ApplyPatches();
-
+				CMSPatches();
 				CpkFile *data, *data2, *datap1, *datap2, *datap3;
 				
 				if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
@@ -890,17 +921,15 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 					delete datap2;
 					delete datap3;
 				}				
-			}		
-			
-		break;
-		
-		case DLL_PROCESS_DETACH:		
-			
-			if (!lpvReserved)
-				unload_dll();
-			
-		break;
-	}
+			}
+			break;
+        case DLL_PROCESS_DETACH:
+            if (!lpvReserved) {
+                FreeConsole();
+                unload_dll();
+            }
+            break;
+    }
 	
 	return TRUE;
 }
