@@ -33,7 +33,7 @@
 #define DATAP2_CPK		"datap2.cpk"
 #define DATAP3_CPK		"datap3.cpk"
 
-#define XVPATCHER_VERSION "0.7"
+#define XVPATCHER_VERSION "1.0"
 #define MINIMUM_GAME_VERSION	1.00f
 
 uint8_t (* __thiscall cpk_file_exists)(void *, char *);
@@ -842,26 +842,26 @@ bool CMSPatches() {
 
     // CMS Patch 1
     if (address1 == nullptr) {
-        CustomDPRINTF("Failed to calculate the address.");
+        CustomDPRINTF("Failed to calculate the address.\n");
     }
 
     if (WriteProcessMemory(hProcess, address1, newBytes1, strlen(newBytes1), &numberOfBytesWritten)) {
-        CustomDPRINTF("Successfully applied CMS Patch n.1");
+        CustomDPRINTF("Successfully applied CMS Patch n.1\n");
     }
     else {
-        CustomDPRINTF("Failed to replace the bytes.");
+        CustomDPRINTF("Failed to replace the bytes.\n");
     }
 
     // CMS Patch 2
     if (address2 == nullptr) {
-        CustomDPRINTF("Failed to calculate the address.");
+        CustomDPRINTF("Failed to calculate the address.\n");
     }
 
     if (WriteProcessMemory(hProcess, address2, newBytes2, strlen(newBytes2), &numberOfBytesWritten)) {
-        CustomDPRINTF("Successfully applied CMS Patch n.2");
+        CustomDPRINTF("Successfully applied CMS Patch n.2\n");
     }
     else {
-        CustomDPRINTF("Failed to replace the bytes.");
+        CustomDPRINTF("Failed to replace the bytes.\n");
     }
 	return 0;
 }

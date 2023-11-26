@@ -456,7 +456,7 @@ namespace XVReborn
                 if (standardInput.BaseStream.CanWrite)
                 {
                     standardInput.WriteLine("cd " + Properties.Settings.Default.flexsdkfolder + "\\bin");
-                    standardInput.WriteLine("mxmlc -compiler.source-path=" + sourcepath + " " + maintimelinepath);
+                    standardInput.WriteLine("mxmlc -compiler.source-path=" + sourcepath + " -omit-trace-statements=false " + maintimelinepath);
                 }
             }
             process.WaitForExit();
