@@ -65,7 +65,7 @@ bool Stream::CopyEx(Stream *other, size_t size, Hash hash_mode, uint8_t *hash, C
     SHA1_CTX ctx;
     bool decrypt, encrypt, do_hash;
 
-    assert((BUFFER_SIZE % block_size) == 0);
+    //assert((BUFFER_SIZE % block_size) == 0);
 
     do_hash = (hash_mode == Hash::SHA1);
     decrypt = (decrypt_mode == Cipher::AES_PLAIN);
@@ -122,7 +122,6 @@ bool Stream::CopyEx(Stream *other, size_t size, Hash hash_mode, uint8_t *hash, C
 
         if (decrypt)
         {
-            Utils::AesEcbDecrypt(copy_buf, read_size, decrypt_key, decrypt_key_size);
         }
 
         if (encrypt)
@@ -131,11 +130,9 @@ bool Stream::CopyEx(Stream *other, size_t size, Hash hash_mode, uint8_t *hash, C
             {
                 size_t new_write_size = write_size + (block_size - (r % block_size));
 
-                memset(copy_buf+write_size, 0, new_write_size-write_size);
                 write_size = new_write_size;
             }
 
-            Utils::AesEcbEncrypt(copy_buf, write_size, encrypt_key, encrypt_key_size);
         }
 
         if (!Write(copy_buf, write_size))

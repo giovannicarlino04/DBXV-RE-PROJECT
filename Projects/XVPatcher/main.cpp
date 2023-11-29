@@ -11,6 +11,8 @@
 #include <fstream>
 #include <map>
 #include <cstdio>
+#include <algorithm>
+#include <memory>
 
 #include "patch.h"
 #include "debug.h"
@@ -19,22 +21,8 @@
 #include "Mutex.h"
 #include "Utils.h"
 #include "PatchUtils.h"
-
-#define EXPORT WINAPI __declspec(dllexport)
-#define PUBLIC EXPORT
-
-#define NUM_EXPORTED_FUNCTIONS	18
-
-#define EXE_PATH	"DBXV.exe"
-#define PROCESS_NAME 	"dbxv.exe"
-#define DATA_CPK		"data.cpk"
-#define DATA2_CPK		"data2.cpk"
-#define DATAP1_CPK		"datap1.cpk"
-#define DATAP2_CPK		"datap2.cpk"
-#define DATAP3_CPK		"datap3.cpk"
-
-#define XVPATCHER_VERSION "1.0"
-#define MINIMUM_GAME_VERSION	1.00f
+#include "IggyFile.h"
+#include "XVPatcher.h"
 
 uint8_t (* __thiscall cpk_file_exists)(void *, char *);
 
@@ -53,6 +41,7 @@ static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
 
+
 // Custom implementation of CustomDPRINTF to redirect output to console
 void CustomDPRINTF(const char* format, ...) {
     // Format the variable arguments using vsprintf and print to std::cout
@@ -67,6 +56,30 @@ void CustomDPRINTF(const char* format, ...) {
     std::cout << "Debug: " << buffer << std::endl;
 
     va_end(args);
+}
+void iggy_trace_callback(void *, void *, const char *str, size_t)
+{
+	if (str && strcmp(str, "\n") == 0)
+		return;
+	
+	CustomDPRINTF("IGGY: %s\n", str);
+}
+static void IggySetTraceCallbackUTF8Patched(void *, void *param)
+{
+	HMODULE iggy = GetModuleHandle("iggy_w32.dll");
+	if (!iggy)
+		return;
+	
+	IGGYSetTraceCallbackType func = (IGGYSetTraceCallbackType)GetProcAddress(iggy, "_IggySetTraceCallbackUTF8@8");
+	
+	if (func)
+		func((void *)iggy_trace_callback, param);
+}
+
+static BOOL InternetGetConnectedStatePatched(LPDWORD lpdwFlags, DWORD dwReserved)
+{
+	*lpdwFlags = 0x20;
+	return FALSE;
 }
 
 extern "C"
@@ -136,8 +149,6 @@ extern "C"
 		return ERROR_DEVICE_NOT_CONNECTED;
 	}
 }
-
-
 
 static BOOL InGameProcess(VOID)
 {
@@ -234,7 +245,6 @@ static bool load_dll(bool critical)
 				}
 			}
 		}
-		
 		uint8_t *my_func = (uint8_t *)GetProcAddress(myself, export_name);		
 		
 		if (!my_func)
@@ -759,7 +769,6 @@ void patches()
 	//HookFunction(CPK_OPEN_FILE_SYMBOL, (void **)&open_cpk_file, (void *)my_open_cpk_file);
 }
 
-
 // Function to get the last error message
 std::string GetLastErrorAsString() {
     DWORD errorMessageID = GetLastError();
@@ -821,10 +830,7 @@ void CheckVersion(){
 	}
 }
 
-bool CMSPatches() {
-	HANDLE hProcess = GetCurrentProcess();
-	uintptr_t moduleBaseAddress = GetModuleBaseAddress(hProcess, L"DBXV.EXE");
-
+bool CMSPatches(HANDLE hProcess, uintptr_t moduleBaseAddress) {
    	const char* newBytes1 = "\x7F\x7C\x09\xB8\x00";  // CMS Patch 1  //7F 7C 09 B8 00
     const char* newBytes2 = "\x70\x7D\x6E\xC7\x45";  // CMS Patch 2  //70 7D 6E C7 45
 
@@ -842,27 +848,54 @@ bool CMSPatches() {
 
     // CMS Patch 1
     if (address1 == nullptr) {
-        CustomDPRINTF("Failed to calculate the address.\n");
+        UPRINTF("Failed to calculate the address.\n");
     }
 
     if (WriteProcessMemory(hProcess, address1, newBytes1, strlen(newBytes1), &numberOfBytesWritten)) {
         CustomDPRINTF("Successfully applied CMS Patch n.1\n");
     }
     else {
-        CustomDPRINTF("Failed to replace the bytes.\n");
+        UPRINTF("Failed to replace the bytes.\n");
     }
 
     // CMS Patch 2
     if (address2 == nullptr) {
-        CustomDPRINTF("Failed to calculate the address.\n");
+        UPRINTF("Failed to calculate the address.\n");
     }
 
     if (WriteProcessMemory(hProcess, address2, newBytes2, strlen(newBytes2), &numberOfBytesWritten)) {
         CustomDPRINTF("Successfully applied CMS Patch n.2\n");
     }
     else {
-        CustomDPRINTF("Failed to replace the bytes.\n");
+        UPRINTF("Failed to replace the bytes.\n");
     }
+	return 0;
+}
+
+VOID WINAPI GetStartupInfoW_Patched(LPSTARTUPINFOW lpStartupInfo)
+{
+	static bool started = false;
+	
+	// This function is only called once by the game but... just in case
+	if (!started)
+	{	
+		if (!load_dll(false))
+			exit(-1);
+
+		bool iggy_debug = true;
+		if (iggy_debug)
+		{
+			if (!PatchUtils::HookImport("iggy_w32.dll", "_IggySetTraceCallbackUTF8@8", (void *)IggySetTraceCallbackUTF8Patched))
+			{
+				CustomDPRINTF("Failed to hook import of _IggySetTraceCallbackUTF8@8.\n");						
+			}
+		}
+	}	
+	GetStartupInfoW(lpStartupInfo);
+}
+DWORD WINAPI StartThread(LPVOID)
+{
+	load_dll(false);
 	return 0;
 }
 
@@ -872,7 +905,7 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 
 	switch (fdwReason)
 	{
-		case DLL_PROCESS_ATTACH:
+		case DLL_PROCESS_ATTACH: {
 			// Allocate a console for the application
 			AllocConsole();
 
@@ -892,11 +925,16 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 
 			if (InGameProcess())
 			{
+				HANDLE hProcess = GetCurrentProcess();
+				uintptr_t moduleBaseAddress = GetModuleBaseAddress(hProcess, L"DBXV.EXE");
+
 				if (!load_dll(false))
-					return FALSE;			
+					return FALSE;	
+
 				//PATCHES GO HERE
 				CheckVersion();
-				CMSPatches();
+				CMSPatches(hProcess, moduleBaseAddress);
+			
 				CpkFile *data, *data2, *datap1, *datap2, *datap3;
 				
 				if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
@@ -920,16 +958,24 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 					delete datap1;
 					delete datap2;
 					delete datap3;
-				}				
-			}
-			break;
-        case DLL_PROCESS_DETACH:
+				}		
+				if (!PatchUtils::HookImport("KERNEL32.dll", "GetStartupInfoW", (void *)GetStartupInfoW_Patched))
+				{
+					UPRINTF("GetStartupInfoW hook failed.\n");
+					return TRUE;
+				}		
+			}break;
+		}
+		
+        case DLL_PROCESS_DETACH: 
+		{
             if (!lpvReserved) {
                 FreeConsole();
                 unload_dll();
             }
-            break;
-    }
+    }            
+	break;
+}
 	
 	return TRUE;
 }
