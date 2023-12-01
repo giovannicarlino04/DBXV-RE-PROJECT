@@ -494,10 +494,6 @@ bool IggyFile::SetAbcBlob(void *buf, uint32_t size)
 {
 }
 
-bool IggyFile::RebuildIndexAfterAbc(int32_t diff)
-{
-}
-
 void IggyFile::PrintIndex() const
 {
 }

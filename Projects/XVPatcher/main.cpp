@@ -872,6 +872,46 @@ bool CMSPatches(HANDLE hProcess, uintptr_t moduleBaseAddress) {
 	return 0;
 }
 
+bool VersionStringPatch(HANDLE hProcess, uintptr_t moduleBaseAddress) {
+	const BYTE patchsize = wcslen(L"\x76\x65\x72\x2e\x31\x2e\x30\x38\x2e\x30\x30") * sizeof(wchar_t);
+    const wchar_t* newBytes1 = L"\x58\x56\x50\x61\x74\x63\x68\x65\x72";
+
+    LPVOID address1 = nullptr;
+    SIZE_T numberOfBytesWritten;
+    DWORD oldProtect;
+    DWORD newProtect = PAGE_EXECUTE_READWRITE;
+
+    if (moduleBaseAddress != 0) {
+        address1 = (LPVOID)(moduleBaseAddress + 0x11ACFB4);
+    }
+
+    ////////////////// PATCHES GO HERE ///////////////
+
+    // Version String Patch 1
+    if (address1 == nullptr) {
+        UPRINTF("Failed to calculate the address.\n");
+        return false;
+    }
+
+    if (!VirtualProtect(address1, patchsize, newProtect, &oldProtect)) {
+        UPRINTF("Failed to change memory protection.\n");
+        return false;
+    }
+
+    if (!WriteProcessMemory(hProcess, address1, newBytes1, patchsize, &numberOfBytesWritten)) {
+        UPRINTF("Failed to replace the bytes.\n");
+        return false;
+    }
+
+    if (!VirtualProtect(address1, patchsize, oldProtect, &newProtect)) {
+        UPRINTF("Failed to restore memory protection.\n");
+        return false;
+    }
+
+    CustomDPRINTF("Successfully applied Version String Patch\n");
+    return true;
+}
+
 VOID WINAPI GetStartupInfoW_Patched(LPSTARTUPINFOW lpStartupInfo)
 {
 	static bool started = false;
@@ -934,6 +974,7 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 				//PATCHES GO HERE
 				CheckVersion();
 				CMSPatches(hProcess, moduleBaseAddress);
+				VersionStringPatch(hProcess, moduleBaseAddress);
 			
 				CpkFile *data, *data2, *datap1, *datap2, *datap3;
 				
