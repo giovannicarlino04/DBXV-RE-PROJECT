@@ -12,7 +12,7 @@
 
 #ifdef _WIN32
 
-#include <Windows.h>
+#include <windows.h>
 #include <direct.h>
 #include <shellapi.h>
 #define do_mkdir(a, b) _mkdir(a)
@@ -3533,7 +3533,7 @@ std::string Utils::SSSSModelFileName(uint32_t cms_entry, uint32_t cms_model_spec
 
 #ifdef _WIN32
 
-#include <Wincrypt.h>
+#include <wincrypt.h>
 
 uint64_t Utils::RandomInt(uint64_t min, uint64_t max)
 {

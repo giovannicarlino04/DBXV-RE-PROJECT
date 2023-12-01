@@ -6,7 +6,6 @@
 #include <io.h>
 #include <stdint.h>
 #include <string>
-#include <Psapi.h>
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -40,7 +39,6 @@ static HMODULE patched_dll;
 static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
-
 
 // Custom implementation of CustomDPRINTF to redirect output to console
 void CustomDPRINTF(const char* format, ...) {
@@ -788,32 +786,13 @@ std::string GetLastErrorAsString() {
     return message;
 }
 
-uintptr_t GetModuleBaseAddress(HANDLE processHandle, const std::wstring& moduleName)
-{
-    HMODULE modules[1024];
-    DWORD needed;
-
-    if (EnumProcessModules(processHandle, modules, sizeof(modules), &needed))
-    {
-        for (DWORD i = 0; i < (needed / sizeof(HMODULE)); i++)
-        {
-            wchar_t modulePath[MAX_PATH];
-
-            if (GetModuleFileNameExW(processHandle, modules[i], modulePath, sizeof(modulePath) / sizeof(wchar_t)))
-            {
-                std::wstring moduleFileName = std::wstring(modulePath);
-                size_t lastSlash = moduleFileName.find_last_of(L"\\");
-                std::wstring currentModuleName = moduleFileName.substr(lastSlash + 1);
-
-                if (_wcsicmp(currentModuleName.c_str(), moduleName.c_str()) == 0)
-                {
-                    return reinterpret_cast<uintptr_t>(modules[i]);
-                }
-            }
-        }
+uintptr_t GetModuleBaseAddress(const wchar_t* modName) {
+    HMODULE hModule = GetModuleHandleW(modName);
+    if (hModule != NULL) {
+        return (uintptr_t)hModule; // Return the base address of the module
+    } else {
+        return 0; // Module not found
     }
-
-    return 0;
 }
 
 void CheckVersion(){
@@ -843,6 +822,9 @@ bool CMSPatches(HANDLE hProcess, uintptr_t moduleBaseAddress) {
         address1 = (LPVOID)(moduleBaseAddress + 0x15EE39);
         address2 = (LPVOID)(moduleBaseAddress + 0x19363A);
     }
+	else{
+		UPRINTF("ModuleBaseAddress = 0");
+	}
 
     /////////////// PATCHES GO HERE ///////////////
 
@@ -966,7 +948,7 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 			if (InGameProcess())
 			{
 				HANDLE hProcess = GetCurrentProcess();
-				uintptr_t moduleBaseAddress = GetModuleBaseAddress(hProcess, L"DBXV.EXE");
+				uintptr_t moduleBaseAddress = GetModuleBaseAddress(L"DBXV.exe");
 
 				if (!load_dll(false))
 					return FALSE;	
