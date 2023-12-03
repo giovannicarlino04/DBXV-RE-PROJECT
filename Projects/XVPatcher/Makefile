@@ -2,7 +2,7 @@ CC := i686-w64-mingw32-gcc
 CXX := i686-w64-mingw32-g++
 
 OUTPUT := xinput1_3.dll
-OUTPUT_COPY := /home/giovanni/.steam/steam/steamapps/common/DB\ Xenoverse
+OUTPUT_COPY := C:/Games/DB\ Xenoverse
 
 OBJS := main.o debug.o CpkFile.o BaseFile.o patch.o PatchUtils.o Utils.o MemoryStream.o FixedMemoryStream.o Stream.o IggyFile.o
 OBJS += ./crypto/sha1.o ./crypto/md5.o ./crypto/rijndael.o
