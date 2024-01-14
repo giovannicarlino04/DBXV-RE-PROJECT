@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Giovanni Carlino\\.nuget\\packages\\": {}
+    "C:\\Users\\Giovanni\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Giovanni Carlino\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
+      "projectUniqueName": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
       "projectName": "XVReplacerCreator",
-      "projectPath": "C:\\Users\\Giovanni Carlino\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
-      "packagesPath": "C:\\Users\\Giovanni Carlino\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Giovanni Carlino\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\obj\\",
+      "projectPath": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
+      "packagesPath": "C:\\Users\\Giovanni\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Giovanni Carlino\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Giovanni\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -59,19 +59,19 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.25, 6.0.25]"
+            "version": "[6.0.26, 6.0.26]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[6.0.25, 6.0.25]"
+            "version": "[6.0.26, 6.0.26]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.25, 6.0.25]"
+            "version": "[6.0.26, 6.0.26]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[6.0.25, 6.0.25]"
+            "version": "[6.0.26, 6.0.26]"
           }
         ],
         "frameworkReferences": {
@@ -82,7 +82,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

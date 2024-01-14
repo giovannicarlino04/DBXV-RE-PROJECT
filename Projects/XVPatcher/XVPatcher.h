@@ -14,7 +14,7 @@
 #define XVPATCHER_VERSION "1.04"
 
 #define MINIMUM_GAME_VERSION	1.00f
-#define INI_FILE "./XVPatcher.ini" //Currently Unused, but we'll see in the future
+#define INI_FILE "./XVPatcher/XVPatcher.ini"
 
 
 typedef void (* IGGYSetTraceCallbackType)(void *callback, void *param);

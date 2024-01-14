@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <algorithm>
 #include <memory>
+#include <thread>
 
 #include "patch.h"
 #include "debug.h"
@@ -40,7 +41,7 @@ static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
 
-// Custom implementation of CustomDPRINTF to redirect output to console
+// Custom implementation of DPRINTF to redirect output to console
 void CustomDPRINTF(const char* format, ...) {
     // Format the variable arguments using vsprintf and print to std::cout
     va_list args;
@@ -55,6 +56,57 @@ void CustomDPRINTF(const char* format, ...) {
 
     va_end(args);
 }
+
+std::map<std::string, std::string> readIniFile(const std::string& filename) {
+    std::map<std::string, std::string> iniValues;
+
+    std::ifstream file(filename);
+
+    if (!file.is_open()) {
+        UPRINTF("Error opening ini file, please install the patcher correctly.");
+        return;
+    }
+
+    std::string line;
+    std::string currentSection;
+
+    while (std::getline(file, line)) {
+        // Remove leading and trailing whitespaces
+        line.erase(0, line.find_first_not_of(" \t\r\n"));
+        line.erase(line.find_last_not_of(" \t\r\n") + 1);
+
+        if (line.empty() || line[0] == ';') {
+            // Skip empty lines or comments starting with ';'
+            continue;
+        } else if (line[0] == '[' && line[line.length() - 1] == ']') {
+            // New section
+            currentSection = line.substr(1, line.length() - 2);
+        } else {
+            // Key-value pair
+            size_t separatorPos = line.find('=');
+
+            if (separatorPos != std::string::npos) {
+                std::string key = line.substr(0, separatorPos);
+                std::string value = line.substr(separatorPos + 1);
+
+                // Remove leading and trailing whitespaces from key and value
+                key.erase(0, key.find_first_not_of(" \t\r\n"));
+                key.erase(key.find_last_not_of(" \t\r\n") + 1);
+                value.erase(0, value.find_first_not_of(" \t\r\n"));
+                value.erase(value.find_last_not_of(" \t\r\n") + 1);
+
+                iniValues[currentSection + "." + key] = value;
+            } else {
+                std::cerr << "Invalid line in INI file: " << line << std::endl;
+            }
+        }
+    }
+
+    file.close();
+
+    return iniValues;
+}
+
 void iggy_trace_callback(void *, void *, const char *str, size_t)
 {
 	if (str && strcmp(str, "\n") == 0)
@@ -72,12 +124,6 @@ static void IggySetTraceCallbackUTF8Patched(void *, void *param)
 	
 	if (func)
 		func((void *)iggy_trace_callback, param);
-}
-
-static BOOL InternetGetConnectedStatePatched(LPDWORD lpdwFlags, DWORD dwReserved)
-{
-	*lpdwFlags = 0x20;
-	return FALSE;
 }
 
 extern "C"
@@ -732,23 +778,11 @@ static uint8_t __thiscall cpk_file_exists_patched(void *object, char *file)
 	
 	if (ret == 0)
 	{
-		//CustomDPRINTF("File exists originally returned 0 (%s)", file);
 		return local_file_exists(file);
 	}
 	
 	return ret;
 }
-
-/*void *(* open_cpk_file)(int, const char *, int );
-
-void *my_open_cpk_file(int a1, const char *s, int a3)
-{
-	void *ret = open_cpk_file(a1, s, a3);
-	
-	CustomDPRINTF("open_cpk_file = %s; a1=%x, a3=%x; ret = %p\n", s, a1, a3, ret);
-	
-	return ret;
-}*/
 
 void patches()
 {
@@ -764,7 +798,6 @@ void patches()
 	WriteMemory32((void *)readfile_import, (uint32_t)ReadFile_patched);		
 
 	HookFunction(CPK_FILE_EXISTS_SYMBOL, (void **)&cpk_file_exists, (void *)cpk_file_exists_patched);	
-	//HookFunction(CPK_OPEN_FILE_SYMBOL, (void **)&open_cpk_file, (void *)my_open_cpk_file);
 }
 
 // Function to get the last error message
@@ -915,6 +948,7 @@ VOID WINAPI GetStartupInfoW_Patched(LPSTARTUPINFOW lpStartupInfo)
 	}	
 	GetStartupInfoW(lpStartupInfo);
 }
+
 DWORD WINAPI StartThread(LPVOID)
 {
 	load_dll(false);
@@ -924,26 +958,37 @@ DWORD WINAPI StartThread(LPVOID)
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	HANDLE consoleHandle = nullptr;
+	std::map<std::string, std::string> iniValues = readIniFile(INI_FILE);
+	
+	
+	//This patch MUST go here, it's not optional!!!
+	std::string keyToCheck = "Debug.Debug_Console";
+	if(iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True")
+	{
+		// Allocate a console for the application
+		AllocConsole();
+
+		// Get handle to the console output
+		consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+		if (consoleHandle == INVALID_HANDLE_VALUE) {
+			// Handle error, if needed
+			return 1;
+		}
+
+		// Redirect standard output to the console
+		freopen("CONOUT$", "w", stdout);
+		freopen("CONOUT$", "w", stderr);
+	}
+	else{
+		CustomDPRINTF("Console Debugging is not enabled or the key is not present.\n");
+	}
+	//////////////////////////////////////////////
+
 
 	switch (fdwReason)
 	{
 		case DLL_PROCESS_ATTACH: {
-			// Allocate a console for the application
-			AllocConsole();
 
-			// Get handle to the console output
-            consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-            if (consoleHandle == INVALID_HANDLE_VALUE) {
-                // Handle error, if needed
-                return 1;
-            }
-			
-			// Redirect standard output to the console
-			freopen("CONOUT$", "w", stdout);
-			freopen("CONOUT$", "w", stderr);
-
-			// Now you can use cout and cerr to print debug information to the console
-			std::cout << "Debug console opened!" << std::endl;
 
 			if (InGameProcess())
 			{
@@ -953,41 +998,77 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 				if (!load_dll(false))
 					return FALSE;	
 
-				//PATCHES GO HERE
+				//PATCHES THAT DON'T REQUIRE INI FILE GO HERE
 				CheckVersion();
-				CMSPatches(hProcess, moduleBaseAddress);
-				VersionStringPatch(hProcess, moduleBaseAddress);
-			
-				CpkFile *data, *data2, *datap1, *datap2, *datap3;
+				/////////////////////////////////////////////
 				
-				if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
+				
+				//PATCHES THAT REQUIRE INI FILE GO HERE
+				std::string keyToCheck = "Patches.CMS_Patches";
+				if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True") {
+					CustomDPRINTF("CMS Patches are enabled.\n");
+					CMSPatches(hProcess, moduleBaseAddress);
+				} 
+				else 
 				{
-					patch_toc(data);
-					patch_toc(data2);
-					patch_toc(datap1);
-					patch_toc(datap2);
-					patch_toc(datap3);
+					CustomDPRINTF("CMS Patches are not enabled or the key is not present.\n");
+				}
+
+
+
+				keyToCheck = "Patches.Version_String_Patch";
+				if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True") {
+					CustomDPRINTF("Version String Patch is enabled.\n");
+					VersionStringPatch(hProcess, moduleBaseAddress);
+				} 
+				else 
+				{
+					CustomDPRINTF("Version String Patch is not enabled or the key is not present.\n");
+				}
+				
+				
+				
+				keyToCheck = "Patches.CPK_Patch";
+				if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True") {
+					CustomDPRINTF("CPK Patch is enabled.\n");
+					CpkFile *data, *data2, *datap1, *datap2, *datap3;
 					
-					data->RevertEncryption(false);
-					data2->RevertEncryption(false);
-					datap1->RevertEncryption(false);
-					datap2->RevertEncryption(false);
-					datap3->RevertEncryption(false);
-										
-					patches();
-					
-					delete data;
-					delete data2;
-					delete datap1;
-					delete datap2;
-					delete datap3;
-				}		
+					if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
+					{
+						patch_toc(data);
+						patch_toc(data2);
+						patch_toc(datap1);
+						patch_toc(datap2);
+						patch_toc(datap3);
+						
+						data->RevertEncryption(false);
+						data2->RevertEncryption(false);
+						datap1->RevertEncryption(false);
+						datap2->RevertEncryption(false);
+						datap3->RevertEncryption(false);
+											
+						patches();
+						
+						delete data;
+						delete data2;
+						delete datap1;
+						delete datap2;
+						delete datap3;
+					}		
+				}		 
+				else 
+				{
+					CustomDPRINTF("CPK Patch is not enabled or the key is not present.\n");
+				}
+				/////////////////////////////////////////////
+				
 				if (!PatchUtils::HookImport("KERNEL32.dll", "GetStartupInfoW", (void *)GetStartupInfoW_Patched))
 				{
 					UPRINTF("GetStartupInfoW hook failed.\n");
 					return TRUE;
-				}		
-			}break;
+				}
+			}
+			break;
 		}
 		
         case DLL_PROCESS_DETACH: 

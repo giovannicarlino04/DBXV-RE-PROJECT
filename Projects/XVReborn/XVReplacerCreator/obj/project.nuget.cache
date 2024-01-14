@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "c+04Z2zHm9o6VYlOBWRzJ4e2SBClbzFWBuAd7cWAjSbOvQmlj2LGrdjgb+w6cHhDLdnRh/FqxApcIJ2IimDauA==",
+  "dgSpecHash": "rU5KPmVDmjamlDh70KU191Sb3D91h0rl5NJAJRHJccthUJ8yR1g75DYTmiL9B6+WiWjf77RqhityQXUu/DOUqg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Giovanni Carlino\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
+  "projectFilePath": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Giovanni Carlino\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\Giovanni Carlino\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\Giovanni Carlino\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
-    "C:\\Users\\Giovanni Carlino\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
   ],
   "logs": []
 }

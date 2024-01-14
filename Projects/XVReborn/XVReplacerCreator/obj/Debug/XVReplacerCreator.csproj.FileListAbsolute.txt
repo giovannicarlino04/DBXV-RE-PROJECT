@@ -22,3 +22,11 @@ C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.csproj.CoreCompileInputs.cache
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.dll
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.genruntimeconfig.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.Form1.resources
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.csproj.GenerateResource.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.AssemblyInfoInputs.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.AssemblyInfo.cs
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.dll
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.genruntimeconfig.cache
