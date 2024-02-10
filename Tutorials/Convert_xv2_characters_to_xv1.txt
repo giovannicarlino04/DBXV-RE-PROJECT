@@ -1,4 +1,0 @@
-1) Change the BCS header from H to L
-2) XMLize all the .emd and .emm files and change the version from 37568 to 65537 (In emm files you should replace the shaders too).
-If you don't want to do that, you can use EMMS from the character you're replacing, es. GOD)
-3) Edit dyt.emb files and remove the greenish line under all the colors (shader)
