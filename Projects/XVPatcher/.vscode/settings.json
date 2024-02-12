@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "cstdarg": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "map": "cpp",
+        "cstdint": "cpp",
+        "cstring": "cpp"
+    }
+}
