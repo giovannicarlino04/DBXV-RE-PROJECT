@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "4TLqNVL469nfvTNIiPeRemYULkRaIRCpAoHBq+acKwHDeldNu7R+flsvhVZu0cnSOEofpepZJ4rBJDcRFyiqjA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVCharaCreator\\XVCharaCreator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
+    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
+  ],
+  "logs": []
+}
