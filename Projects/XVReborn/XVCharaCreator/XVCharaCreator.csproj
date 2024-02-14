@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <OutputPath>C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn</OutputPath>
+	  <OutputPath>C:\Games\DB Xenoverse\XVReborn</OutputPath>
 	  <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 	  <ApplicationIcon>DBXV.ico</ApplicationIcon>
 	  <NoWin32Manifest>true</NoWin32Manifest>

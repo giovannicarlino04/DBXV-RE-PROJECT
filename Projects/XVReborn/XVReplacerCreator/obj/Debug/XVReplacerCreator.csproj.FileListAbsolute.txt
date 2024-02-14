@@ -10,10 +10,10 @@ C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModMan
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVReplacerCreator\obj\Debug\XVReplacerCreator.csproj.CoreCompileInputs.cache
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVReplacerCreator\obj\Debug\XVReplacerCreator.dll
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVModManager\XVReplacerCreator\obj\Debug\XVReplacerCreator.genruntimeconfig.cache
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReplacerCreator.exe
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReplacerCreator.deps.json
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReplacerCreator.runtimeconfig.json
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReplacerCreator.dll
+C:\Games\DB Xenoverse\XVReborn\XVReplacerCreator.exe
+C:\Games\DB Xenoverse\XVReborn\XVReplacerCreator.deps.json
+C:\Games\DB Xenoverse\XVReborn\XVReplacerCreator.runtimeconfig.json
+C:\Games\DB Xenoverse\XVReborn\XVReplacerCreator.dll
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.Form1.resources
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.csproj.GenerateResource.cache
 C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReplacerCreator\obj\Debug\XVReplacerCreator.GeneratedMSBuildEditorConfig.editorconfig

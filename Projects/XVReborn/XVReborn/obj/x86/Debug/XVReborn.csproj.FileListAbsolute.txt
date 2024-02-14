@@ -1,6 +1,6 @@
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\EffectData.xml
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.exe.config
-C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.exe
+C:\Games\DB Xenoverse\XVReborn\EffectData.xml
+C:\Games\DB Xenoverse\XVReborn\XVReborn.exe.config
+C:\Games\DB Xenoverse\XVReborn\XVReborn.exe
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.AssemblyReference.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.SuggestedBindingRedirects.cache
 C:\Users\Giovanni Carlino\Desktop\Repos\DBXV-RE-PROJECT\XVReborn\Project\XVReborn\XVReborn\obj\x86\Debug\XVReborn.csproj.ResolveComReference.cache

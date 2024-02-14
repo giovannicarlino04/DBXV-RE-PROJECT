@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rU5KPmVDmjamlDh70KU191Sb3D91h0rl5NJAJRHJccthUJ8yR1g75DYTmiL9B6+WiWjf77RqhityQXUu/DOUqg==",
+  "dgSpecHash": "/S2nQJKOqQyzEJhjAKed+0XDmORAM3ujcbFMLjEgzRV7GvVvsXQPht/0xPthPyi9JA6mDzuS98Prn1FqHEYkBg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\Projects\\XVReborn\\XVReplacerCreator\\XVReplacerCreator.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.26\\microsoft.windowsdesktop.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.26\\microsoft.netcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.26\\microsoft.aspnetcore.app.ref.6.0.26.nupkg.sha512",
-    "C:\\Users\\Giovanni\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.26\\microsoft.netcore.app.host.win-x64.6.0.26.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
