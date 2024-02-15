@@ -164,7 +164,6 @@
     <EmbeddedResource Include="ZipFile_Blobs\XMLSerializer.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\iggy_as3_test.zip" />
     <EmbeddedResource Include="ZipFile_Blobs\item.zip" />
-    <EmbeddedResource Include="ZipFile_Blobs\xinput1_3.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

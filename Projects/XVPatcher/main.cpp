@@ -31,7 +31,6 @@ static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
 
-
 void iggy_trace_callback(void *, void *, const char *str, size_t)
 {
 	if (str && strcmp(str, "\n") == 0)
@@ -406,129 +405,129 @@ DWORD WINAPI StartThread(LPVOID)
 
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-	HANDLE consoleHandle = nullptr;
-	std::map<std::string, std::string> iniValues = readIniFile(INI_FILE);
-	
-	
-	//This patch MUST go here, it's not optional!!!
-	std::string keyToCheck = "Debug.Debug_Console";
-	if(iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True")
-	{
-		// Allocate a console for the application
-		AllocConsole();
+    HANDLE consoleHandle = nullptr;
+    std::map<std::string, std::string> iniValues = readIniFile(INI_FILE);
 
-		// Get handle to the console output
-		consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
-		if (consoleHandle == INVALID_HANDLE_VALUE) {
-			// Handle error, if needed
-			return 1;
-		}
+    // This patch MUST go here, it's not optional!!!
+    std::string keyToCheck = "Debug.Debug_Console";
+    if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True")
+    {
+        // Allocate a console for the application
+        AllocConsole();
 
-		// Redirect standard output to the console
-		freopen("CONOUT$", "w", stdout);
-		freopen("CONOUT$", "w", stderr);
-	}
-	else{
-		CustomDPRINTF("Console Debugging is not enabled or the key is not present.\n");
-	}
-	//////////////////////////////////////////////
+        // Get handle to the console output
+        consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (consoleHandle == INVALID_HANDLE_VALUE)
+        {
+            // Handle error, if needed
+            return 1;
+        }
 
+        // Redirect standard output to the console
+        freopen("CONOUT$", "w", stdout);
+        freopen("CONOUT$", "w", stderr);
+    }
+    else
+    {
+        CustomDPRINTF("Console Debugging is not enabled or the key is not present.\n");
+    }
+    ////////////////////////////////////////////////
 
-	switch (fdwReason)
-	{
-		case DLL_PROCESS_ATTACH: {
+    switch (fdwReason)
+    {
+    case DLL_PROCESS_ATTACH:
+    {
 
+        if (InGameProcess())
+        {
+            HANDLE hProcess = GetCurrentProcess();
+            uintptr_t moduleBaseAddress = GetModuleBaseAddress(L"DBXV.exe");
 
-			if (InGameProcess())
-			{
-				HANDLE hProcess = GetCurrentProcess();
-				uintptr_t moduleBaseAddress = GetModuleBaseAddress(L"DBXV.exe");
+            if (!load_dll(false))
+                return FALSE;
 
-				if (!load_dll(false))
-					return FALSE;	
+            // PATCHES THAT DON'T REQUIRE INI FILE GO HERE
+            CheckVersion();
+            /////////////////////////////////////////////
 
-				//PATCHES THAT DON'T REQUIRE INI FILE GO HERE
-				CheckVersion();
-				/////////////////////////////////////////////
-				
-				
-				//PATCHES THAT REQUIRE INI FILE GO HERE
-				std::string keyToCheck = "Patches.CMS_Patches";
-				if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True") {
-					CustomDPRINTF("CMS Patches are enabled.\n");
-					CMSPatches(hProcess, moduleBaseAddress);
-				} 
-				else 
-				{
-					CustomDPRINTF("CMS Patches are not enabled or the key is not present.\n");
-				}
-
-
-
-				keyToCheck = "Patches.Version_String_Patch";
-				if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True") {
-					CustomDPRINTF("Version String Patch is enabled.\n");
-					VersionStringPatch(hProcess, moduleBaseAddress);
-				} 
-				else 
-				{
-					CustomDPRINTF("Version String Patch is not enabled or the key is not present.\n");
-				}
-				
-				
-				
-				keyToCheck = "Patches.CPK_Patch";
-				if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True") {
-					CustomDPRINTF("CPK Patch is enabled.\n");
-					CpkFile *data, *data2, *datap1, *datap2, *datap3;
-					
-					if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
-					{
-						patch_toc(data);
-						patch_toc(data2);
-						patch_toc(datap1);
-						patch_toc(datap2);
-						patch_toc(datap3);
-						
-						data->RevertEncryption(false);
-						data2->RevertEncryption(false);
-						datap1->RevertEncryption(false);
-						datap2->RevertEncryption(false);
-						datap3->RevertEncryption(false);
-											
-						patches();
-						
-						delete data;
-						delete data2;
-						delete datap1;
-						delete datap2;
-						delete datap3;
-					}		
-				}		 
-				else 
-				{
-					CustomDPRINTF("CPK Patch is not enabled or the key is not present.\n");
-				}
-				/////////////////////////////////////////////
-				
-				if (!PatchUtils::HookImport("KERNEL32.dll", "GetStartupInfoW", (void *)GetStartupInfoW_Patched))
-				{
-					UPRINTF("GetStartupInfoW hook failed.\n");
-					return TRUE;
-				}
-			}
-			break;
-		}
-		
-        case DLL_PROCESS_DETACH: 
-		{
-            if (!lpvReserved) {
-                FreeConsole();
-                unload_dll();
+            // PATCHES THAT REQUIRE INI FILE GO HERE
+            std::string keyToCheck = "Patches.CMS_Patches";
+            if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True")
+            {
+                CustomDPRINTF("CMS Patches are enabled.\n");
+                CMSPatches(hProcess, moduleBaseAddress);
             }
-    }            
-	break;
+            else
+            {
+                CustomDPRINTF("CMS Patches are not enabled or the key is not present.\n");
+            }
+
+            keyToCheck = "Patches.Version_String_Patch";
+            if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True")
+            {
+                CustomDPRINTF("Version String Patch is enabled.\n");
+                VersionStringPatch(hProcess, moduleBaseAddress);
+            }
+            else
+            {
+                CustomDPRINTF("Version String Patch is not enabled or the key is not present.\n");
+            }
+
+            keyToCheck = "Patches.CPK_Patch";
+            if (iniValues.find(keyToCheck) != iniValues.end() && iniValues[keyToCheck] == "True")
+            {
+                CustomDPRINTF("CPK Patch is enabled.\n");
+                CpkFile *data, *data2, *datap1, *datap2, *datap3;
+
+                if (get_cpk_tocs(&data, &data2, &datap1, &datap2, &datap3))
+                {
+                    patch_toc(data);
+                    patch_toc(data2);
+                    patch_toc(datap1);
+                    patch_toc(datap2);
+                    patch_toc(datap3);
+
+                    data->RevertEncryption(false);
+                    data2->RevertEncryption(false);
+                    datap1->RevertEncryption(false);
+                    datap2->RevertEncryption(false);
+                    datap3->RevertEncryption(false);
+
+                    patches();
+
+                    delete data;
+                    delete data2;
+                    delete datap1;
+                    delete datap2;
+                    delete datap3;
+                }
+            }
+            else
+            {
+                CustomDPRINTF("CPK Patch is not enabled or the key is not present.\n");
+            }
+            /////////////////////////////////////////////
+
+            if (!PatchUtils::HookImport("KERNEL32.dll", "GetStartupInfoW", (void *)GetStartupInfoW_Patched))
+            {
+                UPRINTF("GetStartupInfoW hook failed.\n");
+                return TRUE;
+            }
+        }
+        break;
+    }
+
+    case DLL_PROCESS_DETACH:
+    {
+        if (!lpvReserved)
+        {
+            FreeConsole();
+            unload_dll();
+        }
+    }
+    break;
+    }
+
+    return TRUE;
 }
-	
-	return TRUE;
-}
+

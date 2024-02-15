@@ -55,13 +55,6 @@ namespace XVReborn
             {
                 Form3 frm = new Form3();
                 frm.ShowDialog();
-
-                var myAssembly = Assembly.GetExecutingAssembly();
-                var myStream = myAssembly.GetManifestResourceStream("XVReborn.ZipFile_Blobs.xinput1_3.zip");
-                ZipArchive archive = new ZipArchive(myStream);
-                if (File.Exists(Settings.Default.datafolder + @"/../xinput1_3.dll"))
-                    File.Delete(Settings.Default.datafolder + @"/../xinput1_3.dll");
-                archive.ExtractToDirectory(Settings.Default.datafolder + @"/../");
             }
             else
             {
