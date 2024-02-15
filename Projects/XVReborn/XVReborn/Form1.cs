@@ -28,18 +28,6 @@ namespace XVReborn
 
         public void Form1_Load(object sender, EventArgs e)
         {
-            if (Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse"))
-            {
-                if (!Directory.Exists("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data"))
-                    Directory.CreateDirectory("C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data");
-                Properties.Settings.Default.datafolder = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\DB Xenoverse\\data";
-                Properties.Settings.Default.Save();
-            }
-            if (Directory.Exists("C:\\flexsdk"))
-            {
-                Properties.Settings.Default.flexsdkfolder = "C:\\flexsdk";
-                Properties.Settings.Default.Save();
-            }
             if (Settings.Default.language.Length == 0)
             {
                 Form2 frm = new Form2();
