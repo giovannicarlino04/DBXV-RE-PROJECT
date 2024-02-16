@@ -31,6 +31,62 @@ static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
 
+typedef void *(* IggyPlayerCallbackResultPathType)(void *unk0);
+static IggyPlayerCallbackResultPathType IggyPlayerCallbackResultPath;
+typedef void (* IggyValueSetStringUTF8RSType)(void *arg1, void *unk2, void *unk3, const char *str, size_t length);
+static IggyValueSetStringUTF8RSType IggyValueSetStringUTF8RS;
+
+void SendCharacterArrayToAS3()
+{
+    HANDLE iggy = GetModuleHandle("iggy_w32.dll");
+    CustomDPRINTF("Entering SendCharacterArrayToAS3\n");
+
+    // Check if the function IggyPlayerCallbackResultPath is initialized
+    if (!IggyPlayerCallbackResultPath)
+    {
+        IggyPlayerCallbackResultPath = (IggyPlayerCallbackResultPathType)GetProcAddress(iggy, "_IggyPlayerCallbackResultPath@4");
+        if (!IggyPlayerCallbackResultPath)
+        {
+            CustomDPRINTF("Failed to get IggyPlayerCallbackResultPath function.\n");
+            // Handle the error appropriately...
+            return;
+        }
+
+        IggyValueSetStringUTF8RS = (IggyValueSetStringUTF8RSType)GetProcAddress(iggy, "_IggyValueSetStringUTF8RS@20");
+        if (!IggyValueSetStringUTF8RS)
+        {
+            CustomDPRINTF("Failed to get IggyValueSetStringUTF8RS function.\n");
+            // Handle the error appropriately...
+            return;
+        }
+    }
+
+    // Verifying that the function pointers are valid
+    if (!IggyPlayerCallbackResultPath || !IggyValueSetStringUTF8RS)
+    {
+        CustomDPRINTF("Function pointers are not valid.\n");
+        // Handle the error appropriately...
+        return;
+    }
+
+    CustomDPRINTF("Successfully obtained a valid object\n");
+
+    // Converti l'array di personaggi in una rappresentazione di stringa (ad es. JSON)
+    std::string charactersString = "[[\"GOK\",0,0,0,[-1,-1]]]";
+
+    // Use IggyValueSetStringUTF8RS to set the string in ActionScript 3
+    DWORD oldProtect;
+    VirtualProtectEx(GetCurrentProcess(), IggyPlayerCallbackResultPath, sizeof(void*), PAGE_EXECUTE_READWRITE, &oldProtect);
+	
+    IggyValueSetStringUTF8RS(IggyPlayerCallbackResultPath, 0, 0, charactersString.c_str(), charactersString.length());
+
+	VirtualProtectEx(GetCurrentProcess(), IggyPlayerCallbackResultPath, sizeof(void*), oldProtect, &oldProtect);
+
+    CustomDPRINTF("Setting character string using IggyValueSetStringUTF8RS\n");
+    CustomDPRINTF("Exiting SendCharacterArrayToAS3\n");
+}
+
+
 void iggy_trace_callback(void *, void *, const char *str, size_t)
 {
 	if (str && strcmp(str, "\n") == 0)
@@ -392,7 +448,10 @@ VOID WINAPI GetStartupInfoW_Patched(LPSTARTUPINFOW lpStartupInfo)
 			{
 				CustomDPRINTF("Failed to hook import of _IggySetTraceCallbackUTF8@8.\n");						
 			}
+				SendCharacterArrayToAS3();
+			
 		}
+		
 	}	
 	GetStartupInfoW(lpStartupInfo);
 }
@@ -506,13 +565,12 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
             {
                 CustomDPRINTF("CPK Patch is not enabled or the key is not present.\n");
             }
-            /////////////////////////////////////////////
-
+			/////////////////////////////////////////////
             if (!PatchUtils::HookImport("KERNEL32.dll", "GetStartupInfoW", (void *)GetStartupInfoW_Patched))
             {
                 UPRINTF("GetStartupInfoW hook failed.\n");
                 return TRUE;
-            }
+            }            
         }
         break;
     }

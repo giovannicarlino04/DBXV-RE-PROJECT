@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XVCharaCreator", "XVCharaCr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XVReplacerCreator", "XVReplacerCreator\XVReplacerCreator.csproj", "{D33EF458-F476-4437-A72F-670E8F5B234E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XVCSSEditor", "XVCSSEditor\XVCSSEditor.csproj", "{89859ACA-0581-4837-9052-B5A1DA881AA0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,14 +41,6 @@ Global
 		{D33EF458-F476-4437-A72F-670E8F5B234E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D33EF458-F476-4437-A72F-670E8F5B234E}.Release|x86.ActiveCfg = Release|x86
 		{D33EF458-F476-4437-A72F-670E8F5B234E}.Release|x86.Build.0 = Release|x86
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Debug|x86.Build.0 = Debug|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Release|x86.ActiveCfg = Release|Any CPU
-		{89859ACA-0581-4837-9052-B5A1DA881AA0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
