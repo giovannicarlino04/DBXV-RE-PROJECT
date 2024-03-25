@@ -6,6 +6,7 @@
 #ifndef PATCHES_H
 #define PATCHES_H
 
+bool CPKPatches(HANDLE hProcess, uintptr_t moduleBaseAddress);
 bool CMSPatches(HANDLE hProcess, uintptr_t moduleBaseAddress);
 bool VersionStringPatch(HANDLE hProcess, uintptr_t moduleBaseAddress);
 

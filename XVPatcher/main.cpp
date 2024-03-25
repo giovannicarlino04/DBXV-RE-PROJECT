@@ -190,7 +190,8 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 
 		if(!load_dll)
 			return FALSE;
-
+			
+		CPKPatches(hProcess, moduleBaseAddress);
 		CMSPatches(hProcess, moduleBaseAddress);
 		VersionStringPatch(hProcess, moduleBaseAddress);
 
