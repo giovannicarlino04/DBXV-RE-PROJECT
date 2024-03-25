@@ -1,44 +1,23 @@
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#endif
+
 #include <MinHook.h>
 #include <vector>
 #include <string>
 #include <cstdint>
 #include <filesystem>
 
-#include "Mutex.h"
+#include "mutex.h"
 #include "xvpatcher.h"
+#include "patches.h"
+#include "common.h"
 
 static HMODULE patched_dll;
 static Mutex mutex;
 HMODULE myself;
 std::string myself_path;
-
-// Function to normalize a file path
-std::string NormalizePath(const std::string& path) {
-    std::filesystem::path normalizedPath = std::filesystem::absolute(path);
-    return normalizedPath.string();
-}
-
-// Function to hook a function
-void Hook(void* myFunc, void* detour, void* origFunc) {
-    DWORD oldProtect;
-    VirtualProtect(origFunc, 5, PAGE_EXECUTE_READWRITE, &oldProtect);
-    DWORD offset = reinterpret_cast<DWORD>(detour) - reinterpret_cast<DWORD>(origFunc) - 5;
-    *reinterpret_cast<BYTE*>(origFunc) = 0xE9;
-    *reinterpret_cast<DWORD*>(reinterpret_cast<DWORD>(origFunc) + 1) = offset;
-    VirtualProtect(origFunc, 5, oldProtect, &oldProtect);
-}
-
-// Function to check if a file exists
-bool FileExists(const std::string& filePath) {
-    DWORD fileAttributes = GetFileAttributesA(filePath.c_str());
-    if (fileAttributes == INVALID_FILE_ATTRIBUTES) {
-        if (GetLastError() == ERROR_FILE_NOT_FOUND || GetLastError() == ERROR_PATH_NOT_FOUND) {
-            return false;
-        }
-    }
-    return true;
-}
 
 extern "C"
 {
@@ -97,18 +76,6 @@ extern "C"
 	}
 }
 
-static BOOL InGameProcess(VOID)
-{
-	char szPath[MAX_PATH];
-	
-	GetModuleFileNameW(NULL, reinterpret_cast<LPWSTR>(szPath), MAX_PATH);
-	_strlwr(szPath);
-	
-	// A very poor aproach, I know
-	return (strstr(szPath, PROCESS_NAME) != NULL);
-}
-
-
 static bool load_dll(bool critical)
 {
 	static const std::vector<const char *> exports =
@@ -149,12 +116,12 @@ static bool load_dll(bool critical)
 	}
 	else
 	{	
-		if (GetSystemDirectoryW(reinterpret_cast<LPWSTR>(original_path), sizeof(original_path)) == 0)
+		if (GetSystemDirectoryW((wchar_t*)original_path, sizeof(original_path)) == 0)
 			return false;
 		strncat(original_path, "\\xinput1_3.dll", sizeof(original_path));
 	}
 	
-	patched_dll = LoadLibraryW(reinterpret_cast<LPWSTR>(original_path));		
+	patched_dll = LoadLibraryW((wchar_t*)(original_path));		
 	if (!patched_dll)
 	{
 		return false;
@@ -199,7 +166,6 @@ VOID WINAPI GetStartupInfoW_Patched(LPSTARTUPINFOW lpStartupInfo)
 {
 	static bool started = false;
 	
-	// This function is only called once by the game but... just in case
 	if (!started)
 	{	
 		if (!load_dll(false))
@@ -212,17 +178,27 @@ DWORD WINAPI StartThread(LPVOID)
 	load_dll(false);
 	return 0;
 }
+
 extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
     switch (fdwReason)
     {
     case DLL_PROCESS_ATTACH:
     {
+		HANDLE hProcess = GetCurrentProcess();
+		uintptr_t moduleBaseAddress = GetModuleBaseAddress(L"DBXV.exe");
 
-        if (InGameProcess())
-        {
-   
-        }
+		if(!load_dll)
+			return FALSE;
+
+		CMSPatches(hProcess, moduleBaseAddress);
+		VersionStringPatch(hProcess, moduleBaseAddress);
+
+		if (!HookImport("KERNEL32.dll", "GetStartupInfoW", (void *)GetStartupInfoW_Patched))
+		{
+			return TRUE;
+		}          
+	
         break;
     }
 
@@ -230,7 +206,6 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
     {
         if (!lpvReserved)
         {
-            FreeConsole();
             unload_dll();
         }
     }
@@ -239,4 +214,3 @@ extern "C" BOOL EXPORT DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvRe
 
     return TRUE;
 }
-
