@@ -73,7 +73,6 @@ bool CPKPatches(HANDLE hProcess, uintptr_t moduleBaseAddress) {
 	return 0;
 }
 
-
 bool CMSPatches(HANDLE hProcess, uintptr_t moduleBaseAddress) {
    	const char* newBytes1 = "\x7F\x7C\x09\xB8\x00";  // CMS Patch 1  //7F 7C 09 B8 00
     const char* newBytes2 = "\x70\x7D\x6E\xC7\x45";  // CMS Patch 2  //70 7D 6E C7 45
