@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("XVCMSTool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d542ab6692a49f2643c37e2596e8f798c3625dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+711684276c621990545629b55d4bd3e14f0b2200")]
 [assembly: System.Reflection.AssemblyProductAttribute("XVCMSTool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("XVCMSTool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

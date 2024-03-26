@@ -5,26 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|c:\\users\\giovanni\\desktop\\repositories\\dbxv-re-project\\xvtoolkit\\xvcmstool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|solutionrelative:xvcmstool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|c:\\users\\giovanni\\desktop\\repositories\\dbxv-re-project\\xvtoolkit\\xvcmstool\\cms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|solutionrelative:xvcmstool\\cms.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|c:\\users\\giovanni\\desktop\\repositories\\dbxv-re-project\\xvtoolkit\\xvcmstool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|solutionrelative:xvcmstool\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|c:\\users\\giovanni\\desktop\\repositories\\dbxv-re-project\\xvtoolkit\\xvcmstool\\xvcmstool.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|solutionrelative:xvcmstool\\xvcmstool.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|c:\\users\\giovanni\\desktop\\repositories\\dbxv-re-project\\xvtoolkit\\xvcmstool\\xvcmstool.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|solutionrelative:xvcmstool\\xvcmstool.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|c:\\users\\giovanni\\desktop\\repositories\\dbxv-re-project\\xvtoolkit\\xvcmstool\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DED8C9AF-DB06-46C3-BE68-5867A5006D7F}|XVCMSTool\\XVCMSTool.csproj|solutionrelative:xvcmstool\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,33 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 236,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "XVCMSTool.csproj",
-              "DocumentMoniker": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\XVCMSTool.csproj",
-              "RelativeDocumentMoniker": "XVCMSTool\\XVCMSTool.csproj",
-              "ToolTip": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\XVCMSTool.csproj",
-              "RelativeToolTip": "XVCMSTool\\XVCMSTool.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-26T13:58:59.176Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "XVCMSTool",
-              "DocumentMoniker": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\XVCMSTool.csproj",
-              "RelativeDocumentMoniker": "XVCMSTool\\XVCMSTool.csproj",
-              "ToolTip": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\XVCMSTool.csproj",
-              "RelativeToolTip": "XVCMSTool\\XVCMSTool.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-26T15:47:49.215Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -69,47 +24,9 @@
               "RelativeDocumentMoniker": "XVCMSTool\\Form1.cs",
               "ToolTip": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\Form1.cs",
               "RelativeToolTip": "XVCMSTool\\Form1.cs",
-              "ViewState": "AQIAAIAAAAAAAAAAAAAqwIgAAAAgAAAA",
+              "ViewState": "AQIAAHQAAAAAAAAAAADwv3cAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T15:43:25.889Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CMS.cs",
-              "DocumentMoniker": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\CMS.cs",
-              "RelativeDocumentMoniker": "XVCMSTool\\CMS.cs",
-              "ToolTip": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\CMS.cs",
-              "RelativeToolTip": "XVCMSTool\\CMS.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAmwAgAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T13:59:19.018Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form1.cs [Progettazione]",
-              "DocumentMoniker": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\Form1.cs",
-              "RelativeDocumentMoniker": "XVCMSTool\\Form1.cs",
-              "ToolTip": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\Form1.cs [Progettazione]",
-              "RelativeToolTip": "XVCMSTool\\Form1.cs [Progettazione]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T13:56:38.916Z",
-              "EditorCaption": " [Progettazione]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "XVCMSTool\\Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\Giovanni\\Desktop\\Repositories\\DBXV-RE-PROJECT\\XVToolkit\\XVCMSTool\\Form1.Designer.cs",
-              "RelativeToolTip": "XVCMSTool\\Form1.Designer.cs",
-              "ViewState": "AQIAAD4AAAAAAAAAAAAAAFAAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-26T15:31:23.466Z",
+              "WhenOpened": "2024-03-26T16:15:04.249Z",
               "EditorCaption": ""
             }
           ]

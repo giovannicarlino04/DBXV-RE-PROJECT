@@ -3,8 +3,6 @@ using System.ComponentModel.Design.Serialization;
 
 namespace XVCMSTool
 {
-
-
     public partial class Form1 : Form
     {
         CMS cms = new CMS();
