@@ -1,0 +1,49 @@
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\EffectData.xml
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\XVReborn.exe.config
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\XVReborn.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\XVReborn.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\FreeImage.Standard.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\bin\Debug\System.Drawing.Common.dll
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.ResolveComReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Form2.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Form3.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.Properties.Resources.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.CopyComplete
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn\XVReborn\obj\Debug\XVReborn.pdb
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\EffectData.xml
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.exe.config
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.exe
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn\XVReborn.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVReborn.csproj.AssemblyReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVReborn.csproj.ResolveComReference.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVReborn.csproj.GenerateResource.cache
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVReborn.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn - Replacer Edition\EffectData.xml
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVRebornReplacerEdition.Properties.Resources.resources
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn - Replacer Edition\XVReborn - Replacer Edition.exe.config
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn - Replacer Edition\XVReborn - Replacer Edition.exe
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn - Replacer Edition\XVReborn - Replacer Edition.pdb
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVRebornReplacerEdition.Form1.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVRebornReplacerEdition.Form2.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVRebornReplacerEdition.Form3.resources
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVReborn - Replacer Edition.exe
+C:\Users\Giovanni Carlino\Desktop\Repositories\DBXV-RE-PROJECT\Projects\XVReborn - Replacer Edition\XVReborn\obj\Debug\XVReborn - Replacer Edition.pdb
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.AssemblyReference.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.ResolveComReference.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.GenerateResource.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.Properties.Resources.resources
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.Form1.resources
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.Form2.resources
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.Form3.resources
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.exe
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVReborn\XVReborn\obj\Debug\XVReborn.pdb
+C:\Program Files (x86)\Steam\steamapps\common\DB Xenoverse\XVReborn - Replacer Edition\XVReborn.exe.config
+C:\Games\DB Xenoverse\XVReborn\XVReborn.exe.config
+C:\Games\DB Xenoverse\XVReborn\XVReborn.exe
+C:\Games\DB Xenoverse\XVReborn\XVReborn.pdb
