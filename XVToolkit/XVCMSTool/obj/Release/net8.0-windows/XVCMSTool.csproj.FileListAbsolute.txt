@@ -1,0 +1,17 @@
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\bin\Release\net8.0-windows\XVCMSTool.exe
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\bin\Release\net8.0-windows\XVCMSTool.deps.json
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\bin\Release\net8.0-windows\XVCMSTool.runtimeconfig.json
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\bin\Release\net8.0-windows\XVCMSTool.dll
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\bin\Release\net8.0-windows\XVCMSTool.pdb
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.Form1.resources
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.csproj.GenerateResource.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.AssemblyInfoInputs.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.AssemblyInfo.cs
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.csproj.CoreCompileInputs.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.sourcelink.json
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.dll
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\refint\XVCMSTool.dll
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.pdb
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\XVCMSTool.genruntimeconfig.cache
+C:\Users\Giovanni\Desktop\Repositories\DBXV-RE-PROJECT\XVToolkit\XVCMSTool\obj\Release\net8.0-windows\ref\XVCMSTool.dll
